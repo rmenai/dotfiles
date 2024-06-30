@@ -6,6 +6,14 @@ return {
       "sindrets/diffview.nvim",
       "nvim-telescope/telescope.nvim"
     },
-    config = true
+    config = function()
+      require("neogit").setup({
+        mappings = {
+          popup = {
+            ["?"] = false -- Disabling the help menu because it causes an error
+          }
+        }
+      })
+    end
   }
 }
