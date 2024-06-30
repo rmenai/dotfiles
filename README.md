@@ -1,2 +1,2 @@
-# nvim
-My personal Neovim configuration
+# Introduction
+This repo hosts my Nvim configuration for Linux.
