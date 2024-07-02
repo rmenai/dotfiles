@@ -13,7 +13,8 @@ vim.g.maplocalleader = "\\"
 -- Setup lazy.nvim
 require("lazy").setup({
   checker = {
-    enabled = true -- automatically check for plugin updates
+    enabled = true, -- automatically check for plugin updates
+    notify = false
   },
   spec = {
     { import = "plugins" }
