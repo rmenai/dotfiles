@@ -71,7 +71,7 @@ return {
         ensure_installed = {
           "asm_lsp", "bashls", "clangd", "jsonls",
           "lua_ls", "marksman", "neocmake",
-          "pylsp", "yamlls"
+          "pylsp", "texlab", "yamlls"
         },
         handlers = {
           function(server_name)
