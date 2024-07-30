@@ -139,6 +139,14 @@ return {
                 }
               }
             })
+          end,
+          ["marksman"] = function()
+            require("lspconfig").marksman.setup({
+              on_attach = function(client, bufnr)
+                -- Disable diagnostics for marksman
+                vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
+              end
+            })
           end
         }
       })
