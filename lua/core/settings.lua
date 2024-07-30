@@ -17,6 +17,7 @@ vim.g.python3_host_prog = "/usr/bin/python" -- Specify python speed for faster l
 
 vim.o.autoindent = true -- Automatically indent
 vim.o.cmdheight = 0 -- Disable cmd bar showing when not typing command
+vim.o.conceallevel = 1
 vim.o.expandtab = true -- Convert tabs to spaces
 vim.o.mouse = "" -- Completely disable mouse
 vim.o.number = true -- Enable line numbers

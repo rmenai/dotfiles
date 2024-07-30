@@ -26,13 +26,46 @@ return {
     "epwalsh/obsidian.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
+      local function slugify(title)
+        local slug = title:lower()
+
+        slug = slug:gsub("[^%w%s%-]", "")
+        slug = slug:gsub("%s+", "-")
+        slug = slug:gsub("-+", "-")
+        return slug
+      end
+
+      local function generate_path(spec)
+        local path = spec.dir / slugify(spec.title)
+        return path:with_suffix(".md")
+      end
+
+      local function generate_frontmatter(note)
+        local date = os.date("%Y-%m-%d %H:%M")
+        local out = { title = note.title, date = date, tags = note.tags }
+
+        if note.metadata ~= nil and not vim.tbl_isempty(note.metadata) then
+          for k, v in pairs(note.metadata) do
+            out[k] = v
+          end
+        end
+
+        return out
+      end
+
       require("obsidian").setup({
         workspaces = {
           {
             name = "notes",
             path = "~/Documents/Vaults/notes"
           }
-        }
+        },
+        daily_notes = {
+          folder = "dailies"
+        },
+        note_path_func = generate_path,
+        wiki_link_func = require("obsidian.util").wiki_link_path_only,
+        note_frontmatter_func = generate_frontmatter
       })
     end
   },
