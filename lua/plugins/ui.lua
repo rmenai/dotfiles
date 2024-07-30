@@ -117,33 +117,6 @@ return {
     end
   },
   {
-    -- SEARCH
-    "nvim-telescope/telescope.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope-fzf-native.nvim",
-    },
-    cmd = "Telescope",
-    config = function()
-      local telescope = require("telescope")
-
-      telescope.load_extension("fzf")
-      telescope.setup({
-        defaults = {
-          mappings = {
-            i = {
-              ["<C-j>"] = "move_selection_next",
-              ["<C-k>"] = "move_selection_previous",
-              ["<C-q>"] = "close",
-              ["<C-n>"] = "preview_scrolling_down",
-              ["<C-m>"] = "preview_scrolling_up",
-            }
-          }
-        }
-      })
-    end
-  },
-  {
     -- GIT VERSION CONTROL
     "NeogitOrg/neogit",
     dependencies = {
@@ -171,20 +144,6 @@ return {
     end
   },
   {
-    -- LARGE CODE VIEW
-    "gorbit99/codewindow.nvim",
-    cmd = "Codewindow",
-    config = function()
-      local codewindow = require("codewindow")
-      codewindow.setup()
-
-      -- Define custom command for codewindow function
-      vim.api.nvim_create_user_command("Codewindow", function()
-        codewindow.toggle_minimap()
-      end ,{})
-    end
-  },
-  {
     -- TERMINAL
     "akinsho/toggleterm.nvim",
     cmd = "ToggleTerm",
@@ -195,6 +154,64 @@ return {
           vim.cmd([[ setlocal foldcolumn=1 ]])
         end,
       })
+    end
+  },
+  {
+    -- SEARCH
+    "nvim-telescope/telescope.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope-fzf-native.nvim",
+      "OliverChao/telescope-picker-list.nvim"
+    },
+    cmd = "Telescope",
+    config = function()
+      local telescope = require("telescope")
+
+      local custom_pickers = {
+        {
+          "obsidian",
+          function()
+            require("telescope.builtin").commands({ default_text = "Obsidian" })
+          end
+        }
+      }
+
+      telescope.find_picker = function(name)
+        for _, picker in ipairs(custom_pickers) do
+          if picker[1] == name then
+            return picker[2]
+          end
+        end
+      end
+
+
+      telescope.custom_pickers = custom_pickers
+      telescope.setup({
+        defaults = {
+          mappings = {
+            i = {
+              ["<C-j>"] = "move_selection_next",
+              ["<C-k>"] = "move_selection_previous",
+              ["<C-q>"] = "close",
+            }
+          },
+          ignore_case = true,
+          smart_case = false,
+        },
+        extensions = {
+          fzf = {
+            fuzzy = true,
+            case_mode = "ignore_case"
+          },
+          picker_list = {
+            user_pickers = custom_pickers
+          }
+        }
+      })
+
+      telescope.load_extension("fzf")
+      telescope.load_extension("picker_list")
     end
   }
 }

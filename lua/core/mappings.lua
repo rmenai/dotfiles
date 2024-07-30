@@ -58,9 +58,12 @@ map("n", navButton .. ".", "<C-w><")
 map("n", navButton .. "|", "<C-w>|")
 
 -- WINDOWS
-map("n", winButton .. "<space>", "<cmd>Telescope<CR>")
+map("n", winButton .. "<space>", "<cmd>lua require('telescope').extensions.picker_list.picker_list()<CR>")
 map("n", winButton .. "f", "<cmd>Telescope find_files<CR>")
 map("n", winButton .. "g", "<cmd>Telescope live_grep<CR>")
+
+-- User pickers
+map("n", winButton .. "o", "<cmd>lua require('telescope').find_picker('obsidian')()<CR>")
 
 map("n", winButton .. "a", "<cmd>NvimTree<CR>")
 map("n", winButton .. "A", "<cmd>NvimTreeFindFile<CR>")
@@ -68,7 +71,6 @@ map("n", winButton .. "A", "<cmd>NvimTreeFindFile<CR>")
 map("n", winButton .. "t", "<cmd>ToggleTerm<CR>")
 map("n", winButton .. "n", "<cmd>Neogit kind=auto<CR>")
 map("n", winButton .. "p", "<cmd>Outline<CR>")
-map("n", winButton .. "o", "<cmd>Codewindow<CR>")
 
 -- LSP
 map("n", codeButton .. "p", "<cmd>lua vim.lsp.buf.definition()<CR>")
@@ -86,4 +88,4 @@ map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
 
 -- CODE EDITING
 -- COMMENT : "gc", "gcc", "gbc"
--- EXIT INS : "jj", "jk"
+-- EXIT INS : "jj", "jk"source test.l

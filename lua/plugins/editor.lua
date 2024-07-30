@@ -22,6 +22,21 @@ return {
     end
   },
   {
+    -- OBSIDIAN MARKDOWN
+    "epwalsh/obsidian.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("obsidian").setup({
+        workspaces = {
+          {
+            name = "notes",
+            path = "~/Documents/Vaults/notes"
+          }
+        }
+      })
+    end
+  },
+  {
     "stevearc/overseer.nvim",
     cmd = "OverseerRun",
     config  = function()
@@ -117,7 +132,7 @@ return {
     config = function()
       require("houdini").setup({
         mappings = { "jj", "jk" },
-        timeout = 150
+        timeout = 200
       })
     end
   }
