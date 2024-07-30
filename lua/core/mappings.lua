@@ -61,6 +61,7 @@ map("n", navButton .. "|", "<C-w>|")
 map("n", winButton .. "<space>", "<cmd>lua require('telescope').extensions.picker_list.picker_list()<CR>")
 map("n", winButton .. "f", "<cmd>Telescope find_files<CR>")
 map("n", winButton .. "g", "<cmd>Telescope live_grep<CR>")
+map("n", winButton .. "c", "<cmd>Telescope commands<CR>")
 
 -- User pickers
 map("n", winButton .. "o", "<cmd>lua require('telescope').find_picker('obsidian')()<CR>")
