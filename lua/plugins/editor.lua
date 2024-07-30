@@ -64,7 +64,7 @@ return {
           folder = "dailies"
         },
         note_path_func = generate_path,
-        wiki_link_func = require("obsidian.util").wiki_link_path_only,
+        wiki_link_func = require("obsidian.util").wiki_link_path_prefix,
         note_frontmatter_func = generate_frontmatter
       })
     end
@@ -126,6 +126,18 @@ return {
           }
         },
       })
+    end
+  },
+
+  {
+    -- GITHUB COPILOT INTEGRATION
+    "CopilotC-Nvim/CopilotChat.nvim",
+    dependencies = {
+      "zbirenbaum/copilot.lua",
+      "nvim-lua/plenary.nvim"
+    },
+    config = function()
+      require("CopilotChat").setup({})
     end
   },
 
