@@ -70,13 +70,17 @@ map("n", winButton .. "a", "<cmd>NvimTree<CR>")
 map("n", winButton .. "A", "<cmd>NvimTreeFindFile<CR>")
 
 map("n", winButton .. "t", "<cmd>ToggleTerm<CR>")
-map("n", winButton .. "n", "<cmd>Neogit kind=auto<CR>")
+map("n", winButton .. "nn", "<cmd>Neogit kind=auto<CR>")
+map("n", winButton .. "nc", "<cmd>lua AutoCommitCurrentFile()<CR>")
+
 map("n", winButton .. "p", "<cmd>Outline<CR>")
 
 -- LSP
 map("n", codeButton .. "p", "<cmd>lua vim.lsp.buf.definition()<CR>")
 map("n", codeButton .. "o", "<cmd>lua vim.lsp.buf.references()<CR>")
 map("n", codeButton .. "i", "<cmd>lua vim.lsp.buf.implementation()<CR>")
+map("n", codeButton .. "j", "<C-o>")
+map("n", codeButton .. "k", "<C-i>")
 map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
 
 -- Completition mappings next to nvim-cmp plugin

@@ -11,4 +11,5 @@ require("core.lazy")
 
 -- Core setup
 require("core.settings")
+require("core.commands")
 require("core.mappings")
