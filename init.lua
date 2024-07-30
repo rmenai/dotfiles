@@ -1,7 +1,14 @@
+
+
 -- External Dependencies
 -- sudo apt-get install ripgrep fd-find
 -- pip install python-lsp-server
+-- pip install --user klepto
 -- sioyek
 
-require("core")
-require("settings")
+-- Plugins
+require("core.lazy")
+
+-- Core setup
+require("core.settings")
+require("core.mappings")

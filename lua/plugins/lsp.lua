@@ -1,9 +1,29 @@
+local lsp_servers = {
+  asm = "asm_lsp",
+  sh = "bashls",
+  c = "clangd",
+  cpp = "clangd",
+  json = "jsonls",
+  lua = "lua_ls",
+  markdown = "marksman",
+  cmake = "neocmake",
+  python = "pylsp",
+  tex = "texlab",
+  yaml = "yamlls",
+}
+
+local filetypes = {}
+local servers = {}
+
+for filetype, server in pairs(lsp_servers) do
+  table.insert(filetypes, filetype)
+  table.insert(servers, server)
+end
+
 return {
   {
     "VonHeikemen/lsp-zero.nvim",
-    branch = "v3.x",
-    lazy = true,
-    config = false,
+    ft = filetypes,
     init = function()
       -- Disable automatic setup, we are doing it manually
       vim.g.lsp_zero_extend_cmp = 0
@@ -12,7 +32,7 @@ return {
   },
   {
     "williamboman/mason.nvim",
-    lazy = false,
+    cmd = { "Mason", "MasonInstall", "MasonUpdate" },
     config = true,
   },
 
@@ -20,25 +40,54 @@ return {
   {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
-    dependencies = {
-      {"L3MON4D3/LuaSnip"},
-    },
+    dependencies = { "L3MON4D3/LuaSnip" },
     config = function()
-      -- Here is where you configure the autocompletion settings.
       local lsp_zero = require("lsp-zero")
       lsp_zero.extend_cmp()
 
-      local cmp = require('cmp')
-      local cmp_action = lsp_zero.cmp_action()
+      local luasnip = require("luasnip")
+      local cmp = require("cmp")
+
+      local function select_next(fallback)
+        if cmp.visible() then
+          cmp.select_next_item()
+        elseif luasnip.locally_jumpable(1) then
+          luasnip.jump(1)
+        else
+          fallback()
+        end
+      end
+
+      local function select_prev(fallback)
+        if cmp.visible() then
+          cmp.select_prev_item()
+        elseif luasnip.locally_jumpable(-1) then
+          luasnip.jump(-1)
+        else
+          fallback()
+        end
+      end
+
+      local function confirm_select(fallback)
+        if cmp.visible() then
+          if luasnip.expandable() then
+            luasnip.expand()
+          else
+            cmp.confirm({ select = true })
+          end
+        else
+          fallback()
+        end
+      end
 
       cmp.setup({
         formatting = lsp_zero.cmp_format({details = true}),
         mapping = cmp.mapping.preset.insert({
-          ["<C-Space>"] = cmp.mapping.complete(),
-          ["<C-u>"] = cmp.mapping.scroll_docs(-4),
-          ["<C-d>"] = cmp.mapping.scroll_docs(4),
-          ["<C-f>"] = cmp_action.luasnip_jump_forward(),
-          ["<C-b>"] = cmp_action.luasnip_jump_backward(),
+          ["<C-k>"] = cmp.mapping.scroll_docs(-4),
+          ["<C-j>"] = cmp.mapping.scroll_docs(4),
+          ["<CR>"] = cmp.mapping(confirm_select),
+          ["<Tab>"] = cmp.mapping(select_next, { "i", "s" }),
+          ["<S-Tab>"] = cmp.mapping(select_prev, { "i", "s" })
         }),
         snippet = {
           expand = function(args)
@@ -52,11 +101,11 @@ return {
   -- LSP
   {
     "neovim/nvim-lspconfig",
-    cmd = {"LspInfo", "LspInstall", "LspStart"},
-    event = {"BufReadPre", "BufNewFile"},
+    cmd = { "LspInfo", "LspInstall", "LspStart" },
+    ft = filetypes,
     dependencies = {
-      {"hrsh7th/cmp-nvim-lsp"},
-      {"williamboman/mason-lspconfig.nvim"},
+      "hrsh7th/cmp-nvim-lsp",
+      "williamboman/mason-lspconfig.nvim",
     },
     config = function()
       -- This is where all the LSP shenanigans will live
@@ -68,11 +117,7 @@ return {
       end)
 
       require("mason-lspconfig").setup({
-        ensure_installed = {
-          "asm_lsp", "bashls", "clangd", "jsonls",
-          "lua_ls", "marksman", "neocmake",
-          "pylsp", "texlab", "yamlls"
-        },
+        ensure_installed = servers,
         handlers = {
           function(server_name)
             require("lspconfig")[server_name].setup({})
