@@ -64,7 +64,14 @@ map("n", winButton .. "g", "<cmd>Telescope live_grep<CR>")
 map("n", winButton .. "c", "<cmd>Telescope commands<CR>")
 
 -- User pickers
-map("n", winButton .. "o", "<cmd>lua require('telescope').find_picker('obsidian')()<CR>")
+map("n", winButton .. "oo", "<cmd>lua require('telescope').find_picker('obsidian')()<CR>")
+
+function AutoCommitAndObsidianNew()
+  AutoCommitCurrentFile()
+  vim.cmd("ObsidianNew")
+end
+
+map("n", winButton .. "on", "<cmd>lua AutoCommitAndObsidianNew()<CR>")
 
 map("n", winButton .. "a", "<cmd>NvimTree<CR>")
 map("n", winButton .. "A", "<cmd>NvimTreeFindFile<CR>")
