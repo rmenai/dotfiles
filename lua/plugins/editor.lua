@@ -26,46 +26,42 @@ return {
     "epwalsh/obsidian.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
-      local function slugify(title)
-        local slug = title:lower()
-
-        slug = slug:gsub("[^%w%s%-]", "")
-        slug = slug:gsub("%s+", "-")
-        slug = slug:gsub("-+", "-")
-        return slug
-      end
+      local utils = require("core.utils")
 
       local function generate_path(spec)
-        local path = spec.dir / slugify(spec.title)
+        local path = spec.dir / utils.slugify(spec.title)
         return path:with_suffix(".md")
       end
 
-      local function generate_frontmatter(note)
-        local date = os.date("%Y-%m-%d %H:%M")
-        local out = { title = note.title, date = date, tags = note.tags }
+      -- local function generate_frontmatter(note)
+      --   local date = os.date("%Y-%m-%d %H:%M")
+      --   local out = { title = note.title, date = date, tags = note.tags }
+      --
+      --   if note.metadata ~= nil and not vim.tbl_isempty(note.metadata) then
+      --     for k, v in pairs(note.metadata) do
+      --       out[k] = v
+      --     end
+      --   end
+      --
+      --   return out
+      -- end
 
-        if note.metadata ~= nil and not vim.tbl_isempty(note.metadata) then
-          for k, v in pairs(note.metadata) do
-            out[k] = v
-          end
-        end
+      -- Obsidian config
+      local workspace = { name = "notes", path = "~/Documents/Vaults/notes" }
 
-        return out
+      local config_path = vim.fn.expand(workspace.path .. "/.obsidian/daily-notes.json")
+      local config = { daily_notes = utils.read_json(config_path) }
+      if not config then
+        print("Failed to read daily-notes.json")
       end
 
       require("obsidian").setup({
-        workspaces = {
-          {
-            name = "notes",
-            path = "~/Documents/Vaults/notes"
-          }
-        },
-        daily_notes = {
-          folder = "dailies"
-        },
+        workspaces = { workspace },
+        daily_notes = config.daily_notes,
+        disable_frontmatter = true,
+
         note_path_func = generate_path,
         wiki_link_func = require("obsidian.util").wiki_link_path_prefix,
-        note_frontmatter_func = generate_frontmatter
       })
     end
   },
