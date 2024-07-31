@@ -67,7 +67,7 @@ map("n", winButton .. "c", "<cmd>Telescope commands<CR>")
 map("n", winButton .. "oo", "<cmd>lua require('telescope').find_picker('obsidian')()<CR>")
 
 function AutoCommitAndObsidianNew()
-  AutoCommitCurrentFile()
+  require("core.commands").AutoCommitCurrentFile()
   vim.cmd("ObsidianNew")
 end
 
