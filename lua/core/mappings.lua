@@ -7,7 +7,7 @@ end
 local winButton = "<Leader>"
 local navButton = winButton .. "w"
 local codeButton = "g"
-local diagnosticsButton = "d"
+local diagnosticsButton = codeButton .. "d"
 
 local function map_navigation()
   -- Remap window navigation using the navigation button
@@ -80,7 +80,7 @@ local function map_ui()
 
   -- NEOGIT
   map("n", winButton .. "nn", "<cmd>Neogit kind=auto<CR>")
-  map("n", winButton .. "nc", "<cmd>lua AutoCommitCurrentFile()<CR>")
+  map("n", winButton .. "nc", "<cmd>CommitCurrentFile<CR>")
 
   -- OTHER
   map("n", winButton .. "t", "<cmd>ToggleTerm<CR>")
