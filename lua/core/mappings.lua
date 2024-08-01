@@ -74,7 +74,7 @@ local function map_ui()
 
   -- OBSIDIAN
   map("n", winButton .. "oo", "<cmd>lua require('telescope').find_picker('obsidian')()<CR>")
-  map("n", winButton .. "oc", "<cmd>CommitCurrentFile<CR> ObsidianCreate<CR>")
+  map("n", winButton .. "oc", "<cmd>CommitCurrentFile<CR><cmd>ObsidianCreate<CR>")
   map("n", winButton .. "oa", "<cmd>lua require('core.commands').ObsidianCreateWithDefault()<CR>")
 
   -- NVIM-TREE
