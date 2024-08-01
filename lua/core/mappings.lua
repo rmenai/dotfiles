@@ -7,6 +7,7 @@ end
 local winButton = "<Leader>"
 local navButton = winButton .. "w"
 local codeButton = "g"
+local diagnosticsButton = "d"
 
 local function map_navigation()
   -- Remap window navigation using the navigation button
@@ -66,16 +67,12 @@ local function map_ui()
   map("n", winButton .. "g", "<cmd>Telescope live_grep<CR>")
   map("n", winButton .. "c", "<cmd>Telescope commands<CR>")
 
-  -- function AutoCommitAndObsidianNew()
-  --   local commands = require("core.commands")
-  --   commands.AutoCommitCurrentFile()
-  --   commands.ObsidianCreateWithDefault()
-  -- end
-
   -- OBSIDIAN
   map("n", winButton .. "oo", "<cmd>lua require('telescope').find_picker('obsidian')()<CR>")
   map("n", winButton .. "oc", "<cmd>CommitCurrentFile<CR><cmd>ObsidianCreate<CR>")
-  map("n", winButton .. "oa", "<cmd>lua require('core.commands').ObsidianCreateWithDefault()<CR>")
+  map("n", winButton .. "oa", "<cmd>ObsidianCreate<CR>")
+  map("n", winButton .. "oA", "<cmd>ObsidianCreateWithTemplate<CR>")
+  map("n", winButton .. "ot", "<cmd>ObsidianTemplate<CR>")
 
   -- NVIM-TREE
   map("n", winButton .. "a", "<cmd>NvimTree<CR>")
@@ -95,10 +92,17 @@ local function map_lsp()
   map("n", codeButton .. "p", "<cmd>lua vim.lsp.buf.definition()<CR>")
   map("n", codeButton .. "o", "<cmd>lua vim.lsp.buf.references()<CR>")
   map("n", codeButton .. "i", "<cmd>lua vim.lsp.buf.implementation()<CR>")
-  map("n", codeButton .. "j", "<C-o>")
-  map("n", codeButton .. "k", "<C-i>")
-
+  map("n", codeButton .. "r", "<cmd>lua vim.lsp.buf.rename()<CR>")
+  map("n", codeButton .. "a", "<cmd>lua vim.lsp.buf.code_action()<CR>")
+  map("n", codeButton .. "f", "<cmd>lua vim.lsp.buf.format()<CR>")
   map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
+
+  map("n", codeButton .. "j", "<C-o>") -- Go prev
+  map("n", codeButton .. "k", "<C-i>") -- Go next 
+
+  -- DIAGNOSTICS
+  map("n", diagnosticsButton .. "j", "<cmd>lua vim.diagnostic.goto_prev()<CR>")
+  map("n", diagnosticsButton .. "k", "<cmd>lua vim.diagnostic.goto_next()<CR>")
 
   -- Completition mappings next to nvim-cmp plugin
   -- ["<C-k>"] = cmp.mapping.scroll_docs(-4),
