@@ -5,59 +5,37 @@ end
 
 -- Main buttons mappings
 local winButton = "<Leader>"
-local navButton = winButton .. "w"
 local codeButton = "g"
 local diagnosticsButton = codeButton .. "d"
 
 local function map_navigation()
   -- Remap window navigation using the navigation button
-  map("n", navButton .. "j", "<C-w>j")
-  map("n", navButton .. "k", "<C-w>k")
-  map("n", navButton .. "h", "<C-w>h")
-  map("n", navButton .. "l", "<C-w>l")
+  map("n", winButton .. "j", "<C-w>j")
+  map("n", winButton .. "k", "<C-w>k")
+  map("n", winButton .. "h", "<C-w>h")
+  map("n", winButton .. "l", "<C-w>l")
+  map("n", winButton .. "w", "<C-w>w")
+  map("n", winButton .. "W", "<C-w>W")
 
-  -- Remap cycling through windows
-  map("n", navButton .. "w", "<C-w>w")
-  map("n", navButton .. "W", "<C-w>W")
+  map("n", winButton .. "x", "<C-w>x")
+  map("n", winButton .. "K", "<C-w>K")
+  map("n", winButton .. "J", "<C-w>J")
+  map("n", winButton .. "H", "<C-w>H")
+  map("n", winButton .. "L", "<C-w>L")
+  map("n", winButton .. "T", "<C-w>T")
 
-  -- Remap moving to specific windows
-  map("n", navButton .. "t", "<C-w>t")
-  map("n", navButton .. "b", "<C-w>b")
-  map("n", navButton .. "p", "<C-w>p")
-  map("n", navButton .. "P", "<C-w>P")
+  -- Remap spliting and resizing windows
+  map("n", winButton .. "s", "<C-w>s")
+  map("n", winButton .. "v", "<C-w>v")
+  map("n", winButton .. "S", ":new<CR>")
+  map("n", winButton .. "V", ":vnew<CR>")
 
-  -- Remap spliting windows
-  map("n", navButton .. "s", "<C-w>s")
-  map("n", navButton .. "S", ":new<CR>")
-  map("n", navButton .. "v", "<C-w>v")
-  map("n", navButton .. "V", ":vnew<CR>")
-
-  -- Remap deleting windows
-  map("n", navButton .. "q", "ZZ")
-  map("n", navButton .. "Q", ":wqa!<CR>")
-  map("n", navButton .. "d", ":q!<CR>")
-  map("n", navButton .. "D", ":silent! wa<CR>:qa!<CR>")
-  map("n", navButton .. "o", "<C-w>o")
-
-  -- Remap rotate windows
-  map("n", navButton .. "r", "<C-w>r")
-  map("n", navButton .. "R", "<C-w>R")
-
-  -- Remap move windows
-  map("n", navButton .. "x", "<C-w>x")
-  map("n", navButton .. "K", "<C-w>K")
-  map("n", navButton .. "J", "<C-w>J")
-  map("n", navButton .. "H", "<C-w>H")
-  map("n", navButton .. "L", "<C-w>L")
-  map("n", navButton .. "T", "<C-w>T")
-
-  -- Remap resize windows
-  map("n", navButton .. "=", "<C-w>=")
-  map("n", navButton .. "[", "<C-w>+")
-  map("n", navButton .. "]", "<C-w>-")
-  map("n", navButton .. ".", "<C-w>>")
-  map("n", navButton .. ",", "<C-w><")
-  map("n", navButton .. "|", "<C-w>|")
+  map("n", winButton .. "=", "<C-w>=")
+  map("n", winButton .. "[", "<C-w>+")
+  map("n", winButton .. "]", "<C-w>-")
+  map("n", winButton .. ".", "<C-w>>")
+  map("n", winButton .. ",", "<C-w><")
+  map("n", winButton .. "|", "<C-w>|")
 end
 
 local function map_ui()
@@ -73,6 +51,7 @@ local function map_ui()
   map("n", winButton .. "oa", "<cmd>ObsidianCreate<CR>")
   map("n", winButton .. "oA", "<cmd>ObsidianCreateWithTemplate<CR>")
   map("n", winButton .. "ot", "<cmd>ObsidianTemplate<CR>")
+  map("n", winButton .. "op", "<cmd>MarkdownPreview<CR>")
 
   -- NVIM-TREE
   map("n", winButton .. "a", "<cmd>NvimTree<CR>")
@@ -85,6 +64,13 @@ local function map_ui()
   -- OTHER
   map("n", winButton .. "t", "<cmd>ToggleTerm<CR>")
   map("n", winButton .. "p", "<cmd>Outline<CR>")
+end
+
+local function map_runner()
+  map("n", "<F9>", "<cmd>CompilerChoose<CR>")
+
+  map("n", "<F10>", "<cmd>CompilerRun<CR>")
+  map("v", "<F10>", "<cmd>CompilerRunRange<CR>")
 end
 
 local function map_lsp()
@@ -119,4 +105,5 @@ end
 
 map_navigation()
 map_ui()
+map_runner()
 map_lsp()

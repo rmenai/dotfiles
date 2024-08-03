@@ -11,5 +11,6 @@ require("core.lazy")
 
 -- Core setup
 require("core.settings")
+-- require("core.patches")
 require("core.commands")
 require("core.mappings")

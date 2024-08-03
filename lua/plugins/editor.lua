@@ -1,3 +1,5 @@
+local obsidian_vault = { name = "notes", path = "~/Documents/Vaults/notes" }
+
 return {
   -- LANGUAGES SUPPORT
   {
@@ -25,6 +27,13 @@ return {
     -- OBSIDIAN MARKDOWN
     "epwalsh/obsidian.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
+    cond = function()
+      local vault_path = vim.fn.expand(obsidian_vault.path)
+      local cwd = vim.fn.getcwd()
+
+      -- Check whenever the cwd is inside the vault cwd
+      return cwd:sub(1, #vault_path) == vault_path
+    end,
     config = function()
       local utils = require("core.utils")
 
@@ -33,32 +42,27 @@ return {
         return path:with_suffix(".md")
       end
 
-      -- local function generate_frontmatter(note)
-      --   local date = os.date("%Y-%m-%d %H:%M")
-      --   local out = { title = note.title, date = date, tags = note.tags }
-      --
-      --   if note.metadata ~= nil and not vim.tbl_isempty(note.metadata) then
-      --     for k, v in pairs(note.metadata) do
-      --       out[k] = v
-      --     end
-      --   end
-      --
-      --   return out
-      -- end
-
       -- Obsidian config
-      local workspace = { name = "notes", path = "~/Documents/Vaults/notes" }
-
-      local config_path = vim.fn.expand(workspace.path .. "/.obsidian/daily-notes.json")
+      local config_path = vim.fn.expand(obsidian_vault.path .. "/.obsidian/daily-notes.json")
       local config = { daily_notes = utils.read_json(config_path) }
+
       if not config then
         print("Failed to read daily-notes.json")
       end
 
       require("obsidian").setup({
-        workspaces = { workspace },
-        daily_notes = config.daily_notes,
+        workspaces = { obsidian_vault },
         disable_frontmatter = true,
+        templates = {
+          folder = "templates",
+          substitutions = {
+            ["date:ddd, D MMM, YYYY"] = os.date("%a, %d %b, %Y")
+          }
+        },
+        daily_notes = {
+          folder = config.daily_notes.folder,
+          template = config.daily_notes.template:match("([^/]+)$")
+        },
 
         note_path_func = generate_path,
         wiki_link_func = require("obsidian.util").wiki_link_path_prefix,
@@ -70,7 +74,7 @@ return {
     cmd = "OverseerRun",
     config  = function()
       require("overseer").setup({
-        templates = { "builtin", "languages" },
+        templates = { "builtin", "custom" },
         strategy = {
           "toggleterm",
           direction = "horizontal",
@@ -128,6 +132,7 @@ return {
   {
     -- GITHUB COPILOT INTEGRATION
     "CopilotC-Nvim/CopilotChat.nvim",
+    cmd = { "Copilot", "CopilotChat" },
     dependencies = {
       "zbirenbaum/copilot.lua",
       "nvim-lua/plenary.nvim"
@@ -162,7 +167,7 @@ return {
   {
     -- COLOR PREVIEW
     "norcalli/nvim-colorizer.lua",
-    event = "BufReadPost",
+    ft = { "css", "html", "javascript", "typescript", "lua" },
     config = function ()
       require("colorizer").setup()
     end

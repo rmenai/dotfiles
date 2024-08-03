@@ -68,6 +68,53 @@ local function ObsidianCreateWithTemplate()
 end
 
 
+local function get_cmakefile()
+  local cwd = vim.fn.getcwd()
+  return vim.fs.find("CMakeLists.txt", { upward = true, type = "file", path = cwd })[1]
+end
+
+local function CompilerChoose()
+  local telescope = require("telescope.builtin")
+  local overseer = require("overseer")
+
+  if get_cmakefile() then
+    telescope.commands({ default_text = "CMake" })
+    return
+  end
+
+  if vim.fn.expand("%:e") == "tex" then
+    telescope.commands({ default_text = "Vimtex" })
+    return
+  end
+
+  overseer.run_template()
+end
+
+local function CompilerRun()
+  local action_util = require("overseer.action_util")
+  local task_list = require("overseer.task_list")
+
+  local tasks = task_list.list_tasks({ recent_first = true })
+  if #tasks == 0 then
+    CompilerChoose()
+    return
+  end
+
+  action_util.run_task_action(tasks[1], "restart")
+end
+
+local function CompilerRunRange()
+  local sniprun = require("sniprun")
+
+  vim.cmd([[ execute "normal! \<ESC>" ]])
+  sniprun.run("v")
+end
+
 vim.api.nvim_create_user_command("CommitCurrentFile", CommitCurrentFile, {})
 vim.api.nvim_create_user_command("ObsidianCreate", ObsidianCreateWithDefault, {})
 vim.api.nvim_create_user_command("ObsidianCreateWithTemplate", ObsidianCreateWithTemplate, {})
+
+-- Code running
+vim.api.nvim_create_user_command("CompilerRun", CompilerRun, {})
+vim.api.nvim_create_user_command("CompilerRunRange", CompilerRunRange, { range = true })
+vim.api.nvim_create_user_command("CompilerChoose", CompilerChoose, {})

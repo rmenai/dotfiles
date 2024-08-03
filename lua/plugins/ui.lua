@@ -19,7 +19,6 @@ return {
   {
     -- PROGRESS BAR
     "linrongbin16/lsp-progress.nvim",
-    event = "VeryLazy",
     config = function()
       require("lsp-progress").setup({})
     end
@@ -173,6 +172,12 @@ return {
           "obsidian",
           function()
             require("telescope.builtin").commands({ default_text = "Obsidian" })
+          end
+        },
+        {
+          "compiler",
+          function()
+            vim.cmd("CompilerRun")
           end
         }
       }
