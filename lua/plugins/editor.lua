@@ -151,9 +151,11 @@ return {
   {
     -- EASIER COMMENTING
     "terrortylor/nvim-comment",
-    keys = { "gc", "gcc", "gbc" },
+    -- keys = { "gc", "gcc", "gbc" },
     config = function()
-      require("nvim_comment").setup({})
+      require("nvim_comment").setup({
+        create_mappings = true
+      })
     end
   },
   {

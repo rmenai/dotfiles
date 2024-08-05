@@ -161,44 +161,35 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope-fzf-native.nvim",
-      "OliverChao/telescope-picker-list.nvim"
+      "OliverChao/telescope-picker-list.nvim",
+      "nvim-telescope/telescope-dap.nvim"
     },
     cmd = "Telescope",
     config = function()
       local telescope = require("telescope")
+      local builtin = require("telescope.builtin")
 
-      local custom_pickers = {
-        {
-          "obsidian",
-          function()
-            require("telescope.builtin").commands({ default_text = "Obsidian" })
-          end
-        },
-        {
-          "compiler",
-          function()
-            vim.cmd("CompilerRun")
-          end
-        }
-      }
-
-      telescope.find_picker = function(name)
-        for _, picker in ipairs(custom_pickers) do
-          if picker[1] == name then
-            return picker[2]
-          end
-        end
+      -- Custom pickers
+      builtin.obsidian = function()
+        builtin.commands({ default_text = "Obsidian" })
+      end
+ 
+      builtin.compiler = function()
+        vim.cmd("CompilerRun")
       end
 
-
-      telescope.custom_pickers = custom_pickers
+      local custom_pickers = {
+        { "obsidian", builtin.obsidian },
+        { "compiler", builtin.compiler }
+      }
+ 
       telescope.setup({
         defaults = {
           mappings = {
             i = {
-              ["<C-j>"] = "move_selection_next",
-              ["<C-k>"] = "move_selection_previous",
-              ["<C-q>"] = "close",
+              ["<C-j>"] = builtin.move_selection_next,
+              ["<C-k>"] = builtin.move_selection_previous,
+              ["<C-q>"] = builtin.close,
             }
           },
           ignore_case = true,
@@ -216,6 +207,7 @@ return {
       })
 
       telescope.load_extension("fzf")
+      telescope.load_extension("dap")
       telescope.load_extension("picker_list")
     end
   }

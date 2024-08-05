@@ -1,109 +1,99 @@
+local commands = require("core.commands")
+local dap = require("dap")
+local nvim_tree = require("nvim-tree.api").tree
+local telescope = require("telescope.builtin")
+local telescope_extensions = require("telescope").extensions
+
 local function map(mode, lhs, rhs, opts)
   opts = opts or { noremap = true, silent = true }
-  vim.api.nvim_set_keymap(mode, lhs, rhs, opts)
+  vim.keymap.set(mode, lhs, rhs, opts)
 end
 
--- Main buttons mappings
-local winButton = "<Leader>"
-local codeButton = "g"
-local diagnosticsButton = codeButton .. "d"
+-- Remap window navigation using the navigation button
+map("n", "<Leader>j", "<C-w>j")
+map("n", "<Leader>k", "<C-w>k")
+map("n", "<Leader>h", "<C-w>h")
+map("n", "<Leader>l", "<C-w>l")
+map("n", "<Leader>w", "<C-w>w")
+map("n", "<Leader>W", "<C-w>W")
+map("n", "<Leader>x", "<C-w>x")
+map("n", "<Leader>K", "<C-w>K")
+map("n", "<Leader>J", "<C-w>J")
+map("n", "<Leader>H", "<C-w>H")
+map("n", "<Leader>L", "<C-w>L")
+map("n", "<Leader>T", "<C-w>T")
 
-local function map_navigation()
-  -- Remap window navigation using the navigation button
-  map("n", winButton .. "j", "<C-w>j")
-  map("n", winButton .. "k", "<C-w>k")
-  map("n", winButton .. "h", "<C-w>h")
-  map("n", winButton .. "l", "<C-w>l")
-  map("n", winButton .. "w", "<C-w>w")
-  map("n", winButton .. "W", "<C-w>W")
-
-  map("n", winButton .. "x", "<C-w>x")
-  map("n", winButton .. "K", "<C-w>K")
-  map("n", winButton .. "J", "<C-w>J")
-  map("n", winButton .. "H", "<C-w>H")
-  map("n", winButton .. "L", "<C-w>L")
-  map("n", winButton .. "T", "<C-w>T")
-
-  -- Remap spliting and resizing windows
-  map("n", winButton .. "s", "<C-w>s")
-  map("n", winButton .. "v", "<C-w>v")
-  map("n", winButton .. "S", ":new<CR>")
-  map("n", winButton .. "V", ":vnew<CR>")
-
-  map("n", winButton .. "=", "<C-w>=")
-  map("n", winButton .. "[", "<C-w>+")
-  map("n", winButton .. "]", "<C-w>-")
-  map("n", winButton .. ".", "<C-w>>")
-  map("n", winButton .. ",", "<C-w><")
-  map("n", winButton .. "|", "<C-w>|")
-end
-
-local function map_ui()
-  -- TELESCOPE
-  map("n", winButton .. "<space>", "<cmd>lua require('telescope').extensions.picker_list.picker_list()<CR>")
-  map("n", winButton .. "f", "<cmd>Telescope find_files<CR>")
-  map("n", winButton .. "g", "<cmd>Telescope live_grep<CR>")
-  map("n", winButton .. "c", "<cmd>Telescope commands<CR>")
-
-  -- OBSIDIAN
-  map("n", winButton .. "oo", "<cmd>lua require('telescope').find_picker('obsidian')()<CR>")
-  map("n", winButton .. "oc", "<cmd>CommitCurrentFile<CR><cmd>ObsidianCreate<CR>")
-  map("n", winButton .. "oa", "<cmd>ObsidianCreate<CR>")
-  map("n", winButton .. "oA", "<cmd>ObsidianCreateWithTemplate<CR>")
-  map("n", winButton .. "ot", "<cmd>ObsidianTemplate<CR>")
-  map("n", winButton .. "op", "<cmd>MarkdownPreview<CR>")
-
-  -- NVIM-TREE
-  map("n", winButton .. "a", "<cmd>NvimTree<CR>")
-  map("n", winButton .. "A", "<cmd>NvimTreeFindFile<CR>")
-
-  -- NEOGIT
-  map("n", winButton .. "nn", "<cmd>Neogit kind=auto<CR>")
-  map("n", winButton .. "nc", "<cmd>CommitCurrentFile<CR>")
-
-  -- OTHER
-  map("n", winButton .. "t", "<cmd>ToggleTerm<CR>")
-  map("n", winButton .. "p", "<cmd>Outline<CR>")
-end
-
-local function map_runner()
-  map("n", "<F9>", "<cmd>CompilerChoose<CR>")
-
-  map("n", "<F10>", "<cmd>CompilerRun<CR>")
-  map("v", "<F10>", "<cmd>CompilerRunRange<CR>")
-end
-
-local function map_lsp()
-  -- LSP
-  map("n", codeButton .. "p", "<cmd>lua vim.lsp.buf.definition()<CR>")
-  map("n", codeButton .. "o", "<cmd>lua vim.lsp.buf.references()<CR>")
-  map("n", codeButton .. "i", "<cmd>lua vim.lsp.buf.implementation()<CR>")
-  map("n", codeButton .. "r", "<cmd>lua vim.lsp.buf.rename()<CR>")
-  map("n", codeButton .. "a", "<cmd>lua vim.lsp.buf.code_action()<CR>")
-  map("n", codeButton .. "f", "<cmd>lua vim.lsp.buf.format()<CR>")
-  map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
-
-  map("n", codeButton .. "j", "<C-o>") -- Go prev
-  map("n", codeButton .. "k", "<C-i>") -- Go next 
-
-  -- DIAGNOSTICS
-  map("n", diagnosticsButton .. "j", "<cmd>lua vim.diagnostic.goto_prev()<CR>")
-  map("n", diagnosticsButton .. "k", "<cmd>lua vim.diagnostic.goto_next()<CR>")
-
-  -- Completition mappings next to nvim-cmp plugin
-  -- ["<C-k>"] = cmp.mapping.scroll_docs(-4),
-  -- ["<C-j>"] = cmp.mapping.scroll_docs(4)
-  -- ["<CR>"] = cmp.mapping(confirm_select)
-  -- ["<Tab>"] = cmp.mapping(select_next, { "i", "s" })
-  -- ["<S-Tab>"] = cmp.mapping(select_prev, { "i", "s" })
+-- Remap spliting and resizing windows
+map("n", "<Leader>s", "<C-w>s")
+map("n", "<Leader>v", "<C-w>v")
+map("n", "<Leader>S", ":new<CR>")
+map("n", "<Leader>V", ":vnew<CR>")
+map("n", "<Leader>=", "<C-w>=")
+map("n", "<Leader>[", "<C-w>+")
+map("n", "<Leader>]", "<C-w>-")
+map("n", "<Leader>.", "<C-w>>")
+map("n", "<Leader>,", "<C-w><")
+map("n", "<Leader>|", "<C-w>|")
 
 
-  -- CODE EDITING
-  -- COMMENT : "gc", "gcc", "gbc"
-  -- EXIT INS : "jj", "jk"source test.l
-end
+-- TELESCOPE
+map("n", "<Leader><space>", telescope_extensions.picker_list.picker_list)
+map("n", "<Leader>f", telescope.find_files)
+map("n", "<Leader>g", telescope.live_grep)
+map("n", "<Leader>c", telescope.commands)
 
-map_navigation()
-map_ui()
-map_runner()
-map_lsp()
+-- OBSIDIAN
+map("n", "<Leader>oo", telescope.obsidian)
+map("n", "<Leader>oc", "<cmd>CommitCurrentFile<CR><cmd>ObsidianCreate<CR>")
+map("n", "<Leader>oa", "<cmd>ObsidianCreate<CR>")
+map("n", "<Leader>oA", "<cmd>ObsidianCreateWithTemplate<CR>")
+map("n", "<Leader>ot", "<cmd>ObsidianTemplate<CR>")
+map("n", "<Leader>op", "<cmd>MarkdownPreview<CR>")
+
+-- NVIM-TREE
+map("n", "<Leader>a", nvim_tree.toggle)
+map("n", "<Leader>A", function() nvim_tree.open({ find_file = true }) end)
+
+-- NEOGIT
+map("n", "<Leader>nn", "<cmd>Neogit kind=auto<CR>")
+map("n", "<Leader>nc", "<cmd>CommitCurrentFile<CR>")
+
+-- COMPILER
+map("n", "<F9>", "<cmd>CompilerChoose<CR>")
+map("n", "<F10>", "<cmd>CompilerRun<CR>")
+map("v", "<F10>", "<cmd>CompilerRunRange<CR>")
+
+-- OTHER
+map("n", "<Leader>t", "<cmd>ToggleTerm<CR>")
+map("n", "<Leader>p", "<cmd>Outline<CR>")
+
+
+-- LSP
+map("n", "K", vim.lsp.buf.hover)
+map("n", "gd", vim.lsp.buf.definition)
+map("n", "gD", vim.lsp.buf.declaration)
+map("n", "gi", vim.lsp.buf.implementation)
+map("n", "go", vim.lsp.buf.type_definition)
+map("n", "gr", vim.lsp.buf.references)
+map("n", "gs", vim.lsp.buf.signature_help)
+map("n", "gj", "<C-o>") -- Go prev
+map("n", "gk", "<C-i>") -- Go next 
+
+map("n", "<F2>", vim.lsp.buf.rename)
+map("n", "<F3>", vim.lsp.buf.format)
+map("n", "<F4>", vim.lsp.buf.code_action)
+
+-- DAP
+map("n", "<F5>", dap.continue)
+map("n", "<F6>", dap.repl.toggle)
+map("n", "<F7>", dap.step_into)
+map("n", "<F8>", dap.step_out)
+map("n", "gb", dap.toggle_breakpoint)
+map("n", "gB", dap.set_breakpoint)
+
+-- DIAGNOSTICS
+map("n", "gj", vim.diagnostic.goto_prev)
+map("n", "gk", vim.diagnostic.goto_next)
+
+-- CODE EDITING
+-- gc, gcc

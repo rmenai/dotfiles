@@ -16,16 +16,22 @@ local filetypes = {
   "toml",
   "vim",
   "vimdoc",
-  "yaml"
+  "yaml",
+  "dap_repl"
 }
 
 return {
+  { },
   {
     -- TREESITTER
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     ft = filetypes,
+    dependencies = { "LiadOz/nvim-dap-repl-highlights" },
     config = function()
+      -- Initialize dap plugins
+      require("nvim-dap-repl-highlights").setup()
+
       require("nvim-treesitter.configs").setup({
         ensure_installed = filetypes,
         highlight = { enable = true },
