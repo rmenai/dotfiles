@@ -170,7 +170,7 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		ft = filetypes,
-    cmd = { "LSPStart", "LSPStop", "LSPRestart", "LSPInfo", "LSPLog" },
+		cmd = { "LSPStart", "LSPStop", "LSPRestart", "LSPInfo", "LSPLog" },
 		dependencies = {
 			"VonHeikemen/lsp-zero.nvim",
 			"hrsh7th/cmp-nvim-lsp",
@@ -237,7 +237,7 @@ return {
 					-- 				},
 					-- 			},
 					-- 		},
-					-- 		-- filetypes = { "typescript", "javascript", "vue" },
+					-- 		filetypes = { "javascript", "typescript", "vue" },
 					-- 	})
 					-- end,
 					["marksman"] = function()
@@ -265,7 +265,7 @@ return {
 		name = "tailwind-tools",
 		build = ":UpdateRemotePlugins",
 		ft = { "html", "css", "vue", "typescript", "javascript" },
-    cmd = { "TailwindSort", "TailwindColorToggle", "TailwindConcealToggle" },
+		cmd = { "TailwindSort", "TailwindColorToggle", "TailwindConcealToggle" },
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter",
 			"nvim-telescope/telescope.nvim",

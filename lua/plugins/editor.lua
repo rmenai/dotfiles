@@ -103,7 +103,7 @@ return {
 	{
 		"stevearc/overseer.nvim",
 		keys = { "<F9>", "<F10>" },
-    cmd = { "CompilerRun", "CompilerChoose" },
+		cmd = { "CompilerRun", "CompilerChoose" },
 		config = function()
 			require("overseer").setup({
 				templates = { "builtin", "custom" },
@@ -156,6 +156,7 @@ return {
 		-- AUTOMATIC PAIRS
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",
+		dependencies = { "hrsh7th/nvim-cmp" },
 		config = function()
 			require("nvim-autopairs").setup({})
 
@@ -191,7 +192,7 @@ return {
 		-- COLOR PREVIEW
 		"norcalli/nvim-colorizer.lua",
 		ft = { "css", "html", "javascript", "typescript", "vue" },
-    cmd = { "ColorizerToggle", "ColorizerDetachFromBuffer" },
+		cmd = { "ColorizerToggle", "ColorizerDetachFromBuffer" },
 		config = function()
 			require("colorizer").setup({
 				"*",
