@@ -33,8 +33,8 @@ return {
 				},
 			})
 
-      -- Set up autocmds
-      require("core.autocmds").lualine_autocmd()
+			-- Set up autocmds
+			require("core.autocmds").lualine_autocmd()
 		end,
 	},
 	{
@@ -97,20 +97,20 @@ return {
 	{
 		-- FILE SYSTEM TREE
 		"nvim-tree/nvim-tree.lua",
-    keys = { "<Leader>a", "<Leader>A" },
+		keys = { "<Leader>a", "<Leader>A" },
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
 			require("nvim-tree").setup({})
 
-      -- Set up mappings
-      require("core.mappings").map_nvim_tree()
+			-- Set up mappings
+			require("core.mappings").map_nvim_tree()
 		end,
 	},
 	{
 		-- GIT VERSION CONTROL
 		"NeogitOrg/neogit",
-    keys = { "<Leader>nn", "<Leader>nc" },
-    cmd = { "Neogit" },
+		keys = { "<Leader>nn", "<Leader>nc" },
+		cmd = { "Neogit" },
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"sindrets/diffview.nvim",
@@ -119,25 +119,25 @@ return {
 		config = function()
 			require("neogit").setup({})
 
-      -- Set up mappings
-      require("core.mappings").map_neogit()
+			-- Set up mappings
+			require("core.mappings").map_neogit()
 		end,
 	},
 	{
 		-- CODE STRUCTURE VIEW
 		"hedyhli/outline.nvim",
-    keys = { "<Leader>p" },
+		keys = { "<Leader>p" },
 		config = function()
 			require("outline").setup({})
 
-      -- Set up mappings
-      require("core.mappings").map_outline()
+			-- Set up mappings
+			require("core.mappings").map_outline()
 		end,
 	},
 	{
 		-- TERMINAL
 		"akinsho/toggleterm.nvim",
-    keys = { "<Leader>t" },
+		keys = { "<Leader>t" },
 		config = function()
 			require("toggleterm").setup({
 				on_create = function()
@@ -145,19 +145,32 @@ return {
 				end,
 			})
 
-      -- Set up mappings
-      require("core.mappings").map_term()
+			-- Set up mappings
+			require("core.mappings").map_term()
+		end,
+	},
+	{
+		"jiaoshijie/undotree",
+		keys = { "<Leader>u" },
+		dependencies = { "nvim-lua/plenary.nvim" },
+		config = function()
+			require("undotree").setup({
+        position = "right"
+      })
+
+			-- Set up mappings
+			require("core.mappings").map_undotree()
 		end,
 	},
 	{
 		-- SEARCH
 		"nvim-telescope/telescope.nvim",
-    keys = { "<Leader><space>", "<Leader>f", "<Leader>g", "<Leader>c" },
-    cmd = { "Telescope" },
+		keys = { "<Leader><space>", "<Leader>f", "<Leader>g", "<Leader>c" },
+		cmd = { "Telescope" },
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-telescope/telescope-dap.nvim",
-      "OliverChao/telescope-picker-list.nvim",
+			"OliverChao/telescope-picker-list.nvim",
 			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 		},
 		config = function()
@@ -183,9 +196,9 @@ return {
 					},
 					picker_list = {
 						user_pickers = {
-              { "obsidian", require("core.commands").obsidian_picker },
-              { "compiler", require("core.commands").compiler_picker },
-            },
+							{ "obsidian", require("core.commands").obsidian_picker },
+							{ "compiler", require("core.commands").compiler_picker },
+						},
 					},
 				},
 			})
@@ -194,8 +207,8 @@ return {
 			telescope.load_extension("dap")
 			telescope.load_extension("picker_list")
 
-      -- Set up mappings
-      require("core.mappings").map_telescope()
+			-- Set up mappings
+			require("core.mappings").map_telescope()
 		end,
 	},
 }

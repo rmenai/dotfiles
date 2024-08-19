@@ -21,3 +21,7 @@ vim.o.showmode = false
 vim.o.termguicolors = true
 vim.o.tw = 80
 vim.o.wrap = false
+
+-- PERSISTENT UNDO
+vim.o.undofile = true
+vim.o.undodir = os.getenv("HOME") .. "/.local/share/nvim/undo"

@@ -68,6 +68,10 @@ M.map_nvim_tree = function()
 	end)
 end
 
+M.map_undotree = function()
+	map("n", "<Leader>u", require("undotree").toggle)
+end
+
 -- NEOGIT
 M.map_neogit = function()
 	map("n", "<Leader>nc", vim.cmd.CommitCurrentFile)
