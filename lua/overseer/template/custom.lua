@@ -1,4 +1,4 @@
 return {
-	"python",
-	"ocaml",
+  "python",
+  "ocaml",
 }
