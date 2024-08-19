@@ -15,6 +15,10 @@ local filetypes = {
 	"vue",
 	"html",
 	"css",
+	"ocaml",
+	"ocamlinterface",
+	"ocamllex",
+	"dune",
 }
 
 local lsp_servers = {
@@ -31,6 +35,7 @@ local lsp_servers = {
 	"tsserver",
 	"volar",
 	"tailwindcss",
+	-- "ocamllsp", -- opam install ocaml-lsp-server
 }
 
 return {
@@ -220,10 +225,13 @@ return {
 					end,
 				},
 			})
-		end,
 
-		-- Set up mappings
-		require("core.mappings").map_lsp(),
+			-- Set up manually installed lsp
+			require("lspconfig").ocamllsp.setup({})
+
+			-- Set up mappings
+			require("core.mappings").map_lsp()
+		end,
 	},
 
 	-- -- LANGUAGE SPECIFIC
