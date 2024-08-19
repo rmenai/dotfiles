@@ -1,5 +1,5 @@
-local function get_python_executable()
-	local executables = { "python3", "python" }
+local function get_ocaml_executable()
+	local executables = { "ocaml" }
 
 	for _, executable in ipairs(executables) do
 		if vim.fn.executable(executable) == 1 then
@@ -11,17 +11,17 @@ end
 return {
 	condition = {
 		callback = function()
-			if not get_python_executable() then
-				return false, "Executable python not found"
+			if not get_ocaml_executable() then
+				return false, "Executable ocaml not found"
 			end
-			if vim.fn.expand("%:e") ~= "py" then
-				return false, "No python file found"
+			if vim.fn.expand("%:e") ~= "ml" then
+				return false, "No OCaml file found"
 			end
 			return true
 		end,
 	},
 	generator = function(_, cb)
-		local executable = get_python_executable()
+		local executable = get_ocaml_executable()
 		local templates = {
 			{
 				name = "Run this program",
@@ -34,7 +34,7 @@ return {
 				end,
 			},
 			{
-				name = "Start python REPL",
+				name = "Start OCaml REPL",
 				builder = function()
 					return {
 						cmd = { executable },
