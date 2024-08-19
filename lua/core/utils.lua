@@ -1,22 +1,28 @@
-local function read_json(filepath)
-    local file = io.open(filepath, "r")
-    if not file then return nil end
+local M = {}
 
-    local content = file:read("*a")
-    file:close()
-    return vim.fn.json_decode(content)
+M.get_cmakefile = function()
+	local cwd = vim.fn.getcwd()
+	return vim.fs.find("CMakeLists.txt", { upward = true, type = "file", path = cwd })[1]
 end
 
-local function slugify(title)
-  local slug = title:lower()
+M.read_json = function(filepath)
+	local file = io.open(filepath, "r")
+	if not file then
+		return nil
+	end
 
-  slug = slug:gsub("[^%w%s%-]", "")
-  slug = slug:gsub("%s+", "-")
-  slug = slug:gsub("-+", "-")
-  return slug
+	local content = file:read("*a")
+	file:close()
+	return vim.fn.json_decode(content)
 end
 
-return {
-  read_json = read_json,
-  slugify = slugify
-}
+M.slugify = function(title)
+	local slug = title:lower()
+
+	slug = slug:gsub("[^%w%s%-]", "")
+	slug = slug:gsub("%s+", "-")
+	slug = slug:gsub("-+", "-")
+	return slug
+end
+
+return M

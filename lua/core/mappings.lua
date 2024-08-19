@@ -1,13 +1,11 @@
-local commands = require("core.commands")
-local dap = require("dap")
-local nvim_tree = require("nvim-tree.api").tree
-local telescope = require("telescope.builtin")
-local telescope_extensions = require("telescope").extensions
-
 local function map(mode, lhs, rhs, opts)
-  opts = opts or { noremap = true, silent = true }
-  vim.keymap.set(mode, lhs, rhs, opts)
+	opts = opts or { noremap = true, silent = true }
+	vim.keymap.set(mode, lhs, rhs, opts)
 end
+
+-- Required for mappings to work
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
 
 -- Remap window navigation using the navigation button
 map("n", "<Leader>j", "<C-w>j")
@@ -35,65 +33,106 @@ map("n", "<Leader>.", "<C-w>>")
 map("n", "<Leader>,", "<C-w><")
 map("n", "<Leader>|", "<C-w>|")
 
+map("n", "gj", "<C-o>") -- Go prev
+map("n", "gk", "<C-i>") -- Go next
+
+-- Use mapping functions for lazy loading
+local M = {}
 
 -- TELESCOPE
-map("n", "<Leader><space>", telescope_extensions.picker_list.picker_list)
-map("n", "<Leader>f", telescope.find_files)
-map("n", "<Leader>g", telescope.live_grep)
-map("n", "<Leader>c", telescope.commands)
+M.map_telescope = function()
+	local telescope = require("telescope.builtin")
+
+	map("n", "<Leader><space>", require("telescope").extensions.picker_list.picker_list)
+	map("n", "<Leader>f", telescope.find_files)
+	map("n", "<Leader>g", telescope.live_grep)
+	map("n", "<Leader>c", telescope.commands)
+end
 
 -- OBSIDIAN
-map("n", "<Leader>oo", telescope.obsidian)
-map("n", "<Leader>oc", "<cmd>CommitCurrentFile<CR><cmd>ObsidianCreate<CR>")
-map("n", "<Leader>oa", "<cmd>ObsidianCreate<CR>")
-map("n", "<Leader>oA", "<cmd>ObsidianCreateWithTemplate<CR>")
-map("n", "<Leader>ot", "<cmd>ObsidianTemplate<CR>")
-map("n", "<Leader>op", "<cmd>MarkdownPreview<CR>")
+M.map_obsidian = function()
+	map("n", "<Leader>oo", require("core.commands").obsidian_picker)
+	map("n", "<Leader>oa", vim.cmd.ObsidianCreate)
+	map("n", "<Leader>oA", vim.cmd.ObsidianCreateWithTemplate)
+	map("n", "<Leader>ot", vim.cmd.ObsidianTemplate)
+	map("n", "<Leader>op", vim.cmd.MarkdownPreview)
+	map("n", "<Leader>oc", function()
+		vim.cmd.CommitCurrentFile()
+		vim.cmd.ObsidianCreate()
+	end)
+end
 
 -- NVIM-TREE
-map("n", "<Leader>a", nvim_tree.toggle)
-map("n", "<Leader>A", function() nvim_tree.open({ find_file = true }) end)
+M.map_nvim_tree = function()
+	local nvim_tree = require("nvim-tree.api").tree
+
+	map("n", "<Leader>a", nvim_tree.toggle)
+	map("n", "<Leader>A", function()
+		nvim_tree.open({ find_file = true })
+	end)
+end
 
 -- NEOGIT
-map("n", "<Leader>nn", "<cmd>Neogit kind=auto<CR>")
-map("n", "<Leader>nc", "<cmd>CommitCurrentFile<CR>")
+M.map_neogit = function()
+	map("n", "<Leader>nc", vim.cmd.CommitCurrentFile)
+	map("n", "<Leader>nn", function()
+		require("neogit").open({ kind = "auto" })
+	end)
+end
 
 -- COMPILER
-map("n", "<F9>", "<cmd>CompilerChoose<CR>")
-map("n", "<F10>", "<cmd>CompilerRun<CR>")
-map("v", "<F10>", "<cmd>CompilerRunRange<CR>")
+M.map_compiler = function()
+	map("n", "<F9>", vim.cmd.CompilerChoose)
+	map("n", "<F10>", vim.cmd.CompilerRun)
+	map("v", "<F10>", vim.cmdCompilerRunRange)
+end
 
 -- OTHER
-map("n", "<Leader>t", "<cmd>ToggleTerm<CR>")
-map("n", "<Leader>p", "<cmd>Outline<CR>")
+M.map_term = function()
+	map("n", "<Leader>t", require("toggleterm").toggle)
+end
 
+M.map_outline = function()
+	map("n", "<Leader>p", require("outline").toggle)
+end
 
 -- LSP
-map("n", "K", vim.lsp.buf.hover)
-map("n", "gd", vim.lsp.buf.definition)
-map("n", "gD", vim.lsp.buf.declaration)
-map("n", "gi", vim.lsp.buf.implementation)
-map("n", "go", vim.lsp.buf.type_definition)
-map("n", "gr", vim.lsp.buf.references)
-map("n", "gs", vim.lsp.buf.signature_help)
-map("n", "gj", "<C-o>") -- Go prev
-map("n", "gk", "<C-i>") -- Go next 
+M.map_lsp = function()
+	map("n", "K", vim.lsp.buf.hover)
+	map("n", "gd", vim.lsp.buf.definition)
+	map("n", "gD", vim.lsp.buf.declaration)
+	map("n", "gi", vim.lsp.buf.implementation)
+	map("n", "go", vim.lsp.buf.type_definition)
+	map("n", "gr", vim.lsp.buf.references)
+	map("n", "gs", vim.lsp.buf.signature_help)
 
-map("n", "<F2>", vim.lsp.buf.rename)
-map("n", "<F3>", vim.lsp.buf.format)
-map("n", "<F4>", vim.lsp.buf.code_action)
+	map("n", "<F1>", vim.lsp.buf.code_action)
+	map("n", "<F2>", vim.lsp.buf.rename)
+
+	map("n", "gj", vim.diagnostic.goto_prev)
+	map("n", "gk", vim.diagnostic.goto_next)
+end
+
+M.map_linter = function()
+	map("n", "<F3>", require("lint").try_lint)
+end
+
+M.map_formatter = function()
+	map("n", "<F4>", function()
+		require("conform").format({ lsp_format = "fallback", async = true })
+	end)
+end
 
 -- DAP
-map("n", "<F5>", dap.continue)
-map("n", "<F6>", dap.repl.toggle)
-map("n", "<F7>", dap.step_into)
-map("n", "<F8>", dap.step_out)
-map("n", "gb", dap.toggle_breakpoint)
-map("n", "gB", dap.set_breakpoint)
+M.map_dap = function()
+	local dap = require("dap")
 
--- DIAGNOSTICS
-map("n", "gj", vim.diagnostic.goto_prev)
-map("n", "gk", vim.diagnostic.goto_next)
+	map("n", "<F5>", dap.continue)
+	map("n", "<F6>", dap.repl.toggle)
+	map("n", "<F7>", dap.step_into)
+	map("n", "<F8>", dap.step_out)
+	map("n", "gb", dap.toggle_breakpoint)
+	map("n", "gB", dap.set_breakpoint)
+end
 
--- CODE EDITING
--- gc, gcc
+return M

@@ -1,24 +1,31 @@
 -- Bootstrap Lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-  vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+	vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
 end
 vim.opt.rtp:prepend(lazypath)
 
--- Required for mappings to be correct
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
-
 -- Setup lazy.nvim
 require("lazy").setup({
-  checker = {
-    enabled = true, -- automatically check for plugin updates
-    notify = false
-  },
-  install = { colorscheme = { "catppuccin" } },
-  spec = {
-    { import = "plugins" }
-  },
+	spec = { { import = "plugins" } },
+	install = { colorscheme = { "catppuccin" } },
+	checker = {
+		enabled = true, -- automatically check for plugin updates
+		notify = false,
+	},
+	performance = {
+		rtp = {
+			disabled_plugins = {
+				"gzip",
+				"matchit",
+				"matchparen",
+				"netrwPlugin",
+				"tarPlugin",
+				"tohtml",
+				"tutor",
+				"zipPlugin",
+			},
+		},
+	},
 })
-
