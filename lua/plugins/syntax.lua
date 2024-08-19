@@ -29,6 +29,7 @@ return {
 		-- TREESITTER
 		"nvim-treesitter/nvim-treesitter",
 		event = "BufRead",
+    cmd = { "TSUpdate", "TSModuleInfo" },
 		build = ":TSUpdate",
 		config = function()
 			require("nvim-treesitter.configs").setup({
@@ -46,6 +47,7 @@ return {
 	{
 		"lukas-reineke/indent-blankline.nvim",
 		event = "BufRead",
+    cmd = { "IBLToggle" },
 		main = "ibl",
 		config = function()
 			require("ibl").setup()

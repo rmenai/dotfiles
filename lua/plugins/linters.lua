@@ -1,24 +1,25 @@
-local filetypes = {
-	"javascript",
-	"typescript",
-	"vue",
-	"css",
-	"html",
-	"json",
-	"yaml",
-	"markdown",
-	"lua",
-	"python",
-	"c",
-	"cpp",
-	"assembly",
-}
-
+-- local filetypes = {
+-- 	"javascript",
+-- 	"typescript",
+-- 	"vue",
+-- 	"css",
+-- 	"html",
+-- 	"json",
+-- 	"yaml",
+-- 	"markdown",
+-- 	"lua",
+-- 	"python",
+-- 	"c",
+-- 	"cpp",
+-- 	"assembly",
+-- }
+--
 return {
 	{
 		"stevearc/conform.nvim",
 		event = "BufWritePre",
 		keys = { "<F4>" },
+    cmd = { "ConformInfo" },
 		config = function()
 			require("conform").setup({
 				formatters_by_ft = {

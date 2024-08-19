@@ -2,6 +2,7 @@ return {
 	{
 		"rcarriga/nvim-dap-ui",
 		keys = { "<F5>", "<F6>", "<F7>", "<F8>", "gb", "gB" },
+    cmd = { "DapNew", "DapTerminate" },
 		dependencies = {
 			"mfussenegger/nvim-dap",
 			"nvim-neotest/nvim-nio",

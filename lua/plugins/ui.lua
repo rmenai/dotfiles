@@ -93,11 +93,12 @@ return {
 		end,
 	},
 
-	-- WINDOWS & NAVIGATION
+	-- WINDOWS & NAVIGATIONS
 	{
 		-- FILE SYSTEM TREE
 		"nvim-tree/nvim-tree.lua",
 		keys = { "<Leader>a", "<Leader>A" },
+    cmd = { "NvimTreeToggle", "NvimTreeOpen", "NvimTreeClose" },
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
 			require("nvim-tree").setup({})
@@ -127,6 +128,7 @@ return {
 		-- CODE STRUCTURE VIEW
 		"hedyhli/outline.nvim",
 		keys = { "<Leader>p" },
+    cmd = { "Outline", "OutlineOpen", "OutlineClose", "OutlineStatus" },
 		config = function()
 			require("outline").setup({})
 
@@ -138,6 +140,7 @@ return {
 		-- TERMINAL
 		"akinsho/toggleterm.nvim",
 		keys = { "<Leader>t" },
+    cmd = { "ToggleTerm", "ToggleTermSetName" },
 		config = function()
 			require("toggleterm").setup({
 				on_create = function()
@@ -171,6 +174,7 @@ return {
 			"nvim-lua/plenary.nvim",
 			"nvim-telescope/telescope-dap.nvim",
 			"OliverChao/telescope-picker-list.nvim",
+      "ahmedkhalf/project.nvim",
 			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 		},
 		config = function()
@@ -205,6 +209,7 @@ return {
 
 			telescope.load_extension("fzf")
 			telescope.load_extension("dap")
+      telescope.load_extension("projects")
 			telescope.load_extension("picker_list")
 
 			-- Set up mappings

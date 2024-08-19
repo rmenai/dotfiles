@@ -6,6 +6,7 @@ return {
 		-- LATEX
 		"lervag/vimtex",
 		ft = { "tex", "plaintex" },
+		cmd = { "VimtexInfo", "VimtexCompile", "VimtexStopAll", "VimtexReload" },
 		init = function()
 			vim.g.vimtex_view_method = "sioyek"
 			vim.g.vimtex_view_sioyek_exe = "sioyek.exe"
@@ -16,6 +17,7 @@ return {
 		-- MARKDOWN PREVIEW
 		"iamcco/markdown-preview.nvim",
 		ft = { "markdown" },
+		cmd = { "MarkdownPreview", "MarkdownPreviewStop", "MarkdownPreviewToggle" },
 		build = "cd app && yarn install",
 		init = function()
 			vim.g.mkdp_auto_start = 0
@@ -25,6 +27,13 @@ return {
 		-- OBSIDIAN MARKDOWN
 		"epwalsh/obsidian.nvim",
 		keys = { "<Leader>oo", "<Leader>oc", "<Leader>oa", "<Leader>oA", "<Leader>ot", "<Leader>op" },
+		cmd = {
+			"ObsidianCreate",
+			"ObsidianCreateWithDefault",
+			"ObsidianDailies",
+			"ObsidianToday",
+			"ObsidianYesterday",
+		},
 		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
 			local utils = require("core.utils")
@@ -94,6 +103,7 @@ return {
 	{
 		"stevearc/overseer.nvim",
 		keys = { "<F9>", "<F10>" },
+    cmd = { "CompilerRun", "CompilerChoose" },
 		config = function()
 			require("overseer").setup({
 				templates = { "builtin", "custom" },
@@ -116,7 +126,7 @@ return {
 		"michaelb/sniprun",
 		branch = "master",
 		build = "sh install.sh",
-		cmd = "SnipRun",
+		cmd = { "SnipRun" },
 		config = function()
 			require("sniprun").setup({
 				repl_enable = {
@@ -181,6 +191,7 @@ return {
 		-- COLOR PREVIEW
 		"norcalli/nvim-colorizer.lua",
 		ft = { "css", "html", "javascript", "typescript", "vue" },
+    cmd = { "ColorizerToggle", "ColorizerDetachFromBuffer" },
 		config = function()
 			require("colorizer").setup({
 				"*",
@@ -200,7 +211,7 @@ return {
 	{
 		-- BETTER ESCAPE INSERT
 		"TheBlob42/houdini.nvim",
-		event = { "ModeChanged" },
+		event = "ModeChanged",
 		config = function()
 			require("houdini").setup({
 				mappings = { "jj", "jk" },
