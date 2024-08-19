@@ -5,7 +5,7 @@ end
 
 -- Required for mappings to work
 vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
+vim.g.maplocalleader = " "
 
 -- Remap window navigation using the navigation button
 map("n", "<Leader>j", "<C-w>j")
@@ -84,7 +84,7 @@ end
 M.map_compiler = function()
 	map("n", "<F9>", vim.cmd.CompilerChoose)
 	map("n", "<F10>", vim.cmd.CompilerRun)
-	map("v", "<F10>", vim.cmdCompilerRunRange)
+	map("v", "<F10>", vim.cmd.CompilerRunRange)
 end
 
 -- OTHER
