@@ -3,10 +3,6 @@ local function map(mode, lhs, rhs, opts)
 	vim.keymap.set(mode, lhs, rhs, opts)
 end
 
--- Required for mappings to work
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-
 -- Remap window navigation using the navigation button
 map("n", "<Leader>j", "<C-w>j")
 map("n", "<Leader>k", "<C-w>k")

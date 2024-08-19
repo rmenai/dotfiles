@@ -5,6 +5,10 @@
 -- cargo install tree-sitter-cli
 -- sioyek
 
+-- Required for mappings to work
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
 -- Plugins
 require("core.lazy")
 
