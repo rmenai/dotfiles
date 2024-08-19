@@ -103,7 +103,7 @@ return {
 	{
 		"stevearc/overseer.nvim",
 		keys = { "<F9>", "<F10>" },
-		cmd = { "CompilerRun", "CompilerChoose" },
+		cmd = { "OverseerRun", "OverseerToggle" },
 		config = function()
 			require("overseer").setup({
 				templates = { "builtin", "custom" },
