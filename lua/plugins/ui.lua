@@ -110,6 +110,7 @@ return {
 		-- GIT VERSION CONTROL
 		"NeogitOrg/neogit",
     keys = { "<Leader>nn", "<Leader>nc" },
+    cmd = { "Neogit" },
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"sindrets/diffview.nvim",
@@ -152,6 +153,7 @@ return {
 		-- SEARCH
 		"nvim-telescope/telescope.nvim",
     keys = { "<Leader><space>", "<Leader>f", "<Leader>g", "<Leader>c" },
+    cmd = { "Telescope" },
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-telescope/telescope-dap.nvim",
