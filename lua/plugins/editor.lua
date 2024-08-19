@@ -16,9 +16,7 @@ return {
 		-- MARKDOWN PREVIEW
 		"iamcco/markdown-preview.nvim",
 		ft = { "markdown" },
-		build = function()
-			vim.fn["mkdp#util#install"]()
-		end,
+		build = "cd app && yarn install",
 		init = function()
 			vim.g.mkdp_auto_start = 0
 		end,
