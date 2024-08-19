@@ -158,8 +158,7 @@ return {
 	},
 	{
 		"windwp/nvim-ts-autotag",
-		ft = { "html", "css", "vue", "javascript", "typescript" },
-		event = { "InsertEnter" },
+		ft = { "html", "css", "vue", "javascript", "typescript", "markdown" },
 		config = function()
 			require("nvim-ts-autotag").setup({
 				opts = {
