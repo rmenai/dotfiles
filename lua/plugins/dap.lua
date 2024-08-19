@@ -28,20 +28,4 @@ return {
 			require("core.mappings").map_dap()
 		end,
 	},
-	{
-		"jay-babu/mason-nvim-dap.nvim",
-		cmd = { "Mason", "MasonInstall", "MasonUpdate" },
-		dependencies = { "williamboman/mason.nvim" },
-		config = function()
-			require("mason-nvim-dap").setup({
-				ensure_installed = { "python", "cppdbg" },
-				automatic_installation = true,
-				handlers = {
-					function(config)
-						require("mason-nvim-dap").default_setup(config)
-					end,
-				},
-			})
-		end,
-	},
 }

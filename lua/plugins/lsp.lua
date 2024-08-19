@@ -18,24 +18,6 @@ local filetypes = {
 	"ocaml",
 	"ocamlinterface",
 	"ocamllex",
-	"dune",
-}
-
-local lsp_servers = {
-	"asm_lsp",
-	"bashls",
-	"clangd",
-	"jsonls",
-	"lua_ls",
-	"marksman",
-	"neocmake",
-	"pylsp",
-	"texlab",
-	"yamlls",
-	"tsserver",
-	"volar",
-	"tailwindcss",
-	-- "ocamllsp", -- opam install ocaml-lsp-server
 }
 
 return {
@@ -50,7 +32,48 @@ return {
 	{
 		"williamboman/mason.nvim",
 		cmd = { "Mason", "MasonInstall", "MasonUpdate" },
-		config = true,
+		dependencies = { "WhoIsSethDaniel/mason-tool-installer.nvim" },
+		config = function()
+			require("mason").setup({})
+			require("mason-tool-installer").setup({
+				ensure_installed = {
+					-- LSP
+					"asm-lsp",
+					"bash-language-server",
+					"clangd",
+					"cmake-language-server",
+					"json-lsp",
+					"lua-language-server",
+					"marksman",
+					"python-lsp-server",
+					"texlab",
+					"yaml-language-server",
+					"typescript-language-server",
+					"vue-language-server",
+					"tailwindcss-language-server",
+
+					-- LINTERS
+					"prettier",
+					"stylua",
+					"isort",
+					"black",
+					"clang-format",
+					"asmfmt",
+					"eslint_d",
+					"stylelint",
+					"htmlhint",
+					"jsonlint",
+					"yamllint",
+					"markdownlint",
+					"pylint",
+					"cpplint",
+
+					-- DAP
+					"debugpy",
+					"cpptools",
+				},
+			})
+		end,
 	},
 
 	-- Autocompletion
@@ -127,6 +150,27 @@ return {
 				sources = cmp.config.sources({
 					{ name = "nvim_lsp" },
 					{ name = "luasnip" },
+					{
+						name = "nvim_lsp",
+						entry_filter = function(entry, ctx)
+							-- Check if the buffer type is 'vue'
+							if ctx.filetype ~= "vue" then
+								return true
+							end
+
+							local cursor_before_line = ctx.cursor_before_line
+							-- For events
+							if cursor_before_line:sub(-1) == "@" then
+								return entry.completion_item.label:match("^@")
+							-- For props also exclude events with `:on-` prefix
+							elseif cursor_before_line:sub(-1) == ":" then
+								return entry.completion_item.label:match("^:")
+									and not entry.completion_item.label:match("^:on%-")
+							else
+								return true
+							end
+						end,
+					},
 				}),
 				snippet = {
 					expand = function(args)
@@ -157,7 +201,6 @@ return {
 			lsp_zero.extend_lspconfig()
 
 			require("mason-lspconfig").setup({
-				ensure_installed = lsp_servers,
 				handlers = {
 					function(server_name)
 						require("lspconfig")[server_name].setup({})
@@ -194,27 +237,29 @@ return {
 					end,
 					["volar"] = function()
 						require("lspconfig").volar.setup({
+							filetypes = { "typescript", "javascript", "vue" },
 							init_options = {
 								vue = { hybridMode = false },
 							},
 						})
 					end,
-					["tsserver"] = function()
-						local mason_packages = vim.fn.stdpath("data") .. "/mason/packages"
-						local volar_path = mason_packages .. "/vue-language-server/node_modules/@vue/language-server"
-
-						require("lspconfig").tsserver.setup({
-							init_options = {
-								plugins = {
-									{
-										name = "@vue/typescript-plugin",
-										location = volar_path,
-										languages = { "vue" },
-									},
-								},
-							},
-						})
-					end,
+					-- ["tsserver"] = function()
+					-- 	local mason_registry = require("mason-registry")
+					-- 	local volar_path = mason_registry.get_package("vue-language-server"):get_install_path()
+					--
+					-- 	require("lspconfig").tsserver.setup({
+					-- 		init_options = {
+					-- 			plugins = {
+					-- 				{
+					-- 					name = "@vue/typescript-plugin",
+					-- 					location = volar_path,
+					-- 					languages = { "vue" },
+					-- 				},
+					-- 			},
+					-- 		},
+					-- 		-- filetypes = { "typescript", "javascript", "vue" },
+					-- 	})
+					-- end,
 					["marksman"] = function()
 						require("lspconfig").marksman.setup({
 							on_attach = function()

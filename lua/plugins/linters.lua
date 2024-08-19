@@ -17,8 +17,8 @@ local filetypes = {
 return {
 	{
 		"stevearc/conform.nvim",
-    event = "BufWritePre",
-    keys = { "<F4>" },
+		event = "BufWritePre",
+		keys = { "<F4>" },
 		config = function()
 			require("conform").setup({
 				formatters_by_ft = {
@@ -42,57 +42,32 @@ return {
 				},
 			})
 
-      -- Set up mappings
+			-- Set up mappings
 			require("core.mappings").map_formatter()
 		end,
 	},
-	{
-		"mfussenegger/nvim-lint",
-		ft = filetypes,
-		config = function()
-			require("lint").linters_by_ft = {
-				javascript = { "eslint_d" },
-				typescript = { "eslint_d" },
-				vue = { "eslint_d" },
-				python = { "pylint" },
-				c = { "cpplint" },
-				cpp = { "cpplint" },
-
-				css = { "stylelint" },
-				html = { "htmlhint" },
-				json = { "jsonlint" },
-				yaml = { "yamllint" },
-				markdown = { "markdownlint" },
-			}
-
-      -- Set up mappings
-      require("core.mappings").map_linter()
-      require("core.autocmds").linter_autocmd()
-		end,
-	},
-	{
-		"WhoIsSethDaniel/mason-tool-installer",
-    cmd = { "Mason", "MasonInstall", "MasonUpdate" },
-		dependencies = { "williamboman/mason.nvim" },
-		config = function()
-			require("mason-tool-installer").setup({
-				ensure_installed = {
-					"prettier",
-					"stylua",
-					"isort",
-					"black",
-					"clang-format",
-					"asmfmt",
-					"eslint_d",
-					"stylelint",
-					"htmlhint",
-					"jsonlint",
-					"yamllint",
-					"markdownlint",
-					"pylint",
-					"cpplint",
-				},
-			})
-		end,
-	},
+	-- {
+	-- 	"mfussenegger/nvim-lint",
+	-- 	ft = filetypes,
+	-- 	config = function()
+	-- 		require("lint").linters_by_ft = {
+	-- 			javascript = { "eslint_d" },
+	-- 			typescript = { "eslint_d" },
+	-- 			vue = { "eslint_d" },
+	-- 			python = { "pylint" },
+	-- 			c = { "cpplint" },
+	-- 			cpp = { "cpplint" },
+	--
+	-- 			css = { "stylelint" },
+	-- 			html = { "htmlhint" },
+	-- 			json = { "jsonlint" },
+	-- 			yaml = { "yamllint" },
+	-- 			markdown = { "markdownlint" },
+	-- 		}
+	--
+	--      -- Set up mappings
+	--      require("core.mappings").map_linter()
+	--      require("core.autocmds").linter_autocmd()
+	-- 	end,
+	-- },
 }
