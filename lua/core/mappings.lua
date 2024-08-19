@@ -32,14 +32,27 @@ map("n", "<Leader>|", "<C-w>|")
 map("n", "gj", "<C-o>") -- Go prev
 map("n", "gk", "<C-i>") -- Go next
 
+-- Best remaps
+map("v", "J", ":m '>+1<CR>gv=gv")
+map("v", "K", ":m '<-2<CR>gv=gv")
+
+map("n", "<C-d>", "<C-d>zz")
+map("n", "<C-u>", "<C-u>zz")
+map("n", "n", "nzzzv")
+map("n", "N", "Nzzzv")
+
+map("n", "<Leader>y", '"+y')
+map("v", "<Leader>y", '"+y')
+map("n", "<Leader>Y", '"+Y')
+
 -- Use mapping functions for lazy loading
 local M = {}
 
 -- TELESCOPE
 M.map_telescope = function()
-	local telescope = require("telescope.builtin")
+  local telescope = require("telescope.builtin")
 
-	map("n", "<Leader><space>", require("telescope").extensions.picker_list.picker_list)
+  map("n", "<Leader><space>", require("telescope").extensions.picker_list.picker_list)
 	map("n", "<Leader>f", telescope.find_files)
 	map("n", "<Leader>g", telescope.live_grep)
 	map("n", "<Leader>c", telescope.commands)

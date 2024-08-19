@@ -40,8 +40,6 @@ M.clipboard_autocmd = function()
 					}
 				end
 			end
-
-			vim.opt.clipboard = "unnamedplus"
 		end,
 		desc = "Lazy load clipboard",
 	})
