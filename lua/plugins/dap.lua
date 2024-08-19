@@ -5,7 +5,6 @@ return {
 		dependencies = {
 			"mfussenegger/nvim-dap",
 			"nvim-neotest/nvim-nio",
-			"nvim-dap-repl-highlights",
 		},
 		config = function()
 			local dap = require("dap")
@@ -24,9 +23,6 @@ return {
 			dap.listeners.before.event_exited["dapui_config"] = function()
 				dapui.close()
 			end
-
-			-- Treesitter highlights
-			require("nvim-dap-repl-highlights").setup({})
 
 			-- Set up mappings
 			require("core.mappings").map_dap()

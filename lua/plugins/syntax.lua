@@ -11,14 +11,13 @@ local filetypes = {
 	"nasm",
 	"python",
 	"regex",
-  "latex",
+	"latex",
 	"ruby",
 	"rust",
 	"toml",
 	"vim",
 	"vimdoc",
 	"yaml",
-	"dap_repl",
 	"javascript",
 	"typescript",
 	"vue",
@@ -29,7 +28,7 @@ return {
 	{
 		-- TREESITTER
 		"nvim-treesitter/nvim-treesitter",
-		-- event = "BufRead",
+		event = "BufRead",
 		build = ":TSUpdate",
 		config = function()
 			require("nvim-treesitter.configs").setup({
