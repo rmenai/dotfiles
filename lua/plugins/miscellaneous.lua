@@ -1,7 +1,7 @@
 return {
-  {
-    -- GAME
-    "ThePrimeagen/vim-be-good",
+	{
+		-- GAME
+		"ThePrimeagen/vim-be-good",
     cmd = "VimBeGood"
-  }
+	},
 }
