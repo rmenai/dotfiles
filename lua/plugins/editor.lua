@@ -183,6 +183,7 @@ return {
 		ft = { "css", "html", "javascript", "typescript", "vue" },
 		config = function()
 			require("colorizer").setup({
+				"*",
 				user_default_options = {
 					RGB = true,
 					RRGGBB = true,
@@ -192,7 +193,6 @@ return {
 					hsl_fn = true,
 					css = true,
 					css_fn = true,
-					tailwind = true,
 				},
 			})
 		end,

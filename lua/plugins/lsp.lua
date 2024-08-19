@@ -128,13 +128,13 @@ return {
 
 			cmp.setup({
 				formatting = {
-					fields = { "abbr", "kind", "menu" },
+					-- fields = { "abbr", "kind", "menu" },
 					format = require("lspkind").cmp_format({
-						mode = "symbol",
-						maxwidth = 50,
-						ellipsis_char = "...",
-
-						-- before = require("tailwind-tools.cmp").lspkind_format
+						-- mode = "symbol",
+						-- maxwidth = 50,
+						-- ellipsis_char = "...",
+						--
+						before = require("tailwind-tools.cmp").lspkind_format,
 					}),
 				},
 				enabled = function()
@@ -150,27 +150,27 @@ return {
 				sources = cmp.config.sources({
 					{ name = "nvim_lsp" },
 					{ name = "luasnip" },
-					{
-						name = "nvim_lsp",
-						entry_filter = function(entry, ctx)
-							-- Check if the buffer type is 'vue'
-							if ctx.filetype ~= "vue" then
-								return true
-							end
-
-							local cursor_before_line = ctx.cursor_before_line
-							-- For events
-							if cursor_before_line:sub(-1) == "@" then
-								return entry.completion_item.label:match("^@")
-							-- For props also exclude events with `:on-` prefix
-							elseif cursor_before_line:sub(-1) == ":" then
-								return entry.completion_item.label:match("^:")
-									and not entry.completion_item.label:match("^:on%-")
-							else
-								return true
-							end
-						end,
-					},
+					-- {
+					-- 	name = "nvim_lsp",
+					-- 	entry_filter = function(entry, ctx)
+					-- 		-- Check if the buffer type is 'vue'
+					-- 		if ctx.filetype ~= "vue" then
+					-- 			return true
+					-- 		end
+					--
+					-- 		local cursor_before_line = ctx.cursor_before_line
+					-- 		-- For events
+					-- 		if cursor_before_line:sub(-1) == "@" then
+					-- 			return entry.completion_item.label:match("^@")
+					-- 		-- For props also exclude events with `:on-` prefix
+					-- 		elseif cursor_before_line:sub(-1) == ":" then
+					-- 			return entry.completion_item.label:match("^:")
+					-- 				and not entry.completion_item.label:match("^:on%-")
+					-- 		else
+					-- 			return true
+					-- 		end
+					-- 	end,
+					-- },
 				}),
 				snippet = {
 					expand = function(args)
@@ -241,6 +241,7 @@ return {
 							init_options = {
 								vue = { hybridMode = false },
 							},
+							_c,
 						})
 					end,
 					-- ["tsserver"] = function()
@@ -279,21 +280,24 @@ return {
 		end,
 	},
 
-	-- -- LANGUAGE SPECIFIC
-	-- {
-	-- 	"luckasRanarison/tailwind-tools.nvim",
-	-- 	name = "tailwind-tools",
-	-- 	build = ":UpdateRemotePlugins",
-	-- 	dependencies = {
-	-- 		"nvim-treesitter/nvim-treesitter",
-	-- 		"nvim-telescope/telescope.nvim",
-	-- 	},
-	-- 	config = function()
-	-- 		require("tailwind-tools").setup({
-	-- 			conceal = {
-	-- 				-- enabled = true
-	-- 			},
-	-- 		})
-	-- 	end,
-	-- },
+	-- LANGUAGE SPECIFIC
+	{
+		"luckasRanarison/tailwind-tools.nvim",
+		name = "tailwind-tools",
+		build = ":UpdateRemotePlugins",
+		ft = { "html", "css", "vue", "typescript", "javascript" },
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+			"nvim-telescope/telescope.nvim",
+		},
+		config = function()
+			require("tailwind-tools").setup({
+				document_color = {
+					enabled = true,
+					kind = "background",
+					debounce = 0,
+				},
+			})
+		end,
+	},
 }
