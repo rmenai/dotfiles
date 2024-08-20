@@ -122,8 +122,8 @@ M.map_lsp = function()
   map("n", "<F1>", vim.lsp.buf.code_action)
   map("n", "<F2>", vim.lsp.buf.rename)
 
-  map("n", "gj", vim.diagnostic.goto_prev)
-  map("n", "gk", vim.diagnostic.goto_next)
+  map("n", "gJ", vim.diagnostic.goto_prev)
+  map("n", "gK", vim.diagnostic.goto_next)
 end
 
 M.map_linter = function()

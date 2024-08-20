@@ -1,4 +1,5 @@
 local filetypes = {
+  "astro",
   "asm",
   "sh",
   "c",
@@ -50,6 +51,7 @@ return {
           "yaml-language-server",
           "typescript-language-server",
           "vue-language-server",
+          "astro-language-server",
           "tailwindcss-language-server",
 
           -- LINTERS
