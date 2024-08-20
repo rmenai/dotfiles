@@ -184,15 +184,15 @@ return {
     },
     config = function()
       local telescope = require("telescope")
-      local builtin = require("telescope.builtin")
+      local actions = require("telescope.actions")
 
       telescope.setup({
         defaults = {
           mappings = {
             i = {
-              ["<C-j>"] = builtin.move_selection_next,
-              ["<C-k>"] = builtin.move_selection_previous,
-              ["<C-q>"] = builtin.close,
+              ["<C-j>"] = actions.move_selection_next,
+              ["<C-k>"] = actions.move_selection_previous,
+              ["<C-q>"] = actions.close,
             },
           },
           ignore_case = true,
