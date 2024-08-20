@@ -9,7 +9,6 @@ vim.o.tabstop = 2
 
 -- UI
 vim.o.cmdheight = 0
-vim.o.conceallevel = 2
 vim.o.number = true
 vim.o.relativenumber = true
 vim.o.scrolloff = 10
