@@ -59,6 +59,7 @@ return {
           "black",
           "clang-format",
           "asmfmt",
+          "shfmt",
           "eslint_d",
           "stylelint",
           "htmlhint",

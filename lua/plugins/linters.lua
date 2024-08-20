@@ -31,6 +31,8 @@ return {
           json = { "prettier" },
           yaml = { "prettier" },
           markdown = { "prettier" },
+          bash = { "shfmt" },
+          sh = { "shfmt" },
           lua = { "stylua" },
           python = { "isort", "black" },
           c = { "clang-format" },
