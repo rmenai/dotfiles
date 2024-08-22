@@ -109,6 +109,10 @@ M.map_outline = function()
   map("n", "<Leader>p", require("outline").toggle)
 end
 
+M.map_autosave = function()
+  map("n", "<F12>", require("auto-save").toggle)
+end
+
 -- LSP
 M.map_lsp = function()
   map("n", "K", vim.lsp.buf.hover)

@@ -9,4 +9,18 @@ return {
       })
     end,
   },
+  {
+    -- AUTO SAVE
+    "pocco81/auto-save.nvim",
+    ft = { "html", "css", "typescript", "javascript", "vue", "tex" },
+    keys = { "<F12>" },
+    config = function()
+      require("auto-save").setup({
+        enabled = true,
+      })
+
+      -- Set up mappings
+      require("core.mappings").map_autosave()
+    end,
+  },
 }

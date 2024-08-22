@@ -131,12 +131,12 @@ return {
 
       cmp.setup({
         formatting = {
-          -- fields = { "abbr", "kind", "menu" },
+          fields = { "abbr", "kind", "menu" },
           format = require("lspkind").cmp_format({
-            -- mode = "symbol",
-            -- maxwidth = 50,
-            -- ellipsis_char = "...",
-            --
+            mode = "symbol",
+            maxwidth = 50,
+            ellipsis_char = "...",
+
             before = require("tailwind-tools.cmp").lspkind_format,
           }),
         },
