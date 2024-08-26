@@ -15,6 +15,7 @@ vim.o.scrolloff = 10
 vim.o.mouse = ""
 vim.o.signcolumn = "number"
 vim.o.showmode = false
+vim.o.showtabline = 0
 vim.o.termguicolors = true
 vim.o.tw = 80
 vim.o.wrap = false

@@ -67,4 +67,12 @@ M.linter_autocmd = function()
   })
 end
 
+-- Commit leetcode changes on neovim leave
+M.leetcode_autocmd = function(callback)
+  vim.api.nvim_create_autocmd("VimLeavePre", {
+    group = vim.api.nvim_create_augroup("AutoGitCommit", { clear = true }),
+    callback = callback
+  })
+end
+
 return M

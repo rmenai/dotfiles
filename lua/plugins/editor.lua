@@ -74,6 +74,42 @@ return {
     end,
   },
   {
+    "kawre/leetcode.nvim",
+    build = ":TSUpdate html",
+    lazy = vim.fn.argv()[1] ~= "leet",
+    cmd = "Leet",
+    dependencies = {
+      "nvim-telescope/telescope.nvim",
+      "MunifTanjim/nui.nvim",
+    },
+    config = function()
+      local utils = require("core.utils")
+
+      local home_dir = vim.fn.stdpath("data") .. "/leetcode"
+      local repo_url = "https://github.com/rmenai/leetcode.git"
+
+      -- Sync repo on start
+      if vim.fn.isdirectory(home_dir) == 0 then
+        utils.sync_repo(home_dir, repo_url)
+      end
+
+      require("leetcode").setup({
+        storage = { home = home_dir .. "/solutions" },
+        plugins = { non_standalone = true },
+        arg = "leet",
+        lang = "c",
+      })
+
+      -- Set up commands
+      require("core.commands").setup_leetcode_cmds()
+
+      -- Set up autocmds
+      require("core.autocmds").leetcode_autocmd(function()
+        utils.sync_repo(home_dir, repo_url)
+      end)
+    end,
+  },
+  {
     -- CMAKE
     "Civitasv/cmake-tools.nvim",
     cmd = { "CMakeGenerate", "CMakeBuild", "CMakeClean", "CMakeRun" },
@@ -175,16 +211,6 @@ return {
         opts = {
           enable_close_on_slash = true,
         },
-      })
-    end,
-  },
-  {
-    -- EASIER COMMENTING
-    "terrortylor/nvim-comment",
-    keys = { "gc", "gcc", "gbc" },
-    config = function()
-      require("nvim_comment").setup({
-        create_mappings = true,
       })
     end,
   },

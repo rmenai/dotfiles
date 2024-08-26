@@ -43,6 +43,7 @@ return {
     lazy = false,
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
+      local utils = require("core.utils")
       local helpers = require("incline.helpers")
       local devicons = require("nvim-web-devicons")
 
@@ -56,6 +57,10 @@ return {
           if filename == "" then
             filename = "[No Name]"
           end
+
+          -- Limit the filename size
+          filename = utils.truncate_filename(filename, 20)
+
           local ft_icon, ft_color = devicons.get_icon_color(filename)
           local modified = vim.bo[props.buf].modified
           local res = {
@@ -87,9 +92,7 @@ return {
   {
     -- DASHBOARD
     "goolord/alpha-nvim",
-    cond = function()
-      return vim.fn.argc() == 0
-    end,
+    lazy = vim.fn.argc() ~= 0,
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
       local theme = require("alpha.themes.startify")
@@ -206,6 +209,7 @@ return {
           picker_list = {
             user_pickers = {
               { "obsidian", require("core.commands").obsidian_picker },
+              { "leetcode", require("core.commands").leetcode_picker },
               { "compiler", require("core.commands").compiler_picker },
             },
           },

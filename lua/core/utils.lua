@@ -25,4 +25,44 @@ M.slugify = function(title)
   return slug
 end
 
+M.truncate_filename = function(filename, max_len)
+  if #filename > max_len then
+    return "..." .. string.sub(filename, -max_len + 3)
+  end
+  return filename
+end
+
+M.run_cmd = function(cmd)
+  local handle = io.popen(cmd)
+  local result = handle:read("*a")
+  handle:close()
+  return result
+end
+
+M.count_changed_files = function(dir)
+  local status_output = M.run_cmd("git -C " .. dir .. " status --short")
+  local file_count = 0
+  for _ in status_output:gmatch("[^\r\n]+") do
+    file_count = file_count + 1
+  end
+  return file_count
+end
+
+M.sync_repo = function(dir, repo)
+  if vim.fn.isdirectory(dir) == 0 then
+    vim.cmd("!git clone " .. repo .. " " .. dir)
+  else
+    -- Pull the latest changes from the remote repo
+    vim.cmd("!git -C " .. dir .. " pull --rebase")
+
+    local file_count = M.count_changed_files(dir)
+
+    if file_count > 0 then
+      vim.cmd("!git -C " .. dir .. " add .")
+      vim.cmd("!git -C " .. dir .. ' commit -m "Auto sync leetcode"')
+      vim.cmd("!git -C " .. dir .. " push")
+    end
+  end
+end
+
 return M
