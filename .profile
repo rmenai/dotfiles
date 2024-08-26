@@ -19,12 +19,12 @@ alias l='ls -CF'
 
 alias notes="cd ~/Documents/Vaults/notes && nvim README.md"
 
-# # Wslu configure browser
-# export BROWSER=wslview
-#
-# # ADD WINDOWS PATH
-# export PATH=$PATH:/mnt/c/Programs/Path
-# export PATH=$PATH:/home/rami/.windows/bin
+# Wslu configure browser
+export BROWSER=wslview
+
+# ADD WINDOWS PATH
+export PATH=$PATH:/mnt/c/Programs/Path
+export PATH=$PATH:/home/rami/.windows/bin
 
 . "$HOME/.cargo/env"
 
@@ -38,3 +38,6 @@ export PATH="$DENO_INSTALL/bin:$PATH"
 
 # Activate opam default switch
 eval $(opam env)
+
+export SUDO_EDITOR=nvim
+# update-alternatives --config vim
