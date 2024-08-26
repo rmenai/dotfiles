@@ -3,6 +3,7 @@
 -- pip install python-lsp-server
 -- pip install --user klepto
 -- cargo install tree-sitter-cli
+-- sudo apt-get -y install ccls
 -- sioyek
 
 -- Required for mappings to work

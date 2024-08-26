@@ -41,7 +41,6 @@ return {
           -- LSP
           "asm-lsp",
           "bash-language-server",
-          "clangd",
           "cmake-language-server",
           "json-lsp",
           "lua-language-server",
@@ -146,7 +145,7 @@ return {
               end
 
               return vim_item
-            end
+            end,
           }),
         },
         enabled = true,
@@ -185,6 +184,7 @@ return {
       "VonHeikemen/lsp-zero.nvim",
       "hrsh7th/cmp-nvim-lsp",
       "williamboman/mason-lspconfig.nvim",
+      "ranjithshegde/ccls.nvim",
     },
     config = function()
       local lsp_zero = require("lsp-zero")
@@ -260,6 +260,7 @@ return {
 
       -- Set up manually installed lsp
       require("lspconfig").ocamllsp.setup({})
+      require("ccls").setup({ lsp = { use_defaults = true } })
 
       -- Set up mappings
       require("core.mappings").map_lsp()
