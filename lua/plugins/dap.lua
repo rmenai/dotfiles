@@ -4,6 +4,7 @@ return {
     keys = { "<F5>", "<F6>", "<F7>", "<F8>", "gb", "gB" },
     cmd = { "DapNew", "DapTerminate" },
     dependencies = {
+      "rcarriga/cmp-dap",
       "mfussenegger/nvim-dap",
       "nvim-neotest/nvim-nio",
     },

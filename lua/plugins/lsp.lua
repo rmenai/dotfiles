@@ -86,7 +86,6 @@ return {
     dependencies = {
       "VonHeikemen/lsp-zero.nvim",
       "L3MON4D3/LuaSnip",
-      "rcarriga/cmp-dap",
       "onsails/lspkind.nvim",
     },
     config = function()
@@ -95,7 +94,6 @@ return {
 
       local luasnip = require("luasnip")
       local cmp = require("cmp")
-      local cmp_dap = require("cmp_dap")
 
       local function select_next(fallback)
         if cmp.visible() then
@@ -129,6 +127,11 @@ return {
         end
       end
 
+      -- Lazy load tailwind tools
+      local function lspkind_format(entry, vim_item)
+        return require("tailwind-tools.cmp").lspkind_format(entry, vim_item)
+      end
+
       cmp.setup({
         formatting = {
           fields = { "abbr", "kind", "menu" },
@@ -137,12 +140,16 @@ return {
             maxwidth = 50,
             ellipsis_char = "...",
 
-            before = require("tailwind-tools.cmp").lspkind_format,
+            before = function(entry, vim_item)
+              if vim_item.kind == "Color" then
+                return lspkind_format(entry, vim_item)
+              end
+
+              return vim_item
+            end
           }),
         },
-        enabled = function()
-          return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or cmp_dap.is_dap_buffer()
-        end,
+        enabled = true,
         mapping = cmp.mapping.preset.insert({
           ["<C-k>"] = cmp.mapping.scroll_docs(-4),
           ["<C-j>"] = cmp.mapping.scroll_docs(4),
