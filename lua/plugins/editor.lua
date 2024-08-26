@@ -217,7 +217,7 @@ return {
   {
     -- COLOR PREVIEW
     "norcalli/nvim-colorizer.lua",
-    ft = { "css", "html", "javascript", "typescript", "vue" },
+    ft = { "css", "html", "javascript", "typescript", "vue", "json" },
     cmd = { "ColorizerToggle", "ColorizerDetachFromBuffer" },
     config = function()
       require("colorizer").setup({

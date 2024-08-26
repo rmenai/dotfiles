@@ -22,4 +22,4 @@ vim.o.wrap = false
 
 -- PERSISTENT UNDO
 vim.o.undofile = true
-vim.o.undodir = os.getenv("HOME") .. "/.local/share/nvim/undo"
+vim.o.undodir = vim.fn.stdpath("data") .. "/undo"
