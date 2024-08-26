@@ -215,6 +215,13 @@ return {
     end,
   },
   {
+    "numToStr/Comment.nvim",
+    event = "BufRead",
+    config = function()
+      require("Comment").setup({})
+    end,
+  },
+  {
     -- COLOR PREVIEW
     "norcalli/nvim-colorizer.lua",
     ft = { "css", "html", "javascript", "typescript", "vue", "json" },
