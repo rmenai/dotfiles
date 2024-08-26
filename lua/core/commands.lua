@@ -84,7 +84,7 @@ local function CompilerChoose()
     return
   end
 
-  if vim.startswith(vim.fn.getcwd(),vim.fn.stdpath("data") .. "/leetcode") then
+  if vim.startswith(vim.fn.getcwd(), vim.fn.stdpath("data") .. "/leetcode") then
     M.leetcode_picker()
     return
   end
