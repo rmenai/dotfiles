@@ -3,6 +3,7 @@ source $HOME/.profile
 
 export ZSH_DIR="$HOME/.config/zsh"
 export ZSH="$ZSH_DIR/.oh-my-zsh"
+export ZSH_CUSTOM="$ZSH_DIR/custom"
 
 ZSH_THEME=""
 
