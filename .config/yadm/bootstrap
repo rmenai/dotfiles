@@ -5,15 +5,16 @@ then
   SUDO="sudo"
 else
   SUDO=""
-  echo "sudo could not be found. Running commands without sudo."
 fi
 
+echo "Installing packages..."
 ${SUDO} apt install -y zsh neovim tmux
 
 echo "Installing Oh My Posh..."
 curl -s https://ohmyposh.dev/install.sh | bash -s -- -d /usr/bin
-chmod a+x /usr/bin/oh-my-posh
+${SUDO} chmod a+x /usr/bin/oh-my-posh
 
+echo "Configuring zsh..."
 if ! chsh -s $(which zsh); then
   echo "Failed to set zsh as the default shell. You may need to run chsh manually."
 else
@@ -24,5 +25,10 @@ echo "Configuring Git..."
 git config --global init.defaultBranch main
 git config --global user.name "Rami Menai"
 git config --global user.email "rami@menai.me"
+
+echo "Cleaning files..."
+if [ -f "$HOME/themes" ]; then
+  ${SUDO} rm -r "$HOME/themes"
+fi
 
 echo "Setup completed successfully!"
