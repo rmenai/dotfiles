@@ -34,11 +34,6 @@ in
       ccls
       tree-sitter
     ];
-    shellHook = ''
-      if ! python3.12 -m pip show klepto > /dev/null 2>&1; then
-        python3.12 -m pip install --user klepto
-      fi
-    '';
     sessionVariables = {
       EDITOR = "neovim";
       SUDO_EDITOR = "neovim";
