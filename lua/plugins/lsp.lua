@@ -19,6 +19,7 @@ local filetypes = {
   "ocaml",
   "ocamlinterface",
   "ocamllex",
+  "nix",
 }
 
 return {
@@ -39,7 +40,6 @@ return {
       require("mason-tool-installer").setup({
         ensure_installed = {
           -- LSP
-          "asm-lsp",
           "bash-language-server",
           "cmake-language-server",
           "json-lsp",
@@ -52,6 +52,7 @@ return {
           "vue-language-server",
           "astro-language-server",
           "tailwindcss-language-server",
+          "nil",
 
           -- LINTERS
           "prettier",
