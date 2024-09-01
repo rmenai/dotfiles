@@ -27,6 +27,7 @@ in
       nodejs_22
       yarn
       rustup
+      rustc
       gnumake42
       gccgo14
       unzip
