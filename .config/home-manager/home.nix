@@ -21,6 +21,8 @@ in
       yadm
       ripgrep
       fd
+      gcc
+      fzf
       python312
       python312Packages.pip
       python312Packages.python-lsp-server 
