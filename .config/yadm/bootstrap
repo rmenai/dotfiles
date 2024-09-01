@@ -1,18 +1,10 @@
 #!/bin/bash
-
-if command -v sudo &> /dev/null
-then
-  SUDO="sudo"
-else
-  SUDO=""
-fi
-
 echo "Installing packages..."
-${SUDO} apt install -y zsh neovim tmux
+sudo apt install -y zsh neovim tmux
 
 echo "Installing Oh My Posh..."
 curl -s https://ohmyposh.dev/install.sh | bash -s -- -d /usr/bin
-${SUDO} chmod a+x /usr/bin/oh-my-posh
+sudo chmod a+x /usr/bin/oh-my-posh
 
 echo "Configuring zsh..."
 if ! chsh -s $(which zsh); then
@@ -28,7 +20,7 @@ git config --global user.email "rami@menai.me"
 
 echo "Cleaning files..."
 if [ -f "$HOME/themes" ]; then
-  ${SUDO} rm -r "$HOME/themes"
+  sudo rm -r "$HOME/themes"
 fi
 
 echo "Setup completed successfully!"
