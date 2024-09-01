@@ -6,6 +6,10 @@ if [ -d "$HOME/.local/bin" ] ; then
   PATH="$HOME/.local/bin:$PATH"
 fi
 
+if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then
+  . /home/rami/.nix-profile/etc/profile.d/nix.sh
+fi
+
 # # ADD WINDOWS PATH
 # export BROWSER=wslview
 # export PATH=$PATH:/mnt/c/Programs/Path:/mnt/c/"Program Files"/Docker/Docker/resources/bin
@@ -17,3 +21,4 @@ fi
 #
 # # Activate opam default switch
 # eval $(opam env)
+#
