@@ -45,13 +45,26 @@ in
     home-manager.enable = true;
     zsh = {
       enable = true;
-      autosuggestion.enable = true;
-      syntaxHighlighting.enable = true;
-      enableCompletion = true;
       shellAliases = {
         ll = "ls -alF";
         la = "ls -A";
         l = "ls -CF";
+        ls = "ls --color=auto";
+        dir = "dir --color=auto";
+        vdir = "vdir --color=auto";
+        grep = "grep --color=auto";
+        fgrep = "fgrep --color=auto";
+        egrep = "egrep --color=auto";
+      };
+      antidote = {
+        enable = true;
+        plugins = [
+          "zsh-users/zsh-syntax-highlighting"
+          "zsh-users/zsh-autosuggestions"
+          "zsh-users/zsh-history-substring-search"
+          "hlissner/zsh-autopair"
+          "jeffreytse/zsh-vi-mode"
+        ];
       };
       initExtra = ''
         # Source Nix environment script if it exists
