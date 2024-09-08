@@ -95,6 +95,13 @@ return {
       require("leetcode").setup({
         storage = { home = home_dir .. "/solutions" },
         plugins = { non_standalone = true },
+        injector = {
+          ["c"] = {
+            before = {
+              "#include <stdlib.h>",
+            },
+          },
+        },
         arg = "leet",
         lang = "c",
       })

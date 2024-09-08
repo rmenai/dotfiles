@@ -12,7 +12,7 @@ return {
   {
     -- AUTO SAVE
     "pocco81/auto-save.nvim",
-    ft = { "html", "css", "typescript", "javascript", "vue", "tex" },
+    ft = { "html", "css", "typescript", "javascript", "vue", "tex", "markdown" },
     keys = { "<F12>" },
     config = function()
       require("auto-save").setup({
