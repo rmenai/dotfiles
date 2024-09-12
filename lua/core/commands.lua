@@ -98,6 +98,15 @@ local function CompilerRun()
 
   local tasks = task_list.list_tasks({ recent_first = true })
   if #tasks == 0 then
+    if vim.startswith(vim.fn.getcwd(), vim.fn.stdpath("data") .. "/leetcode") then
+      vim.cmd.LeetRun();
+      return
+    end
+    if vim.fn.expand("%:e") == "tex" then
+      vim.cmd.VimtexCompile();
+      return
+    end
+
     CompilerChoose()
     return
   end
