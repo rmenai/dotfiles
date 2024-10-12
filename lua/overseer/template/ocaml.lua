@@ -24,12 +24,20 @@ return {
     local executable = get_ocaml_executable()
     local templates = {
       {
-        name = "Run this program",
+        name = "Interpret this program",
         builder = function()
           local file = vim.fn.expand("%:p")
           return {
             cmd = { executable },
             args = { file },
+          }
+        end,
+      },
+      {
+        name = "Run this program",
+        builder = function()
+          return {
+            cmd = { "opam", "exec", "--", "dune", "build", "&&", "opam", "exec", "--", "dune", "exec", "main" },
           }
         end,
       },

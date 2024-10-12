@@ -23,3 +23,7 @@ vim.o.wrap = false
 -- PERSISTENT UNDO
 vim.o.undofile = true
 vim.o.undodir = vim.fn.stdpath("data") .. "/undo"
+
+
+-- LANGUAGES
+vim.g.no_ocaml_maps = 1

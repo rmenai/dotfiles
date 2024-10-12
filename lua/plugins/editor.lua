@@ -34,6 +34,7 @@ return {
       "ObsidianToday",
       "ObsidianYesterday",
     },
+    ft = { "markdown" },
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
       local utils = require("core.utils")
@@ -66,7 +67,7 @@ return {
         },
 
         note_path_func = generate_path,
-        wiki_link_func = require("obsidian.util").wiki_link_path_prefix,
+        wiki_link_func = require("obsidian.util").wiki_link_alias_only,
       })
 
       -- Set up mappings
@@ -134,6 +135,7 @@ return {
                 on_create = function()
                   -- Move text by one column
                   vim.cmd([[ setlocal foldcolumn=1 ]])
+                  vim.cmd("stopinsert")
                 end,
               },
             },
@@ -153,6 +155,7 @@ return {
           "toggleterm",
           direction = "horizontal",
           auto_scroll = true,
+          close_on_exit = false,
           on_create = function()
             -- Move text by one column
             vim.cmd([[ setlocal foldcolumn=1 ]])

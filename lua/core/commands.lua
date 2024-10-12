@@ -74,10 +74,10 @@ local function CompilerChoose()
   local overseer = require("overseer")
   local utils = require("core.utils")
 
-  if utils.get_cmakefile() then
-    telescope.commands({ default_text = "CMake" })
-    return
-  end
+  -- if utils.get_cmakefile() then
+  --   telescope.commands({ default_text = "CMake" })
+  --   return
+  -- end
 
   if vim.fn.expand("%:e") == "tex" then
     telescope.commands({ default_text = "Vimtex" })

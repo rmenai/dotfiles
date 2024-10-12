@@ -1,4 +1,5 @@
 return {
   "python",
   "ocaml",
+  "c",
 }
