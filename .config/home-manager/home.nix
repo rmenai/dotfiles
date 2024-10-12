@@ -24,7 +24,7 @@ in
       python312
       python312Packages.pip
       python312Packages.cmake
-      nodejs_22
+      nodejs_20
       yarn
       rustup
       rustc
@@ -61,9 +61,9 @@ in
         plugins = [
           "zsh-users/zsh-syntax-highlighting"
           "zsh-users/zsh-autosuggestions"
-          "zsh-users/zsh-history-substring-search"
+          # "zsh-users/zsh-history-substring-search"
           "hlissner/zsh-autopair"
-          "jeffreytse/zsh-vi-mode"
+          # "jeffreytse/zsh-vi-mode"
         ];
       };
       initExtra = ''
