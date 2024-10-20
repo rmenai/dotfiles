@@ -1,4 +1,4 @@
-local obsidian_vault = { name = "notes", path = "~/Documents/Vaults/notes" }
+local obsidian_vault = { name = "notes", path = "~/Documents/notes" }
 
 return {
   -- LANGUAGES SUPPORT

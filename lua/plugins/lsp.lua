@@ -52,8 +52,8 @@ return {
           "vue-language-server",
           "astro-language-server",
           "tailwindcss-language-server",
-          "ocaml-lsp",
-          "nil",
+          -- "ocaml-lsp",
+          -- "nil",
 
           -- LINTERS
           "prettier",
