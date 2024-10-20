@@ -18,7 +18,7 @@ if grep -qi microsoft /proc/version; then
 fi
 
 # Aliases
-alias notes="cd ~/Documents/Vaults/notes && nvim README.md"
+alias notes="cd ~/Documents/notes && nvim README.md"
 
 # # Activate opam default switch
 # eval $(opam env)

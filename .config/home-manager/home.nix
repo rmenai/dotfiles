@@ -17,6 +17,8 @@ in
       oh-my-posh
       neovim
       tmux
+      gh
+      wslu
       
       ripgrep
       fd
