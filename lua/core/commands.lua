@@ -72,12 +72,6 @@ end
 local function CompilerChoose()
   local telescope = require("telescope.builtin")
   local overseer = require("overseer")
-  local utils = require("core.utils")
-
-  -- if utils.get_cmakefile() then
-  --   telescope.commands({ default_text = "CMake" })
-  --   return
-  -- end
 
   if vim.fn.expand("%:e") == "tex" then
     telescope.commands({ default_text = "Vimtex" })
@@ -99,11 +93,11 @@ local function CompilerRun()
   local tasks = task_list.list_tasks({ recent_first = true })
   if #tasks == 0 then
     if vim.startswith(vim.fn.getcwd(), vim.fn.stdpath("data") .. "/leetcode") then
-      vim.cmd.LeetRun();
+      vim.cmd.LeetRun()
       return
     end
     if vim.fn.expand("%:e") == "tex" then
-      vim.cmd.VimtexCompile();
+      vim.cmd.VimtexCompile()
       return
     end
 
@@ -114,20 +108,12 @@ local function CompilerRun()
   action_util.run_task_action(tasks[1], "restart")
 end
 
-local function CompilerRunRange()
-  local sniprun = require("sniprun")
-
-  vim.cmd([[ execute "normal! \<ESC>" ]])
-  sniprun.run("v")
-end
-
 vim.api.nvim_create_user_command("CommitCurrentFile", CommitCurrentFile, {})
 vim.api.nvim_create_user_command("ObsidianCreate", ObsidianCreateWithDefault, {})
 vim.api.nvim_create_user_command("ObsidianCreateWithTemplate", ObsidianCreateWithTemplate, {})
 
 -- Code running
 vim.api.nvim_create_user_command("CompilerRun", CompilerRun, {})
-vim.api.nvim_create_user_command("CompilerRunRange", CompilerRunRange, { range = true })
 vim.api.nvim_create_user_command("CompilerChoose", CompilerChoose, {})
 
 -- Custom pickers

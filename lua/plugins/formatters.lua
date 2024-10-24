@@ -1,19 +1,3 @@
--- local filetypes = {
--- 	"javascript",
--- 	"typescript",
--- 	"vue",
--- 	"css",
--- 	"html",
--- 	"json",
--- 	"yaml",
--- 	"markdown",
--- 	"lua",
--- 	"python",
--- 	"c",
--- 	"cpp",
--- 	"assembly",
--- }
---
 return {
   {
     "stevearc/conform.nvim",
@@ -38,7 +22,7 @@ return {
           c = { "clang-format" },
           cpp = { "clang-format" },
           assembly = { "asmfmt" },
-          ocaml = { "ocamlformat" }
+          ocaml = { "ocamlformat" },
         },
         default_format_opts = {
           lsp_format = "fallback",
@@ -50,28 +34,4 @@ return {
       require("core.mappings").map_formatter()
     end,
   },
-  -- {
-  -- 	"mfussenegger/nvim-lint",
-  -- 	ft = filetypes,
-  -- 	config = function()
-  -- 		require("lint").linters_by_ft = {
-  -- 			javascript = { "eslint_d" },
-  -- 			typescript = { "eslint_d" },
-  -- 			vue = { "eslint_d" },
-  -- 			python = { "pylint" },
-  -- 			c = { "cpplint" },
-  -- 			cpp = { "cpplint" },
-  --
-  -- 			css = { "stylelint" },
-  -- 			html = { "htmlhint" },
-  -- 			json = { "jsonlint" },
-  -- 			yaml = { "yamllint" },
-  -- 			markdown = { "markdownlint" },
-  -- 		}
-  --
-  --      -- Set up mappings
-  --      require("core.mappings").map_linter()
-  --      require("core.autocmds").linter_autocmd()
-  -- 	end,
-  -- },
 }

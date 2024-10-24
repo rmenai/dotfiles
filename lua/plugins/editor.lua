@@ -13,16 +13,27 @@ return {
       vim.g.vimtex_callback_progpath = "wsl nvim"
     end,
   },
-  {
-    -- MARKDOWN PREVIEW
-    "iamcco/markdown-preview.nvim",
-    ft = { "markdown" },
-    cmd = { "MarkdownPreview", "MarkdownPreviewStop", "MarkdownPreviewToggle" },
-    build = "cd app && yarn install",
-    init = function()
-      vim.g.mkdp_auto_start = 0
-    end,
-  },
+  -- -- LANGUAGE SPECIFIC
+  -- {
+  --   "luckasRanarison/tailwind-tools.nvim",
+  --   name = "tailwind-tools",
+  --   build = ":UpdateRemotePlugins",
+  --   ft = { "html", "css", "vue", "typescript", "javascript" },
+  --   cmd = { "TailwindSort", "TailwindColorToggle", "TailwindConcealToggle" },
+  --   dependencies = {
+  --     "nvim-treesitter/nvim-treesitter",
+  --     "nvim-telescope/telescope.nvim",
+  --   },
+  --   config = function()
+  --     require("tailwind-tools").setup({
+  --       document_color = {
+  --         enabled = true,
+  --         kind = "background",
+  --         debounce = 0,
+  --       },
+  --     })
+  --   end,
+  -- },
   {
     -- OBSIDIAN MARKDOWN
     "epwalsh/obsidian.nvim",
@@ -117,34 +128,6 @@ return {
     end,
   },
   {
-    -- CMAKE
-    "Civitasv/cmake-tools.nvim",
-    cmd = { "CMakeGenerate", "CMakeBuild", "CMakeClean", "CMakeRun" },
-    config = function()
-      require("cmake-tools").setup({
-        cmake_virtual_text_support = false,
-        cmake_runner = {
-          name = "overseer",
-          opts = {
-            new_task_opts = {
-              strategy = {
-                "toggleterm",
-                direction = "horizontal",
-                auto_scroll = true,
-                quit_on_exit = "never",
-                on_create = function()
-                  -- Move text by one column
-                  vim.cmd([[ setlocal foldcolumn=1 ]])
-                  vim.cmd("stopinsert")
-                end,
-              },
-            },
-          },
-        },
-      })
-    end,
-  },
-  {
     "stevearc/overseer.nvim",
     keys = { "<F9>", "<F10>" },
     cmd = { "OverseerRun", "OverseerToggle" },
@@ -165,35 +148,6 @@ return {
 
       -- Set up mappings
       require("core.mappings").map_compiler()
-    end,
-  },
-  {
-    "michaelb/sniprun",
-    branch = "master",
-    build = "sh install.sh",
-    cmd = { "SnipRun" },
-    config = function()
-      require("sniprun").setup({
-        repl_enable = {
-          "Python3_original",
-          "Bash_original",
-          "Lua_nvim",
-          "OCaml_fifo",
-        },
-      })
-    end,
-  },
-
-  {
-    -- GITHUB COPILOT INTEGRATION
-    "CopilotC-Nvim/CopilotChat.nvim",
-    cmd = { "Copilot", "CopilotChat" },
-    dependencies = {
-      "zbirenbaum/copilot.lua",
-      "nvim-lua/plenary.nvim",
-    },
-    config = function()
-      require("CopilotChat").setup({})
     end,
   },
 

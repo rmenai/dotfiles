@@ -1,82 +1,15 @@
-local filetypes = {
-  "astro",
-  "asm",
-  "sh",
-  "c",
-  "cpp",
-  "json",
-  "lua",
-  "markdown",
-  "cmake",
-  "python",
-  "tex",
-  "yaml",
-  "javascript",
-  "typescript",
-  "vue",
-  "html",
-  "css",
-  "ocaml",
-  "ocamlinterface",
-  "ocamllex",
-  "nix",
-}
-
 return {
   {
     "VonHeikemen/lsp-zero.nvim",
-    ft = filetypes,
-    init = function()
-      vim.g.lsp_zero_extend_cmp = 0
-      vim.g.lsp_zero_extend_lspconfig = 0
-    end,
+    branch = "v4.x",
+    lazy = true,
+    config = false,
   },
   {
     "williamboman/mason.nvim",
-    cmd = { "Mason", "MasonInstall", "MasonUpdate" },
-    dependencies = { "WhoIsSethDaniel/mason-tool-installer.nvim" },
+    lazy = false,
     config = function()
       require("mason").setup({})
-      require("mason-tool-installer").setup({
-        ensure_installed = {
-          -- LSP
-          "bash-language-server",
-          "cmake-language-server",
-          "json-lsp",
-          "lua-language-server",
-          "marksman",
-          "python-lsp-server",
-          "texlab",
-          "yaml-language-server",
-          "typescript-language-server",
-          "vue-language-server",
-          "astro-language-server",
-          "tailwindcss-language-server",
-          -- "ocaml-lsp",
-          -- "nil",
-
-          -- LINTERS
-          "prettier",
-          "stylua",
-          "isort",
-          "black",
-          "clang-format",
-          "asmfmt",
-          "shfmt",
-          "eslint_d",
-          "stylelint",
-          "htmlhint",
-          "jsonlint",
-          "yamllint",
-          "markdownlint",
-          "pylint",
-          "cpplint",
-
-          -- DAP
-          "debugpy",
-          "cpptools",
-        },
-      })
     end,
   },
 
@@ -85,14 +18,10 @@ return {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
     dependencies = {
-      "VonHeikemen/lsp-zero.nvim",
       "L3MON4D3/LuaSnip",
       "onsails/lspkind.nvim",
     },
     config = function()
-      local lsp_zero = require("lsp-zero")
-      lsp_zero.extend_cmp()
-
       local luasnip = require("luasnip")
       local cmp = require("cmp")
 
@@ -150,7 +79,6 @@ return {
             end,
           }),
         },
-        enabled = true,
         mapping = cmp.mapping.preset.insert({
           ["<C-k>"] = cmp.mapping.scroll_docs(-4),
           ["<C-j>"] = cmp.mapping.scroll_docs(4),
@@ -164,14 +92,8 @@ return {
         }),
         snippet = {
           expand = function(args)
-            luasnip.lsp_expand(args.body)
+            luasnip.snippet.expand(args.body)
           end,
-        },
-      })
-
-      cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
-        sources = {
-          { name = "dap" },
         },
       })
     end,
@@ -180,17 +102,20 @@ return {
   -- LSP
   {
     "neovim/nvim-lspconfig",
-    ft = filetypes,
     cmd = { "LSPStart", "LSPStop", "LSPRestart", "LSPInfo", "LSPLog" },
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-      "VonHeikemen/lsp-zero.nvim",
       "hrsh7th/cmp-nvim-lsp",
+      "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
-      "ranjithshegde/ccls.nvim",
     },
     config = function()
-      local lsp_zero = require("lsp-zero")
-      lsp_zero.extend_lspconfig()
+      local lsp_defaults = require("lspconfig").util.default_config
+
+      -- Add cmp_nvim_lsp capabilities settings to lspconfig
+      -- This should be executed before you configure any language server
+      lsp_defaults.capabilities =
+        vim.tbl_deep_extend("force", lsp_defaults.capabilities, require("cmp_nvim_lsp").default_capabilities())
 
       require("mason-lspconfig").setup({
         handlers = {
@@ -232,23 +157,6 @@ return {
               },
             })
           end,
-          -- ["tsserver"] = function()
-          -- 	local mason_registry = require("mason-registry")
-          -- 	local volar_path = mason_registry.get_package("vue-language-server"):get_install_path()
-          --
-          -- 	require("lspconfig").tsserver.setup({
-          -- 		init_options = {
-          -- 			plugins = {
-          -- 				{
-          -- 					name = "@vue/typescript-plugin",
-          -- 					location = volar_path,
-          -- 					languages = { "vue" },
-          -- 				},
-          -- 			},
-          -- 		},
-          -- 		filetypes = { "javascript", "typescript", "vue" },
-          -- 	})
-          -- end,
           ["marksman"] = function()
             require("lspconfig").marksman.setup({
               on_attach = function()
@@ -260,34 +168,8 @@ return {
         },
       })
 
-      -- Set up manually installed lsp
-      require("lspconfig").ocamllsp.setup({})
-      require("ccls").setup({ lsp = { use_defaults = true } })
-
       -- Set up mappings
       require("core.mappings").map_lsp()
-    end,
-  },
-
-  -- LANGUAGE SPECIFIC
-  {
-    "luckasRanarison/tailwind-tools.nvim",
-    name = "tailwind-tools",
-    build = ":UpdateRemotePlugins",
-    ft = { "html", "css", "vue", "typescript", "javascript" },
-    cmd = { "TailwindSort", "TailwindColorToggle", "TailwindConcealToggle" },
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      "nvim-telescope/telescope.nvim",
-    },
-    config = function()
-      require("tailwind-tools").setup({
-        document_color = {
-          enabled = true,
-          kind = "background",
-          debounce = 0,
-        },
-      })
     end,
   },
 }

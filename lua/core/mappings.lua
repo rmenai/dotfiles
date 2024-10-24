@@ -133,9 +133,9 @@ M.map_lsp = function()
   map("n", "gK", vim.diagnostic.goto_next)
 end
 
-M.map_linter = function()
-  map("n", "<F3>", require("lint").try_lint)
-end
+-- M.map_linter = function()
+--   map("n", "<F3>", require("lint").try_lint)
+-- end
 
 M.map_formatter = function()
   map("n", "<F4>", function()
@@ -143,16 +143,16 @@ M.map_formatter = function()
   end)
 end
 
--- DAP
-M.map_dap = function()
-  local dap = require("dap")
-
-  map("n", "<F5>", dap.continue)
-  map("n", "<F6>", dap.repl.toggle)
-  map("n", "<F7>", dap.step_into)
-  map("n", "<F8>", dap.step_out)
-  map("n", "gb", dap.toggle_breakpoint)
-  map("n", "gB", dap.set_breakpoint)
-end
+-- -- DAP
+-- M.map_dap = function()
+--   local dap = require("dap")
+--
+--   map("n", "<F5>", dap.continue)
+--   map("n", "<F6>", dap.repl.toggle)
+--   map("n", "<F7>", dap.step_into)
+--   map("n", "<F8>", dap.step_out)
+--   map("n", "gb", dap.toggle_breakpoint)
+--   map("n", "gB", dap.set_breakpoint)
+-- end
 
 return M

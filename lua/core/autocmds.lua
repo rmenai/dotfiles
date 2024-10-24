@@ -56,17 +56,6 @@ M.lualine_autocmd = function()
   })
 end
 
--- Activate linter on file changes
-M.linter_autocmd = function()
-  vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
-    group = vim.api.nvim_create_augroup("lint", { clear = true }),
-    pattern = "*",
-    callback = function()
-      require("lint").try_lint()
-    end,
-  })
-end
-
 -- Commit leetcode changes on neovim leave
 M.leetcode_autocmd = function(callback)
   vim.api.nvim_create_autocmd("VimLeavePre", {
