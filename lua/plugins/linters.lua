@@ -38,6 +38,7 @@ return {
           c = { "clang-format" },
           cpp = { "clang-format" },
           assembly = { "asmfmt" },
+          ocaml = { "ocamlformat" }
         },
         default_format_opts = {
           lsp_format = "fallback",

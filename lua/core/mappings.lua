@@ -3,6 +3,9 @@ local function map(mode, lhs, rhs, opts)
   vim.keymap.set(mode, lhs, rhs, opts)
 end
 
+-- Disabled mappings
+map("n", "<F1>", "<Nop>")
+
 -- Remap window navigation using the navigation button
 map("n", "<Leader>j", "<C-w>j")
 map("n", "<Leader>k", "<C-w>k")
