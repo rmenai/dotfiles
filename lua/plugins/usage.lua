@@ -22,4 +22,10 @@ return {
       require("core.mappings").map_autosave()
     end,
   },
+  {
+    "aserowy/tmux.nvim",
+    config = function()
+      require("tmux").setup()
+    end
+  }
 }

@@ -9,6 +9,10 @@ return {
       require("catppuccin").setup({
         flavour = "mocha",
         transparent_background = true,
+        integrations = {
+          mason = true,
+          overseer = true,
+        }
       })
 
       -- Set theme
@@ -24,19 +28,34 @@ return {
       "linrongbin16/lsp-progress.nvim",
     },
     config = function()
+      local function git()
+        local branch = vim.fn.system("git rev-parse --abbrev-ref HEAD 2>/dev/null"):gsub("\n", "")
+        return branch ~= "" and " " .. branch or ""
+      end
+
       require("lsp-progress").setup({})
       require("lualine").setup({
         options = {
-          globalstatus = true,
-          -- ignore_focus = { "NvimTree", "Outline", }
+          theme = "catppuccin",
+          component_separators = { left = "", right = "" },
+          section_separators = { left = "", right = "" },
+          ignore_focus = { "NvimTree" },
         },
         sections = {
-          lualine_c = {
-            function()
-              return require("lsp-progress").progress()
-            end,
-            { "filename" },
-          },
+          lualine_a = { "mode" },
+          lualine_b = { git },
+          lualine_c = { "filename", "diff", "diagnostics" },
+          lualine_x = { function() return require("lsp-progress").progress() end },
+          lualine_y = { "progress" },
+          lualine_z = { "location" },
+        },
+        inactive_sections = {
+          lualine_a = { "filename" },
+          lualine_b = {},
+          lualine_c = {},
+          lualine_x = {},
+          lualine_y = {},
+          lualine_z = { "location" },
         },
       })
 

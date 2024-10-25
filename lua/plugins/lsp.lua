@@ -24,6 +24,7 @@ return {
     config = function()
       local luasnip = require("luasnip")
       local cmp = require("cmp")
+      local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 
       local function select_next(fallback)
         if cmp.visible() then
@@ -92,10 +93,15 @@ return {
         }),
         snippet = {
           expand = function(args)
-            luasnip.snippet.expand(args.body)
+            luasnip.lsp_expand(args.body)
           end,
         },
       })
+
+      cmp.event:on(
+        "confirm_done",
+        cmp_autopairs.on_confirm_done()
+      )
     end,
   },
 
@@ -115,7 +121,7 @@ return {
       -- Add cmp_nvim_lsp capabilities settings to lspconfig
       -- This should be executed before you configure any language server
       lsp_defaults.capabilities =
-        vim.tbl_deep_extend("force", lsp_defaults.capabilities, require("cmp_nvim_lsp").default_capabilities())
+          vim.tbl_deep_extend("force", lsp_defaults.capabilities, require("cmp_nvim_lsp").default_capabilities())
 
       require("mason-lspconfig").setup({
         handlers = {

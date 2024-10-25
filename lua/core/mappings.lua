@@ -3,34 +3,11 @@ local function map(mode, lhs, rhs, opts)
   vim.keymap.set(mode, lhs, rhs, opts)
 end
 
--- Disabled mappings
-map("n", "<F1>", "<Nop>")
-
--- Remap window navigation using the navigation button
-map("n", "<Leader>j", "<C-w>j")
-map("n", "<Leader>k", "<C-w>k")
-map("n", "<Leader>h", "<C-w>h")
-map("n", "<Leader>l", "<C-w>l")
-map("n", "<Leader>w", "<C-w>w")
-map("n", "<Leader>W", "<C-w>W")
-map("n", "<Leader>x", "<C-w>x")
-map("n", "<Leader>K", "<C-w>K")
-map("n", "<Leader>J", "<C-w>J")
-map("n", "<Leader>H", "<C-w>H")
-map("n", "<Leader>L", "<C-w>L")
-map("n", "<Leader>T", "<C-w>T")
-
 -- Remap spliting and resizing windows
 map("n", "<Leader>s", "<C-w>s")
 map("n", "<Leader>v", "<C-w>v")
 map("n", "<Leader>S", ":new<CR>")
 map("n", "<Leader>V", ":vnew<CR>")
-map("n", "<Leader>=", "<C-w>=")
-map("n", "<Leader>[", "<C-w>+")
-map("n", "<Leader>]", "<C-w>-")
-map("n", "<Leader>.", "<C-w>>")
-map("n", "<Leader>,", "<C-w><")
-map("n", "<Leader>|", "<C-w>|")
 
 map("n", "gj", "<C-o>") -- Go prev
 map("n", "gk", "<C-i>") -- Go next
@@ -126,33 +103,27 @@ M.map_lsp = function()
   map("n", "gr", vim.lsp.buf.references)
   map("n", "gs", vim.lsp.buf.signature_help)
 
-  map("n", "<F1>", vim.lsp.buf.code_action)
+  local diagnostics_active = true
+  map("n", "<F1>", function()
+    diagnostics_active = not diagnostics_active
+    if diagnostics_active then
+      vim.diagnostic.show()
+    else
+      vim.diagnostic.hide()
+    end
+  end)
+
+  map({ "n", "v", "i" }, "<F3>", vim.lsp.buf.code_action)
   map("n", "<F2>", vim.lsp.buf.rename)
 
   map("n", "gJ", vim.diagnostic.goto_prev)
   map("n", "gK", vim.diagnostic.goto_next)
 end
 
--- M.map_linter = function()
---   map("n", "<F3>", require("lint").try_lint)
--- end
-
 M.map_formatter = function()
   map("n", "<F4>", function()
     require("conform").format({ lsp_format = "fallback", async = true })
   end)
 end
-
--- -- DAP
--- M.map_dap = function()
---   local dap = require("dap")
---
---   map("n", "<F5>", dap.continue)
---   map("n", "<F6>", dap.repl.toggle)
---   map("n", "<F7>", dap.step_into)
---   map("n", "<F8>", dap.step_out)
---   map("n", "gb", dap.toggle_breakpoint)
---   map("n", "gB", dap.set_breakpoint)
--- end
 
 return M
