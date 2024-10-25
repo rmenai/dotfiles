@@ -1,6 +1,6 @@
 [submodule ".config/nvim"]
   path = .config/nvim
   url = https://github.com/rmenai/nvim
-[submodule ".config/tmux/plugins/catppuccin"]
-	path = .config/tmux/plugins/catppuccin
-	url = https://github.com/catppuccin/tmux
+[submodule ".config/tmux/plugins/tpm"]
+	path = .config/tmux/plugins/tpm
+	url = https://github.com/tmux-plugins/tpm

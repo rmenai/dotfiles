@@ -29,19 +29,6 @@ ZVM_CURSOR_STYLE_ENABLED=false
 zinit ice depth"1"
 zinit light romkatv/powerlevel10k
 
-# Settings
-alias ls="exa"
-alias cd="z"
-export EDITOR="nvim" SUDO_EDITOR="nvim"
-export HISTFILE="$HOME/.histfile" HISTSIZE=1000 SAVEHIST=1000
-setopt SHARE_HISTORY
-
-# WSL paths
-if grep -qi microsoft /proc/version; then
-  export BROWSER=wslview
-  export PATH=$PATH:/mnt/c/Programs/Path:/mnt/c/Programs/Sioyek
-fi
-
 # fzf theme
 export FZF_DEFAULT_OPTS=" \
 --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
@@ -55,3 +42,6 @@ eval "$(zoxide init zsh)"
 
 # Powerlevel10k prompt configuration
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Make sure to load .profile
+[[ -f ~/.profile ]] && source ~/.profile
