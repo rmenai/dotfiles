@@ -28,10 +28,25 @@ return {
       "linrongbin16/lsp-progress.nvim",
     },
     config = function()
+      local function trunc(trunc_width, trunc_len, hide_width, no_ellipsis)
+        return function(str)
+          local win_width = vim.fn.winwidth(0)
+          if hide_width and win_width < hide_width then
+            return ""
+          elseif trunc_width and trunc_len and win_width < trunc_width and #str > trunc_len then
+            return str:sub(1, trunc_len) .. (no_ellipsis and "" or "")
+          end
+          return str
+        end
+      end
+
       local function git()
         local branch = vim.fn.system("git rev-parse --abbrev-ref HEAD 2>/dev/null"):gsub("\n", "")
         return branch ~= "" and " " .. branch or ""
       end
+
+      local filename = require("lualine.components.filename"):extend()
+      filename.apply_icon = require("lualine.components.filetype").apply_icon
 
       require("lsp-progress").setup({})
       require("lualine").setup({
@@ -39,23 +54,26 @@ return {
           theme = "catppuccin",
           component_separators = { left = "", right = "" },
           section_separators = { left = "", right = "" },
-          ignore_focus = { "NvimTree" },
         },
         sections = {
-          lualine_a = { "mode" },
-          lualine_b = { git },
-          lualine_c = { "filename", "diff", "diagnostics" },
-          lualine_x = { function() return require("lsp-progress").progress() end },
-          lualine_y = { "progress" },
-          lualine_z = { "location" },
+          lualine_a = { { "mode", fmt = trunc(50, 0, 50) } },
+          lualine_b = { { git, fmt = trunc(50, 0, 50) } },
+          lualine_c = {
+            { filename, symbols = { modified = "●", readonly = "#" } },
+            { "diff", fmt = trunc(66, 0, 66) },
+            { "diagnostics", fmt = trunc(60, 0, 60) }
+          },
+          lualine_x = { { function() return require("lsp-progress").progress() end, fmt = trunc(60, 0, 60) } },
+          lualine_y = { { "progress", fmt = trunc(50, 0, 50) } },
+          lualine_z = { { "location", fmt = trunc(24, 0, 24) } },
         },
         inactive_sections = {
-          lualine_a = { "filename" },
+          lualine_a = { { filename, symbols = { modified = "●", readonly = "#" } } },
           lualine_b = {},
           lualine_c = {},
           lualine_x = {},
           lualine_y = {},
-          lualine_z = { "location" },
+          lualine_z = { { "location", fmt = trunc(24, 0, 24) } },
         },
       })
 
