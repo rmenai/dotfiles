@@ -18,8 +18,6 @@ map("v", "K", ":m '<-2<CR>gv=gv")
 
 map("n", "<C-d>", "<C-d>zz")
 map("n", "<C-u>", "<C-u>zz")
-map("n", "n", "nzzzv")
-map("n", "N", "Nzzzv")
 
 map("n", "<Leader>y", '"+y')
 map("v", "<Leader>y", '"+y')
@@ -77,12 +75,6 @@ end
 M.map_compiler = function()
   map("n", "<F9>", vim.cmd.CompilerChoose)
   map("n", "<F10>", vim.cmd.CompilerRun)
-  map("v", "<F10>", vim.cmd.CompilerRunRange)
-end
-
--- OTHER
-M.map_term = function()
-  map("n", "<Leader>t", require("toggleterm").toggle)
 end
 
 M.map_outline = function()

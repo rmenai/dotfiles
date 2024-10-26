@@ -139,10 +139,6 @@ return {
           direction = "horizontal",
           auto_scroll = true,
           close_on_exit = false,
-          on_create = function()
-            -- Move text by one column
-            vim.cmd([[ setlocal foldcolumn=1 ]])
-          end,
         },
       })
 

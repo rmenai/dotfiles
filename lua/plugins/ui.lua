@@ -129,17 +129,9 @@ return {
   {
     -- TERMINAL
     "akinsho/toggleterm.nvim",
-    keys = { "<Leader>t" },
     cmd = { "ToggleTerm", "ToggleTermSetName" },
     config = function()
-      require("toggleterm").setup({
-        on_create = function()
-          vim.cmd([[ setlocal foldcolumn=1 ]])
-        end,
-      })
-
-      -- Set up mappings
-      require("core.mappings").map_term()
+      require("toggleterm").setup({})
     end,
   },
   {
