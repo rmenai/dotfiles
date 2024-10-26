@@ -1,0 +1,35 @@
+[[session]]
+name = "Sesh config"
+path = "~/.config/sesh"
+startup_command = "nvim sesh.toml"
+
+[[session]]
+name = "Tmux config"
+path = "~/.config/tmux"
+startup_command = "nvim tmux.conf"
+
+[[session]]
+name = "Neovim config"
+path = "~/.config/nvim/lua"
+startup_command = "nvim core/mappings.lua"
+
+[[session]]
+name = "Notes"
+path = "~/Documents/notes"
+startup_command = "nvim Learning/core-principles-of-mastery.md"
+
+[[session]]
+name = "C school"
+path = "~/Documents/school/c/src"
+startup_command = "nvim test.c"
+
+[[session]]
+name = "Ocaml school"
+path = "~/Documents/school/ocaml/bin"
+startup_command = "nvim main.ml"
+
+[[session]]
+name = "LeetCode"
+path = "~"
+startup_command = "nvim leet"
+
