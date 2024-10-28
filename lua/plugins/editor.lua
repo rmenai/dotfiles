@@ -13,27 +13,27 @@ return {
       vim.g.vimtex_callback_progpath = "wsl nvim"
     end,
   },
-  -- -- LANGUAGE SPECIFIC
-  -- {
-  --   "luckasRanarison/tailwind-tools.nvim",
-  --   name = "tailwind-tools",
-  --   build = ":UpdateRemotePlugins",
-  --   ft = { "html", "css", "vue", "typescript", "javascript" },
-  --   cmd = { "TailwindSort", "TailwindColorToggle", "TailwindConcealToggle" },
-  --   dependencies = {
-  --     "nvim-treesitter/nvim-treesitter",
-  --     "nvim-telescope/telescope.nvim",
-  --   },
-  --   config = function()
-  --     require("tailwind-tools").setup({
-  --       document_color = {
-  --         enabled = true,
-  --         kind = "background",
-  --         debounce = 0,
-  --       },
-  --     })
-  --   end,
-  -- },
+  -- LANGUAGE SPECIFIC
+  {
+    "luckasRanarison/tailwind-tools.nvim",
+    name = "tailwind-tools",
+    build = ":UpdateRemotePlugins",
+    ft = { "html", "css", "vue", "typescript", "javascript" },
+    cmd = { "TailwindSort", "TailwindColorToggle", "TailwindConcealToggle" },
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-telescope/telescope.nvim",
+    },
+    config = function()
+      require("tailwind-tools").setup({
+        document_color = {
+          enabled = true,
+          kind = "background",
+          debounce = 0,
+        },
+      })
+    end,
+  },
   {
     -- OBSIDIAN MARKDOWN
     "epwalsh/obsidian.nvim",
@@ -178,6 +178,14 @@ return {
     event = "BufRead",
     config = function()
       require("Comment").setup({})
+    end,
+  },
+  {
+    "kylechui/nvim-surround",
+    version = "*",
+    event = "VeryLazy",
+    config = function()
+      require("nvim-surround").setup({})
     end,
   },
   {

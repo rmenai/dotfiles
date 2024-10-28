@@ -132,10 +132,16 @@ return {
     },
     config = function()
       require("neogit").setup({})
-
-      -- Set up mappings
       require("core.mappings").map_neogit()
     end,
+  },
+  {
+    "lewis6991/gitsigns.nvim",
+    event = { "VeryLazy" },
+    config = function ()
+      require("gitsigns").setup({})
+      require("core.mappings").map_gitsigns()
+    end
   },
   {
     -- CODE STRUCTURE VIEW
@@ -169,6 +175,14 @@ return {
       -- Set up mappings
       require("core.mappings").map_undotree()
     end,
+  },
+  {
+    "RaafatTurki/hex.nvim",
+    event = { "VeryLazy" },
+    config = function()
+      require("hex").setup({})
+      require("core.mappings").map_hex()
+    end
   },
   {
     -- SEARCH

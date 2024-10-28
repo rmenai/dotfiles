@@ -12,6 +12,9 @@ map("n", "<Leader>V", ":vnew<CR>")
 map("n", "gj", "<C-o>") -- Go prev
 map("n", "gk", "<C-i>") -- Go next
 
+-- Delete search highlight
+map("n", "<Leader>h", ":noh<CR>")
+
 -- Best remaps
 map("v", "J", ":m '>+1<CR>gv=gv")
 map("v", "K", ":m '<-2<CR>gv=gv")
@@ -40,6 +43,7 @@ end
 M.map_obsidian = function()
   map("n", "<Leader>oo", require("core.commands").obsidian_picker)
   map("n", "<Leader>oa", vim.cmd.ObsidianCreate)
+  map("n", "<Leader>od", vim.cmd.ObsidianToday)
   map("n", "<Leader>oA", vim.cmd.ObsidianCreateWithTemplate)
   map("n", "<Leader>ot", vim.cmd.ObsidianTemplate)
   map("n", "<Leader>op", vim.cmd.MarkdownPreview)
@@ -71,6 +75,11 @@ M.map_neogit = function()
   end)
 end
 
+M.map_gitsigns = function()
+  map("n", "<Leader>nb", function() require("gitsigns").blame_line{full=true} end)
+  map("n", "<Leader>nt", require("gitsigns").toggle_current_line_blame)
+end
+
 -- COMPILER
 M.map_compiler = function()
   map("n", "<F9>", vim.cmd.CompilerChoose)
@@ -79,6 +88,10 @@ end
 
 M.map_outline = function()
   map("n", "<Leader>p", require("outline").toggle)
+end
+
+M.map_hex = function()
+  map("n", "<Leader>h", vim.cmd.HexToggle)
 end
 
 M.map_autosave = function()
