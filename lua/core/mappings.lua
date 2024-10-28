@@ -76,7 +76,9 @@ M.map_neogit = function()
 end
 
 M.map_gitsigns = function()
-  map("n", "<Leader>nb", function() require("gitsigns").blame_line{full=true} end)
+  map("n", "<Leader>nb", function()
+    require("gitsigns").blame_line({ full = true })
+  end)
   map("n", "<Leader>nt", require("gitsigns").toggle_current_line_blame)
 end
 

@@ -15,11 +15,29 @@ return {
 
   -- Autocompletion
   {
+    "L3MON4D3/LuaSnip",
+    version = "v2.3",
+    build = "make install_jsregexp",
+    event = { "InsertEnter", "CmdlineEnter" },
+    dependencies = {
+      "rafamadriz/friendly-snippets",
+    },
+    config = function()
+      require("luasnip.loaders.from_vscode").lazy_load()
+      require("luasnip.loaders.from_lua").load({ paths = "./lua/snippets" })
+    end,
+  },
+  {
     "hrsh7th/nvim-cmp",
-    event = "InsertEnter",
+    event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
       "L3MON4D3/LuaSnip",
       "onsails/lspkind.nvim",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-cmdline",
+      "hrsh7th/cmp-nvim-lua",
+      "saadparwaiz1/cmp_luasnip",
+      "hrsh7th/cmp-path",
     },
     config = function()
       local luasnip = require("luasnip")
@@ -90,12 +108,24 @@ return {
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
           { name = "luasnip" },
-        }),
+          { name = "path" },
+          { name = "nvim_lua" },
+        }, { name = "buffer" }),
         snippet = {
           expand = function(args)
             luasnip.lsp_expand(args.body)
           end,
         },
+      })
+
+      cmp.setup.cmdline({ "/", "?" }, {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = { { name = "buffer" } },
+      })
+
+      cmp.setup.cmdline({ ":" }, {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = { { name = "cmdline" }, { name = "path" } },
       })
 
       cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
