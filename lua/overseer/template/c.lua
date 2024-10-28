@@ -17,7 +17,7 @@ return {
         builder = function()
           local file = vim.fn.expand("%:p")
           local executable = vim.fn.fnamemodify(file, ":r")
-          executable = "out/" .. vim.fn.fnamemodify(executable, ':t')
+          executable = "out/" .. vim.fn.fnamemodify(executable, ":t")
 
           return {
             cmd = { "gcc", file, "-o", executable, "&&", executable },

@@ -12,7 +12,7 @@ return {
         integrations = {
           mason = true,
           overseer = true,
-        }
+        },
       })
 
       -- Set theme
@@ -61,9 +61,14 @@ return {
           lualine_c = {
             { filename, symbols = { modified = "●", readonly = "#" } },
             { "diff", fmt = trunc(66, 0, 66) },
-            { "diagnostics", fmt = trunc(60, 0, 60) }
+            { "diagnostics", fmt = trunc(60, 0, 60) },
           },
-          lualine_x = { { function() return require("lsp-progress").progress() end, fmt = trunc(60, 0, 60) } },
+          lualine_x = { {
+            function()
+              return require("lsp-progress").progress()
+            end,
+            fmt = trunc(60, 0, 60),
+          } },
           lualine_y = { { "progress", fmt = trunc(50, 0, 50) } },
           lualine_z = { { "location", fmt = trunc(24, 0, 24) } },
         },

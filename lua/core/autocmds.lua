@@ -60,7 +60,7 @@ end
 M.leetcode_autocmd = function(callback)
   vim.api.nvim_create_autocmd("VimLeavePre", {
     group = vim.api.nvim_create_augroup("AutoGitCommit", { clear = true }),
-    callback = callback
+    callback = callback,
   })
 end
 
