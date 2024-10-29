@@ -4,6 +4,7 @@ local function map(mode, lhs, rhs, opts)
 end
 
 -- Remap spliting and resizing windows
+map("n", "<Leader>r", "<C-w><C-r>")
 map("n", "<Leader>s", "<C-w>s")
 map("n", "<Leader>v", "<C-w>v")
 map("n", "<Leader>S", ":new<CR>")
@@ -90,6 +91,10 @@ end
 
 M.map_outline = function()
   map("n", "<Leader>p", require("outline").toggle)
+end
+
+M.map_godbolt = function()
+  map("n", "<Leader>G", vim.cmd.Godbolt)
 end
 
 M.map_hex = function()

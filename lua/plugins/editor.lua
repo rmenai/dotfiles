@@ -146,6 +146,21 @@ return {
       require("core.mappings").map_compiler()
     end,
   },
+  {
+    "p00f/godbolt.nvim",
+    keys = { "<Leader>G" },
+    cmd = { "Godbolt", "GodboltCompiler" },
+    config = function()
+      require("godbolt").setup({
+        highlight = {
+          cursor = "Visual",
+          static = false,
+        },
+      })
+
+      require("core.mappings").map_godbolt()
+    end,
+  },
 
   {
     -- AUTOMATIC PAIRS
