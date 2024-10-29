@@ -13,7 +13,7 @@ map("n", "gj", "<C-o>") -- Go prev
 map("n", "gk", "<C-i>") -- Go next
 
 -- Delete search highlight
-map("n", "<Leader>h", ":noh<CR>")
+map("n", "<Leader>d", ":noh<CR>")
 
 -- Best remaps
 map("v", "J", ":m '>+1<CR>gv=gv")
