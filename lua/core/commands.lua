@@ -164,9 +164,6 @@ M.setup_leetcode_cmds = function()
     { name = "LeetInject", cmd = leet_cmds.inject[1], desc = "Re-inject code for the current question" },
 
     -- Session-related commands
-    { name = "LeetSessionChange", cmd = leet_cmds.session.change[1], desc = "Change the current session" },
-    { name = "LeetSessionCreate", cmd = leet_cmds.session.create[1], desc = "Create a new session" },
-    { name = "LeetSessionUpdate", cmd = leet_cmds.session.update[1], desc = "Update the current session" },
     { name = "LeetList", cmd = leet_cmds.list[1], desc = "Open the problem list picker" },
     { name = "LeetRandom", cmd = leet_cmds.random[1], desc = "Open a random question" },
     { name = "LeetDesc", cmd = leet_cmds.desc[1], desc = "Toggle question description visibility" },
