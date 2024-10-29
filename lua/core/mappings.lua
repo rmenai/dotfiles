@@ -134,8 +134,7 @@ M.map_dap = function()
   map("n", "<F6>", dap.repl.toggle)
   map("n", "<F7>", dap.step_into)
   map("n", "<F8>", dap.step_out)
-  map("n", "gb", dap.toggle_breakpoint)
-  map("n", "gB", dap.set_breakpoint)
+  map("n", "gB", dap.toggle_breakpoint)
 end
 
 M.map_formatter = function()
