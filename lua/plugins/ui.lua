@@ -63,12 +63,14 @@ return {
             { "diff", fmt = trunc(66, 0, 66) },
             { "diagnostics", fmt = trunc(60, 0, 60) },
           },
-          lualine_x = { {
-            function()
-              return require("lsp-progress").progress()
-            end,
-            fmt = trunc(60, 0, 60),
-          } },
+          lualine_x = {
+            {
+              function()
+                return require("lsp-progress").progress()
+              end,
+              fmt = trunc(60, 0, 60),
+            },
+          },
           lualine_y = { { "progress", fmt = trunc(50, 0, 50) } },
           lualine_z = { { "location", fmt = trunc(24, 0, 24) } },
         },
@@ -100,8 +102,8 @@ return {
     lazy = vim.fn.argc() ~= 0,
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
-      local theme = require("alpha.themes.startify")
-      theme.mru_opts.autocd = true
+      local theme = require("alpha.themes.dashboard")
+      theme.section.footer.val = { "__ Loaded " .. #require("lazy").plugins() .. " plugins __", "" }
       require("alpha").setup(theme.config)
     end,
   },
@@ -138,9 +140,9 @@ return {
   {
     "lewis6991/gitsigns.nvim",
     event = { "VeryLazy" },
-    config = function ()
+    config = function()
       require("gitsigns").setup({})
-    end
+    end,
   },
   {
     -- CODE STRUCTURE VIEW
@@ -181,7 +183,7 @@ return {
     config = function()
       require("hex").setup({})
       require("core.mappings").map_hex()
-    end
+    end,
   },
   {
     -- SEARCH
