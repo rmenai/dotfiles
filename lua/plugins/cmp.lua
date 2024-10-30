@@ -39,7 +39,7 @@ return {
     },
     config = function()
       require("luasnip.loaders.from_vscode").lazy_load()
-      require("luasnip.loaders.from_lua").load({ paths = "./lua/snippets" })
+      require("luasnip.loaders.from_vscode").lazy_load({ paths = "./lua/snippets" })
     end,
   },
   {
@@ -50,7 +50,7 @@ return {
       "onsails/lspkind.nvim",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-cmdline",
-      "hrsh7th/cmp-nvim-lua",
+      "saadparwaiz1/cmp_luasnip",
       "hrsh7th/cmp-path",
     },
     config = function()
