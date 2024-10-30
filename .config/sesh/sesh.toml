@@ -29,14 +29,9 @@ path = "~/Documents/notes"
 startup_command = "nvim Random/test.md --cmd 'autocmd VimEnter * ObsidianCreate'"
 
 [[session]]
-name = "C School"
-path = "~/Documents/school/c/src"
-startup_command = "nvim test.c"
-
-[[session]]
-name = "Ocaml School"
-path = "~/Documents/school/ocaml/bin"
-startup_command = "nvim main.ml"
+name = "School"
+path = "~/Documents/school"
+startup_command = "bash ~/.config/sesh/scripts/school.sh"
 
 [[session]]
 name = "LeetCode"

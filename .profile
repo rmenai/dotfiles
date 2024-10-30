@@ -26,7 +26,7 @@ export HISTFILE="$HOME/.histfile" HISTSIZE=1000 SAVEHIST=1000
 setopt SHARE_HISTORY
 
 # Aliases
-# alias cd="z" View it on .zshrc
+alias z="cdi" View it on .zshrc
 alias cat="bat"
 
 alias ls="exa"
@@ -40,7 +40,7 @@ alias -g -- -h="-h 2>&1 | bat --language=help --style=plain"
 alias -g -- --help="--help 2>&1 | bat --language=help --style=plain"
 
 alias c="xclip -sel c"
-alias v="xclip -sel c -o"
+alias p="xclip -sel c -o"
 
 alias cs="xclip"
 alias vs="xclip -o"
@@ -51,10 +51,14 @@ alias grep="grep --color=auto"
 alias fgrep="fgrep --color=auto"
 alias egrep="egrep --color=auto"
 
-alias ta="tmux attach -t"
+alias v="nvim"
+
+alias t="tmux"
+alias ta="tmux attach"
 alias tad="tmux attach -d -t"
 alias tkss="tmux kill-session -t"
 alias tksv="tmux kill-server"
 alias tl="tmux list-sessions"
 alias tmuxconf="$EDITOR $ZSH_TMUX_CONFIG"
 alias ts="tmux new-session -s"
+. "$HOME/.cargo/env"
