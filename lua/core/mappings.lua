@@ -14,7 +14,7 @@ map("n", "gj", "<C-o>") -- Go prev
 map("n", "gk", "<C-i>") -- Go next
 
 -- Delete search highlight
-map("n", "<Leader>d", ":noh<CR>")
+map("n", "<Leader>h", ":noh<CR>")
 
 -- Best remaps
 map("v", "J", ":m '>+1<CR>gv=gv")
@@ -58,9 +58,9 @@ end
 M.map_nvim_tree = function()
   local nvim_tree = require("nvim-tree.api").tree
 
-  map("n", "<Leader>a", nvim_tree.toggle)
-  map("n", "<Leader>A", function()
-    nvim_tree.open({ find_file = true })
+  map("n", "<Leader>A", nvim_tree.toggle)
+  map("n", "<Leader>a", function()
+    nvim_tree.toggle({ find_file = true })
   end)
 end
 
@@ -70,17 +70,10 @@ end
 
 -- NEOGIT
 M.map_neogit = function()
-  map("n", "<Leader>nc", vim.cmd.CommitCurrentFile)
-  map("n", "<Leader>nn", function()
+  map("n", "<Leader>N", vim.cmd.CommitCurrentFile)
+  map("n", "<Leader>n", function()
     require("neogit").open({ kind = "auto" })
   end)
-end
-
-M.map_gitsigns = function()
-  map("n", "<Leader>nb", function()
-    require("gitsigns").blame_line({ full = true })
-  end)
-  map("n", "<Leader>nt", require("gitsigns").toggle_current_line_blame)
 end
 
 -- COMPILER
@@ -98,7 +91,7 @@ M.map_godbolt = function()
 end
 
 M.map_hex = function()
-  map("n", "<Leader>h", vim.cmd.HexToggle)
+  map("n", "<Leader>H", vim.cmd.HexToggle)
 end
 
 M.map_autosave = function()

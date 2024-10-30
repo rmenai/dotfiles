@@ -123,7 +123,7 @@ return {
   {
     -- GIT VERSION CONTROL
     "NeogitOrg/neogit",
-    keys = { "<Leader>nn", "<Leader>nc" },
+    keys = { "<Leader>n", "<Leader>N" },
     cmd = { "Neogit" },
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -140,7 +140,6 @@ return {
     event = { "VeryLazy" },
     config = function ()
       require("gitsigns").setup({})
-      require("core.mappings").map_gitsigns()
     end
   },
   {
@@ -221,6 +220,7 @@ return {
               { "obsidian", require("core.commands").obsidian_picker },
               { "leetcode", require("core.commands").leetcode_picker },
               { "compiler", require("core.commands").compiler_picker },
+              { "gitsigns", require("core.commands").gitsigns_picker },
             },
           },
         },

@@ -11,6 +11,7 @@ vim.o.scrolloff = 8
 vim.o.mouse = ""
 vim.o.signcolumn = "yes"
 vim.o.showmode = false
+vim.o.splitright = true
 vim.o.showtabline = 0
 vim.o.termguicolors = true
 vim.o.tw = 80

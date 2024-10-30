@@ -129,6 +129,10 @@ M.compiler_picker = function()
   vim.cmd("CompilerRun")
 end
 
+M.gitsigns_picker = function()
+  vim.cmd("Gitsigns")
+end
+
 M.setup_leetcode_cmds = function()
   local leet_cmds = require("leetcode.command").commands
 

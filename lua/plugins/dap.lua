@@ -1,7 +1,7 @@
 return {
   {
     "rcarriga/nvim-dap-ui",
-    keys = { "<F5>", "<F6>", "<F7>", "<F8>", "gb", "gB" },
+    keys = { "<F5>", "<F6>", "<F7>", "<F8>", "gB" },
     cmd = { "DapNew", "DapTerminate" },
     dependencies = {
       "rcarriga/cmp-dap",

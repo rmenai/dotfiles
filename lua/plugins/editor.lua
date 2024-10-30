@@ -37,7 +37,7 @@ return {
   {
     -- OBSIDIAN MARKDOWN
     "epwalsh/obsidian.nvim",
-    keys = { "<Leader>oo", "<Leader>oc", "<Leader>oa", "<Leader>oA", "<Leader>ot", "<Leader>op" },
+    keys = { "<Leader>oo", "<Leader>oc", "<Leader>oa", "<Leader>oA", "<Leader>ot", "<Leader>op", "<Leader>od" },
     cmd = {
       "ObsidianCreate",
       "ObsidianCreateWithDefault",
