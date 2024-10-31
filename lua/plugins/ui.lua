@@ -223,6 +223,7 @@ return {
               { "leetcode", require("core.commands").leetcode_picker },
               { "compiler", require("core.commands").compiler_picker },
               { "gitsigns", require("core.commands").gitsigns_picker },
+              { "games", require("core.commands").games_picker },
             },
           },
         },

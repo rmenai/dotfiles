@@ -133,6 +133,48 @@ M.gitsigns_picker = function()
   vim.cmd("Gitsigns")
 end
 
+M.games_picker = function()
+  local actions = require("telescope.actions")
+  local action_state = require("telescope.actions.state")
+  local pickers = require("telescope.pickers")
+  local finders = require("telescope.finders")
+  local conf = require("telescope.config").values
+
+  pickers
+    .new({}, {
+      prompt_title = "Choose a Game",
+      finder = finders.new_table({
+        results = {
+          { "Speed Typer", "Speedtyper" },
+          { "Vim Be Good", "VimBeGood" },
+          { "Killer Sheep", "KillKillKill" },
+          { "Game of Life", "CellularAutomaton game_of_life" },
+          { "Scramble", "CellularAutomaton scramble" },
+          { "Make it Rain", "CellularAutomaton make_it_rain" },
+          { "Sudoku", "Sudoku" },
+          { "LeetCode", "Leet" },
+        },
+        entry_maker = function(entry)
+          return {
+            value = entry[2],
+            display = entry[1],
+            ordinal = entry[1],
+          }
+        end,
+      }),
+      sorter = conf.generic_sorter({}),
+      attach_mappings = function(_, map)
+        map("i", "<CR>", function(bufnr)
+          local selection = action_state.get_selected_entry(bufnr)
+          actions.close(bufnr)
+          vim.cmd(selection.value)
+        end)
+        return true
+      end,
+    })
+    :find()
+end
+
 M.setup_leetcode_cmds = function()
   local leet_cmds = require("leetcode.command").commands
 
