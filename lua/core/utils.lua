@@ -45,6 +45,9 @@ end
 
 M.count_changed_files = function(dir)
   local status_output = M.run_cmd("git -C " .. dir .. " status --short")
+  if not status_output then
+    return 0
+  end
   local file_count = 0
   for _ in status_output:gmatch("[^\r\n]+") do
     file_count = file_count + 1
