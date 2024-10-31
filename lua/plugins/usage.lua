@@ -32,8 +32,10 @@ return {
     lazy = false,
     dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
     config = function()
-      require("hardtime").setup({})
-    end
+      require("hardtime").setup({
+        disabled_filetypes = { "qf", "netrw", "NvimTree", "lazy", "mason", "oil", "Outline" },
+      })
+    end,
   },
   {
     -- AUTO SAVE
