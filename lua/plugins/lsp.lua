@@ -56,14 +56,6 @@ return {
               },
             })
           end,
-          ["volar"] = function()
-            require("lspconfig").volar.setup({
-              filetypes = { "typescript", "javascript", "vue" },
-              init_options = {
-                vue = { hybridMode = false },
-              },
-            })
-          end,
           ["marksman"] = function()
             require("lspconfig").marksman.setup({
               on_attach = function()
