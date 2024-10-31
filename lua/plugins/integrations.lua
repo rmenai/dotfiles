@@ -12,8 +12,8 @@ return {
       "ObsidianToday",
       "ObsidianYesterday",
     },
-    ft = { "markdown" },
-    dependencies = { "nvim-lua/plenary.nvim" },
+    ft = "markdown",
+    dependencies = "nvim-lua/plenary.nvim",
     config = function()
       local utils = require("core.utils")
 
@@ -97,7 +97,7 @@ return {
 
   {
     "p00f/godbolt.nvim",
-    keys = { "<Leader>G" },
+    keys = "<Leader>G",
     cmd = { "Godbolt", "GodboltCompiler" },
     config = function()
       require("godbolt").setup({
@@ -122,10 +122,12 @@ return {
   {
     "ThePrimeagen/vim-be-good",
     cmd = "VimBeGood",
+    config = false,
   },
   {
     "eandrju/cellular-automaton.nvim",
     cmd = "CellularAutomaton",
+    config = false,
   },
   {
     "jim-fx/sudoku.nvim",

@@ -100,7 +100,7 @@ return {
     -- DASHBOARD
     "goolord/alpha-nvim",
     lazy = vim.fn.argc() ~= 0,
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    dependencies = "nvim-tree/nvim-web-devicons",
     config = function()
       local theme = require("alpha.themes.dashboard")
       theme.section.footer.val = { "__ Loaded " .. #require("lazy").plugins() .. " plugins __", "" }
@@ -126,7 +126,7 @@ return {
     -- GIT VERSION CONTROL
     "NeogitOrg/neogit",
     keys = { "<Leader>n", "<Leader>N" },
-    cmd = { "Neogit" },
+    cmd = "Neogit",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "sindrets/diffview.nvim",
@@ -139,7 +139,7 @@ return {
   },
   {
     "lewis6991/gitsigns.nvim",
-    event = { "VeryLazy" },
+    event = "VeryLazy",
     config = function()
       require("gitsigns").setup({})
     end,
@@ -147,7 +147,7 @@ return {
   {
     -- CODE STRUCTURE VIEW
     "hedyhli/outline.nvim",
-    keys = { "<Leader>p" },
+    keys = "<Leader>p",
     cmd = { "Outline", "OutlineOpen", "OutlineClose", "OutlineStatus" },
     config = function()
       require("outline").setup({})
@@ -166,8 +166,8 @@ return {
   },
   {
     "jiaoshijie/undotree",
-    keys = { "<Leader>u" },
-    dependencies = { "nvim-lua/plenary.nvim" },
+    keys = "<Leader>u",
+    dependencies = "nvim-lua/plenary.nvim",
     config = function()
       require("undotree").setup({
         position = "right",
@@ -179,7 +179,7 @@ return {
   },
   {
     "RaafatTurki/hex.nvim",
-    event = { "VeryLazy" },
+    event = "VeryLazy",
     config = function()
       require("hex").setup({})
       require("core.mappings").map_hex()
@@ -189,7 +189,7 @@ return {
     -- SEARCH
     "nvim-telescope/telescope.nvim",
     keys = { "<Leader><space>", "<Leader>f", "<Leader>g", "<Leader>c" },
-    cmd = { "Telescope" },
+    cmd = "Telescope",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "OliverChao/telescope-picker-list.nvim",

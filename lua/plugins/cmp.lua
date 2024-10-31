@@ -3,6 +3,7 @@ return {
     -- TREESITTER
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
+    lazy = false,
     config = function()
       require("nvim-treesitter.configs").setup({
         ensure_installed = { "lua", "vim", "vimdoc" },
@@ -14,7 +15,7 @@ return {
 
   {
     "williamboman/mason.nvim",
-    dependencies = { "jay-babu/mason-nvim-dap.nvim" },
+    dependencies = "jay-babu/mason-nvim-dap.nvim",
     lazy = false,
     config = function()
       require("mason").setup()
@@ -31,7 +32,6 @@ return {
   -- Autocompletion
   {
     "L3MON4D3/LuaSnip",
-    version = "v2.3",
     build = "make install_jsregexp",
     event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {

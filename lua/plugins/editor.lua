@@ -56,7 +56,7 @@ return {
     -- AUTOMATIC PAIRS
     "windwp/nvim-autopairs",
     event = "InsertEnter",
-    dependencies = { "hrsh7th/nvim-cmp" },
+    dependencies = "hrsh7th/nvim-cmp",
     config = function()
       require("nvim-autopairs").setup({})
 
@@ -87,7 +87,6 @@ return {
   },
   {
     "kylechui/nvim-surround",
-    version = "*",
     event = "VeryLazy",
     config = function()
       require("nvim-surround").setup({})
