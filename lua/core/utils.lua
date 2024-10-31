@@ -34,6 +34,10 @@ end
 
 M.run_cmd = function(cmd)
   local handle = io.popen(cmd)
+  if not handle then
+    return nil, "Failed to execute command"
+  end
+
   local result = handle:read("*a")
   handle:close()
   return result
