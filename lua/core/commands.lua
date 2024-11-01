@@ -147,7 +147,6 @@ M.games_picker = function()
         results = {
           { "Speed Typer", "Speedtyper" },
           { "Vim Be Good", "VimBeGood" },
-          { "Killer Sheep", "KillKillKill" },
           { "Game of Life", "CellularAutomaton game_of_life" },
           { "Scramble", "CellularAutomaton scramble" },
           { "Make it Rain", "CellularAutomaton make_it_rain" },
