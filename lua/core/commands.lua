@@ -14,59 +14,8 @@ local function CommitCurrentFile()
   vim.cmd("!git commit -m '" .. commit_message .. "' " .. file_path)
 end
 
-local function ObsidianCreateWithDefault()
-  local obsidian = require("obsidian").get_client()
-  local utils = require("obsidian.util")
-
-  if not obsidian:templates_dir() then
-    return
-  end
-
-  local title = utils.input("Enter title or path (optional): ")
-  if not title then
-    return
-  elseif title == "" then
-    title = nil
-  end
-
-  local note = obsidian:create_note({ title = title, no_write = false, template = "default" })
-  if not note then
-    return
-  end
-
-  obsidian:open_note(note, { sync = true })
-end
-
-local function ObsidianCreateWithTemplate()
-  local obsidian = require("obsidian").get_client()
-  local utils = require("obsidian.util")
-
-  if not obsidian:templates_dir() then
-    return
-  end
-
-  local title = utils.input("Enter title or path (optional): ")
-  if not title then
-    return
-  elseif title == "" then
-    title = nil
-  end
-
-  local picker = obsidian:picker()
-  if not picker then
-    return
-  end
-
-  picker:find_templates({
-    callback = function()
-      local note = obsidian:create_note({ title = title, no_write = false, template = "default" })
-      if not note then
-        return
-      end
-
-      obsidian:open_note(note, { sync = true })
-    end,
-  })
+local function is_rust_project()
+  return vim.fn.glob("./Cargo.toml") ~= "" or vim.fn.expand("%:e") == "rs"
 end
 
 local function CompilerChoose()
@@ -83,6 +32,11 @@ local function CompilerChoose()
     return
   end
 
+  if is_rust_project() then
+    vim.cmd.RustLsp("runnables")
+    return
+  end
+
   overseer.run_template()
 end
 
@@ -96,8 +50,14 @@ local function CompilerRun()
       vim.cmd.LeetRun()
       return
     end
+
     if vim.fn.expand("%:e") == "tex" then
       vim.cmd.VimtexCompile()
+      return
+    end
+
+    if is_rust_project() then
+      vim.cmd.RustLsp({ "runnables", bang = true })
       return
     end
 
@@ -109,18 +69,12 @@ local function CompilerRun()
 end
 
 vim.api.nvim_create_user_command("CommitCurrentFile", CommitCurrentFile, {})
-vim.api.nvim_create_user_command("ObsidianCreate", ObsidianCreateWithDefault, {})
-vim.api.nvim_create_user_command("ObsidianCreateWithTemplate", ObsidianCreateWithTemplate, {})
 
 -- Code running
 vim.api.nvim_create_user_command("CompilerRun", CompilerRun, {})
 vim.api.nvim_create_user_command("CompilerChoose", CompilerChoose, {})
 
 -- Custom pickers
-M.obsidian_picker = function()
-  require("telescope.builtin").commands({ default_text = "Obsidian" })
-end
-
 M.leetcode_picker = function()
   require("telescope.builtin").commands({ default_text = "Leet" })
 end

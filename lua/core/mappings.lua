@@ -13,19 +13,21 @@ map("n", "<Leader>V", ":vnew<CR>")
 map("n", "gj", "<C-o>") -- Go prev
 map("n", "gk", "<C-i>") -- Go next
 
+map("t", "<Esc>", "<C-\\><C-n>")
+
 -- Delete search highlight
-map("n", "<Leader>h", ":noh<CR>")
+map("n", "<Leader>H", ":noh<CR>")
 
 -- Best remaps
+map({ "n", "v" }, "<CR>", ":<up>")
 map("v", "J", ":m '>+1<CR>gv=gv")
 map("v", "K", ":m '<-2<CR>gv=gv")
 
 map("n", "<C-d>", "<C-d>zz")
 map("n", "<C-u>", "<C-u>zz")
 
-map("n", "<Leader>y", '"+y')
-map("v", "<Leader>y", '"+y')
-map("n", "<Leader>Y", '"+Y')
+map({ "n", "v"}, "<Leader>y", '"+y')
+map({ "n", "v"}, "<Leader>Y", '"+Y')
 
 -- Use mapping functions for lazy loading
 local M = {}
@@ -38,20 +40,6 @@ M.map_telescope = function()
   map("n", "<Leader>f", telescope.find_files)
   map("n", "<Leader>g", telescope.live_grep)
   map("n", "<Leader>c", telescope.commands)
-end
-
--- OBSIDIAN
-M.map_obsidian = function()
-  map("n", "<Leader>oo", require("core.commands").obsidian_picker)
-  map("n", "<Leader>oa", vim.cmd.ObsidianCreate)
-  map("n", "<Leader>od", vim.cmd.ObsidianToday)
-  map("n", "<Leader>oA", vim.cmd.ObsidianCreateWithTemplate)
-  map("n", "<Leader>ot", vim.cmd.ObsidianTemplate)
-  map("n", "<Leader>op", vim.cmd.MarkdownPreview)
-  map("n", "<Leader>oc", function()
-    vim.cmd.CommitCurrentFile()
-    vim.cmd.ObsidianCreate()
-  end)
 end
 
 -- NVIM-TREE
@@ -118,18 +106,18 @@ M.map_lsp = function()
     end
   end)
 
-  map({ "n", "v", "i" }, "<F3>", vim.lsp.buf.code_action)
   map("n", "<F2>", vim.lsp.buf.rename)
+  map({ "n", "v", "i" }, "<F3>", vim.lsp.buf.code_action)
 
-  map("n", "gJ", vim.diagnostic.goto_prev)
-  map("n", "gK", vim.diagnostic.goto_next)
+  map("n", "gK", vim.diagnostic.goto_prev)
+  map("n", "gJ", vim.diagnostic.goto_next)
 end
 
 M.map_dap = function()
   local dap = require("dap")
 
   map("n", "<F5>", dap.continue)
-  map("n", "<F6>", dap.repl.toggle)
+  map("n", "<F6>", dap.step_over)
   map("n", "<F7>", dap.step_into)
   map("n", "<F8>", dap.step_out)
   map("n", "gB", dap.toggle_breakpoint)

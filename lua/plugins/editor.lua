@@ -33,6 +33,11 @@ return {
     end,
   },
   {
+    "mrcjkb/rustaceanvim",
+    version = "^5",
+    lazy = false,
+  },
+  {
     "stevearc/overseer.nvim",
     keys = { "<F9>", "<F10>" },
     cmd = { "OverseerRun", "OverseerToggle" },

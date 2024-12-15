@@ -19,4 +19,13 @@ M.leetcode_autocmd = function(callback)
   })
 end
 
+vim.api.nvim_create_autocmd("TermOpen", {
+  pattern = "*",
+  callback = function()
+    vim.wo.number = false
+    vim.wo.relativenumber = false
+    vim.cmd("startinsert")
+  end,
+})
+
 return M

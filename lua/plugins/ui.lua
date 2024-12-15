@@ -219,7 +219,6 @@ return {
           },
           picker_list = {
             user_pickers = {
-              { "obsidian", require("core.commands").obsidian_picker },
               { "leetcode", require("core.commands").leetcode_picker },
               { "compiler", require("core.commands").compiler_picker },
               { "gitsigns", require("core.commands").gitsigns_picker },
