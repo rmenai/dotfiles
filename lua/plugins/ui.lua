@@ -142,6 +142,7 @@ return {
     event = "VeryLazy",
     config = function()
       require("gitsigns").setup({})
+      require("core.mappings").map_gitsigns()
     end,
   },
   {

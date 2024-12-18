@@ -38,6 +38,26 @@ return {
     lazy = false,
   },
   {
+    "saecki/crates.nvim",
+    event = { "BufRead Cargo.toml" },
+    config = function()
+      require("crates").setup({
+        completion = {
+          cmp = {
+            enabled = true,
+          },
+          crates = {
+            enabled = true,
+            max_results = 8,
+            min_chars = 3,
+          },
+        },
+      })
+
+      require("core.mappings").map_crates()
+    end,
+  },
+  {
     "stevearc/overseer.nvim",
     keys = { "<F9>", "<F10>" },
     cmd = { "OverseerRun", "OverseerToggle" },

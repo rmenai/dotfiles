@@ -123,6 +123,7 @@ return {
           { name = "nvim_lsp" },
           { name = "luasnip" },
           { name = "path" },
+          { name = "crates" },
         }, { name = "buffer" }),
         snippet = {
           expand = function(args)

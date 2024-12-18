@@ -26,8 +26,8 @@ map("v", "K", ":m '<-2<CR>gv=gv")
 map("n", "<C-d>", "<C-d>zz")
 map("n", "<C-u>", "<C-u>zz")
 
-map({ "n", "v"}, "<Leader>y", '"+y')
-map({ "n", "v"}, "<Leader>Y", '"+Y')
+map({ "n", "v" }, "<Leader>y", '"+y')
+map({ "n", "v" }, "<Leader>Y", '"+Y')
 
 -- Use mapping functions for lazy loading
 local M = {}
@@ -64,10 +64,58 @@ M.map_neogit = function()
   end)
 end
 
+M.map_gitsigns = function()
+  local gitsigns = require("gitsigns")
+  map("n", "gns", gitsigns.stage_hunk)
+  map("n", "gnr", gitsigns.reset_hunk)
+  map("v", "gns", function()
+    gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+  end)
+  map("v", "gnr", function()
+    gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+  end)
+  map("n", "gnS", gitsigns.stage_buffer)
+  map("n", "gnu", gitsigns.undo_stage_hunk)
+  map("n", "gnR", gitsigns.reset_buffer)
+  map("n", "gnp", gitsigns.preview_hunk)
+  map("n", "gnb", function()
+    gitsigns.blame_line({ full = true })
+  end)
+  map("n", "gntb", gitsigns.toggle_current_line_blame)
+  map("n", "gnd", gitsigns.diffthis)
+  map("n", "gnD", function()
+    gitsigns.diffthis("~")
+  end)
+  map("n", "gntd", gitsigns.toggle_deleted)
+end
+
 -- COMPILER
 M.map_compiler = function()
   map("n", "<F9>", vim.cmd.CompilerChoose)
   map("n", "<F10>", vim.cmd.CompilerRun)
+end
+
+M.map_crates = function()
+  local crates = require("crates")
+
+  map("n", "gpt", crates.toggle)
+  map("n", "gpr", crates.reload)
+
+  map("n", "gpv", crates.show_versions_popup)
+  map("n", "gpf", crates.show_features_popup)
+  map("n", "gpd", crates.show_dependencies_popup)
+
+  map("n", "gpu", crates.update_crate)
+  map("v", "gpu", crates.update_crates)
+  map("n", "gpa", crates.update_all_crates)
+  map("n", "gpU", crates.upgrade_crate)
+  map("v", "gpU", crates.upgrade_crates)
+  map("n", "gpA", crates.upgrade_all_crates)
+
+  map("n", "gpx", crates.expand_plain_crate_to_inline_table)
+  map("n", "gpX", crates.extract_crate_into_table)
+
+  map("n", "gpo", crates.open_crates_io)
 end
 
 M.map_outline = function()
