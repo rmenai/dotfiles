@@ -16,7 +16,7 @@ map("n", "gk", "<C-i>") -- Go next
 map("t", "<Esc>", "<C-\\><C-n>")
 
 -- Delete search highlight
-map("n", "<Leader>H", ":noh<CR>")
+map("n", "<Leader>h", ":noh<CR>")
 
 -- Best remaps
 map({ "n", "v" }, "<CR>", ":<up>")
