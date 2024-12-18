@@ -28,16 +28,6 @@ return {
     end,
   },
   {
-    "m4xshen/hardtime.nvim",
-    lazy = false,
-    dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
-    config = function()
-      require("hardtime").setup({
-        disabled_filetypes = { "qf", "netrw", "NvimTree", "lazy", "mason", "oil", "Outline" },
-      })
-    end,
-  },
-  {
     -- AUTO SAVE
     "pocco81/auto-save.nvim",
     ft = { "html", "css", "typescript", "javascript", "vue", "tex", "markdown" },
