@@ -37,7 +37,7 @@ return {
         name = "Run this program",
         builder = function()
           return {
-            cmd = { "opam", "exec", "--", "dune", "build", "&&", "opam", "exec", "--", "dune", "exec", "main" },
+            cmd = { "dune", "build", "&&", "dune", "exec", "./bin/main.bc" },
           }
         end,
       },

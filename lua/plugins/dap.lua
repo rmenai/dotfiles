@@ -12,6 +12,27 @@ return {
       local dap = require("dap")
       local dapui = require("dapui")
 
+      dap.adapters.ocaml = {
+        type = "executable",
+        command = "ocamlearlybird",
+        args = { "debug" },
+        cwd = "${workspaceFolder}",
+      }
+
+      dap.configurations.ocaml = {
+        {
+          type = "ocaml",
+          request = "launch",
+          name = "Launch debug test",
+          console = "integratedTerminal",
+          program = "_build/default/${relativeFileDirname}/${fileBasenameNoExtension}.bc",
+          cwd = "${workspaceFolder}",
+          stopOnEntry = true,
+          yieldSteps = 4096,
+          onlyDebugGlob = "<${workspaceFolder}/**/*>",
+        },
+      }
+
       -- Initialize dapui
       dapui.setup()
 

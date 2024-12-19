@@ -9,6 +9,19 @@ return {
         ensure_installed = { "lua", "vim", "vimdoc" },
         auto_install = true,
         highlight = { enable = true },
+        indent = {
+          enable = true,
+        },
+        autotag = {
+          enable = true,
+        },
+        rainbow = {
+          enable = true,
+          extended_mode = true,
+        },
+        autopairs = {
+          enable = true,
+        },
       })
     end,
   },
