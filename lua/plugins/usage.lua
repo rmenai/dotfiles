@@ -51,4 +51,15 @@ return {
       require("core.mappings").map_autosave()
     end,
   },
+  {
+    "rcarriga/nvim-notify",
+    lazy = false,
+    config = function()
+      require("notify").setup({
+        level = "error",
+      })
+
+      vim.notify = require("notify")
+    end,
+  },
 }

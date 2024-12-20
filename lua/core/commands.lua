@@ -87,6 +87,10 @@ M.gitsigns_picker = function()
   vim.cmd("Gitsigns")
 end
 
+M.notify_picker = function()
+  vim.cmd("Telescope notify")
+end
+
 M.games_picker = function()
   local actions = require("telescope.actions")
   local action_state = require("telescope.actions.state")

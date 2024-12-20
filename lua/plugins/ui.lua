@@ -223,6 +223,7 @@ return {
               { "leetcode", require("core.commands").leetcode_picker },
               { "compiler", require("core.commands").compiler_picker },
               { "gitsigns", require("core.commands").gitsigns_picker },
+              { "notify", require("core.commands").notify_picker },
               { "games", require("core.commands").games_picker },
             },
           },
@@ -232,6 +233,7 @@ return {
       telescope.load_extension("fzf")
       telescope.load_extension("projects")
       telescope.load_extension("picker_list")
+      telescope.load_extension("notify")
 
       -- Set up mappings
       require("core.mappings").map_telescope()
