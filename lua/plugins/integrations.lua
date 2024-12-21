@@ -29,7 +29,7 @@ return {
           },
         },
         arg = "leet",
-        lang = "c",
+        lang = "rust",
       })
 
       -- Set up commands
