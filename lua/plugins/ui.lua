@@ -94,7 +94,7 @@ return {
   },
   {
     "lewis6991/gitsigns.nvim",
-    event = "VeryLazy",
+    event = "BufReadPre",
     config = function() require("gitsigns").setup({}) end,
   },
   {
@@ -154,13 +154,14 @@ return {
   {
     -- SEARCH
     "nvim-telescope/telescope.nvim",
-    cmd = "Telescope",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "OliverChao/telescope-picker-list.nvim",
       "ahmedkhalf/project.nvim",
+      "rcarriga/nvim-notify",
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     },
+    cmd = "Telescope",
     config = function()
       local telescope = require("telescope")
       local actions = require("telescope.actions")

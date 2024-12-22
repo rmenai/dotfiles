@@ -3,24 +3,18 @@ return {
     -- TREESITTER
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    lazy = false,
+    event = "BufReadPre",
     config = function()
       require("nvim-treesitter.configs").setup({
         ensure_installed = { "lua", "vim", "vimdoc" },
         auto_install = true,
         highlight = { enable = true },
-        indent = {
-          enable = true,
-        },
-        autotag = {
-          enable = true,
-        },
+        indent = { enable = true },
+        autotag = { enable = true },
+        autopairs = { enable = true },
         rainbow = {
           enable = true,
           extended_mode = true,
-        },
-        autopairs = {
-          enable = true,
         },
       })
     end,
@@ -28,16 +22,8 @@ return {
 
   {
     "williamboman/mason.nvim",
-    dependencies = "jay-babu/mason-nvim-dap.nvim",
-    lazy = false,
-    config = function()
-      require("mason").setup()
-      require("mason-nvim-dap").setup({
-        handlers = {
-          function(config) require("mason-nvim-dap").default_setup(config) end,
-        },
-      })
-    end,
+    cmd = { "Mason", "MasonInstall", "MasonUninstall", "MasonUpdate", "MasonLog" },
+    config = function() require("mason").setup() end,
   },
 
   -- Autocompletion

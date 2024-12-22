@@ -2,7 +2,6 @@ return {
   {
     "stevearc/conform.nvim",
     event = "BufWritePre",
-    keys = "<F4>",
     cmd = "ConformInfo",
     config = function()
       require("conform").setup({

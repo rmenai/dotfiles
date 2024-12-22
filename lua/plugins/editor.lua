@@ -35,7 +35,8 @@ return {
   {
     "mrcjkb/rustaceanvim",
     version = "^5",
-    lazy = false,
+    ft = "rust",
+    config = function() require("neotest") end,
   },
   {
     "saecki/crates.nvim",
@@ -57,12 +58,11 @@ return {
   },
   {
     "stevearc/overseer.nvim",
-    keys = { "<F9>", "<F10>" },
     cmd = { "OverseerRun", "OverseerToggle" },
     config = function()
       require("overseer").setup({
         templates = { "builtin", "custom" },
-        dap = true,
+        dap = false,
         strategy = {
           "toggleterm",
           direction = "horizontal",
