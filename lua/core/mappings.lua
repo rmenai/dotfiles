@@ -27,6 +27,10 @@ map("n", "<Leader>f", function() require("telescope.builtin").find_files() end, 
 map("n", "<Leader>g", function() require("telescope.builtin").live_grep() end, { desc = "Search in files" })
 map("n", "<Leader>c", function() require("telescope.builtin").commands() end, { desc = "Show commands" })
 
+-- INSTALLERS
+map("n", "<Leader>l", "<Cmd>Lazy<CR>", { desc = "Open Lazy" })
+map("n", "<Leader>m", "<Cmd>Mason<CR>", { desc = "Open Mason" })
+
 -- NVIM-TREE + UNDO
 map("n", "<Leader>A", function() require("nvim-tree.api").tree.toggle() end, { desc = "Toggle NvimTree" })
 map("n", "<Leader>a", function() require("nvim-tree.api").tree.toggle({ find_file = true }) end, { desc = "Toggle NvimTree and find file" })
