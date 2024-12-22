@@ -21,6 +21,8 @@ zinit wait lucid for \
 zinit ice depth=1
 zinit light jeffreytse/zsh-vi-mode
 
+zinit wait lucid for MichaelAquilina/zsh-autoswitch-virtualenv
+
 # Plugin settings
 ZVM_VI_INSERT_ESCAPE_BINDKEY=jj
 ZVM_CURSOR_STYLE_ENABLED=false
@@ -40,30 +42,13 @@ export FZF_DEFAULT_OPTS=" \
 # Initialize zsh plugins
 eval "$(zoxide init --cmd cd zsh)"
 
-function y() {
-	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-	yazi "$@" --cwd-file="$tmp"
-	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-		builtin cd -- "$cwd"
-	fi
-	rm -f -- "$tmp"
-}
-
-function s() {
-  {
-    exec </dev/tty
-    exec <&1
-    local session
-    session=$(sesh list -t -c | fzf --height 40% --reverse --border-label ' sesh ' --border --prompt '⚡  ')
-    zle reset-prompt > /dev/null 2>&1 || true
-    [[ -z "$session" ]] && return
-    sesh connect $session
-  }
-}
-
 # Powerlevel10k prompt configuration
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+if [[ -f ~/.p10k.zsh ]]; then
+  source ~/.p10k.zsh
+fi
 
 # Make sure to load .profile
-[[ -f ~/.profile ]] && source ~/.profile
-
+if [[ -f "~/.profile" && -z "$PROFILE_LOADED" ]]; then
+  source "~/.profile"
+  export PROFILE_LOADED=true
+fi

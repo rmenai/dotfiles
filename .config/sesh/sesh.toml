@@ -19,16 +19,6 @@ path = "~"
 startup_command = "nvim .zshrc"
 
 [[session]]
-name = "Notes"
-path = "~/Documents/notes"
-startup_command = "nvim Learning/core-principles-of-mastery.md"
-
-[[session]]
-name = "Quick Note"
-path = "~/Documents/notes"
-startup_command = "nvim Random/test.md --cmd 'autocmd VimEnter * ObsidianCreate'"
-
-[[session]]
 name = "Personal Website"
 path = "~/Documents/menai.me"
 startup_command = "bash ~/.config/sesh/scripts/website.sh"
@@ -39,7 +29,17 @@ path = "~/Documents/school"
 startup_command = "bash ~/.config/sesh/scripts/school.sh"
 
 [[session]]
+name = "Test"
+path = "~/Documents/test"
+startup_command = "bash ~/.config/sesh/scripts/test.sh"
+
+[[session]]
+name = "Advent Of Code"
+path = "~/Documents/aoc"
+startup_command = "cd aoc/2024/day"
+
+[[session]]
 name = "LeetCode"
-path = "~"
-startup_command = "nvim leet"
+path = "~/Documents/test"
+startup_command = "bash ~/.config/sesh/scripts/leet.sh"
 
