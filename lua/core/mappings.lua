@@ -84,10 +84,22 @@ map("n", "<F1>", function()
   end
 end, { desc = "Toggle diagnostics" })
 map("n", "<F2>", vim.lsp.buf.rename, { desc = "Rename symbol" })
-map({ "n", "v", "i" }, "<F3>", vim.lsp.buf.code_action, { desc = "Code action" })
+map({ "n", "v", "i" }, "<F3>", function()
+  if vim.bo.filetype == "rust" then
+    vim.cmd.RustLsp("codeAction")
+  else
+    vim.lsp.buf.code_action()
+  end
+end, { desc = "Code action" })
 map("n", "<F4>", function() require("conform").format({ lsp_format = "fallback", async = true }) end, { desc = "Format code" })
 
-map("n", "K", vim.lsp.buf.hover, { desc = "Hover info" })
+map("n", "K", function()
+  if vim.bo.filetype == "rust" then
+    vim.cmd.RustLsp({ "hover", "actions" })
+  else
+    vim.lsp.buf.hover()
+  end
+end, { desc = "Hover info" })
 map("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
 map("n", "gD", vim.lsp.buf.declaration, { desc = "Go to declaration" })
 map("n", "gi", vim.lsp.buf.implementation, { desc = "Go to implementation" })
