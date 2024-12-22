@@ -36,7 +36,10 @@ return {
     "mrcjkb/rustaceanvim",
     version = "^5",
     ft = "rust",
-    config = function() require("neotest") end,
+    config = function()
+      require("core.patches").patch_runnables()
+      require("neotest")
+    end,
   },
   {
     "saecki/crates.nvim",
