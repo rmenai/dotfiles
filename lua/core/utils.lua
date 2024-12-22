@@ -7,9 +7,7 @@ end
 
 M.read_json = function(filepath)
   local file = io.open(filepath, "r")
-  if not file then
-    return nil
-  end
+  if not file then return nil end
 
   local content = file:read("*a")
   file:close()
@@ -26,17 +24,13 @@ M.slugify = function(title)
 end
 
 M.truncate_filename = function(filename, max_len)
-  if #filename > max_len then
-    return "..." .. string.sub(filename, -max_len + 3)
-  end
+  if #filename > max_len then return "..." .. string.sub(filename, -max_len + 3) end
   return filename
 end
 
 M.run_cmd = function(cmd)
   local handle = io.popen(cmd)
-  if not handle then
-    return nil, "Failed to execute command"
-  end
+  if not handle then return nil, "Failed to execute command" end
 
   local result = handle:read("*a")
   handle:close()
@@ -45,9 +39,7 @@ end
 
 M.count_changed_files = function(dir)
   local status_output = M.run_cmd("git -C " .. dir .. " status --short")
-  if not status_output then
-    return 0
-  end
+  if not status_output then return 0 end
   local file_count = 0
   for _ in status_output:gmatch("[^\r\n]+") do
     file_count = file_count + 1

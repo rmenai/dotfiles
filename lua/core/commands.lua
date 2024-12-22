@@ -14,9 +14,7 @@ local function CommitCurrentFile()
   vim.cmd("!git commit -m '" .. commit_message .. "' " .. file_path)
 end
 
-local function is_rust_project()
-  return vim.fn.glob("./Cargo.toml") ~= "" or vim.fn.expand("%:e") == "rs"
-end
+local function is_rust_project() return vim.fn.glob("./Cargo.toml") ~= "" or vim.fn.expand("%:e") == "rs" end
 
 local function CompilerChoose()
   local telescope = require("telescope.builtin")
@@ -68,28 +66,14 @@ local function CompilerRun()
   action_util.run_task_action(tasks[1], "restart")
 end
 
-vim.api.nvim_create_user_command("CommitCurrentFile", CommitCurrentFile, {})
-
--- Code running
-vim.api.nvim_create_user_command("CompilerRun", CompilerRun, {})
-vim.api.nvim_create_user_command("CompilerChoose", CompilerChoose, {})
-
 -- Custom pickers
-M.leetcode_picker = function()
-  require("telescope.builtin").commands({ default_text = "Leet" })
-end
+M.leetcode_picker = function() require("telescope.builtin").commands({ default_text = "Leet" }) end
 
-M.compiler_picker = function()
-  vim.cmd("CompilerRun")
-end
+M.compiler_picker = function() vim.cmd("CompilerRun") end
 
-M.gitsigns_picker = function()
-  vim.cmd("Gitsigns")
-end
+M.gitsigns_picker = function() vim.cmd("Gitsigns") end
 
-M.notify_picker = function()
-  vim.cmd("Telescope notify")
-end
+M.notify_picker = function() vim.cmd("Telescope notify") end
 
 M.games_picker = function()
   local actions = require("telescope.actions")
@@ -183,5 +167,11 @@ M.setup_leetcode_cmds = function()
     vim.api.nvim_create_user_command(command.name, command.cmd, { desc = command.desc })
   end
 end
+
+-- Set up commands
+vim.api.nvim_create_user_command("CommitCurrentFile", CommitCurrentFile, {})
+vim.api.nvim_create_user_command("CompilerRun", CompilerRun, {})
+vim.api.nvim_create_user_command("CompilerChoose", CompilerChoose, {})
+vim.api.nvim_create_user_command("UndoTreeToggle", function() require("undotree").toggle() end, {})
 
 return M

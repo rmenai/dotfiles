@@ -2,21 +2,15 @@ local function get_python_executable()
   local executables = { "python3", "python" }
 
   for _, executable in ipairs(executables) do
-    if vim.fn.executable(executable) == 1 then
-      return executable
-    end
+    if vim.fn.executable(executable) == 1 then return executable end
   end
 end
 
 return {
   condition = {
     callback = function()
-      if not get_python_executable() then
-        return false, "Executable python not found"
-      end
-      if vim.fn.expand("%:e") ~= "py" then
-        return false, "No python file found"
-      end
+      if not get_python_executable() then return false, "Executable python not found" end
+      if vim.fn.expand("%:e") ~= "py" then return false, "No python file found" end
       return true
     end,
   },

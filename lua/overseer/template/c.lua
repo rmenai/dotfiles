@@ -1,12 +1,8 @@
 return {
   condition = {
     callback = function()
-      if not vim.fn.executable("gcc") == 1 then
-        return false, "Executable gcc not found"
-      end
-      if vim.fn.expand("%:e") ~= "c" then
-        return false, "No c file found"
-      end
+      if not vim.fn.executable("gcc") == 1 then return false, "Executable gcc not found" end
+      if vim.fn.expand("%:e") ~= "c" then return false, "No c file found" end
       return true
     end,
   },

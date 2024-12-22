@@ -39,18 +39,9 @@ return {
   },
   {
     -- AUTO SAVE
-    "pocco81/auto-save.nvim",
-    lazy = false,
-    config = function()
-      require("auto-save").setup({
-        enabled = false,
-      })
-
-      require("auto-save").off()
-
-      -- Set up mappings
-      require("core.mappings").map_autosave()
-    end,
+    "okuuva/auto-save.nvim",
+    cmd = "ASToggle",
+    config = function() require("auto-save").setup({ enabled = false }) end,
   },
   {
     "rcarriga/nvim-notify",
@@ -69,11 +60,18 @@ return {
     keys = {
       {
         "<leader>?",
-        function()
-          require("which-key").show({ global = false })
-        end,
+        function() require("which-key").show({ global = false }) end,
         desc = "Buffer Local Keymaps (which-key)",
       },
     },
+    config = function()
+      require("which-key").setup({
+        show_help = false,
+        preset = "modern",
+        icons = {
+          mappings = false,
+        },
+      })
+    end,
   },
 }

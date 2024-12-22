@@ -53,8 +53,6 @@ return {
           },
         },
       })
-
-      require("core.mappings").map_crates()
     end,
   },
   {
@@ -72,9 +70,6 @@ return {
           close_on_exit = false,
         },
       })
-
-      -- Set up mappings
-      require("core.mappings").map_compiler()
     end,
   },
 
@@ -83,9 +78,7 @@ return {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
     dependencies = "hrsh7th/nvim-cmp",
-    config = function()
-      require("nvim-autopairs").setup({})
-    end,
+    config = function() require("nvim-autopairs").setup({}) end,
   },
   {
     "windwp/nvim-ts-autotag",
@@ -101,16 +94,12 @@ return {
   {
     "numToStr/Comment.nvim",
     event = "BufRead",
-    config = function()
-      require("Comment").setup({})
-    end,
+    config = function() require("Comment").setup({}) end,
   },
   {
     "kylechui/nvim-surround",
     event = "VeryLazy",
-    config = function()
-      require("nvim-surround").setup({})
-    end,
+    config = function() require("nvim-surround").setup({}) end,
   },
   {
     -- COLOR PREVIEW

@@ -14,9 +14,7 @@ return {
       local repo_url = "https://github.com/rmenai/leetcode.git"
 
       -- Sync repo on start
-      if vim.fn.isdirectory(home_dir) == 0 then
-        utils.sync_repo(home_dir, repo_url)
-      end
+      if vim.fn.isdirectory(home_dir) == 0 then utils.sync_repo(home_dir, repo_url) end
 
       require("leetcode").setup({
         storage = { home = home_dir .. "/solutions" },
@@ -36,15 +34,12 @@ return {
       require("core.commands").setup_leetcode_cmds()
 
       -- Set up autocmds
-      require("core.autocmds").leetcode_autocmd(function()
-        utils.sync_repo(home_dir, repo_url)
-      end)
+      require("core.autocmds").leetcode_autocmd(function() utils.sync_repo(home_dir, repo_url) end)
     end,
   },
 
   {
     "p00f/godbolt.nvim",
-    keys = "<Leader>G",
     cmd = { "Godbolt", "GodboltCompiler" },
     config = function()
       require("godbolt").setup({
@@ -53,8 +48,6 @@ return {
           static = false,
         },
       })
-
-      require("core.mappings").map_godbolt()
     end,
   },
 
@@ -62,9 +55,7 @@ return {
   {
     "NStefan002/speedtyper.nvim",
     cmd = "Speedtyper",
-    config = function()
-      require("speedtyper").setup({})
-    end,
+    config = function() require("speedtyper").setup({}) end,
   },
   {
     "ThePrimeagen/vim-be-good",
@@ -79,8 +70,6 @@ return {
   {
     "jim-fx/sudoku.nvim",
     cmd = "Sudoku",
-    config = function()
-      require("sudoku").setup({})
-    end,
+    config = function() require("sudoku").setup({}) end,
   },
 }

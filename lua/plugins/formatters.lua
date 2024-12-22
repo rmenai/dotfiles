@@ -33,9 +33,6 @@ return {
           lsp_format = "fallback",
         },
       })
-
-      -- Set up mappings
-      require("core.mappings").map_formatter()
     end,
   },
 }

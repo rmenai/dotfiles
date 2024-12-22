@@ -34,9 +34,7 @@ return {
       require("mason").setup()
       require("mason-nvim-dap").setup({
         handlers = {
-          function(config)
-            require("mason-nvim-dap").default_setup(config)
-          end,
+          function(config) require("mason-nvim-dap").default_setup(config) end,
         },
       })
     end,
@@ -104,9 +102,7 @@ return {
       end
 
       -- Lazy load tailwind tools
-      local function lspkind_format(entry, vim_item)
-        return require("tailwind-tools.cmp").lspkind_format(entry, vim_item)
-      end
+      local function lspkind_format(entry, vim_item) return require("tailwind-tools.cmp").lspkind_format(entry, vim_item) end
 
       cmp.setup({
         formatting = {
@@ -117,9 +113,7 @@ return {
             ellipsis_char = "...",
 
             before = function(entry, vim_item)
-              if vim_item.kind == "Color" then
-                return lspkind_format(entry, vim_item)
-              end
+              if vim_item.kind == "Color" then return lspkind_format(entry, vim_item) end
 
               return vim_item
             end,
@@ -139,9 +133,7 @@ return {
           { name = "crates" },
         }, { name = "buffer" }),
         snippet = {
-          expand = function(args)
-            luasnip.lsp_expand(args.body)
-          end,
+          expand = function(args) luasnip.lsp_expand(args.body) end,
         },
       })
 

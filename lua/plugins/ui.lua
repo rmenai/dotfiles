@@ -65,9 +65,7 @@ return {
           },
           lualine_x = {
             {
-              function()
-                return require("lsp-progress").progress()
-              end,
+              function() return require("lsp-progress").progress() end,
               fmt = trunc(60, 0, 60),
             },
           },
@@ -92,9 +90,12 @@ return {
     -- UI IMPROVEMENTS
     "stevearc/dressing.nvim",
     lazy = false,
-    config = function()
-      require("dressing").setup({})
-    end,
+    config = function() require("dressing").setup({}) end,
+  },
+  {
+    "lewis6991/gitsigns.nvim",
+    event = "VeryLazy",
+    config = function() require("gitsigns").setup({}) end,
   },
   {
     -- DASHBOARD
@@ -112,84 +113,47 @@ return {
   {
     -- FILE SYSTEM TREE
     "nvim-tree/nvim-tree.lua",
-    keys = { "<Leader>a", "<Leader>A" },
     cmd = { "NvimTreeToggle", "NvimTreeOpen", "NvimTreeClose" },
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = function()
-      require("nvim-tree").setup({})
-
-      -- Set up mappings
-      require("core.mappings").map_nvim_tree()
-    end,
+    config = function() require("nvim-tree").setup({}) end,
   },
   {
     -- GIT VERSION CONTROL
     "NeogitOrg/neogit",
-    keys = { "<Leader>n", "<Leader>N" },
-    cmd = "Neogit",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "sindrets/diffview.nvim",
       "nvim-telescope/telescope.nvim",
     },
-    config = function()
-      require("neogit").setup({})
-      require("core.mappings").map_neogit()
-    end,
-  },
-  {
-    "lewis6991/gitsigns.nvim",
-    event = "VeryLazy",
-    config = function()
-      require("gitsigns").setup({})
-      require("core.mappings").map_gitsigns()
-    end,
+    cmd = "Neogit",
+    config = function() require("neogit").setup({}) end,
   },
   {
     -- CODE STRUCTURE VIEW
     "hedyhli/outline.nvim",
-    keys = "<Leader>p",
     cmd = { "Outline", "OutlineOpen", "OutlineClose", "OutlineStatus" },
-    config = function()
-      require("outline").setup({})
-
-      -- Set up mappings
-      require("core.mappings").map_outline()
-    end,
+    config = function() require("outline").setup({}) end,
   },
   {
     -- TERMINAL
     "akinsho/toggleterm.nvim",
     cmd = { "ToggleTerm", "ToggleTermSetName" },
-    config = function()
-      require("toggleterm").setup({})
-    end,
+    config = function() require("toggleterm").setup({}) end,
   },
   {
     "jiaoshijie/undotree",
-    keys = "<Leader>u",
     dependencies = "nvim-lua/plenary.nvim",
-    config = function()
-      require("undotree").setup({
-        position = "right",
-      })
-
-      -- Set up mappings
-      require("core.mappings").map_undotree()
-    end,
+    cmd = "UndoTreeToggle",
+    config = function() require("undotree").setup({ position = "right" }) end,
   },
   {
     "RaafatTurki/hex.nvim",
-    event = "VeryLazy",
-    config = function()
-      require("hex").setup({})
-      require("core.mappings").map_hex()
-    end,
+    cmd = { "HexDump", "HexAssemble", "HexToggle" },
+    config = function() require("hex").setup({}) end,
   },
   {
     -- SEARCH
     "nvim-telescope/telescope.nvim",
-    keys = { "<Leader><space>", "<Leader>f", "<Leader>g", "<Leader>c" },
     cmd = "Telescope",
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -234,9 +198,6 @@ return {
       telescope.load_extension("projects")
       telescope.load_extension("picker_list")
       telescope.load_extension("notify")
-
-      -- Set up mappings
-      require("core.mappings").map_telescope()
     end,
   },
 }
