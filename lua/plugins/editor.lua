@@ -64,6 +64,7 @@ return {
     config = function()
       require("overseer").setup({
         templates = { "builtin", "custom" },
+        dap = true,
         strategy = {
           "toggleterm",
           direction = "horizontal",

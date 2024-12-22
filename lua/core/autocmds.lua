@@ -21,7 +21,10 @@ end
 
 vim.api.nvim_create_autocmd("TermOpen", {
   pattern = "*",
-  callback = function()
+  callback = function(opts)
+    if opts.file:match("dap%-terminal") then
+      return
+    end
     vim.wo.number = false
     vim.wo.relativenumber = false
     vim.cmd("startinsert")

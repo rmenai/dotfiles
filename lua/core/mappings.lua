@@ -177,4 +177,30 @@ M.map_formatter = function()
   end)
 end
 
+M.map_rust = function()
+  map({ "n", "v", "i" }, "<F3>", function()
+    vim.cmd.RustLsp("codeAction")
+  end)
+
+  map("n", "K", function()
+    vim.cmd.RustLsp({ "hover", "actions" })
+  end)
+
+  map("n", "gm", function()
+    vim.cmd.RustLsp("expandMacro")
+  end)
+
+  map("n", "ge", function()
+    vim.cmd.RustLsp("renderDiagnostic")
+  end)
+
+  map("n", "gE", function()
+    vim.cmd.RustLsp({ "explainError", "current" })
+  end)
+
+  map("n", "go", function()
+    vim.cmd.RustLsp("openDocs")
+  end)
+end
+
 return M
