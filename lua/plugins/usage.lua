@@ -40,12 +40,13 @@ return {
   {
     -- AUTO SAVE
     "pocco81/auto-save.nvim",
-    ft = { "html", "css", "typescript", "javascript", "vue", "tex", "markdown" },
-    keys = "<F12>",
+    lazy = false,
     config = function()
       require("auto-save").setup({
-        enabled = true,
+        enabled = false,
       })
+
+      require("auto-save").off()
 
       -- Set up mappings
       require("core.mappings").map_autosave()
@@ -56,7 +57,7 @@ return {
     lazy = false,
     config = function()
       require("notify").setup({
-        level = "error",
+        level = "off",
       })
 
       vim.notify = require("notify")
