@@ -31,7 +31,13 @@ vim.api.nvim_create_autocmd("TermOpen", {
 
 vim.api.nvim_create_autocmd("WinClosed", {
   pattern = "*",
-  callback = function()
+  callback = function(e)
+    local closed_win_id = tonumber(e.match)
+    local buffer = vim.fn.getwininfo(closed_win_id)[1].bufnr
+    local buf_name = vim.api.nvim_buf_get_name(buffer)
+
+    if not vim.startswith(buf_name, "term://") then return end
+
     for _, win in ipairs(vim.api.nvim_list_wins()) do
       local buf = vim.api.nvim_win_get_buf(win)
       local filetype = vim.api.nvim_buf_get_option(buf, "filetype")
