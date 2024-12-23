@@ -17,6 +17,9 @@ end
 local function is_rust_project() return vim.fn.glob("./Cargo.toml") ~= "" or vim.fn.expand("%:e") == "rs" end
 
 local function CompilerChoose()
+  local filetype = vim.api.nvim_buf_get_option(0, "filetype")
+  if filetype == "NvimTree" then vim.cmd("wincmd l") end
+
   local telescope = require("telescope.builtin")
   local overseer = require("overseer")
 
@@ -39,6 +42,9 @@ local function CompilerChoose()
 end
 
 local function CompilerRun()
+  local filetype = vim.api.nvim_buf_get_option(0, "filetype")
+  if filetype == "NvimTree" then vim.cmd("wincmd l") end
+
   local action_util = require("overseer.action_util")
   local task_list = require("overseer.task_list")
 
