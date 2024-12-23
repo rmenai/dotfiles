@@ -90,6 +90,7 @@ return {
     event = "VeryLazy",
     config = function()
       require("notify").setup({
+        stages = "static",
         level = "off",
       })
 
