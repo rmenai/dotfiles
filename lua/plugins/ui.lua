@@ -115,7 +115,7 @@ return {
     "nvim-tree/nvim-tree.lua",
     cmd = { "NvimTreeToggle", "NvimTreeOpen", "NvimTreeClose" },
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = function() require("nvim-tree").setup({}) end,
+    config = function() require("nvim-tree").setup({ sync_root_with_cwd = true }) end,
   },
   {
     -- GIT VERSION CONTROL

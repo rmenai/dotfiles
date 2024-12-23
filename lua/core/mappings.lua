@@ -32,8 +32,19 @@ map("n", "<Leader>l", "<Cmd>Lazy<CR>", { desc = "Open Lazy" })
 map("n", "<Leader>m", "<Cmd>Mason<CR>", { desc = "Open Mason" })
 
 -- NVIM-TREE + UNDO
+local nvimTreeFocusOrToggle = function()
+  local nvimTree = require("nvim-tree.api")
+  local currentBuf = vim.api.nvim_get_current_buf()
+  local currentBufFt = vim.api.nvim_get_option_value("filetype", { buf = currentBuf })
+  if currentBufFt == "NvimTree" then
+    nvimTree.tree.toggle({ find_file = true })
+  else
+    nvimTree.tree.focus({ find_file = true })
+  end
+end
+
 map("n", "<Leader>A", function() require("nvim-tree.api").tree.toggle() end, { desc = "Toggle NvimTree" })
-map("n", "<Leader>a", function() require("nvim-tree.api").tree.toggle({ find_file = true }) end, { desc = "Toggle NvimTree and find file" })
+map("n", "<Leader>a", nvimTreeFocusOrToggle, { desc = "Toggle NvimTree and find file" })
 map("n", "<Leader>u", function() require("undotree").toggle() end, { desc = "Toggle UndoTree" })
 
 -- GIT
