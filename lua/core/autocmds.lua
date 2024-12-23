@@ -23,8 +23,12 @@ vim.api.nvim_create_autocmd("TermOpen", {
     if opts.file:match("dap%-terminal") then return end
     if opts.file:match("Neotest Output Panel") then return end
     vim.notify("Terminal opened: " .. opts.file, vim.log.levels.INFO)
+
     vim.wo.number = false
     vim.wo.relativenumber = false
+    vim.wo.signcolumn = "no"
+    vim.wo.foldcolumn = "1"
+
     vim.cmd("startinsert")
   end,
 })

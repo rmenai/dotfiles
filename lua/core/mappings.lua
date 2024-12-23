@@ -64,8 +64,9 @@ map("n", "gnd", function() require("gitsigns").diffthis() end, { desc = "Show di
 map("n", "gnD", function() require("gitsigns").diffthis("~") end, { desc = "Show diff against previous commit" })
 map("n", "gntd", function() require("gitsigns").toggle_deleted() end, { desc = "Toggle deleted lines" })
 
--- OUTLINES
+-- OUTLINES + TERM
 map("n", "<Leader>p", function() require("outline").toggle() end, { desc = "Toggle outline" })
+map("n", "<Leader>t", "<Cmd>ToggleTerm<CR>", { desc = "Toggle terminal" })
 
 -- GODBOLT + HEX
 map("n", "<Leader>G", vim.cmd.Godbolt, { desc = "Toggle Godbolt" })
