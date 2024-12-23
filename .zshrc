@@ -48,7 +48,7 @@ if [[ -f ~/.p10k.zsh ]]; then
 fi
 
 # Make sure to load .profile
-if [[ -f "~/.profile" && -z "$PROFILE_LOADED" ]]; then
-  source "~/.profile"
+if [[ -f ~/.profile && -z "$PROFILE_LOADED" ]]; then
+  source ~/.profile
   export PROFILE_LOADED=true
 fi

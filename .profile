@@ -92,4 +92,12 @@ if [ -r ~/.opam/opam-init/init.zsh ]; then
   source ~/.opam/opam-init/init.zsh >/dev/null 2>/dev/null
 fi
 
+if [ -d "/usr/local/go" ]; then
+  export PATH=$PATH:/usr/local/go/bin
+fi
+
+if [ -d "/opt/julia-1.8.1/bin" ]; then
+  export PATH=$PATH:/opt/julia-1.8.1/bin
+fi
+
 export PROFILE_LOADED=true
