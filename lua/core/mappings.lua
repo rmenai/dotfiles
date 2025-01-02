@@ -13,7 +13,6 @@ map("n", "<Leader>V", ":vnew<CR>", { desc = "Create new vertical split" })
 -- Best remaps
 map("t", "<Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 map("n", "<Leader>h", ":noh<CR>", { desc = "Clear search highlight" })
-map({ "n", "v" }, "<Tab>", ":<up>", { desc = "Repeat last command" })
 map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selected lines down" })
 map("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selected lines up" })
 map("n", "<C-d>", "<C-d>zz", { desc = "Scroll down and center" })
