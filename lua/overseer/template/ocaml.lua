@@ -39,7 +39,7 @@ return {
         name = "Start OCaml REPL",
         builder = function()
           return {
-            cmd = { executable },
+            cmd = { "utop" },
           }
         end,
       },

@@ -78,4 +78,11 @@ vim.api.nvim_create_autocmd({ "BufEnter", "QuitPre" }, {
   end,
 })
 
+vim.api.nvim_create_augroup("NoAutoComment", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+  group = "NoAutoComment",
+  pattern = "*",
+  command = "setlocal formatoptions-=cro",
+})
+
 return M
