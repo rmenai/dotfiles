@@ -20,26 +20,31 @@ startup_command = "nvim .zshrc"
 
 [[session]]
 name = "Personal Website"
-path = "~/Documents/menai.me"
+path = "~/Documents/projects/menai.me"
 startup_command = "bash ~/.config/sesh/scripts/website.sh"
 
 [[session]]
 name = "School"
-path = "~/Documents/school"
+path = "~/Documents/projects/school"
 startup_command = "bash ~/.config/sesh/scripts/school.sh"
 
 [[session]]
 name = "Test"
-path = "~/Documents/test"
+path = "~/Documents/sandbox"
 startup_command = "bash ~/.config/sesh/scripts/test.sh"
 
 [[session]]
 name = "Advent Of Code"
-path = "~/Documents/aoc"
+path = "~/Documents/projects/aoc"
 startup_command = "cd aoc/2024/day"
 
 [[session]]
 name = "LeetCode"
-path = "~/Documents/test"
+path = "~/Documents/sandbox"
 startup_command = "bash ~/.config/sesh/scripts/leet.sh"
+
+[[session]]
+name = "Codeforces"
+path = "~/Documents/sandbox/codeforces"
+startup_command = "bash ~/.config/sesh/scripts/codeforces.sh"
 
