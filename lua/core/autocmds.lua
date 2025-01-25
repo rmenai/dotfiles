@@ -78,6 +78,37 @@ vim.api.nvim_create_autocmd({ "BufEnter", "QuitPre" }, {
   end,
 })
 
+vim.api.nvim_create_autocmd({ "BufEnter", "QuitPre" }, {
+  nested = false,
+  callback = function(_)
+    local filetype = vim.bo.filetype
+    if filetype ~= "rust" then return end
+
+    local filepath = vim.fn.expand("%:p")
+    if not string.find(filepath, "codeforces") then return end
+
+    if vim.b.file_opened then return end
+    vim.b.file_opened = true
+
+    local file_contents = vim.fn.readfile(filepath)
+    local contains_solutions = false
+    for _, line in ipairs(file_contents) do
+      if string.match(line, "fn%s+solve") then
+        contains_solutions = true
+        break
+      end
+    end
+
+    local keys = vim.api.nvim_replace_termcodes("ggV/fn <Enter>kkzf/TestType<Enter>VjzfjjVGzf/fn solve<Enter>:nohlsearch<Enter>j^", true, false, true)
+
+    vim.fn.setreg("c", keys)
+
+    -- if not contains_solutions then return end
+    if not contains_solutions then return end
+    vim.api.nvim_feedkeys(keys, "n", true)
+  end,
+})
+
 vim.api.nvim_create_augroup("NoAutoComment", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
   group = "NoAutoComment",

@@ -2,6 +2,8 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- cargo install --git https://github.com/yunusey/codeforces-extractor
+
 -- Disable deprecated warnings
 vim.deprecate = function() end
 
