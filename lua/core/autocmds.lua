@@ -99,7 +99,7 @@ vim.api.nvim_create_autocmd({ "BufEnter", "QuitPre" }, {
       end
     end
 
-    local keys = vim.api.nvim_replace_termcodes("ggV/fn <Enter>kkzf/TestType<Enter>VjzfjjVGzf/fn solve<Enter>:nohlsearch<Enter>j^", true, false, true)
+    local keys = vim.api.nvim_replace_termcodes("ggV/type PreCalc<Enter>zf/TestType<Enter>VjzfjjVGzf/fn solve<Enter>:nohlsearch<Enter>j^", true, false, true)
 
     vim.fn.setreg("c", keys)
 

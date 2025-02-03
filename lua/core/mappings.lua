@@ -121,6 +121,7 @@ map("n", "gj", "<C-o>", { desc = "Go to previous location" })
 map("n", "gk", "<C-i>", { desc = "Go to next location" })
 map("n", "gK", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic" })
 map("n", "gJ", vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
+map("n", "ge", vim.diagnostic.open_float, { desc = "Open diagnostics float" })
 
 -- DAP
 map("n", "<F5>", function() require("dap").continue() end, { desc = "Start/continue debugging" })
@@ -131,7 +132,6 @@ map("n", "gB", function() require("dap").toggle_breakpoint() end, { desc = "Togg
 
 -- RUST
 map("n", "gm", function() vim.cmd.RustLsp("expandMacro") end, { desc = "Expand a macro" })
-map("n", "ge", function() vim.cmd.RustLsp("renderDiagnostic") end, { desc = "Show diagnostic" })
 map("n", "gE", function() vim.cmd.RustLsp({ "explainError", "current" }) end, { desc = "Explain diagnostic" })
 map("n", "go", function() vim.cmd.RustLsp("openDocs") end, { desc = "Open cursor documentation" })
 
