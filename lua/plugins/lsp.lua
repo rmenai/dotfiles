@@ -60,6 +60,9 @@ return {
           end,
         },
       })
+
+      -- if vim.fn.executable("opam") == 1 then require("lspconfig").ocamllsp.setup({}) end
+      require("lspconfig").ocamllsp.setup({})
     end,
   },
 }
