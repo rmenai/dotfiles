@@ -82,12 +82,13 @@ return {
     event = "InsertEnter",
     dependencies = "hrsh7th/nvim-cmp",
     config = function()
-      local npairs = require("nvim-autopairs")
       local Rule = require("nvim-autopairs.rule")
+      local npairs = require("nvim-autopairs")
       local cond = require("nvim-autopairs.conds")
 
-      npairs.add_rule(Rule("'", "'"):with_pair(cond.not_filetypes({ "ocaml" })))
       npairs.setup({})
+      npairs.get_rules("'")[1].not_filetypes = { "scheme", "lisp", "ocaml" }
+      npairs.add_rule(Rule("'", "'"):with_pair(cond.not_filetypes({ "ocaml" })))
     end,
   },
   {
