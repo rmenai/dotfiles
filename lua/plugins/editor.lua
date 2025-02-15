@@ -134,6 +134,24 @@ return {
     end,
   },
   {
+    "chrisgrieser/nvim-recorder",
+    dependencies = "rcarriga/nvim-notify",
+    keys = {
+      { "q", desc = "Start Recording" },
+      { "Q", desc = "Play Recording" },
+    },
+    config = function()
+      require("recorder").setup({
+        slots = { "q" },
+        mapping = {
+          startStopRecording = "Q",
+          playMacro = "@q",
+          yankMacro = "yq",
+        },
+      })
+    end,
+  },
+  {
     -- BETTER ESCAPE INSERT
     "TheBlob42/houdini.nvim",
     event = "ModeChanged",
