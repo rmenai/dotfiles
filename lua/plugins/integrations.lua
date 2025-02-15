@@ -33,8 +33,11 @@ return {
       -- Set up commands
       require("core.commands").setup_leetcode_cmds()
 
-      -- Set up autocmds
-      require("core.autocmds").leetcode_autocmd(function() utils.sync_repo(home_dir, repo_url) end)
+      -- Commit leetcode changes on neovim leave
+      vim.api.nvim_create_autocmd("VimLeavePre", {
+        group = vim.api.nvim_create_augroup("AutoGitCommit", { clear = true }),
+        callback = function() utils.sync_repo(home_dir, repo_url) end,
+      })
     end,
   },
 

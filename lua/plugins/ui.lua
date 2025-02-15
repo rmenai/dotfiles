@@ -82,8 +82,12 @@ return {
         },
       })
 
-      -- Set up autocmds
-      require("core.autocmds").lualine_autocmd()
+      -- Listen lsp-progress event and refresh lualine
+      vim.api.nvim_create_autocmd("User", {
+        group = vim.api.nvim_create_augroup("lualine_augroup", { clear = true }),
+        pattern = "LspProgressStatusUpdated",
+        callback = function() require("lualine").refresh() end,
+      })
     end,
   },
   {

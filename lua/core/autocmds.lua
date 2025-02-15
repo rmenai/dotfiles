@@ -1,22 +1,3 @@
-local M = {}
-
--- Listen lsp-progress event and refresh lualine
-M.lualine_autocmd = function()
-  vim.api.nvim_create_autocmd("User", {
-    group = vim.api.nvim_create_augroup("lualine_augroup", { clear = true }),
-    pattern = "LspProgressStatusUpdated",
-    callback = function() require("lualine").refresh() end,
-  })
-end
-
--- Commit leetcode changes on neovim leave
-M.leetcode_autocmd = function(callback)
-  vim.api.nvim_create_autocmd("VimLeavePre", {
-    group = vim.api.nvim_create_augroup("AutoGitCommit", { clear = true }),
-    callback = callback,
-  })
-end
-
 vim.api.nvim_create_autocmd("TermOpen", {
   pattern = "*",
   callback = function(opts)
@@ -99,13 +80,9 @@ vim.api.nvim_create_autocmd({ "BufEnter", "QuitPre" }, {
       end
     end
 
-    local keys = vim.api.nvim_replace_termcodes("ggV/type PreCalc<Enter>zf/TestType<Enter>VjzfjjVGzf/fn solve<Enter>:nohlsearch<Enter>j^", true, false, true)
-
-    vim.fn.setreg("c", keys)
-
     -- if not contains_solutions then return end
     if not contains_solutions then return end
-    vim.api.nvim_feedkeys(keys, "n", true)
+    vim.api.nvim_feedkeys("@c", "n", true)
   end,
 })
 
@@ -115,5 +92,3 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = "*",
   command = "setlocal formatoptions-=cro",
 })
-
-return M
