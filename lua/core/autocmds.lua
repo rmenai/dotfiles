@@ -80,9 +80,8 @@ vim.api.nvim_create_autocmd({ "BufEnter", "QuitPre" }, {
       end
     end
 
-    -- if not contains_solutions then return end
     if not contains_solutions then return end
-    vim.api.nvim_feedkeys("@c", "n", true)
+    vim.cmd("normal! @c")
   end,
 })
 
