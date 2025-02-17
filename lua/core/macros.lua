@@ -1,6 +1,7 @@
 local macros = {
   c = "ggV/type PreCalc<Enter>zf/TestType<Enter>VjzfjjVGzf/fn solve<Enter><Leader>hj^",
-  l = "/@leet<Space>start<CR>jV/@leet<Space>end<CR>k<Space>y",
+  v = "/cfg(test)<Enter>VGzf/fn part_one<Enter><Leader>hj^",
+  l = "/@leet<Space>start<CR>jV/@leet<Space>end<CR>k<Space>y<Space>h",
   p = "/struct<Space>Solution<CR>jV/fn<Space>main<CR>kdko<CR><Esc><Space>h",
 }
 
