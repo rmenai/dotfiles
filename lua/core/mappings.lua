@@ -44,7 +44,7 @@ end
 
 map("n", "<Leader>A", function() require("nvim-tree.api").tree.toggle() end, { desc = "Toggle NvimTree" })
 map("n", "<Leader>a", nvimTreeFocusOrToggle, { desc = "Toggle NvimTree and find file" })
-map("n", "<Leader>u", function() require("undotree").toggle() end, { desc = "Toggle UndoTree" })
+map("n", "<Leader>U", function() require("undotree").toggle() end, { desc = "Toggle UndoTree" })
 
 -- GIT
 map("n", "<Leader>N", vim.cmd.CommitCurrentFile, { desc = "Commit current file" })
@@ -150,3 +150,6 @@ map("n", "gpA", function() require("crates").upgrade_all_crates() end, { desc = 
 map("n", "gpx", function() require("crates").expand_plain_crate_to_inline_table() end, { desc = "Expand crate to inline table" })
 map("n", "gpX", function() require("crates").extract_crate_into_table() end, { desc = "Extract crate into table" })
 map("n", "gpo", function() require("crates").open_crates_io() end, { desc = "Open crates.io" })
+
+-- AI
+map({ "n", "v" }, "<Leader>u", ":CodeCompanionChat Toggle<CR>", { desc = "Toggle Advante" })

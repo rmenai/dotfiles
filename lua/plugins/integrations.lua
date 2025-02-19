@@ -54,6 +54,35 @@ return {
     end,
   },
 
+  -- AI
+  {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      require("copilot").setup({
+        suggestion = { enabled = false },
+        panel = { enabled = false },
+      })
+    end,
+  },
+
+  {
+    "olimorris/codecompanion.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    cmd = { "CodeCompanion", "CodeCompanionChat" },
+    opts = {
+      strategies = {
+        chat = {
+          adapter = "copilot",
+        },
+      },
+    },
+  },
+
   -- Games
   {
     "NStefan002/speedtyper.nvim",
