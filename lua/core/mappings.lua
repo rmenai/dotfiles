@@ -17,8 +17,14 @@ map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selected lines down" })
 map("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selected lines up" })
 map("n", "<C-d>", "<C-d>zz", { desc = "Scroll down and center" })
 map("n", "<C-u>", "<C-u>zz", { desc = "Scroll up and center" })
-map({ "n", "v" }, "<Leader>y", '"+y', { desc = "Yank to system clipboard" })
-map({ "n", "v" }, "<Leader>Y", '"+Y', { desc = "Yank line to system clipboard" })
+map("v", "<leader>y", '"+y', { desc = "Yank to system clipboard" })
+map("n", "<Leader>yy", '"+Y', { desc = "Yank line to system clipboard" })
+
+-- Paths
+map("n", "<Leader>yr", ":let @+=expand('%')<CR>", { desc = "Yank relative path to system clipboard" })
+map("n", "<Leader>ya", ":let @+=expand('%:p')<CR>", { desc = "Yank absolute path to system clipboard" })
+map("n", "<Leader>yf", ":let @+=expand('%:t')<CR>", { desc = "Yank filename to system clipboard" })
+map("n", "<Leader>yd", ":let @+=expand('%:p:h')<CR>", { desc = "Yank directory to system clipboard" })
 
 -- TELESCOPE
 map("n", "<Leader><space>", function() require("telescope").extensions.picker_list.picker_list() end, { desc = "Open Telescope picker list" })
