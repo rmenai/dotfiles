@@ -37,32 +37,34 @@ M.patch_runnables = function()
 
   local function patched_mk_handler(executableArgsOverride, opts)
     return function(_, runnables)
-      -- Modified part
-      table.insert(runnables, {
-        args = {
-          cargoArgs = { "watch", "-q", "-c", "-w", "src/", "-x", "'run -q'" },
-          cwd = vim.loop.cwd(),
-          executableArgs = {},
-          workspaceRoot = vim.loop.cwd(),
-        },
-        kind = "cargo",
-        label = "cargo watch",
-      })
-      -- End
+      local _, _ = pcall(function()
+        -- Modified part
+        table.insert(runnables, {
+          args = {
+            cargoArgs = { "watch", "-q", "-c", "-w", "src/", "-x", "'run -q'" },
+            cwd = vim.loop.cwd(),
+            executableArgs = {},
+            workspaceRoot = vim.loop.cwd(),
+          },
+          kind = "cargo",
+          label = "cargo watch",
+        })
+        -- End
 
-      runnables = require("rustaceanvim.runnables").apply_exec_args_override(executableArgsOverride, runnables)
-      if opts.tests_only then runnables = vim.tbl_filter(is_testable, runnables) end
+        runnables = require("rustaceanvim.runnables").apply_exec_args_override(executableArgsOverride, runnables)
+        if opts.tests_only then runnables = vim.tbl_filter(is_testable, runnables) end
 
-      local options = get_options(runnables, executableArgsOverride, opts)
-      vim.ui.select(options, { prompt = "Runnables", kind = "rust-tools/runnables" }, function(_, choice)
-        require("rustaceanvim.runnables").run_command(choice, runnables)
+        local options = get_options(runnables, executableArgsOverride, opts)
+        vim.ui.select(options, { prompt = "Runnables", kind = "rust-tools/runnables" }, function(_, choice)
+          require("rustaceanvim.runnables").run_command(choice, runnables)
 
-        local cached_commands = require("rustaceanvim.cached_commands")
-        if opts.tests_only then
-          cached_commands.set_last_testable(choice, runnables)
-        else
-          cached_commands.set_last_runnable(choice, runnables)
-        end
+          local cached_commands = require("rustaceanvim.cached_commands")
+          if opts.tests_only then
+            cached_commands.set_last_testable(choice, runnables)
+          else
+            cached_commands.set_last_runnable(choice, runnables)
+          end
+        end)
       end)
     end
   end
