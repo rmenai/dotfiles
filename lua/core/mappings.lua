@@ -26,10 +26,28 @@ map("n", "<Leader>ya", ":let @+=expand('%:p')<CR>", { desc = "Yank absolute path
 map("n", "<Leader>yf", ":let @+=expand('%:t')<CR>", { desc = "Yank filename to system clipboard" })
 map("n", "<Leader>yd", ":let @+=expand('%:p:h')<CR>", { desc = "Yank directory to system clipboard" })
 
+-- Quickfix
+local quickfix_open = false
+map("n", "<Leader>q", function()
+  quickfix_open = not quickfix_open
+  if quickfix_open then
+    vim.cmd(":copen")
+  else
+    vim.cmd(":cclose")
+  end
+end, { desc = "Toggle quickfix window" })
+
+map("n", "<Leader>n", "<cmd>cnext<CR>zz", { desc = "Forward qlist" })
+map("n", "<Leader>N", "<cmd>cprev<CR>zz", { desc = "Backward qlist" })
+
+map("n", "<Leader>k", "<cmd>lnext<CR>zz", { desc = "Forward location list" })
+map("n", "<Leader>j", "<cmd>lprev<CR>zz", { desc = "Backward location list" })
+
 -- TELESCOPE
 map("n", "<Leader><space>", function() require("telescope").extensions.picker_list.picker_list() end, { desc = "Open Telescope picker list" })
 map("n", "<Leader>f", function() require("telescope.builtin").find_files() end, { desc = "Find files" })
-map("n", "<Leader>g", function() require("telescope.builtin").live_grep() end, { desc = "Search in files" })
+map("n", "<Leader>/", function() require("telescope.builtin").live_grep() end, { desc = "Search in files" })
+map("n", "<Leader>?", function() require("telescope.builtin").grep_string() end, { desc = "Search in files" })
 map("n", "<Leader>c", function() require("telescope.builtin").commands() end, { desc = "Show commands" })
 
 -- INSTALLERS
@@ -53,8 +71,17 @@ map("n", "<Leader>a", nvimTreeFocusOrToggle, { desc = "Toggle NvimTree and find 
 map("n", "<Leader>U", function() require("undotree").toggle() end, { desc = "Toggle UndoTree" })
 
 -- GIT
-map("n", "<Leader>N", vim.cmd.CommitCurrentFile, { desc = "Commit current file" })
-map("n", "<Leader>n", function() require("neogit").open({ kind = "auto" }) end, { desc = "Open Neogit" })
+map("n", "<Leader>G", vim.cmd.CommitCurrentFile, { desc = "Commit current file" })
+local neogit_open = false
+map("n", "<Leader>g", function()
+  neogit_open = not neogit_open
+  if neogit_open then
+    require("neogit").open({ kind = "auto" })
+  else
+    require("neogit").close()
+  end
+end, { desc = "Open Neogit" })
+
 map("n", "gns", function() require("gitsigns").stage_hunk() end, { desc = "Stage hunk" })
 map("n", "gnr", function() require("gitsigns").reset_hunk() end, { desc = "Reset hunk" })
 map("v", "gns", function() require("gitsigns").stage_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, { desc = "Stage selected hunk" })

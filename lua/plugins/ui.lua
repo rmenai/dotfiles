@@ -156,6 +156,11 @@ return {
     config = function() require("hex").setup({}) end,
   },
   {
+    "kevinhwang91/nvim-bqf",
+    run = ":TSUpdate",
+    dependencies = { { "junegunn/fzf", run = function() vim.fn["fzf#install"]() end } },
+  },
+  {
     -- SEARCH
     "nvim-telescope/telescope.nvim",
     dependencies = {
@@ -176,7 +181,6 @@ return {
             i = {
               ["<C-j>"] = actions.move_selection_next,
               ["<C-k>"] = actions.move_selection_previous,
-              ["<C-q>"] = actions.close,
             },
           },
           ignore_case = true,
