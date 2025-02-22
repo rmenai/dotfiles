@@ -6,6 +6,29 @@ local function get_ocaml_executable()
   end
 end
 
+local cached_project_names = {}
+
+local function get_project_name()
+  local cwd = vim.fn.getcwd()
+  if cached_project_names[cwd] then return cached_project_names[cwd] end
+
+  local dune_file = "bin/dune"
+  local file = io.open(dune_file, "r")
+  if not file then return nil end
+
+  for line in file:lines() do
+    local name = line:match("%(%s*public_name%s+([%w_%-]+)%s*%)")
+    if name then
+      file:close()
+      cached_project_names[cwd] = name
+      return name
+    end
+  end
+
+  file:close()
+  return nil
+end
+
 return {
   condition = {
     callback = function()
@@ -16,6 +39,7 @@ return {
   },
   generator = function(_, cb)
     local executable = get_ocaml_executable()
+    local project_name = get_project_name() or "./bin/main.bc"
     local templates = {
       {
         name = "Interpret this program",
@@ -31,7 +55,7 @@ return {
         name = "Run this program",
         builder = function()
           return {
-            cmd = { "dune", "build", "&&", "dune", "exec", "./bin/main.bc" },
+            cmd = { "dune", "build", "&&", "dune", "exec", project_name },
           }
         end,
       },
