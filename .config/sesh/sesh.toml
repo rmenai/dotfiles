@@ -34,9 +34,9 @@ path = "~/Documents/sandbox"
 startup_command = "bash ~/.config/sesh/scripts/test.sh"
 
 [[session]]
-name = "Advent Of Code"
-path = "~/Documents/projects/aoc"
-startup_command = "cd aoc/2024/day"
+name = "AOC"
+path = "~/Documents/projects/aoc/2024"
+startup_command = "bash ~/.config/sesh/scripts/aoc.sh"
 
 [[session]]
 name = "LeetCode"
@@ -45,6 +45,6 @@ startup_command = "bash ~/.config/sesh/scripts/leet.sh"
 
 [[session]]
 name = "Codeforces"
-path = "~/Documents/sandbox/codeforces"
+path = "~/Documents/projects/codeforces"
 startup_command = "bash ~/.config/sesh/scripts/codeforces.sh"
 
