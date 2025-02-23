@@ -1,0 +1,8 @@
+open_task_command = [
+    'tmux',
+    'new-window',
+    'nvim',
+    '+$LINE',
+    '+normal! $COLUMN|',
+    '$FILE',
+]
