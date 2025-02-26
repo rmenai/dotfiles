@@ -45,7 +45,12 @@
     nixosConfigurations = {
       null-pointer = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
-        modules = [./hosts/null-pointer];
+        modules = [
+	  ./hosts/null-pointer
+          inputs.disko.nixosModules.disko
+          inputs.impermanence.nixosModules.impermanence
+          inputs.lanzaboote.nixosModules.lanzaboote
+	];
       };
     };
 
@@ -56,40 +61,5 @@
         modules = [./home/rami/null-pointer.nix];
       };
     };
-
-    nixosConfigurations.default = nixpkgs.lib.nixosSystem {
-      specialArgs = { inherit inputs; };
-      modules = [
-        inputs.disko.nixosModules.default
-        (import ./disko.nix { device = "/dev/nvme0n1"; })
-
-        ./configuration.nix
-
-        # Enable home-manager module
-        inputs.home-manager.nixosModules.default
-
-        # Enable impermanence module
-        inputs.impermanence.nixosModules.impermanence
-
-        # Enable lanzaboote for Secure Boot support
-        inputs.lanzaboote.nixosModules.lanzaboote
-
-        # Custom configuration for Secure Boot, here we add the necessary configuration
-        ({ pkgs, lib, ... }: {
-          environment.systemPackages = [
-            pkgs.sbctl  # For managing Secure Boot keys
-          ];
-
-          # Disabling systemd-boot to use lanzaboote instead
-          boot.loader.systemd-boot.enable = lib.mkForce false;
-
-          boot.lanzaboote = {
-            enable = true;
-            pkiBundle = "/var/lib/sbctl";  # Path to your PKI bundle for Secure Boot
-          };
-        })
-      ];
-    };
-
   };
 }
