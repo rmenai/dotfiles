@@ -14,8 +14,8 @@
   users.users.rami = {
     isNormalUser = true;
     description = "Rami Menai";
-    hashedPassword = "Redecated";
-    extraGroups = [ "networkmanager" "wheel" ];
+    hashedPassword = "***REMOVED***";
+    extraGroups = [ "networkmanager" "wheel" "libwirtd" "audio" "video" "plugdev" "input" "kvm" "qemu-libvirtd" ];
     packages = [inputs.home-manager.packages.${pkgs.system}.default];
   };
 

@@ -18,14 +18,30 @@
   networking.hostName = "null-pointer";
   networking.networkmanager.enable = true;
 
+  nixpkgs.config.allowUnfree = true;
+
   time.timeZone = "Europe/Paris";
   i18n.defaultLocale = "en_US.UTF-8";
 
   services.xserver.enable = true;
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  services.displayManager.sddm = {
+    enable = true;
+    wayland.enable = true;
+  };
+
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+  };
+
   services.displayManager.autoLogin.enable = true;
   services.displayManager.autoLogin.user = "rami";
+
+  services.xserver.xkb = {
+    layout = "us";
+    variant = "";
+  };
+
   services.libinput.enable = true;
   services.xserver.videoDrivers = ["nvidia"];
 
@@ -47,10 +63,10 @@
     nvidiaBusId = "PCI:1:0:0";
   };
 
-   	
-  programs.hyprland = {
-    enable = true;
-    xwayland.enable = true;
+
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
+    MOZ_ENABLE_WAYLAND = "1";
   };
 
   environment.systemPackages = with pkgs; [
@@ -58,7 +74,7 @@
     git
   ];
 
-  system.stateVersion = "24.05"; # Did you read the comment?
+  system.stateVersion = "24.11"; # Did you read the comment?
 
   # networking.wireless.enable = true;  # Enables wireless support
 
