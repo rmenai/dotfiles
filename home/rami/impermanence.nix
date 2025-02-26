@@ -15,9 +15,11 @@
       ".gnupg"
       ".ssh"
       ".nixops"
+      ".mozilla"
       ".local/share/keyrings"
       ".local/share/direnv"
       ".local/share/yadm"
+      # ".config/git"
     ];
     allowOther = true;
   };

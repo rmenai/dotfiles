@@ -26,11 +26,6 @@
     umount /btrfs_tmp
   '';
 
-  systemd.tmpfiles.rules = [
-    "d /persist/home/ 0777 root root -"
-    "d /persist/home/rami 0700 rami users -"
-  ];
-
   fileSystems."/persist".neededForBoot = true;
   environment.persistence."/persist/system" = {
     hideMounts = true;

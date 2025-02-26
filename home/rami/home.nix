@@ -5,6 +5,7 @@
   home.homeDirectory = lib.mkDefault "/home/${config.home.username}";
 
   home.packages = with pkgs; [
+    neovim
     yadm
     gh
     # # Adds the 'hello' command to your environment. It prints a friendly
@@ -25,10 +26,12 @@
     # '')
   ];
 
+  programs.firefox.enable = true;
+
   programs.git = {
     enable = true;
     userName = "Rami Menai";
-    userEmail = "rami@menai@menai.me";
+    userEmail = "rami@menai.me";
   };
 
   programs.home-manager.enable = true;

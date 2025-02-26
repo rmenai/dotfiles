@@ -21,43 +21,45 @@
   time.timeZone = "Europe/Paris";
   i18n.defaultLocale = "en_US.UTF-8";
 
-  # Enable the X11 windowing system.
   services.xserver.enable = true;
-
-  # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
-
   services.displayManager.autoLogin.enable = true;
   services.displayManager.autoLogin.user = "rami";
-
-  hardware.pulseaudio.enable = true;
   services.libinput.enable = true;
+  services.xserver.videoDrivers = ["nvidia"];
 
-  programs.firefox.enable = true;
+  hardware.graphics.enable = true;
+
+  hardware.nvidia = {
+    modesetting.enable = true;
+    powerManagement.enable = true;
+    powerManagement.finegrained = true;
+    open = true;
+    nvidiaSettings = true;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+  };
+
+  hardware.nvidia.prime = {
+    offload.enable = true;
+    offload.enableOffloadCmd = true;
+    intelBusId = "PCI:0:2:0";
+    nvidiaBusId = "PCI:1:0:0";
+  };
+
+   	
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+  };
 
   environment.systemPackages = with pkgs; [
     vim
-    neovim
-    wget
+    git
   ];
 
-  users.users.rami = {
-    isNormalUser = true;
-    description = "Rami Menai";
-    hashedPassword = "Redecated";
-    extraGroups = [ "networkmanager" "wheel" ];
-  };
+  system.stateVersion = "24.05"; # Did you read the comment?
 
-  system.stateVersion = "24.11"; # Did you read the comment?
-
-  # home-manager = {
-  #   extraSpecialArgs = {inherit inputs;};
-  #   users = {
-  #     "rami" = import ./home.nix;
-  #   };
-  # };
-  #
   # networking.wireless.enable = true;  # Enables wireless support
 
   # Set your time zone.
