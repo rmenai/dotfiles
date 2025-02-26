@@ -40,9 +40,8 @@ return {
         end
       end
 
-      local function git()
-        local branch = vim.fn.system("git rev-parse --abbrev-ref HEAD 2>/dev/null"):gsub("\n", "")
-        return branch ~= "" and " " .. branch or ""
+      local function update_git()
+        return vim.b.git_branch ~= "" and " " .. vim.b.git_branch or ""
       end
 
       local filename = require("lualine.components.filename"):extend()
@@ -57,7 +56,7 @@ return {
         },
         sections = {
           lualine_a = { { "mode", fmt = trunc(50, 0, 50) } },
-          lualine_b = { { git, fmt = trunc(50, 0, 50) } },
+          lualine_b = { { update_git, fmt = trunc(50, 0, 50) } },
           lualine_c = {
             { filename, symbols = { modified = "●", readonly = "#" } },
             { "diff", fmt = trunc(66, 0, 66) },
@@ -87,6 +86,14 @@ return {
         group = vim.api.nvim_create_augroup("lualine_augroup", { clear = true }),
         pattern = "LspProgressStatusUpdated",
         callback = function() require("lualine").refresh() end,
+      })
+
+      vim.api.nvim_create_autocmd("User", {
+        group = vim.api.nvim_create_augroup("lualine_augroup", { clear = true }),
+        pattern = "BufEnter",
+        callback = function()
+          vim.b.git_branch = vim.fn.system("git rev-parse --abbrev-ref HEAD 2>/dev/null"):gsub("\n", "")
+        end,
       })
     end,
   },
@@ -119,7 +126,33 @@ return {
     "nvim-tree/nvim-tree.lua",
     cmd = { "NvimTreeToggle", "NvimTreeOpen", "NvimTreeClose" },
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = function() require("nvim-tree").setup({ sync_root_with_cwd = true }) end,
+    config = function()
+      require("nvim-tree").setup({ sync_root_with_cwd = true })
+
+      -- Make :bd and :q behave as usual when tree is visible
+      vim.api.nvim_create_autocmd({ "BufEnter", "QuitPre" }, {
+        nested = false,
+        callback = function(e)
+          local tree = require("nvim-tree.api").tree
+
+          if not tree.is_visible() then return end
+
+          local winCount = 0
+          for _, winId in ipairs(vim.api.nvim_list_wins()) do
+            if vim.api.nvim_win_get_config(winId).focusable then winCount = winCount + 1 end
+          end
+
+          if e.event == "QuitPre" and winCount == 2 then vim.api.nvim_cmd({ cmd = "qall" }, {}) end
+
+          if e.event == "BufEnter" and winCount == 1 then
+            vim.defer_fn(function()
+              tree.toggle({ find_file = true, focus = true })
+              tree.toggle({ find_file = true, focus = false })
+            end, 10)
+          end
+        end,
+      })
+    end,
   },
   {
     -- GIT VERSION CONTROL
