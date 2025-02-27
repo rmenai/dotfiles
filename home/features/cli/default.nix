@@ -37,16 +37,13 @@
   };
 
   home.packages = with pkgs; [
-    zsh
     tmux
     ripgrep
     sesh
+    zsh
 
     btop
     xsel
     zip
-
-    gnumake
-    gcc
   ];
 }

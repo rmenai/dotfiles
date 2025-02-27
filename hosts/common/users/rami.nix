@@ -17,6 +17,7 @@
     hashedPassword = "***REMOVED***";
     extraGroups = [ "networkmanager" "wheel" "libwirtd" "audio" "video" "plugdev" "input" "kvm" "qemu-libvirtd" ];
     packages = [inputs.home-manager.packages.${pkgs.system}.default];
+    shell = pkgs.shell;
   };
 
   home-manager.users.rami = import ../../../home/rami/${config.networking.hostName}.nix;

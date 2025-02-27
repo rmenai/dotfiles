@@ -70,6 +70,8 @@
   };
 
   environment.systemPackages = with pkgs; [
+    gnumake
+    gcc
     vim
     git
   ];
