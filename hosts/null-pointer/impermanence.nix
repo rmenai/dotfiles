@@ -46,4 +46,8 @@
   };
 
   programs.fuse.userAllowOther = true;
+
+  security.sudo.extraConfig = ''
+    Defaults lecture = never
+  '';
 }

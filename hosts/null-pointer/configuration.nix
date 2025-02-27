@@ -63,15 +63,19 @@
     nvidiaBusId = "PCI:1:0:0";
   };
 
-
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
     MOZ_ENABLE_WAYLAND = "1";
   };
 
+  fonts.packages = with pkgs; [
+    jetbrains-mono
+  ];
+
   environment.systemPackages = with pkgs; [
     gnumake
     gcc
+    wget
     vim
     git
   ];

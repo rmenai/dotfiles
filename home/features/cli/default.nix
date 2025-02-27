@@ -40,6 +40,8 @@
     tmux
     ripgrep
     sesh
+    starship
+    wezterm
     zsh
 
     btop

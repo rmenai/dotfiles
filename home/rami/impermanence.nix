@@ -25,6 +25,12 @@
       ".local/share/sddm"
       ".local/share/yadm"
       ".local/share/nvim"
+      ".local/share/zinit"
+      ".local/share/zoxide"
+
+      ".local/state/home-manager"
+      ".local/state/nix"
+      ".local/state/nvim"
 
       ".config/git"
       ".config/hypr"
@@ -33,11 +39,13 @@
       ".config/yazi"
       ".config/sesh"
       ".config/nvim"
+      ".config/wezterm"
+      ".config/zsh"
+      ".config/fsh"
 
       ".config/utop"
       ".config/rust-competitive-helper"
     ];
-    allowOther = true;
 
     files = [
       ".profile"
@@ -45,5 +53,7 @@
       ".p10k.zsh"
       ".histfile"
     ];
+
+    allowOther = true;
   };
 }
