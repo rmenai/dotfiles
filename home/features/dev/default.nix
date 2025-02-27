@@ -3,12 +3,22 @@
     python314
     nodejs_23
     rustup
-    
+
     ocaml
     ocamlPackages.utop
     ocamlPackages.lsp
 
     luajit
     luajitPackages.luarocks
+    nixd
+
+    stylua
+    cpplint
+    alejandra
+    asmfmt
+    black
+    isort
+    clang-tools
+    shellharden
   ];
 }

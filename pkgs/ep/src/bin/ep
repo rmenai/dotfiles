@@ -22,7 +22,7 @@ filesystemDiff() {
 
     # Select the most recent snapshot from old_roots.
     BASELINE=$(find "$MNTPOINT/old_roots" | sort | tail -n 1)
-    if [ -z "$BASELINE" ]; then
+    if [ "$BASELINE" = "" ]; then
       echo "No baseline snapshot found in $MNTPOINT/old_roots"
       exit 1
     fi

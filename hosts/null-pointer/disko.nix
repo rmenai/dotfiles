@@ -6,11 +6,11 @@
       content = {
         type = "gpt";
         partitions = {
-	  boot = {
-	    name = "boot";
-	    size = "1M";
-	    type = "EF02";
-	  };
+          boot = {
+            name = "boot";
+            size = "1M";
+            type = "EF02";
+          };
 
           esp = {
             name = "ESP";
@@ -20,26 +20,26 @@
               type = "filesystem";
               format = "vfat";
               mountpoint = "/boot";
-	      mountOptions = [ "defaults" "umask=0077" ];
+              mountOptions = ["defaults" "umask=0077"];
             };
           };
 
-	  luks = {
-	    name = "luks";
-	    size = "100%";
+          luks = {
+            name = "luks";
+            size = "100%";
             content = {
-	      type = "luks";
+              type = "luks";
               name = "crypted";
               settings = {
                 allowDiscards = true;
               };
 
-	      content = {
-	        type = "lvm_pv";
-	        vg = "root_vg";
-	      };
+              content = {
+                type = "lvm_pv";
+                vg = "root_vg";
+              };
             };
-	  };
+          };
         };
       };
     };
@@ -69,7 +69,7 @@
                   mountpoint = "/nix";
                 };
 
-	        "/swap" = {
+                "/swap" = {
                   mountpoint = "/.swapvol";
                   swap.swapfile.size = "32G";
                 };

@@ -45,12 +45,14 @@
   home.packages = with pkgs; [
     wezterm
     ripgrep
+    tmux
     sesh
     zsh
 
     wl-clipboard
     btop
     xsel
+    unzip
     zip
   ];
 }

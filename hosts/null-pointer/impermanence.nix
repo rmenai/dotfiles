@@ -1,6 +1,4 @@
-{ config, pkgs, lib, ... }:
-
-{
+{lib, ...}: {
   boot.initrd.postDeviceCommands = lib.mkAfter ''
     mkdir /btrfs_tmp
     mount /dev/root_vg/root /btrfs_tmp
@@ -37,11 +35,19 @@
       "/var/lib/systemd/coredump"
       "/var/lib/sbctl"
       "/etc/NetworkManager/system-connections"
-      { directory = "/var/lib/colord"; user = "colord"; group = "colord"; mode = "u=rwx,g=rx,o="; }
+      {
+        directory = "/var/lib/colord";
+        user = "colord";
+        group = "colord";
+        mode = "u=rwx,g=rx,o=";
+      }
     ];
     files = [
       "/etc/machine-id"
-      { file = "/var/keys/secret_file"; parentDirectory = { mode = "u=rwx,g=,o="; }; }
+      {
+        file = "/var/keys/secret_file";
+        parentDirectory = {mode = "u=rwx,g=,o=";};
+      }
     ];
   };
 

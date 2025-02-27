@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ inputs, ... }:
 
 {
   imports = [
@@ -30,15 +30,16 @@
       ".local/share/nvim"
       ".local/share/zinit"
       ".local/share/zoxide"
+      ".local/share/tmux"
 
       ".local/state/home-manager"
       ".local/state/nix"
       ".local/state/nvim"
 
-      ".config/environment.d"
-      ".config/fontconfig"
-      ".config/nix"
-      ".config/systemd"
+      # ".config/environment.d"
+      # ".config/fontconfig"
+      # ".config/nix"
+      # ".config/systemd"
 
       ".config/git"
       ".config/hypr"
@@ -51,6 +52,7 @@
       ".config/zsh"
       ".config/fsh"
       ".config/zellij"
+      ".config/tmux"
       ".config/github-copilot"
 
       ".config/utop"

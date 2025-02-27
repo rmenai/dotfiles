@@ -25,8 +25,12 @@
     };
   };
 
-  outputs = { self, home-manager, nixpkgs, ...} @ inputs:
-  let
+  outputs = {
+    self,
+    home-manager,
+    nixpkgs,
+    ...
+  } @ inputs: let
     inherit (self) outputs;
     systems = [
       "aarch64-linux"
@@ -36,9 +40,7 @@
       "x86_64-darwin"
     ];
     forAllSystems = nixpkgs.lib.genAttrs systems;
-  in
-  {
-
+  in {
     packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
     overlays = import ./overlays {inherit inputs;};
 
@@ -46,11 +48,11 @@
       null-pointer = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
-	  ./hosts/null-pointer
+          ./hosts/null-pointer
           inputs.disko.nixosModules.disko
           inputs.impermanence.nixosModules.impermanence
           inputs.lanzaboote.nixosModules.lanzaboote
-	];
+        ];
       };
     };
 

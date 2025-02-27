@@ -8,12 +8,12 @@
 stdenv.mkDerivation {
   name = "ep";
   src = ./src;
-  path = lib.makeBinPath ([
+  path = lib.makeBinPath [
     btrfs-progs
-  ]);
+  ];
 
-  nativeCheckInputs = [ shellcheck ];
-  buildInputs = [ bash ];
+  nativeCheckInputs = [shellcheck];
+  buildInputs = [bash];
   nativeBuildInputs = [
     btrfs-progs
   ];

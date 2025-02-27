@@ -1,4 +1,3 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   ep = pkgs.callPackage ./ep {};
 }

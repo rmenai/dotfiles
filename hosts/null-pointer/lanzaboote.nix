@@ -1,8 +1,10 @@
-{ pkgs, lib, ... }:
-
 {
+  pkgs,
+  lib,
+  ...
+}: {
   environment.systemPackages = [
-    pkgs.sbctl  # For managing Secure Boot keys
+    pkgs.sbctl # For managing Secure Boot keys
   ];
 
   # Disabling systemd-boot to use lanzaboote instead
