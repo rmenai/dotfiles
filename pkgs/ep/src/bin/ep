@@ -64,14 +64,14 @@ case "$command" in
     # If no additional argument is provided, run the filesystemDiff.
     if [ $# -eq 0 ]; then
       echo "Running btrfs diff: comparing current root with its baseline snapshot..."
-      filesystemDiff
+      sudo bash -c "$(declare -f filesystemDiff); filesystemDiff"
     else
       target="$1"
       if [ "$target" = "root" ]; then
-        diff -rq / /persist/system || true
+        sudo diff -rq / /persist/system 2>/dev/null || true
       else
         if [ -d "/persist/$target" ]; then
-          diff -rq "/$target" "/persist/$target" | grep "Only in /home/rami" || true
+          diff -rq "/$target" "/persist/$target" 2>/dev/null | grep "Only in /home/rami" || true
         else
           echo "Error: /persist/$target does not exist. Cannot diff." >&2
           exit 1

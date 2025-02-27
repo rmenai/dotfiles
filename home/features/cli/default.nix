@@ -7,6 +7,12 @@
     vimdiffAlias = true;
   };
 
+  programs.zellij = {
+    enable = true;
+    enableBashIntegration = true;
+    enableZshIntegration = true;
+  };
+
   programs.zoxide = {
     enable = true;
     enableBashIntegration = true;
@@ -37,13 +43,12 @@
   };
 
   home.packages = with pkgs; [
-    tmux
+    wezterm
     ripgrep
     sesh
-    starship
-    wezterm
     zsh
 
+    wl-clipboard
     btop
     xsel
     zip

@@ -16,6 +16,8 @@
       ".ssh"
       ".nixops"
       ".zen"
+      ".cargo"
+      ".rustup"
       ".cache"
 
       ".local/share/keyrings"
@@ -33,6 +35,10 @@
       ".local/state/nix"
       ".local/state/nvim"
 
+      ".config/environment.d"
+      ".config/fontconfig"
+      ".config/nix"
+      ".config/systemd"
 
       ".config/git"
       ".config/hypr"
@@ -44,6 +50,8 @@
       ".config/wezterm"
       ".config/zsh"
       ".config/fsh"
+      ".config/zellij"
+      ".config/github-copilot"
 
       ".config/utop"
       ".config/rust-competitive-helper"
