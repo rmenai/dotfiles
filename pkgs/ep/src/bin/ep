@@ -1,0 +1,103 @@
+#!/usr/bin/env bash
+
+usage() {
+  echo "Usage:"
+  echo "  ep diff [directory|root]  - Diff operations."
+  echo "      No argument: run btrfs diff comparing the current root with its baseline snapshot."
+  echo "      'root': diff / with /persist/system."
+  echo "      Other directory: diff /<directory> with /persist/<directory> (if it exists)."
+  echo "  ep save [file/directory]    - Save the file/directory to /persist/[absolute path]."
+  exit 1
+}
+
+# --- Filesystem Diff Function ---
+filesystemDiff() {
+  mkdir -p /tmp
+  MNTPOINT=$(mktemp -d)
+
+  (
+    # Mount the entire Btrfs filesystem (subvol=/) using the UUID of your root device.
+    sudo mount -t btrfs -o subvol=/ "UUID=dfe71357-a2e8-479a-b976-0cd1269cbfa2" "$MNTPOINT"
+    trap 'sudo umount "$MNTPOINT"' EXIT
+
+    # Select the most recent snapshot from old_roots.
+    BASELINE=$(find "$MNTPOINT/old_roots" | sort | tail -n 1)
+    if [ -z "$BASELINE" ]; then
+      echo "No baseline snapshot found in $MNTPOINT/old_roots"
+      exit 1
+    fi
+
+    echo "Using baseline snapshot: $BASELINE"
+
+    # Get the old transaction ID from the chosen snapshot.
+    OLD_TRANSID=$(sudo btrfs subvolume find-new "$MNTPOINT/old_roots/$BASELINE")
+    OLD_TRANSID=${OLD_TRANSID#transid marker was }
+
+    # Compare the current root subvolume to the baseline snapshot.
+    sudo btrfs subvolume find-new "$MNTPOINT/root" "$OLD_TRANSID" |
+      sed '$d' |                    # Remove the last line.
+      cut -f17- -d' ' |             # Skip over the first 16 fields.
+      sort |
+      uniq |
+      while read -r path; do
+        path="/$path"
+        # Skip symbolic links and directories.
+        if [ -L "$path" ] || [ -d "$path" ]; then
+          continue
+        else
+          echo "$path"
+        fi
+      done
+  )
+}
+
+# --- Main Script ---
+if [ $# -lt 1 ]; then
+  usage
+fi
+
+command="$1"
+shift
+
+case "$command" in
+  diff)
+    # If no additional argument is provided, run the filesystemDiff.
+    if [ $# -eq 0 ]; then
+      echo "Running btrfs diff: comparing current root with its baseline snapshot..."
+      filesystemDiff
+    else
+      target="$1"
+      if [ "$target" = "root" ]; then
+        diff -rq / /persist/system || true
+      else
+        if [ -d "/persist/$target" ]; then
+          diff -rq "/$target" "/persist/$target" | grep "Only in /home/rami" || true
+        else
+          echo "Error: /persist/$target does not exist. Cannot diff." >&2
+          exit 1
+        fi
+      fi
+    fi
+    ;;
+  save)
+    if [ $# -lt 1 ]; then
+      usage
+    fi
+
+    item="$1"
+    abs_path=$(realpath "$item")
+    persist_target="/persist${abs_path}"
+    mkdir -p "$(dirname "$persist_target")"
+
+    if [ -d "$abs_path" ]; then
+      cp -r "$abs_path" "$persist_target"
+    else
+      cp "$abs_path" "$persist_target"
+    fi
+
+    echo "Saved $abs_path to $persist_target"
+    ;;
+  *)
+    usage
+    ;;
+esac

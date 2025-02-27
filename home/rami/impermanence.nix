@@ -16,6 +16,7 @@
       ".ssh"
       ".nixops"
       ".zen"
+      ".cache"
 
       ".local/share/keyrings"
       ".local/share/direnv"
@@ -31,6 +32,7 @@
       ".local/state/home-manager"
       ".local/state/nix"
       ".local/state/nvim"
+
 
       ".config/git"
       ".config/hypr"
@@ -51,7 +53,7 @@
       ".profile"
       ".zshrc"
       ".p10k.zsh"
-      ".histfile"
+      ".zsh_history"
     ];
 
     allowOther = true;

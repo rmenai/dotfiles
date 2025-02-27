@@ -1,4 +1,4 @@
 { pkgs, ... }:
 {
-  ephemeral-root = pkgs.callPackage ./ep {};
+  ep = pkgs.callPackage ./ep {};
 }

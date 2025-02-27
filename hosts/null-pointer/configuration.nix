@@ -73,6 +73,8 @@
   ];
 
   environment.systemPackages = with pkgs; [
+    any-nix-shell
+    ep
     gnumake
     gcc
     wget
