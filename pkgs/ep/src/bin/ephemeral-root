@@ -1,0 +1,326 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+LIB_PATH="${0%/*}/../lib/"
+export PATH="$LIB_PATH:@path@:$PATH"
+
+showUsage() {
+  cat <<USAGE
+Usage:
+  ephemeral-root [options] subcommand [subcommand options]
+
+Subcommands:
+  format
+  init
+  mount
+  diff
+
+Options:
+  -u, --unattended    Bypass all info and warnings that require interaction
+  -h, --help          Show this information
+
+To view help for subcommands, use ephemeral-root <subcommand> --help
+
+USAGE
+}
+
+getRootFilesystem() {
+  case "$(blkid "/dev/disk/by-label/$(hostname)" | sed -E 's/.*TYPE="([^"]*).*/\1/g')" in
+    btrfs)
+      echo "btrfs"
+      ;;
+    zfs_member)
+      echo "zfs"
+      ;;
+    *)
+      echo "Unable to determine primary partition filesystem"
+      exit 1
+      ;;
+  esac
+}
+
+## partition ##
+
+showFormatUsage() {
+  cat <<USAGE
+Usage:
+  ephemeral-root [options] format [subcommand options] <device> <root filesystem>
+
+  Where root filesystem is one of:
+    btrfs
+    zfs
+
+Options:
+  -s, --swap <size in MB>   Create a swap partition with this size
+  --legacy                  Create MBR for bios only boots
+  -h, --help                Show this information
+
+To view help for subcommands, use ephemeral-root <subcommand> --help
+
+USAGE
+}
+
+parseFormatParams() {
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      -h | --help)
+        showFormatUsage
+        exit 0
+        ;;
+      -s | --swap)
+        shift
+        swapsize="$1"
+        ;;
+      --legacy)
+        legacyBoot=true
+        ;;
+      -*)
+        showFormatUsage
+        echo "Error: unknown option: $1"
+        exit 1
+        ;;
+      *)
+        if [[ $# -ne 2 ]]; then
+          showFormatUsage
+          echo "Error: incorrect amount of positial arguments. Expected 2, got $#"
+          exit 1
+        fi
+        device="$1"
+        filesystem="$2"
+        shift
+        ;;
+    esac
+    shift
+  done
+
+  if [[ -z "$device" ]]; then
+    showFormatUsage
+    echo 'Error: no device specified"'
+    exit 1
+  fi
+
+  if [[ -z "$filesystem" ]]; then
+    showFormatUsage
+    echo "Error: no filesystem parameter"
+    exit 1
+  fi
+
+  if ! [[ "$filesystem" == "btrfs" || "$filesystem" == "zfs" ]]; then
+    showFormatUsage
+    echo "Error: invalid filesystem parameter [$filesystem]"
+    exit 1
+  fi
+}
+
+doFormat() {
+  hostname=$(hostname)
+  swapsize=0
+  legacyBoot=false
+
+  parseFormatParams "$@"
+
+  if [ "$unattended" = false ]; then
+    echo "=== WARNING ==="
+    echo "This will wipe all data on $device"
+    echo "It will the primary partition label to $hostname (this is the current hostname)"
+    echo "The primary partition will use $filesystem"
+    if [[ $swapsize == 0 ]]; then
+      echo "It will not create a swap partition"
+    else
+      echo "It will create a swap partition with size $swapsize MB"
+    fi
+    if [ "$legacyBoot" = true ]; then
+      echo "It will create an MBR table and ext4 boot partition for legacy BIOS boot"
+    else
+      echo "It will create a GPT table and fat32 boot partition for UEFI boot"
+    fi
+
+    echo "Are you sure this is what you want to do?"
+    read -r -p "yes/no : " proceed
+
+    if [[ $proceed != "yes" ]]; then
+      exit 1
+    fi
+
+    echo "Proceeding with formating"
+  fi
+
+  if zpool list | grep -q -E "^$hostname "; then
+    zpool destroy "$hostname"
+  fi
+
+
+  if [ "$legacyBoot" = true ]; then
+    parted -s "$device" mklabel msdos
+  else
+    parted -s "$device" mklabel gpt
+  fi
+  partStart=1
+  partEnd=1001
+  if [ "$legacyBoot" = true ]; then
+    parted -s "$device" mkpart primary ext4 ${partStart}MB ${partEnd}MB
+  else
+    parted -s "$device" mkpart ESP fat32 ${partStart}MB ${partEnd}MB
+  fi
+  parted -s "$device" set 1 boot on
+  if [[ $swapsize != 0 ]]; then
+    partStart=$partEnd
+    partEnd=$((partStart + swapsize + 1))
+    if [ "$legacyBoot" = true ]; then
+      parted -s "$device" mkpart primary linux-swap ${partStart}MB $partEnd
+    else
+      parted -s "$device" mkpart swap linux-swap ${partStart}MB $partEnd
+    fi
+  fi
+
+  if [ "$legacyBoot" = true ]; then
+    parted -s "$device" mkpart primary $partEnd 100%
+  else
+    parted -s "$device" mkpart "$hostname" $partEnd 100%
+  fi
+
+  udevadm trigger
+
+  for f in "$device"*
+  do
+    case "$f" in
+      *1)
+        efiPartition="$f"
+        ;;
+      *2)
+        if [[ $swapsize == 0 ]]; then
+          rootPartition="$f"
+        else
+          swapPartition="$f"
+        fi
+        ;;
+      *3)
+        rootPartition="$f"
+        ;;
+    esac
+  done
+
+  wipefs -a "$efiPartition"
+  if [ "$legacyBoot" = true ]; then
+    mkfs.ext4 -L "ESP" "$efiPartition"
+  else
+    mkfs.fat -F 32 -n "ESP" "$efiPartition"
+  fi
+
+  if [[ $swapsize != 0 ]]; then
+    wipefs -a "$swapPartition"
+    mkswap "$swapPartition"
+    swaplabel -L swap "$swapPartition"
+  fi
+
+  wipefs -a "$rootPartition"
+
+  if [[ "$filesystem" = "btrfs" ]]; then
+    mkfs.btrfs "$rootPartition"
+    btrfs filesystem label "$rootPartition" "$hostname"
+  fi
+
+  if [[ "$filesystem" = "zfs" ]]; then
+    zpool create \
+      -o ashift=12 -o autotrim=on \
+      -O compression=lz4 -O atime=off \
+      -O recordsize=64K -O xattr=sa -O mountpoint=none \
+      "$hostname" "$rootPartition"
+  fi
+
+  udevadm trigger
+}
+
+## init ##
+
+doInit() {
+  filesystem="$(getRootFilesystem)"
+
+  # shellcheck source=../lib/btrfs
+  . "$filesystem"
+
+  filesystemInit
+}
+
+## mount ##
+
+doMount() {
+  mkdir -p /mnt
+
+  filesystem="$(getRootFilesystem)"
+
+  # shellcheck source=../lib/btrfs
+  . "$filesystem"
+
+  filesystemMount
+
+  mkdir -p /mnt/boot
+  mount /dev/disk/by-label/ESP /mnt/boot
+
+  if [[ -f /dev/disk/by-label/swap ]]; then
+    swapon /dev/disk/by-label/swap
+  fi
+}
+
+## diff ##
+
+doDiff() {
+  filesystem="$(getRootFilesystem)"
+
+  # shellcheck source=../lib/btrfs
+  . "$filesystem"
+  
+  filesystemDiff
+}
+
+## main ##
+
+[[ $# -eq 0 ]] && {
+  showUsage
+  exit 1
+}
+
+unattended=false
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    format)
+      shift
+      doFormat "$@"
+      exit 0
+      ;;
+    init)
+      shift
+      doInit
+      exit 0
+      ;;
+    mount)
+      shift
+      doMount
+      exit 0
+      ;;
+    diff)
+      shift
+      doDiff
+      exit 0
+      ;;
+    -h | --help)
+      showUsage
+      exit 0
+      ;;
+    -u | --unattended)
+      unattended=true
+      ;;
+    -*)
+      showUsage
+      echo "Error: unknown option: $1"
+      exit 1
+      ;;
+    *)
+      showUsage
+      echo "Error: unknown command: $1"
+      exit 1
+      ;;
+  esac
+  shift
+done

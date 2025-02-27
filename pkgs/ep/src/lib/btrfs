@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+
+filesystemInit() {
+  hostname=$(hostname)
+  mkdir -p /mnt
+
+  mount -t btrfs "/dev/disk/by-label/$hostname" /mnt
+  btrfs subvolume create /mnt/root
+  btrfs subvolume create /mnt/nix
+  btrfs subvolume create /mnt/persist
+
+  btrfs subvolume snapshot -r /mnt/root/ /mnt/root-blank
+
+  umount /mnt
+
+  echo "btrfs filesystem init complete"
+}
+
+filesystemMount() {
+  hostname=$(hostname)
+
+  mount -o subvol=root,compress=zstd,noatime "/dev/disk/by-label/$hostname" /mnt
+      
+  mkdir /mnt/nix
+  mount -o subvol=nix,compress=zstd,noatime "/dev/disk/by-label/$hostname" /mnt/nix
+
+  mkdir /mnt/persist
+  mount -o subvol=persist,compress=zstd,noatime "/dev/disk/by-label/$hostname" /mnt/persist
+
+  mkdir /mnt/boot
+  mount /dev/disk/by-label/ESP /mnt/boot
+
+  if [[ -f /dev/disk/by-label/swap ]]; then
+    swapon /dev/disk/by-label/swap
+  fi
+
+  echo "btrfs filesystem mount complete"
+}
+
+filesystemDiff() {
+  mkdir /tmp -p
+  MNTPOINT=$(mktemp -d)
+  (
+      sudo mount -t btrfs -o subvol=/ "/dev/disk/by-label/$(hostname)" "$MNTPOINT"
+      trap 'sudo umount "$MNTPOINT"' EXIT
+      OLD_TRANSID=$(sudo btrfs subvolume find-new "$MNTPOINT/root-blank" 9999999)
+      OLD_TRANSID=''${OLD_TRANSID#transid marker was }
+
+      sudo btrfs subvolume find-new "$MNTPOINT/root" "$OLD_TRANSID" |
+      sed '$d' |
+      cut -f17- -d' ' |
+      sort |
+      uniq |
+      while read -r path; do
+          path="/$path"
+          if [ -L "$path" ]; then
+              : # The path is a symbolic link, so is probably handled by NixOS already
+          elif [ -d "$path" ]; then
+              : # The path is a directory, ignore
+          else
+              echo "$path"
+          fi
+      done
+  )
+} 
