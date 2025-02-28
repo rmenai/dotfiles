@@ -10,6 +10,12 @@ usage() {
   exit 1
 }
 
+DEVICE_UUID="dfe71357-a2e8-479a-b976-0cd1269cbfa2"
+REPOS=(
+  "$HOME/.dotfiles"
+  "/etc/nixos"
+)
+
 # --- Filesystem Diff Function ---
 filesystemDiff() {
   mkdir -p /tmp
@@ -17,7 +23,7 @@ filesystemDiff() {
 
   (
     # Mount the entire Btrfs filesystem (subvol=/) using the UUID of your root device.
-    sudo mount -t btrfs -o subvol=/ "UUID=dfe71357-a2e8-479a-b976-0cd1269cbfa2" "$MNTPOINT"
+    sudo mount -t btrfs -o subvol=/ "UUID=$DEVICE_UUID" "$MNTPOINT"
     trap 'sudo umount "$MNTPOINT"' EXIT
 
     # Select the most recent snapshot from old_roots.
@@ -30,7 +36,7 @@ filesystemDiff() {
     echo "Using baseline snapshot: $BASELINE"
 
     # Get the old transaction ID from the chosen snapshot.
-    OLD_TRANSID=$(sudo btrfs subvolume find-new "$MNTPOINT/old_roots/$BASELINE")
+    OLD_TRANSID=$(sudo btrfs subvolume find-new "$MNTPOINT/old_roots/$BASELINE" 9999)
     OLD_TRANSID=${OLD_TRANSID#transid marker was }
 
     # Compare the current root subvolume to the baseline snapshot.
@@ -78,6 +84,21 @@ case "$command" in
         fi
       fi
     fi
+    ;;
+  sync)
+    # Sync all directories
+    for repo in "${REPOS[@]}"; do
+      echo "Processing repository: $repo"
+      
+      # Ensure the directory exists
+      if [ -d "$repo" ]; then
+        cd "$repo" || { echo "Could not cd to $repo"; continue; }
+        nvim +Neogit
+        git pull && git push
+      else
+        echo "Directory $repo does not exist!"
+      fi
+    done
     ;;
   save)
     if [ $# -lt 1 ]; then

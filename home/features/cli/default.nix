@@ -50,8 +50,10 @@
     zsh
 
     wl-clipboard
-    btop
+    xclip
     xsel
+    undollar
+    btop
     unzip
     zip
   ];

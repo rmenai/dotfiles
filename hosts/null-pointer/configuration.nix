@@ -70,10 +70,6 @@
     MOZ_ENABLE_WAYLAND = "1";
   };
 
-  fonts.packages = with pkgs; [
-    jetbrains-mono
-  ];
-
   environment.systemPackages = with pkgs; [
     any-nix-shell
     ep

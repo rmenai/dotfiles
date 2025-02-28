@@ -10,21 +10,22 @@
       "Pictures"
       "Documents"
       "Videos"
+
+      ".dotfiles"
       ".gnupg"
       ".ssh"
       ".nixops"
       ".zen"
       ".cargo"
       ".rustup"
+      ".opam"
       ".cache"
 
       ".local/share/keyrings"
       ".local/share/direnv"
-      ".local/share/yadm"
       ".local/share/hyprland"
       ".local/share/nvim"
       ".local/share/sddm"
-      ".local/share/yadm"
       ".local/share/nvim"
       ".local/share/zinit"
       ".local/share/zoxide"
@@ -34,34 +35,7 @@
       ".local/state/nix"
       ".local/state/nvim"
 
-      # ".config/environment.d"
-      # ".config/fontconfig"
-      # ".config/nix"
-      # ".config/systemd"
-
-      ".config/git"
-      ".config/hypr"
-      ".config/bat"
-      ".config/btop"
-      ".config/yazi"
-      ".config/sesh"
-      ".config/nvim"
-      ".config/wezterm"
-      ".config/zsh"
-      ".config/fsh"
-      ".config/zellij"
-      ".config/tmux"
-      ".config/github-copilot"
-
-      ".config/utop"
-      ".config/rust-competitive-helper"
-    ];
-
-    files = [
-      ".profile"
-      ".zshrc"
-      ".p10k.zsh"
-      ".zsh_history"
+      ".config/gh"
     ];
 
     allowOther = true;
