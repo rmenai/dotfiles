@@ -1,1 +1,5 @@
-My dot files
+My dotfiles
+
+## Setup
+
+run `stow .`
