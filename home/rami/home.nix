@@ -8,11 +8,6 @@
   home.homeDirectory = lib.mkDefault "/home/${config.home.username}";
 
   home.packages = with pkgs; [
-    (import ../../pkgs/zen.nix {
-      appimageTools = pkgs.appimageTools;
-      fetchurl = pkgs.fetchurl;
-    })
-
     kitty
     gh
   ];

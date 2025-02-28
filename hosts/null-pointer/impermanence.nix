@@ -35,6 +35,7 @@
       "/var/lib/systemd/coredump"
       "/var/lib/sbctl"
       "/etc/NetworkManager/system-connections"
+      "/usr/share/sddm"
       {
         directory = "/var/lib/colord";
         user = "colord";

@@ -1,16 +1,17 @@
 {pkgs, ...}: {
+  imports = [
+    ./zsh.nix
+    ./tmux.nix
+    ./zellij.nix
+    ./neofetch.nix
+  ];
+
   programs.neovim = {
     enable = true;
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
-  };
-
-  programs.zellij = {
-    enable = true;
-    enableBashIntegration = true;
-    enableZshIntegration = true;
   };
 
   programs.zoxide = {
@@ -43,12 +44,7 @@
   };
 
   home.packages = with pkgs; [
-    wezterm
     ripgrep
-    tmux
-    sesh
-    zsh
-
     wl-clipboard
     xclip
     xsel
