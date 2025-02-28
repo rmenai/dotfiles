@@ -1,0 +1,13 @@
+[user]
+name = Rami Menai
+email = rami@menai.me
+
+[init]
+defaultBranch = main
+
+[pull]
+rebase = true
+
+[core]
+editor = nvim
+autocrlf = input
