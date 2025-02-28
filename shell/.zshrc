@@ -72,6 +72,12 @@ fast-theme XDG:catppuccin-mocha > /dev/null 2>&1
 # Load nixos specific config
 if [ -f /etc/NIXOS ]; then
   any-nix-shell zsh --info-right | source /dev/stdin
+
+#############################
+# Packages Configuration
+#############################
+
+[[ ! -r '/home/rami/.opam/opam-init/init.zsh' ]] || source '/home/rami/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
 fi
 
 #############################

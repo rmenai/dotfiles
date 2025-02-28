@@ -40,9 +40,7 @@ return {
         end
       end
 
-      local function update_git()
-        return vim.b.git_branch ~= "" and " " .. vim.b.git_branch or ""
-      end
+      local function update_git() return vim.b.git_branch ~= "" and " " .. vim.b.git_branch or "" end
 
       local filename = require("lualine.components.filename"):extend()
       filename.apply_icon = require("lualine.components.filetype").apply_icon
@@ -91,9 +89,7 @@ return {
       vim.api.nvim_create_autocmd("User", {
         group = vim.api.nvim_create_augroup("lualine_augroup", { clear = true }),
         pattern = "BufEnter",
-        callback = function()
-          vim.b.git_branch = vim.fn.system("git rev-parse --abbrev-ref HEAD 2>/dev/null"):gsub("\n", "")
-        end,
+        callback = function() vim.b.git_branch = vim.fn.system("git rev-parse --abbrev-ref HEAD 2>/dev/null"):gsub("\n", "") end,
       })
     end,
   },

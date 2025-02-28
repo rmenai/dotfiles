@@ -64,4 +64,18 @@ M.sync_repo = function(dir, repo)
   end
 end
 
+M.is_server_available = function(mason_pkg, binary)
+  -- Check if the binary is in the system PATH
+  if vim.fn.executable(binary) == 1 then return true end
+
+  -- Check if Mason's registry has the package installed
+  local ok, registry = pcall(require, "mason-registry")
+  if ok then
+    local pkg = registry.get_package(mason_pkg)
+    if pkg and pkg:is_installed() then return true end
+  end
+
+  return false
+end
+
 return M
