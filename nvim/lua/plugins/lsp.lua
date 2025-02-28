@@ -44,12 +44,6 @@ return {
           config = {},
         },
         {
-          lspconfig_name = "rust_analyzer",
-          mason_pkg = "rust-analyzer",
-          binary = "rust-analyzer",
-          config = {},
-        },
-        {
           lspconfig_name = "bashls",
           mason_pkg = "bash-language-server",
           binary = "bash-language-server",
