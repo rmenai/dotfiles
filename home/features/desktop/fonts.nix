@@ -11,6 +11,9 @@ in {
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       jetbrains-mono
+      font-awesome
+      font-manager
+      noto-fonts
     ];
   };
 }

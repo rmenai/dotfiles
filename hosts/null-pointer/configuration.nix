@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: {
   imports = [
@@ -29,6 +30,26 @@
   services.displayManager.sddm = {
     enable = true;
     wayland.enable = true;
+  };
+
+  # https://github.com/NixOS/nixos-hardware
+  services.fstrim.enable = lib.mkDefault true;
+  boot.blacklistedKernelModules = lib.optionals (!config.hardware.enableRedistributableFirmware) [
+    "ath3k"
+  ];
+  services.tlp.enable =
+    lib.mkDefault ((lib.versionOlder (lib.versions.majorMinor lib.version) "21.05")
+      || !config.services.power-profiles-daemon.enable);
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+
+  services.pulseaudio.enable = false;
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    jack.enable = true;
   };
 
   programs.hyprland = {
@@ -72,12 +93,17 @@
 
   environment.systemPackages = with pkgs; [
     any-nix-shell
+    pavucontrol
     ep
     gnumake
     gcc
     wget
     vim
     git
+  ];
+
+  fonts.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
   ];
 
   system.stateVersion = "24.11"; # Did you read the comment?
@@ -105,8 +131,6 @@
   #   enable = true;
   #   pulse.enable = true;
   # };
-
-  # Enable touchpad support (enabled default in most desktopManager).
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
