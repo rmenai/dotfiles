@@ -77,6 +77,8 @@ if [ -f /etc/NIXOS ]; then
 # Packages Configuration
 #############################
 
+export PATH=$PATH:~/.cargo/bin/
+
 [[ ! -r '/home/rami/.opam/opam-init/init.zsh' ]] || source '/home/rami/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
 fi
 

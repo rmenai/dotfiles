@@ -197,7 +197,7 @@ return {
       "OliverChao/telescope-picker-list.nvim",
       "ahmedkhalf/project.nvim",
       "rcarriga/nvim-notify",
-      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+      -- { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     },
     cmd = "Telescope",
     config = function()
@@ -232,7 +232,7 @@ return {
         },
       })
 
-      telescope.load_extension("fzf")
+      -- telescope.load_extension("fzf")
       telescope.load_extension("projects")
       telescope.load_extension("picker_list")
       telescope.load_extension("notify")
