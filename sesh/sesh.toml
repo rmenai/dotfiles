@@ -31,7 +31,7 @@ startup_command = "nvim wezterm.lua"
 [[session]]
 name = "Nix Config"
 path = "/etc/nixos"
-startup_command = "yazi"
+startup_command = "y"
 
 [[session]]
 name = "Personal Website"
