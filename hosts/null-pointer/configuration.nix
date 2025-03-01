@@ -18,6 +18,8 @@
     };
   };
 
+  boot.supportedFilesystems = ["ntfs"];
+
   networking.hostName = "null-pointer";
   networking.networkmanager.enable = true;
 
