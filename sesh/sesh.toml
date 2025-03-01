@@ -19,32 +19,42 @@ path = "~"
 startup_command = "nvim .zshrc"
 
 [[session]]
+name = "Hyprland Config"
+path = "~/.config/hypr"
+startup_command = "nvim hyprland.conf"
+
+[[session]]
+name = "Wezterm Config"
+path = "~/.config/wezterm"
+startup_command = "nvim wezterm.lua"
+
+[[session]]
+name = "Nix Config"
+path = "/etc/nixos"
+startup_command = "yazi"
+
+[[session]]
 name = "Personal Website"
-path = "~/Documents/projects/menai.me"
+path = "~/Documents/Projects/menai.me"
 startup_command = "bash ~/.config/sesh/scripts/website.sh"
 
 [[session]]
 name = "School"
-path = "~/Documents/projects/school"
+path = "~/Documents/Projects/school"
 startup_command = "bash ~/.config/sesh/scripts/school.sh"
 
 [[session]]
-name = "Test"
-path = "~/Documents/sandbox"
-startup_command = "bash ~/.config/sesh/scripts/test.sh"
-
-[[session]]
 name = "AOC"
-path = "~/Documents/projects/aoc/2024"
+path = "~/Documents/Projects/aoc/2024"
 startup_command = "bash ~/.config/sesh/scripts/aoc.sh"
 
 [[session]]
 name = "LeetCode"
-path = "~/Documents/sandbox"
+path = "~/Documents/Sandbox"
 startup_command = "bash ~/.config/sesh/scripts/leet.sh"
 
 [[session]]
 name = "Codeforces"
-path = "~/Documents/projects/codeforces"
+path = "~/Documents/Projects/codeforces"
 startup_command = "bash ~/.config/sesh/scripts/codeforces.sh"
 
