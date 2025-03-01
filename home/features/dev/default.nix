@@ -16,5 +16,7 @@
     ocamlPackages.utop
     luajitPackages.luarocks
     bun
+    gnumake
+    gcc
   ];
 }
