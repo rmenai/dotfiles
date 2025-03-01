@@ -6,30 +6,35 @@ return {
       "rcarriga/cmp-dap",
       "rcarriga/nvim-dap-ui",
       "nvim-neotest/nvim-nio",
+      "mfussenegger/nvim-dap-python",
     },
     cmd = { "DapNew", "DapTerminate", "DapToggleBreakpoint", "DapContinue" },
     config = function()
       local dap = require("dap")
       local dapui = require("dapui")
 
-      dap.adapters.ocaml = {
-        type = "executable",
-        command = "ocamlearlybird",
-        args = { "debug" },
-        cwd = "${workspaceFolder}",
+      dap.adapters.codelldb = {
+        type = "server",
+        port = "${port}",
+        executable = {
+          command = "lldb",
+          args = { "--port", "${port}" },
+        },
       }
 
-      dap.configurations.ocaml = {
+      dap.adapters.python = {
+        type = "executable",
+        command = "python",
+        args = { "-m", "debugpy.adapter" },
+      }
+
+      dap.configurations.python = {
         {
-          type = "ocaml",
+          type = "python",
           request = "launch",
-          name = "Launch debug test",
-          console = "integratedTerminal",
-          program = "_build/default/${relativeFileDirname}/${fileBasenameNoExtension}.bc",
-          cwd = "${workspaceFolder}",
-          stopOnEntry = true,
-          yieldSteps = 4096,
-          onlyDebugGlob = "<${workspaceFolder}/**/*>",
+          name = "Launch file",
+          program = "${file}",
+          pythonPath = function() return "python3" end,
         },
       }
 
