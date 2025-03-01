@@ -14,5 +14,6 @@
     dune_3
     ocamlPackages.utop
     luajitPackages.luarocks
+    bun
   ];
 }
