@@ -1,6 +1,7 @@
 {pkgs, ...}: {
   imports = [
     ./linters.nix
+    ./debuggers.nix
     ./lsp.nix
   ];
 

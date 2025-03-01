@@ -25,6 +25,7 @@
     dev = {
       lsp.enable = true;
       linters.enable = true;
+      debuggers.enable = true;
     };
   };
 }
