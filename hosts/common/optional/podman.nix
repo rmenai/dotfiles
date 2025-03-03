@@ -1,4 +1,8 @@
 {pkgs, ...}: {
+  imports = [
+    ./containers
+  ];
+
   virtualisation = {
     podman = {
       enable = true;
@@ -13,6 +17,12 @@
       };
       defaultNetwork.settings.dns_enabled = true;
     };
+  };
+
+  environment.persistence."/persist/system" = {
+    directories = [
+      "/var/lib/containers"
+    ];
   };
 
   environment.systemPackages = with pkgs; [

@@ -1,6 +1,5 @@
 {
   inputs,
-  config,
   lib,
   pkgs,
   ...
@@ -22,16 +21,11 @@ in {
     # Host config
     ../common/core
 
-    ../common/optional/sound.nix
-    ../common/optional/podman.nix
-    ../common/optional/wayland.nix
     ../common/optional/hyprland.nix
-    ../common/optional/sddm.nix
+    ../common/optional/podman.nix
 
     ../common/optional/services/tlp.nix
     ../common/optional/services/printing.nix
-
-    ../common/optional/containers
 
     # User config
     ../common/users/primary.nix
@@ -41,23 +35,12 @@ in {
     hostName = "null";
   };
 
-  networking = {
-    hostName = config.hostSpec.hostName;
-    networkmanager.enable = true;
-  };
-
-  boot.loader = {
-    systemd-boot.enable = true;
-    efi.canTouchEfiVariables = true;
-    timeout = 3;
-  };
-
-  # boot.initrd = {
-  #   systemd.enable = true;
-  # };
-
   boot.supportedFilesystems = ["ntfs"];
   system.stateVersion = "24.11";
+
+  hardware.graphics = {
+    enable = true;
+  };
 
   environment = {
     systemPackages = with pkgs; [
@@ -65,17 +48,4 @@ in {
       ep
     ];
   };
-
-  hardware.graphics = {
-    enable = true;
-  };
-
-  fonts.packages = with pkgs; [
-    (nerdfonts.override {
-      fonts = [
-        "FiraCode"
-        "JetBrainsMono"
-      ];
-    })
-  ];
 }

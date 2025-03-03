@@ -1,4 +1,8 @@
 {pkgs, ...}: {
+  imports = [
+    ./fonts.nix
+  ];
+
   programs.waybar.enable = true;
   home.packages = with pkgs; [
     hyprlock

@@ -12,6 +12,8 @@
     (map lib.custom.relativeToRoot [
       "modules/common"
       "modules/hosts/common"
+
+      "hosts/common/core/services"
     ])
   ];
 
@@ -27,7 +29,10 @@
   home-manager = {
     useUserPackages = true;
     extraSpecialArgs = {inherit inputs outputs;};
-    backupFileExtension = "bk";
+    backupFileExtension =
+      "backup-"
+      + pkgs.lib.readFile
+      "${pkgs.runCommand "timestamp" {} "echo -n `date '+%Y%m%d%H%M%S'` > $out"}";
   };
 
   nixpkgs = {

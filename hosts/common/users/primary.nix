@@ -48,19 +48,6 @@ in {
     ];
   };
 
-  # home-manager = {
-  #   extraSpecialArgs = {
-  #     inherit pkgs inputs;
-  #     hostSpec = config.hostSpec;
-  #   };
-  #
-  #   users.${config.hostSpec.username}.imports = [
-  #     (import (lib.custom.relativeToRoot "home/${config.hostSpec.username}/${config.hostSpec.hostName}.nix") {
-  #       inherit pkgs inputs config lib;
-  #     })
-  #   ];
-  # };
-
   environment.persistence."/persist" = {
     users.${config.hostSpec.username} = {
       directories = [

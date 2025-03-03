@@ -1,4 +1,10 @@
 {
+  imports = [
+    ./services/display.nix
+    ./services/input.nix
+    ./fonts.nix
+  ];
+
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;

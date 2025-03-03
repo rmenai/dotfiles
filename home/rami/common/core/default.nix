@@ -1,5 +1,4 @@
 {
-  config,
   lib,
   pkgs,
   hostSpec,
@@ -7,12 +6,15 @@
 }: {
   imports = lib.flatten [
     (map lib.custom.relativeToRoot [
-      "modules/common/host-spec.nix"
+      "modules/common"
       "modules/home"
     ])
 
-    ./fonts.nix
-    ./impermanence.nix
+    ./bash.nix
+    ./git.nix
+    ./ssh.nix
+
+    ./services
   ];
 
   home = {

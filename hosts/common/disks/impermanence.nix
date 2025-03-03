@@ -30,16 +30,9 @@
     directories = [
       "/etc/nixos"
       "/var/log"
-      "/var/lib/bluetooth"
       "/var/lib/nixos"
       "/var/lib/systemd/coredump"
-      "/var/lib/sbctl"
       "/var/lib/systemd"
-      "/var/lib/sddm"
-      "/var/lib/NetworkManager"
-      "/var/lib/containers"
-      "/etc/NetworkManager/system-connections"
-      "/usr/share/sddm"
       {
         directory = "/var/lib/colord";
         user = "colord";
