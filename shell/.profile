@@ -1,5 +1,5 @@
 # Bash config
-if [ -n "$BASH_VERSION" ]; then
+if [ "$BASH_VERSION" != "" ]; then
   if [ -f "$HOME/.bashrc" ]; then
     . "$HOME/.bashrc"
   fi
@@ -20,8 +20,8 @@ fi
 
 # General environment variables
 export EDITOR="nvim" SUDO_EDITOR="nvim"
-# export HISTFILE="$HOME/.histfile" HISTSIZE=1000 SAVEHIST=1000
-# setopt SHARE_HISTORY
+export HISTFILE="$HOME/.histfile" HISTSIZE=1000 SAVEHIST=1000
+setopt SHARE_HISTORY
 
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
@@ -65,7 +65,7 @@ alias ts="tmux new-session -s"
 function y() {
   local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
   yazi "$@" --cwd-file="$tmp"
-  if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+  if cwd="$(command cat -- "$tmp")" && [ "$cwd" != "" ] && [ "$cwd" != "$PWD" ]; then
     builtin cd -- "$cwd"
   fi
   rm -f -- "$tmp"
@@ -78,5 +78,5 @@ function s() {
   session=$(sesh list -t -c | fzf --height 40% --reverse --border-label ' sesh ' --border --prompt '⚡  ')
   zle reset-prompt >/dev/null 2>&1 || true
   [[ -z "$session" ]] && return
-  sesh connect $session
+  sesh connect "$session"
 }
