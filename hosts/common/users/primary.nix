@@ -91,10 +91,7 @@ in {
         ".local/state/containers"
         ".config/gh"
         ".config/obsidian"
-        "~/.config/BraveSoftware"
-      ];
-      files = [
-        ".zsh_history"
+        ".config/BraveSoftware"
       ];
     };
   };

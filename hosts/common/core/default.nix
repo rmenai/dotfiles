@@ -44,7 +44,10 @@
       min-free = 128000000; # 128MB
       max-free = 1000000000; # 1GB
 
-      trusted-users = ["root" config.hostSpec.username];
+      trusted-users = [
+        "root"
+        config.hostSpec.username
+      ];
       auto-optimise-store = true;
       warn-dirty = false;
 

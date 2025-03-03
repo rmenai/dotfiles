@@ -20,7 +20,10 @@
               type = "filesystem";
               format = "vfat";
               mountpoint = "/boot";
-              mountOptions = ["defaults" "umask=0077"];
+              mountOptions = [
+                "defaults"
+                "umask=0077"
+              ];
             };
           };
 
@@ -60,12 +63,18 @@
                 };
 
                 "/persist" = {
-                  mountOptions = ["subvol=persist" "noatime"];
+                  mountOptions = [
+                    "subvol=persist"
+                    "noatime"
+                  ];
                   mountpoint = "/persist";
                 };
 
                 "/nix" = {
-                  mountOptions = ["subvol=nix" "noatime"];
+                  mountOptions = [
+                    "subvol=nix"
+                    "noatime"
+                  ];
                   mountpoint = "/nix";
                 };
 

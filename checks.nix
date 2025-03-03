@@ -20,6 +20,7 @@
       check-shebang-scripts-are-executable.enable = false;
       check-merge-conflicts.enable = true;
       detect-private-keys.enable = true;
+      trufflehog.enable = true;
       fix-byte-order-marker.enable = true;
       mixed-line-endings.enable = true;
       trim-trailing-whitespace.enable = true;
@@ -42,7 +43,8 @@
         types = ["symlink"];
       };
 
-      nixfmt-rfc-style.enable = true;
+      alejandra.enable = true;
+
       deadnix = {
         enable = true;
         settings = {

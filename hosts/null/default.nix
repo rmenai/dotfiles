@@ -31,7 +31,7 @@ in {
     ../common/optional/services/tlp.nix
     ../common/optional/services/printing.nix
 
-    ../common/optional/containers/echo.nix
+    ../common/optional/containers
 
     # User config
     ../common/users/primary.nix
@@ -71,6 +71,11 @@ in {
   };
 
   fonts.packages = with pkgs; [
-    (nerdfonts.override {fonts = ["FiraCode" "JetBrainsMono"];})
+    (nerdfonts.override {
+      fonts = [
+        "FiraCode"
+        "JetBrainsMono"
+      ];
+    })
   ];
 }
