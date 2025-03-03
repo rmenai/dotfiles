@@ -2,8 +2,16 @@
   description = "Nixos config flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    hardware.url = "github:nixos/nixos-hardware";
+
+    home-manager = {
+      url = "github:nix-community/home-manager/release-24.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     disko = {
       url = "github:nix-community/disko";
@@ -19,49 +27,59 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    home-manager = {
-      url = "github:nix-community/home-manager";
+    pre-commit-hooks = {
+      url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
   outputs = {
     self,
-    home-manager,
     nixpkgs,
     ...
   } @ inputs: let
     inherit (self) outputs;
-    systems = [
-      "aarch64-linux"
-      "i686-linux"
+    inherit (nixpkgs) lib;
+
+    forAllSystems = nixpkgs.lib.genAttrs [
       "x86_64-linux"
-      "aarch64-darwin"
-      "x86_64-darwin"
     ];
-    forAllSystems = nixpkgs.lib.genAttrs systems;
+
+    mkHost = host: {
+      ${host} = lib.nixosSystem {
+        modules = [./hosts/${host}];
+        specialArgs = {
+          inherit inputs outputs;
+          lib = nixpkgs.lib.extend (self: super: {custom = import ./lib {inherit (nixpkgs) lib;};});
+        };
+      };
+    };
+
+    mkHostConfigs = hosts: lib.foldl (acc: set: acc // set) {} (lib.map mkHost hosts);
+    readHosts = lib.attrNames (builtins.readDir ./hosts);
   in {
-    packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
     overlays = import ./overlays {inherit inputs;};
+    nixosConfigurations = mkHostConfigs readHosts;
 
-    nixosConfigurations = {
-      null-pointer = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
-        modules = [
-          ./hosts/null-pointer
-          inputs.disko.nixosModules.disko
-          inputs.impermanence.nixosModules.impermanence
-          inputs.lanzaboote.nixosModules.lanzaboote
-        ];
-      };
-    };
+    packages = forAllSystems (
+      system: let
+        pkgs = import nixpkgs {
+          inherit system;
+          overlays = [self.overlays.default];
+        };
+      in
+        lib.packagesFromDirectoryRecursive {
+          callPackage = lib.callPackageWith pkgs;
+          directory = ./pkgs;
+        }
+    );
 
-    homeConfigurations = {
-      "rami@null-pointer" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages."x86_64-linux";
-        extraSpecialArgs = {inherit inputs outputs;};
-        modules = [./home/rami/null-pointer.nix];
-      };
-    };
+    formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
+    checks = forAllSystems (
+      system: let
+        pkgs = nixpkgs.legacyPackages.${system};
+      in
+        import ./checks.nix {inherit inputs system pkgs;}
+    );
   };
 }
