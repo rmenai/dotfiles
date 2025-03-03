@@ -4,7 +4,7 @@
 
 # Connect to tmux
 if [ "$TMUX" = "" ]; then
-  tmux attach -t main || tmux new -s main
+  tmux attach -t main >/dev/null 2>&1 || tmux new -s main
   exit
 fi
 
