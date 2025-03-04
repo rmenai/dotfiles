@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   programs.bat = {
     enable = true;
     extraPackages = builtins.attrValues {
@@ -17,5 +21,11 @@
     data = ''
       ${pkgs.bat}/bin/bat cache --build
     '';
+  };
+
+  dotfiles = {
+    files = {
+      ".config/bat" = lib.mkDefault "bat";
+    };
   };
 }

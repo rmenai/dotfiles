@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [
     ./fonts.nix
   ];
@@ -23,4 +27,14 @@
     wlogout
     wtype
   ];
+
+  dotfiles = {
+    files = {
+      ".config/hypr" = lib.mkDefault "hypr";
+      ".config/waybar" = lib.mkDefault "waybar";
+      ".config/rofi" = lib.mkDefault "rofi";
+      ".config/swaylock" = lib.mkDefault "swaylock";
+      ".config/dunst" = lib.mkDefault "dunst";
+    };
+  };
 }

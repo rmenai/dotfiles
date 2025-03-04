@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [
     ./bat.nix
     ./fzf.nix
@@ -24,4 +28,10 @@
     unzip
     zip
   ];
+
+  dotfiles = {
+    files = {
+      ".config/btop" = lib.mkDefault "btop";
+    };
+  };
 }

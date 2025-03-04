@@ -47,39 +47,4 @@ in {
       (lib.custom.relativeToRoot "home/${config.hostSpec.username}/${config.hostSpec.hostName}.nix")
     ];
   };
-
-  environment.persistence."/persist" = {
-    users.${config.hostSpec.username} = {
-      directories = [
-        "Downloads"
-        "Music"
-        "Pictures"
-        "Documents"
-        "Videos"
-        ".dotfiles"
-        ".gnupg"
-        ".ssh"
-        ".nixops"
-        ".cargo"
-        ".rustup"
-        ".opam"
-        ".cache"
-        ".local/share/keyrings"
-        ".local/share/direnv"
-        ".local/share/hyprland"
-        ".local/share/nvim"
-        ".local/share/sddm"
-        ".local/share/zinit"
-        ".local/share/zoxide"
-        ".local/share/tmux"
-        ".local/state/home-manager"
-        ".local/state/nix"
-        ".local/state/nvim"
-        ".local/state/containers"
-        ".config/gh"
-        ".config/obsidian"
-        ".config/BraveSoftware"
-      ];
-    };
-  };
 }

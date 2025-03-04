@@ -1,7 +1,6 @@
 {
   imports = [
     common/core
-    common/optional/dotfiles
 
     common/optional/desktops/hyprland.nix
     common/optional/browsers/brave.nix
@@ -14,4 +13,10 @@
     common/optional/cli
     common/optional/dev
   ];
+
+  # dotfiles = {
+  #   files = {
+  #     ".config/nvim" = "";
+  #   };
+  # };
 }
