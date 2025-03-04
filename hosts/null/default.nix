@@ -28,6 +28,8 @@ in {
     ../common/optional/services/printing.nix
     ../common/optional/services/openssh.nix
 
+    ../common/optional/containers
+
     # User config
     ../common/users/primary.nix
   ];
