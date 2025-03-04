@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   home.packages = with pkgs; [
     # opam install ocaml-lsp-server
     # rustup component add rust-analyzer
@@ -7,4 +11,10 @@
     pyright
     nixd
   ];
+
+  persist = {
+    home = {
+      ".cache/lua-language-server" = lib.mkDefault true;
+    };
+  };
 }

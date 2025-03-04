@@ -18,4 +18,10 @@
       ".config/yazi" = lib.mkDefault "yazi";
     };
   };
+
+  persist = {
+    home = {
+      ".local/state/yazi" = lib.mkDefault true;
+    };
+  };
 }

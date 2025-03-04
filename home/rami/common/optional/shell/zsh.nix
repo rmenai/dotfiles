@@ -1,4 +1,8 @@
-{lib, ...}: {
+{
+  lib,
+  hostSpec,
+  ...
+}: {
   programs.zsh = {
     enable = true;
   };
@@ -10,6 +14,13 @@
       ".zshrc" = lib.mkDefault "shell/.zshrc";
       ".p10k.zsh" = lib.mkDefault "shell/.p10k.zsh";
       ".profile" = lib.mkDefault "shell/.profile";
+    };
+  };
+  persist = {
+    home = {
+      ".local/share/zinit" = lib.mkDefault true;
+      ".cache/fsh" = lib.mkDefault true;
+      ".cache/p10k-${hostSpec.username}" = lib.mkDefault true;
     };
   };
 }

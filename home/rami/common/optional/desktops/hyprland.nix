@@ -37,4 +37,12 @@
       ".config/dunst" = lib.mkDefault "dunst";
     };
   };
+
+  persist = {
+    home = {
+      ".local/share/hyprland" = lib.mkDefault true;
+      ".local/share/sddm" = lib.mkDefault true;
+      ".cache/snowflake" = lib.mkDefault true;
+    };
+  };
 }

@@ -13,4 +13,12 @@
       ".config/git" = lib.mkDefault "git";
     };
   };
+
+  persist = {
+    home = {
+      ".config/gh" = lib.mkDefault true;
+      ".cache/gh" = lib.mkDefault true;
+      ".cache/gitstatus" = lib.mkDefault true;
+    };
+  };
 }

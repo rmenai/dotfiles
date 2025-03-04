@@ -14,4 +14,10 @@
       ".config/sesh" = lib.mkDefault "sesh";
     };
   };
+
+  persist = {
+    home = {
+      ".local/share/tmux" = lib.mkDefault true;
+    };
+  };
 }

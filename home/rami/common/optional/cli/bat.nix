@@ -28,4 +28,10 @@
       ".config/bat" = lib.mkDefault "bat";
     };
   };
+
+  persist = {
+    home = {
+      ".cache/bat" = lib.mkDefault true;
+    };
+  };
 }

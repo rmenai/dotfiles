@@ -13,10 +13,4 @@
     common/optional/cli
     common/optional/dev
   ];
-
-  # dotfiles = {
-  #   files = {
-  #     ".config/nvim" = "";
-  #   };
-  # };
 }
