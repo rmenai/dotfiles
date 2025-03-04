@@ -20,4 +20,6 @@
       "/var/lib/sbctl"
     ];
   };
+
+  fileSystems."/var/lib/sbctl".neededForBoot = true;
 }

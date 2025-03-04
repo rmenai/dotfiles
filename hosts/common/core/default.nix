@@ -8,12 +8,14 @@
 }: {
   imports = lib.flatten [
     inputs.home-manager.nixosModules.home-manager
+    inputs.sops-nix.nixosModules.sops
 
     (map lib.custom.relativeToRoot [
       "modules/common"
       "modules/hosts/common"
 
       "hosts/common/core/services"
+      "hosts/common/core/sops.nix"
       "hosts/common/core/ssh.nix"
     ])
   ];

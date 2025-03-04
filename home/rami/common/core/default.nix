@@ -2,14 +2,18 @@
   lib,
   pkgs,
   hostSpec,
+  inputs,
   ...
 }: {
   imports = lib.flatten [
+    inputs.sops-nix.homeManagerModules.sops
+
     (map lib.custom.relativeToRoot [
       "modules/common"
       "modules/home"
     ])
 
+    ./sops.nix
     ./bash.nix
     ./git.nix
     ./ssh.nix

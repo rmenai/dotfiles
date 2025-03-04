@@ -13,4 +13,10 @@
       '')
     ];
   };
+
+  environment.persistence."/persist/system" = {
+    directories = [
+      "/etc/ssh"
+    ];
+  };
 }
