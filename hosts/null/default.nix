@@ -26,6 +26,7 @@ in {
 
     ../common/optional/services/tlp.nix
     ../common/optional/services/printing.nix
+    ../common/optional/services/openssh.nix
 
     # User config
     ../common/users/primary.nix

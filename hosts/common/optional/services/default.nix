@@ -1,5 +1,6 @@
 {
   imports = [
+    ./openssh.nix
     ./display.nix
     ./input.nix
     ./sound.nix

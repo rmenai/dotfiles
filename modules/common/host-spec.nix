@@ -24,6 +24,11 @@
       type = lib.types.str;
       description = "The handle of the user (eg: github user)";
     };
+    domain = lib.mkOption {
+      type = lib.types.str;
+      description = "The handle of the user (eg: github user)";
+      default = "localhost";
+    };
     home = lib.mkOption {
       type = lib.types.str;
       description = "The home directory of the user";

@@ -14,6 +14,7 @@
       "modules/hosts/common"
 
       "hosts/common/core/services"
+      "hosts/common/core/ssh.nix"
     ])
   ];
 
