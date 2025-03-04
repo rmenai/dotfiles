@@ -208,6 +208,24 @@
         "type": "github"
       }
     },
+    "nix-secrets": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1741126399,
+        "narHash": "sha256-6cuzOJLnhD2wO4pNUEmRh29Chxoi+dfsRPdT66Tvsdc=",
+        "ref": "main",
+        "rev": "e2d4826aca92b616d2bdc29833ab7a091cd97ab1",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@github.com/rmenai/nix-secrets.git"
+      },
+      "original": {
+        "ref": "main",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@github.com/rmenai/nix-secrets.git"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1740865531,
@@ -328,6 +346,7 @@
         "home-manager": "home-manager",
         "impermanence": "impermanence",
         "lanzaboote": "lanzaboote",
+        "nix-secrets": "nix-secrets",
         "nixpkgs": "nixpkgs",
         "nixpkgs-stable": "nixpkgs-stable_2",
         "nixpkgs-unstable": "nixpkgs-unstable",

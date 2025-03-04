@@ -1,8 +1,14 @@
-{lib, ...}: {
+{
+  inputs,
+  lib,
+  ...
+}: let
+  sopsFolder = builtins.toString inputs.nix-secrets;
+in {
   sops = {
     age.keyFile = "/home/rami/.config/sops/age/keys.txt";
 
-    defaultSopsFile = ../../../../secrets.yaml;
+    defaultSopsFile = "${sopsFolder}/secrets.yaml";
     validateSopsFiles = false;
 
     secrets = {

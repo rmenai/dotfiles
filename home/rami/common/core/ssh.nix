@@ -1,13 +1,9 @@
 {
   config,
   lib,
-  hostSpec,
   ...
 }: let
   homeDir = config.home.homeDirectory;
-  username = hostSpec.username;
-  domain = hostSpec.domain;
-  host = "${username}.${domain}";
 in {
   programs.ssh = {
     enable = true;
@@ -25,12 +21,9 @@ in {
 
     matchBlocks = {
       "default" = {
-        host = host;
-        hostname = host;
-        user = username;
-        port = 22;
+        host = "github.com";
         identitiesOnly = true;
-        identityFile = ["${homeDir}/.ssh/id_rsa"];
+        identityFile = ["${homeDir}/.ssh/id_null"];
       };
     };
   };

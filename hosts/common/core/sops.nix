@@ -1,6 +1,8 @@
-{
+{inputs, ...}: let
+  sopsFolder = builtins.toString inputs.nix-secrets;
+in {
   sops = {
-    defaultSopsFile = ../../../secrets.yaml;
+    defaultSopsFile = "${sopsFolder}/secrets.yaml";
     validateSopsFiles = false;
 
     age = {
