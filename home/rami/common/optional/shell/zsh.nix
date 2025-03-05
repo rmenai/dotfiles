@@ -29,9 +29,21 @@
 
   # Edge case, add single file persistence
   home.file = {
-    ".cache/p10k-dump-${hostSpec.username}.zsh".source = config.lib.file.mkOutOfStoreSymlink "/persist${config.home.homeDirectory}/.cache/p10k-dump-${hostSpec.username}.zsh";
-    ".cache/p10k-dump-${hostSpec.username}.zsh.zwc".source = config.lib.file.mkOutOfStoreSymlink "/persist${config.home.homeDirectory}/.cache/p10k-dump-${hostSpec.username}.zsh.zwc";
-    ".cache/p10k-instant-prompt-${hostSpec.username}.zsh".source = config.lib.file.mkOutOfStoreSymlink "/persist${config.home.homeDirectory}/.cache/p10k-instant-prompt-${hostSpec.username}.zsh";
-    ".cache/p10k-instant-prompt-${hostSpec.username}.zsh.zwc".source = config.lib.file.mkOutOfStoreSymlink "/persist${config.home.homeDirectory}/.cache/p10k-instant-prompt-${hostSpec.username}.zsh.zwc";
+    ".cache/p10k-dump-${hostSpec.username}.zsh" = {
+      source = config.lib.file.mkOutOfStoreSymlink "/persist${config.home.homeDirectory}/.cache/p10k-dump-${hostSpec.username}.zsh";
+      force = true;
+    };
+    ".cache/p10k-dump-${hostSpec.username}.zsh.zwc" = {
+      source = config.lib.file.mkOutOfStoreSymlink "/persist${config.home.homeDirectory}/.cache/p10k-dump-${hostSpec.username}.zsh.zwc";
+      force = true;
+    };
+    ".cache/p10k-instant-prompt-${hostSpec.username}.zsh" = {
+      source = config.lib.file.mkOutOfStoreSymlink "/persist${config.home.homeDirectory}/.cache/p10k-instant-prompt-${hostSpec.username}.zsh";
+      force = true;
+    };
+    ".cache/p10k-instant-prompt-${hostSpec.username}.zsh.zwc" = {
+      source = config.lib.file.mkOutOfStoreSymlink "/persist${config.home.homeDirectory}/.cache/p10k-instant-prompt-${hostSpec.username}.zsh.zwc";
+      force = true;
+    };
   };
 }

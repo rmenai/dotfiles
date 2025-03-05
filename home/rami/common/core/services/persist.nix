@@ -38,7 +38,8 @@
 
       ".cache/nvidia" = lib.mkDefault true;
       ".cache/nix" = lib.mkDefault true;
-
+      ".cache/mesa_shader_cache_db" = lib.mkDefault true;
+      ".cache/mesa_shader_cache" = lib.mkDefault true;
       ".config/Electron" = lib.mkDefault true;
       ".config/environment.d" = lib.mkDefault true;
       ".config/nix" = lib.mkDefault true;
