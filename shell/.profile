@@ -16,6 +16,7 @@ if [ -f /etc/NIXOS ]; then
   alias nrs="sudo nixos-rebuild switch --flake /etc/nixos#$(hostname)"
   alias nrb="sudo nixos-rebuild boot --flake /etc/nixos#$(hostname)"
   alias nrt="sudo nixos-rebuild test --flake /etc/nixos#$(hostname)"
+  alias hibernate="systemctl hibernate"
 fi
 
 # General environment variables
@@ -51,7 +52,7 @@ alias fgrep="fgrep --color=auto"
 alias egrep="egrep --color=auto"
 
 alias v="nvim"
-alias vim="nvim"
+# alias vim="nvim"
 alias vimdiff="nvim -d"
 
 alias t="tmux"
