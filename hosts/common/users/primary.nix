@@ -26,6 +26,7 @@ in {
         "docker"
         "git"
         "networkmanager"
+        "tss"
         "scanner" # for print/scan"
         "lp" # for print/scan"
       ])

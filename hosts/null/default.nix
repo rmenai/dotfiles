@@ -17,6 +17,7 @@ in {
     ../common/disks/btrfs-luks-impermanence.nix
     ../common/disks/impermanence.nix
     ../common/disks/secure-boot.nix
+    ../common/disks/tpm.nix
 
     # Host config
     ../common/core
@@ -38,7 +39,7 @@ in {
     hostName = "null";
   };
 
-  boot.supportedFilesystems = ["ntfs"];
+  boot.supportedFilesystems = ["ntfs" "btrfs"];
   system.stateVersion = "24.11";
 
   hardware.graphics = {
