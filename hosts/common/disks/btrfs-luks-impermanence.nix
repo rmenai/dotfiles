@@ -90,13 +90,8 @@
     };
   };
 
-  swapDevices = [
-    {
-      device = "/.swapvol/swapfile";
-      size = 32 * 1024;
-    }
-  ];
+  swapDevices = [{device = "/.swapvol/swapfile";}];
 
-  boot.resumeDevice = "/dev/nvme0n1p3";
+  boot.resumeDevice = "/dev/mapper/root_vg-root";
   boot.kernelParams = ["resume_offset=533760"];
 }

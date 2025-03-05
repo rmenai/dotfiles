@@ -5,8 +5,8 @@
 }: {
   boot.initrd.systemd.services.btrfs-rollback = {
     description = "Rollback BTRFS root";
-    wantedBy = ["dev-pool-root.device"];
-    after = ["dev-pool-root.device"];
+    wantedBy = ["initrd.target"];
+    after = ["initrd-root-device.target"];
     before = ["sysroot.mount"];
     unitConfig.DefaultDependencies = "no";
     serviceConfig.Type = "oneshot";
