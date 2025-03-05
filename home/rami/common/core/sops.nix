@@ -18,6 +18,10 @@ in {
       "private_keys/${hostSpec.username}" = {
         path = "${homeDir}/.ssh/id_null";
       };
+      "data" = {
+        sopsFile = "${sopsFolder}/files/surfingkeys.js";
+        path = "${homeDir}/.config/chrome/surfingkeys.js";
+      };
     };
   };
 
