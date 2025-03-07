@@ -25,9 +25,10 @@ in {
     ../common/optional/hyprland.nix
     ../common/optional/podman.nix
 
-    ../common/optional/services/tlp.nix
     ../common/optional/services/printing.nix
     ../common/optional/services/openssh.nix
+    ../common/optional/services/tlp.nix
+    ../common/optional/services/acpid.nix
 
     ../common/optional/containers
 

@@ -5,6 +5,7 @@
     ./input.nix
     ./sound.nix
     ./printing.nix
+    ./acpid.nix
     ./tlp.nix
   ];
 }

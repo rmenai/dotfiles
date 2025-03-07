@@ -5,6 +5,7 @@
 }: {
   imports = [
     ./fonts.nix
+    ./power.nix
   ];
 
   programs.waybar.enable = true;
