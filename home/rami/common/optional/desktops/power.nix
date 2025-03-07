@@ -19,7 +19,10 @@
           fi
         fi
       ''}";
+
       Type = "oneshot";
+      Restart = "on-failure";
+      RestartSec = "1s";
     };
   };
 }
