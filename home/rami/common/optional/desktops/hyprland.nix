@@ -15,6 +15,8 @@
     hyprlock
     dunst
     libnotify
+    pamixer
+    brightnessctl
 
     swaylock-effects
     sddm-sugar-dark
