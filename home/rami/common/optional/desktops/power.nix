@@ -1,27 +1,25 @@
 {pkgs, ...}: {
-  systemd.user.services.hyprland-set-highres = {
+  systemd.user.services.hyprland-adjust-power = {
     Unit = {
-      Description = "Set high resolution in Hyprland";
+      Description = "Change profile based on power";
       After = ["hyprland.service"];
     };
     Install = {
       WantedBy = ["default.target"];
     };
     Service = {
-      ExecStart = "${pkgs.hyprland}/bin/hyprctl keyword monitor 'eDP-1, highres@highrr, 0x0, 1'";
-    };
-  };
+      ExecStart = "${pkgs.writeShellScript "hyprland-adjust-power.sh" ''
+        if [ -f /sys/class/power_supply/BAT0/status ]; then
+          battery_status=$(cat /sys/class/power_supply/BAT0/status)
 
-  systemd.user.services.hyprland-set-battery = {
-    Unit = {
-      Description = "Set battery resolution in Hyprland";
-      After = ["hyprland.service"];
-    };
-    Install = {
-      WantedBy = ["default.target"];
-    };
-    Service = {
-      ExecStart = "${pkgs.hyprland}/bin/hyprctl keyword monitor 'eDP-1, 1920x1200@60, 0x0, 1'";
+          if [ "$battery_status" = "Discharging" ]; then
+            ${pkgs.hyprland}/bin/hyprctl keyword monitor 'eDP-1, 1920x1200@60, 0x0, 1'
+          else
+            ${pkgs.hyprland}/bin/hyprctl keyword monitor 'eDP-1, highres@highrr, 0x0, 1.6'
+          fi
+        fi
+      ''}";
+      Type = "oneshot";
     };
   };
 }
