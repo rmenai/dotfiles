@@ -173,3 +173,9 @@
 2024/10/28 (14:25:53) | WARNING: NVML: Failed to get GPU utilization: Unknown Error
 2024/10/28 (14:26:20) | ERROR: Couldn't determine terminal size of "STDOUT_FILENO"!
 2024/10/28 (14:26:20) | ERROR: Couldn't determine terminal size of "/dev/tty"!
+
+2025/03/07 (20:07:54) | ===> btop++ v.1.4.0
+2025/03/07 (20:07:54) | WARNING: Intel GPU: Failed to initialize PMU
+
+2025/03/15 (17:32:02) | ===> btop++ v.1.4.0
+2025/03/15 (17:32:02) | WARNING: Intel GPU: Failed to initialize PMU

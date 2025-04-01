@@ -47,7 +47,7 @@ map("n", "<Leader>j", "<cmd>lprev<CR>zz", { desc = "Backward location list" })
 map("n", "<Leader><space>", function() require("telescope").extensions.picker_list.picker_list() end, { desc = "Open Telescope picker list" })
 map("n", "<Leader>f", function() require("telescope.builtin").find_files() end, { desc = "Find files" })
 map("n", "<Leader>/", function() require("telescope.builtin").live_grep() end, { desc = "Search in files" })
-map("n", "<Leader>?", function() require("telescope.builtin").grep_string() end, { desc = "Search in files" })
+map("n", "g?", function() require("telescope.builtin").grep_string() end, { desc = "Search in files" })
 map("n", "<Leader>c", function() require("telescope.builtin").commands() end, { desc = "Show commands" })
 
 -- INSTALLERS
