@@ -2,6 +2,8 @@
   imports = [
     common/core
 
+    common/optional/services/mpris.nix
+
     common/optional/desktops/hyprland.nix
     common/optional/browsers/brave.nix
     common/optional/terminals/wezterm.nix
