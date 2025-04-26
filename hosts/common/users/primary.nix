@@ -24,6 +24,7 @@ in {
         "audio"
         "video"
         "docker"
+        "podman"
         "git"
         "networkmanager"
         "tss"
