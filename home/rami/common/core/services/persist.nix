@@ -18,6 +18,10 @@
       source = config.lib.file.mkOutOfStoreSymlink "/persist${config.home.homeDirectory}/.histfile";
       force = true;
     };
+    ".adventofcode.session" = {
+      source = config.lib.file.mkOutOfStoreSymlink "/persist${config.home.homeDirectory}/.adventofcode.session";
+      force = true;
+    };
   };
 
   persist = {

@@ -45,6 +45,7 @@
       "/var/lib/nixos"
       "/var/lib/systemd/coredump"
       "/var/lib/systemd"
+      "/root"
       {
         directory = "/var/lib/colord";
         user = "colord";
