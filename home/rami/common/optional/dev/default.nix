@@ -10,6 +10,8 @@
   ];
 
   home.packages = with pkgs; [
+    devenv
+    direnv
     python314
     nodejs_23
     rustup
@@ -42,6 +44,7 @@
       ".cache/node-gyp" = lib.mkDefault true;
       ".cache/luarocks" = lib.mkDefault true;
       ".cache/dune" = lib.mkDefault true;
+      ".cache/pypoetry" = lib.mkDefault true;
       ".cache/pre-commit" = lib.mkDefault true;
     };
   };

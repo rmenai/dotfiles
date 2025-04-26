@@ -88,6 +88,16 @@
     ];
   };
 
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      stdenv
+      libgcc
+      libllvm
+      portaudio
+    ];
+  };
+
   time.timeZone = lib.mkDefault "Europe/Paris";
   i18n.defaultLocale = lib.mkDefault "en_US.UTF-8";
 }
