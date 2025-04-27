@@ -24,6 +24,7 @@ in {
 
     ../common/optional/hyprland.nix
     ../common/optional/podman.nix
+    ../common/optional/vm.nix
 
     ../common/optional/services/printing.nix
     ../common/optional/services/bluetooth.nix

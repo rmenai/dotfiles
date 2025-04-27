@@ -28,6 +28,7 @@ in {
         "git"
         "networkmanager"
         "tss"
+        "libvirtd"
         "scanner" # for print/scan"
         "lp" # for print/scan"
       ])
