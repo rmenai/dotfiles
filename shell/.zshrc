@@ -8,6 +8,9 @@ if [ "$TMUX" = "" ]; then
   exit
 fi
 
+# Evaluate direnv
+eval "$(direnv hook zsh)"
+
 # Define where to install Zinit
 export ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
