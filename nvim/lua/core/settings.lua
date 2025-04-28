@@ -17,7 +17,7 @@ vim.o.splitright = true
 vim.o.splitbelow = true
 vim.o.showtabline = 0
 vim.o.termguicolors = true
-vim.o.tw = 80
+vim.o.tw = 120
 vim.o.wrap = false
 
 -- PERSISTENT UNDO

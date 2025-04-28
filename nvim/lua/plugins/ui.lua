@@ -138,7 +138,7 @@ return {
             if vim.api.nvim_win_get_config(winId).focusable then winCount = winCount + 1 end
           end
 
-          if e.event == "QuitPre" and winCount == 2 then vim.api.nvim_cmd({ cmd = "qall" }, {}) end
+          if e.event == "QuitPre" and winCount == 2 then vim.cmd("silent! wa | qa") end
 
           if e.event == "BufEnter" and winCount == 1 then
             vim.defer_fn(function()
