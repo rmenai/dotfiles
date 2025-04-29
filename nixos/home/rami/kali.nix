@@ -2,6 +2,7 @@
   imports = [
     common/core
 
+    common/optional/desktops/fonts.nix
     common/optional/shell/zsh.nix
     common/optional/mux/tmux.nix
 
