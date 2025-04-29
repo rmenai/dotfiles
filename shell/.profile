@@ -5,6 +5,11 @@ if [ "$BASH_VERSION" != "" ]; then
   fi
 fi
 
+# Home-manager config
+if [ -f "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then
+  . "$HOME/.nix-profile/etc/profile.d/nix.sh"
+fi
+
 # WSL config 
 if grep -qi microsoft /proc/version; then
   export BROWSER=wslview
