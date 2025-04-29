@@ -31,10 +31,4 @@
 
   programs.home-manager.enable = true;
   systemd.user.startServices = "sd-switch";
-
-  dotfiles = {
-    files = {
-      ".config/home-manager" = lib.mkDefault "home-manager";
-    };
-  };
 }
