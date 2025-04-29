@@ -10,7 +10,7 @@
   ];
 
   hostSpec = {
-    username = builtins.getEnv "USER";
-    home = builtins.getEnv "HOME";
+    username = "vault";
+    home = "/home/vault";
   };
 }
