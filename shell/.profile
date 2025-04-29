@@ -36,6 +36,7 @@ if command -v bat &> /dev/null; then
 fi
 
 # NixOs aliases
+alias nix-shell="nix-shell --run zsh"
 alias nrs="sudo nixos-rebuild switch --flake $(realpath ~/.config/nixos)#$(hostname)"
 alias nrb="sudo nixos-rebuild boot --flake $(realpath ~/.config/nixos)#$(hostname)"
 alias nrt="sudo nixos-rebuild test --flake $(realpath ~/.config/nixos)#$(hostname)"

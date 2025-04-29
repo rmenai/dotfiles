@@ -52,7 +52,6 @@ in {
 
   environment = {
     systemPackages = with pkgs; [
-      any-nix-shell
       ep
     ];
   };
