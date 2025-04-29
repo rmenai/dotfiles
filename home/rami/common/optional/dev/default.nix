@@ -28,7 +28,6 @@
 
   dotfiles = {
     files = {
-      ".config/github-copilot" = lib.mkDefault "github-copilot";
       ".config/rust-competitive-helper" = lib.mkDefault "rust-competitive-helper";
       ".config/utop" = lib.mkDefault "utop";
     };
