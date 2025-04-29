@@ -1,11 +1,14 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }: {
   programs.zsh = {
     enable = true;
   };
+
+  home.packages = [pkgs.any-nix-shell];
 
   dotfiles = {
     files = {
