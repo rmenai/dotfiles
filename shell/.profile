@@ -17,19 +17,22 @@ if grep -qi microsoft /proc/version; then
   export PATH="$PATH:/mnt/d/Programs/mpv"
 fi
 
-if [ -f /etc/NIXOS ]; then
-  alias nrs="sudo nixos-rebuild switch --flake /etc/nixos#$(hostname)"
-  alias nrb="sudo nixos-rebuild boot --flake /etc/nixos#$(hostname)"
-  alias nrt="sudo nixos-rebuild test --flake /etc/nixos#$(hostname)"
-  alias hibernate="systemctl hibernate"
-fi
-
 # General environment variables
 export EDITOR="nvim" SUDO_EDITOR="nvim"
 export HISTFILE="$HOME/.histfile" HISTSIZE=1000 SAVEHIST=1000
 setopt SHARE_HISTORY
 
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
+# NixOs aliases
+alias nrs="sudo nixos-rebuild switch --flake $(realpath ~/.config/nixos)#$(hostname)"
+alias nrb="sudo nixos-rebuild boot --flake $(realpath ~/.config/nixos)#$(hostname)"
+alias nrt="sudo nixos-rebuild test --flake $(realpath ~/.config/nixos)#$(hostname)"
+
+alias hrs="home-manager switch --flake $(realpath ~/.config/nixos)#rami@$(hostname)"
+alias hrb="home-manager build --flake $(realpath ~/.config/nixos)#rami@$(hostname)"
+
+alias hibernate="systemctl hibernate"
 
 # Aliases
 alias z="cdi" # View it on .zshrc

@@ -12,7 +12,6 @@ usage() {
 
 REPOS=(
 	"$HOME/.dotfiles"
-	"/etc/nixos"
 )
 
 # --- Filesystem Diff Function ---

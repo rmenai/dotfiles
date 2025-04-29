@@ -31,4 +31,10 @@
 
   programs.home-manager.enable = true;
   systemd.user.startServices = "sd-switch";
+
+  dotfiles = {
+    files = {
+      ".config/nixos" = lib.mkDefault "nixos";
+    };
+  };
 }
