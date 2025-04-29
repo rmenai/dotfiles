@@ -2,8 +2,7 @@
   imports = [
     common/core
 
-    common/optional/terminals/ghostty.nix
-    common/optional/terminals/wezterm.nix
+    common/optional/terminals/kitty.nix
     common/optional/desktops/fonts.nix
     common/optional/shell/zsh.nix
     common/optional/mux/tmux.nix
