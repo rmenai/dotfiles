@@ -8,8 +8,10 @@ if [ "$TMUX" = "" ]; then
   exit
 fi
 
-# Evaluate direnv
-eval "$(direnv hook zsh)"
+# Evaluate direnv if installed
+if command -v direnv &> /dev/null; then
+  eval "$(direnv hook zsh)"
+fi
 
 # Define where to install Zinit
 export ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
@@ -44,8 +46,10 @@ fi
 # Load custom configuration files
 source "$HOME/.config/zsh/catppuccin_mocha-fzf.zsh"
 
-# Initialize zoxide (for directory jumping)
-eval "$(zoxide init --cmd cd zsh)"
+# Initialize zoxide if installed
+if command -v zoxide &> /dev/null; then
+  eval "$(zoxide init --cmd cd zsh)"
+fi
 
 #############################
 # Zsh Plugin Settings
@@ -72,29 +76,28 @@ zinit for \
 # Load zsh-fsh catpuccin theme
 fast-theme XDG:catppuccin-mocha > /dev/null 2>&1
 
-# Load nixos specific config
-if [ -f /etc/NIXOS ]; then
+# Load nixos specific config if on NixOS and any-nix-shell is installed
+if [ -f /etc/NIXOS ] && command -v any-nix-shell &> /dev/null; then
   any-nix-shell zsh --info-right | source /dev/stdin
+fi
 
 #############################
 # Packages Configuration
 #############################
 
-export PATH=$PATH:~/.cargo/bin/
-
-[[ ! -r '/home/rami/.opam/opam-init/init.zsh' ]] || source '/home/rami/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
+# Add Cargo bin to PATH if directory exists
+if [ -d ~/.cargo/bin ]; then
+  export PATH=$PATH:~/.cargo/bin/
 fi
+
+# Source OPAM init if available
+[[ ! -r '/home/rami/.opam/opam-init/init.zsh' ]] || source '/home/rami/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
 
 #############################
 # Powerlevel10k Prompt Configuration
 #############################
 
+# Source Powerlevel10k configuration
 if [[ -f "$HOME/.p10k.zsh" ]]; then
   source "$HOME/.p10k.zsh"
 fi
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# To customize prompt, run `p10k configure` or edit /persist/home/rami/.p10k.zsh.
-[[ ! -f /persist/home/rami/.p10k.zsh ]] || source /persist/home/rami/.p10k.zsh

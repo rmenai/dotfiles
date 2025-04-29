@@ -20,9 +20,15 @@ fi
 # General environment variables
 export EDITOR="nvim" SUDO_EDITOR="nvim"
 export HISTFILE="$HOME/.histfile" HISTSIZE=1000 SAVEHIST=1000
-setopt SHARE_HISTORY
 
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+if [ "$ZSH_VERSION" != "" ]; then
+  setopt SHARE_HISTORY
+fi
+
+# Set MANPAGER only if bat is installed
+if command -v bat &> /dev/null; then
+  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+fi
 
 # NixOs aliases
 alias nrs="sudo nixos-rebuild switch --flake $(realpath ~/.config/nixos)#$(hostname)"
@@ -34,42 +40,59 @@ alias hrb="home-manager build --flake $(realpath ~/.config/nixos)#rami@$(hostnam
 
 alias hibernate="systemctl hibernate"
 
-# Aliases
-alias z="cdi" # View it on .zshrc
-alias cat="bat"
+# bat-dependent aliases
+if command -v bat &> /dev/null; then
+  alias cat="bat"
+  alias -g -- -h="-h 2>&1 | bat --language=help --style=plain"
+  alias -g -- --help="--help 2>&1 | bat --language=help --style=plain"
+fi
 
-alias ls="exa"
+# exa-dependent aliases
+if command -v exa &> /dev/null; then
+  alias ls="exa"
+fi
+
+# ls-dependent aliases
+alias z="cdi" # View it on .zshrc
 alias ll="ls -alF"
 alias la="ls -A"
-alias l="ls -CF"
 
-alias fzfp='fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"'
-alias -g -- -h="-h 2>&1 | bat --language=help --style=plain"
-alias -g -- --help="--help 2>&1 | bat --language=help --style=plain"
+# fzf and bat-dependent alias
+if command -v fzf &> /dev/null && command -v bat &> /dev/null; then
+  alias fzfp='fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"'
+fi
 
-alias c="xclip -sel c"
-alias p="xclip -sel c -o"
+# xclip-dependent aliases
+if command -v xclip &> /dev/null; then
+  alias c="xclip -sel c"
+  alias p="xclip -sel c -o"
+  alias cs="xclip"
+  alias vs="xclip -o"
+fi
 
-alias cs="xclip"
-alias vs="xclip -o"
+# nvim-dependent aliases
+if command -v nvim &> /dev/null; then
+  alias v="nvim"
+  alias vimdiff="nvim -d"
+fi
 
+# tmux-dependent aliases
+if command -v tmux &> /dev/null; then
+  alias t="tmux"
+  alias ta="tmux attach"
+  alias tad="tmux attach -d -t"
+  alias tkss="tmux kill-session -t"
+  alias tksv="tmux kill-server"
+  alias tl="tmux list-sessions"
+  alias ts="tmux new-session -s"
+fi
+
+# Standard aliases
 alias dir="dir --color=auto"
 alias vdir="vdir --color=auto"
 alias grep="grep --color=auto"
 alias fgrep="fgrep --color=auto"
 alias egrep="egrep --color=auto"
-
-alias v="nvim"
-# alias vim="nvim"
-alias vimdiff="nvim -d"
-
-alias t="tmux"
-alias ta="tmux attach"
-alias tad="tmux attach -d -t"
-alias tkss="tmux kill-session -t"
-alias tksv="tmux kill-server"
-alias tl="tmux list-sessions"
-alias ts="tmux new-session -s"
 
 function y() {
   local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
