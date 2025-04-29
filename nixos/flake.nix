@@ -101,7 +101,7 @@
   in {
     overlays = import ./overlays {inherit inputs;};
     nixosConfigurations = mkHostConfigs readHosts;
-    homeConfigurations = mkHomeConfigs readHosts;
+    homeConfigurations = mkHomeConfigs (lib.attrNames hostUserMap);
 
     packages = forAllSystems (
       system: let
