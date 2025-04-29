@@ -46,6 +46,7 @@
   outputs = {
     self,
     nixpkgs,
+    home-manager,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -54,6 +55,10 @@
     forAllSystems = nixpkgs.lib.genAttrs [
       "x86_64-linux"
     ];
+
+    hostUserMap = {
+      "null" = "rami";
+    };
 
     mkHost = host: {
       ${host} = lib.nixosSystem {
@@ -67,9 +72,31 @@
 
     mkHostConfigs = hosts: lib.foldl (acc: set: acc // set) {} (lib.map mkHost hosts);
     readHosts = lib.attrNames (builtins.readDir ./hosts);
+
+    mkHomeConfig = host: let
+      user = hostUserMap.${host} or (throw "User not defined for host ${host} in hostUserMap");
+      system = "x86_64-linux";
+      pkgs = import nixpkgs {
+        inherit system;
+        overlays = [self.overlays.default];
+      };
+    in {
+      "${user}@${host}" = home-manager.homeManagerConfiguration {
+        inherit pkgs;
+        extraSpecialArgs = {
+          inherit inputs outputs;
+        };
+        modules = [
+          ./home/${user}/${host}.nix
+        ];
+      };
+    };
+
+    mkHomeConfigs = hosts: lib.foldl (acc: set: acc // set) {} (lib.map mkHomeConfig hosts);
   in {
     overlays = import ./overlays {inherit inputs;};
     nixosConfigurations = mkHostConfigs readHosts;
+    homeConfigurations = mkHomeConfigs readHosts;
 
     packages = forAllSystems (
       system: let
