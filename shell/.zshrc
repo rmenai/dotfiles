@@ -76,8 +76,8 @@ zinit for \
 # Load zsh-fsh catpuccin theme
 fast-theme XDG:catppuccin-mocha > /dev/null 2>&1
 
-# Load nixos specific config if on NixOS and any-nix-shell is installed
-if [ -f /etc/NIXOS ] && command -v any-nix-shell &> /dev/null; then
+# Load nixos specific config if any-nix-shell is installed
+if [ command -v any-nix-shell &> /dev/null; then
   any-nix-shell zsh --info-right | source /dev/stdin
 fi
 
