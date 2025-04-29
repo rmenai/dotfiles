@@ -19,10 +19,12 @@
     pamixer
     brightnessctl
 
+    rofi-wayland
     swaylock-effects
     sddm-sugar-dark
     rofi-emoji-wayland
     hyprpicker
+    eww
 
     qt6.qtwayland
     wl-mirror
