@@ -4,11 +4,14 @@
   ...
 }: {
   home.packages = with pkgs; [
-    jetbrains-mono
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.fira-code
+    nerd-fonts.noto
     font-awesome
     font-manager
-    noto-fonts
   ];
+
+  fonts.fontconfig.enable = true;
 
   persist = {
     home = {
