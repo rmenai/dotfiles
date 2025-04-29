@@ -9,6 +9,7 @@
     common/optional/desktops/hyprland.nix
     common/optional/browsers/brave.nix
     common/optional/terminals/wezterm.nix
+    common/optional/terminals/kitty.nix
     common/optional/shell/zsh.nix
     common/optional/mux/tmux.nix
 
