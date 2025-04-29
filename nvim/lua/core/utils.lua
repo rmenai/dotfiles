@@ -71,8 +71,8 @@ M.is_server_available = function(mason_pkg, binary)
   -- Check if Mason's registry has the package installed
   local ok, registry = pcall(require, "mason-registry")
   if ok then
-    local pkg = registry.get_package(mason_pkg)
-    if pkg and pkg:is_installed() then return true end
+    local success, pkg = pcall(registry.get_package, mason_pkg)
+    if success and pkg and pkg:is_installed() then return true end
   end
 
   return false
