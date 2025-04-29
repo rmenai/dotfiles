@@ -30,7 +30,7 @@ startup_command = "nvim wezterm.lua"
 
 [[session]]
 name = "Nix Config"
-path = "~/.config/dotfiles/nixos"
+path = "~/.config/nixos"
 startup_command = "nvim flake.nix"
 
 [[session]]
