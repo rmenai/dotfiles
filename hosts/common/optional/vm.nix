@@ -1,17 +1,7 @@
 {pkgs, ...}: {
   virtualisation.libvirtd.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;
-
-  # virtualisation.qemu.options = {
-  #   options = [
-  #     "-device"
-  #     "virtio-vga-gl"
-  #     "-display"
-  #     "sdl,gl=on,show-cursor=off"
-  #     "-device"
-  #     "virtio-keyboard"
-  #   ];
-  # };
+  services.spice-vdagentd.enable = true;
 
   boot.kernelModules = ["kvm-intel" "vfio-pci"];
   boot.kernelParams = ["intel_iommu=on" "iommu=pt"];
@@ -29,11 +19,13 @@
 
   environment.systemPackages = with pkgs; [
     virt-manager
+    virt-viewer
     quickemu
     quickgui
     libvirt
     pciutils
     qemu
     kmod
+    davfs2
   ];
 }
