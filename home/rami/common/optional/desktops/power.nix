@@ -1,6 +1,6 @@
 {
   pkgs,
-  hostSpec,
+  config,
   ...
 }: {
   systemd.user.services.hyprland-adjust-power = {
@@ -12,7 +12,7 @@
       WantedBy = ["default.target"];
     };
     Service = {
-      ExecStart = "${pkgs.bash}/bin/bash ${hostSpec.home}/.config/hypr/scripts/adjust-power.sh";
+      ExecStart = "${pkgs.bash}/bin/bash ${config.hostSpec.home}/.config/hypr/scripts/adjust-power.sh";
       Type = "simple";
       Restart = "always";
       RestartSec = "1s";

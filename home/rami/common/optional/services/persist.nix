@@ -2,24 +2,23 @@
   config,
   lib,
   inputs,
-  hostSpec,
   ...
 }: {
   imports = [
     inputs.impermanence.nixosModules.home-manager.impermanence
   ];
 
-  home.persistence."/persist/home/${hostSpec.username}" = {
+  home.persistence."/persist/home/${config.hostSpec.username}" = {
     allowOther = true;
   };
 
   home.file = {
     ".histfile" = {
-      source = config.lib.file.mkOutOfStoreSymlink "/persist${config.home.homeDirectory}/.histfile";
+      source = config.lib.file.mkOutOfStoreSymlink "/persist${config.hostSpec.home}/.histfile";
       force = true;
     };
     ".adventofcode.session" = {
-      source = config.lib.file.mkOutOfStoreSymlink "/persist${config.home.homeDirectory}/.adventofcode.session";
+      source = config.lib.file.mkOutOfStoreSymlink "/persist${config.hostSpec.home}/.adventofcode.session";
       force = true;
     };
   };
@@ -31,6 +30,7 @@
       "Pictures" = lib.mkDefault true;
       "Documents" = lib.mkDefault true;
       "Videos" = lib.mkDefault true;
+      "Public" = lib.mkDefault true;
       ".dotfiles" = lib.mkDefault true;
       ".gnupg" = lib.mkDefault true;
       ".nixops" = lib.mkDefault true;
@@ -40,6 +40,7 @@
       ".local/state/nix" = lib.mkDefault true;
       ".local/state/containers" = lib.mkDefault true;
 
+      ".cache" = lib.mkDefault true;
       ".cache/nvidia" = lib.mkDefault true;
       ".cache/nix" = lib.mkDefault true;
       ".cache/mesa_shader_cache_db" = lib.mkDefault true;

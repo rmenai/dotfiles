@@ -50,7 +50,6 @@ in {
   home-manager = {
     extraSpecialArgs = {
       inherit pkgs inputs;
-      hostSpec = config.hostSpec;
     };
 
     users.${config.hostSpec.username}.imports = [

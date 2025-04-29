@@ -1,29 +1,20 @@
 {
   lib,
   pkgs,
-  hostSpec,
-  inputs,
+  config,
   ...
 }: {
   imports = lib.flatten [
-    inputs.sops-nix.homeManagerModules.sops
+    ../../../../modules/common
+    ../../../../modules/home
 
-    (map lib.custom.relativeToRoot [
-      "modules/common"
-      "modules/home"
-    ])
-
-    ./sops.nix
-    ./bash.nix
     ./git.nix
     ./ssh.nix
-
-    ./services
   ];
 
   home = {
-    username = lib.mkDefault hostSpec.username;
-    homeDirectory = lib.mkDefault hostSpec.home;
+    username = lib.mkDefault config.hostSpec.username;
+    homeDirectory = lib.mkDefault config.hostSpec.home;
     stateVersion = lib.mkDefault "24.11";
   };
 
@@ -40,4 +31,10 @@
 
   programs.home-manager.enable = true;
   systemd.user.startServices = "sd-switch";
+
+  dotfiles = {
+    files = {
+      ".config/home-manager" = lib.mkDefault "home-manager";
+    };
+  };
 }

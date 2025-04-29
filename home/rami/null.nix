@@ -2,6 +2,8 @@
   imports = [
     common/core
 
+    common/optional/services/sops.nix
+    common/optional/services/persist.nix
     common/optional/services/mpris.nix
 
     common/optional/desktops/hyprland.nix
@@ -15,4 +17,9 @@
     common/optional/cli
     common/optional/dev
   ];
+
+  hostSpec = {
+    username = "rami";
+    home = "/home/rami";
+  };
 }

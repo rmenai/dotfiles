@@ -71,7 +71,7 @@
     };
 
     mkHostConfigs = hosts: lib.foldl (acc: set: acc // set) {} (lib.map mkHost hosts);
-    readHosts = lib.attrNames (builtins.readDir ./hosts);
+    readHosts = lib.filter (name: name != "common") (lib.attrNames (builtins.readDir ./hosts));
 
     mkHomeConfig = host: let
       user = hostUserMap.${host} or (throw "User not defined for host ${host} in hostUserMap");
@@ -79,9 +79,12 @@
       pkgs = import nixpkgs {
         inherit system;
         overlays = [self.overlays.default];
+        config = {
+          allowUnfree = true;
+        };
       };
     in {
-      "${user}@${host}" = home-manager.homeManagerConfiguration {
+      "${user}@${host}" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         extraSpecialArgs = {
           inherit inputs outputs;

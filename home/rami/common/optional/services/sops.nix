@@ -2,25 +2,25 @@
   inputs,
   lib,
   config,
-  hostSpec,
   ...
 }: let
   sopsFolder = builtins.toString inputs.nix-secrets;
-  homeDir = config.home.homeDirectory;
 in {
+  imports = [inputs.sops-nix.homeManagerModules.sops];
+
   sops = {
-    age.keyFile = "${homeDir}/.config/sops/age/keys.txt";
+    age.keyFile = "${config.hostSpec.home}/.config/sops/age/keys.txt";
 
     defaultSopsFile = "${sopsFolder}/secrets.yaml";
     validateSopsFiles = false;
 
     secrets = {
-      "private_keys/${hostSpec.username}" = {
-        path = "${homeDir}/.ssh/id_null";
+      "private_keys/${config.hostSpec.username}" = {
+        path = "${config.hostSpec.home}/.ssh/id_null";
       };
       "data" = {
         sopsFile = "${sopsFolder}/files/surfingkeys.js";
-        path = "${homeDir}/.config/chrome/surfingkeys.js";
+        path = "${config.hostSpec.home}/.config/chrome/surfingkeys.js";
       };
     };
   };

@@ -2,13 +2,11 @@
   config,
   lib,
   ...
-}: let
-  homeDir = config.home.homeDirectory;
-in {
+}: {
   programs.ssh = {
     enable = true;
     controlMaster = "auto";
-    controlPath = "${homeDir}/.ssh/sockets/S.%r@%h:%p";
+    controlPath = "${config.hostSpec.home}/.ssh/sockets/S.%r@%h:%p";
     controlPersist = "20m";
     serverAliveCountMax = 3;
     serverAliveInterval = 5;
@@ -23,7 +21,7 @@ in {
       "default" = {
         host = "github.com";
         identitiesOnly = true;
-        identityFile = ["${homeDir}/.ssh/id_null"];
+        identityFile = ["${config.hostSpec.home}/.ssh/id_null"];
       };
     };
   };
