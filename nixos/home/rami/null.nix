@@ -16,7 +16,10 @@
     common/optional/tools
     common/optional/comms
     common/optional/cli
+
     common/optional/dev
+    common/optional/dev/python.nix
+    common/optional/dev/full.nix
   ];
 
   hostSpec = {

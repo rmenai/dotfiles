@@ -9,6 +9,7 @@
 
     common/optional/cli
     common/optional/dev
+    common/optional/dev/python.nix
   ];
 
   hostSpec = {
