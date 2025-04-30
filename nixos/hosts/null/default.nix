@@ -50,6 +50,11 @@ in {
     enable = true;
   };
 
+  # GPU passthrough and virtualization
+  boot.kernelModules = ["kvm-intel" "vfio-pci"];
+  boot.kernelParams = ["intel_iommu=on" "iommu=pt" "vfio-pci.ids=10de:28e0,10de:22be"];
+  boot.initrd.kernelModules = ["vfio-pci" "vfio" "vfio_iommu_type1"];
+
   environment = {
     systemPackages = with pkgs; [
       ep

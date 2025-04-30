@@ -7,8 +7,7 @@
   boot.kernelParams = ["intel_iommu=on" "iommu=pt"];
 
   environment.sessionVariables = {
-    WLR_NO_HARDWARE_CURSORS = "1";
-    WLR_RENDERER_ALLOW_SOFTWARE = "1";
+    VAGRANT_DEFAULT_PROVIDER = "libvirt";
   };
 
   environment.persistence."/persist/system" = {
@@ -20,12 +19,17 @@
   environment.systemPackages = with pkgs; [
     virt-manager
     virt-viewer
-    quickemu
-    quickgui
     libvirt
-    pciutils
     qemu
+    spice-protocol
+    spice-gtk
+
+    pciutils
     kmod
     davfs2
+
+    quickemu
+    quickgui
+    vagrant
   ];
 }
