@@ -209,10 +209,10 @@
     "nix-secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1741176394,
-        "narHash": "sha256-Srqc8MjHiFEbt5r19SXKI5CdtR7QXi4LsS1MZ7HVIe4=",
+        "lastModified": 1746122200,
+        "narHash": "sha256-rT2/aNL1hFGZTxGADl79Tx6zBmyopTLdcUXBR52xgQQ=",
         "ref": "main",
-        "rev": "a0eefc71c17898ad0d45adc3cd7b8493bfcfeb3f",
+        "rev": "5e2ce53ff4ca37df15cbfe4dce7cd54c1fb753f4",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/rmenai/nix-secrets.git"

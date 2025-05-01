@@ -1,1 +1,1 @@
-/home/rami/.config/sops-nix/secrets/data
+/home/vault/.config/sops-nix/secrets/data

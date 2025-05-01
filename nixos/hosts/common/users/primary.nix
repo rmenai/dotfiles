@@ -7,7 +7,7 @@
 }: let
   ifTheyExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
 in {
-  sops.secrets.keys.vault.nullp.account_password.neededForUsers = true;
+  sops.secrets."keys/vault/nullp/account_hash".neededForUsers = true;
   users.mutableUsers = false;
 
   users.users.${config.hostSpec.username} = {
@@ -15,7 +15,7 @@ in {
     home = config.hostSpec.home;
     isNormalUser = true;
     description = config.hostSpec.userFullName;
-    hashedPasswordFile = config.sops.secrets.keys.vault.nullp.account_password.path;
+    hashedPasswordFile = config.sops.secrets."keys/vault/nullp/account_hash".path;
     packages = [inputs.home-manager.packages.${pkgs.system}.default];
     shell = pkgs.zsh;
     extraGroups = lib.flatten [
