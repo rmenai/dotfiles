@@ -32,6 +32,12 @@
   programs.home-manager.enable = true;
   systemd.user.startServices = "sd-switch";
 
+  persist = {
+    home = {
+      ".vagrant.d" = lib.mkDefault true;
+    };
+  };
+
   dotfiles = {
     files = {
       ".config/nixos" = lib.mkDefault "nixos";

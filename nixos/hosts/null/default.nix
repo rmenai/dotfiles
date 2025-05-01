@@ -2,6 +2,7 @@
   inputs,
   lib,
   pkgs,
+  config,
   ...
 }: let
 in {
@@ -50,10 +51,19 @@ in {
     enable = true;
   };
 
+  hardware.nvidia = {
+    package = config.boot.kernelPackages.nvidiaPackages.latest;
+    modesetting.enable = true;
+    powerManagement.finegrained = true;
+    nvidiaSettings = true;
+    open = true;
+  };
+
   # GPU passthrough and virtualization
-  boot.kernelModules = ["kvm-intel" "vfio-pci"];
-  boot.kernelParams = ["intel_iommu=on" "iommu=pt" "vfio-pci.ids=10de:28e0,10de:22be"];
-  boot.initrd.kernelModules = ["vfio-pci" "vfio" "vfio_iommu_type1"];
+  # boot.kernelParams = ["intel_iommu=on" "iommu=pt" "vfio-pci.ids=10de:28e0,10de:22be"];
+  # boot.initrd.kernelModules = ["vfio-pci" "vfio" "vfio_iommu_type1"];
+  # boot.kernelModules = ["vfio-pci"];
+  # boot.blacklistedKernelModules = ["nouveau"];
 
   environment = {
     systemPackages = with pkgs; [

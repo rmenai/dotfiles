@@ -23,7 +23,7 @@
   ];
 
   hostSpec = {
-    username = "rami";
-    home = "/home/rami";
+    username = "vault";
+    home = "/home/vault";
   };
 }

@@ -15,8 +15,11 @@ in {
     validateSopsFiles = false;
 
     secrets = {
-      "private_keys/${config.hostSpec.username}" = {
+      "keys/${config.hostSpec.username}/nullp/private_key" = {
         path = "${config.hostSpec.home}/.ssh/id_null";
+      };
+      "keys/${config.hostSpec.username}/vms/private_key" = {
+        path = "${config.hostSpec.home}/.ssh/id_vms";
       };
       "data" = {
         sopsFile = "${sopsFolder}/files/surfingkeys.js";

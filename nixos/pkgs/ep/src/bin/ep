@@ -75,7 +75,7 @@ diff)
 			sudo diff -rq / /persist/system 2>/dev/null || true
 		else
 			if [ -d "/persist/$target" ]; then
-				diff -rq "/$target" "/persist/$target" 2>/dev/null | grep "Only in /home/rami" || true
+				diff -rq "/$target" "/persist/$target" 2>/dev/null | grep "Only in /home/vault" || true
 			else
 				echo "Error: /persist/$target does not exist. Cannot diff." >&2
 				exit 1

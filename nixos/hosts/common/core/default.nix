@@ -21,7 +21,7 @@
   ];
 
   hostSpec = {
-    username = "rami";
+    username = "vault";
     handle = "rmenai";
     userFullName = "Rami Menai";
     email = "rami@menai.me";

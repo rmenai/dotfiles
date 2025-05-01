@@ -7,7 +7,7 @@
 }: let
   ifTheyExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
 in {
-  sops.secrets.rami-password.neededForUsers = true;
+  sops.secrets.keys.vault.nullp.account_password.neededForUsers = true;
   users.mutableUsers = false;
 
   users.users.${config.hostSpec.username} = {
@@ -15,7 +15,7 @@ in {
     home = config.hostSpec.home;
     isNormalUser = true;
     description = config.hostSpec.userFullName;
-    hashedPasswordFile = config.sops.secrets.rami-password.path;
+    hashedPasswordFile = config.sops.secrets.keys.vault.nullp.account_password.path;
     packages = [inputs.home-manager.packages.${pkgs.system}.default];
     shell = pkgs.zsh;
     extraGroups = lib.flatten [
@@ -29,6 +29,7 @@ in {
         "networkmanager"
         "tss"
         "libvirtd"
+        "vboxusers"
         "scanner" # for print/scan"
         "lp" # for print/scan"
       ])
@@ -36,6 +37,7 @@ in {
 
     openssh.authorizedKeys.keys = [
       (builtins.readFile ./keys/id_null.pub)
+      (builtins.readFile ./keys/id_vms.pub)
     ];
   };
 

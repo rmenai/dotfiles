@@ -57,9 +57,9 @@
     ];
 
     hostUserMap = {
-      "null" = "rami";
-      "kali" = "rami";
-      "ubuntu" = "rami";
+      "null" = "vault";
+      "kali" = "vault";
+      "ubuntu" = "vault";
     };
 
     mkHost = host: {
