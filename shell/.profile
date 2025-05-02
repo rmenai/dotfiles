@@ -41,8 +41,8 @@ alias nrs="sudo nixos-rebuild switch --flake $(realpath ~/.config/nixos)#$(hostn
 alias nrb="sudo nixos-rebuild boot --flake $(realpath ~/.config/nixos)#$(hostname)"
 alias nrt="sudo nixos-rebuild test --flake $(realpath ~/.config/nixos)#$(hostname)"
 
-alias hrs="home-manager switch --flake $(realpath ~/.config/nixos)#rami@$(hostname)"
-alias hrb="home-manager build --flake $(realpath ~/.config/nixos)#rami@$(hostname)"
+alias hrs="home-manager switch --flake $(realpath ~/.config/nixos)#vault@$(hostname)"
+alias hrb="home-manager build --flake $(realpath ~/.config/nixos)#vault@$(hostname)"
 
 alias hibernate="systemctl hibernate"
 

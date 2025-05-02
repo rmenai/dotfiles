@@ -1,4 +1,8 @@
-{inputs, ...}: let
+{
+  inputs,
+  pkgs,
+  ...
+}: let
   sopsFolder = builtins.toString inputs.nix-secrets;
 in {
   sops = {
@@ -11,6 +15,9 @@ in {
       generateKey = true;
     };
   };
+
+  environment.sessionVariables.SOPS_FOLDER = sopsFolder;
+  environment.systemPackages = [pkgs.sops];
 
   environment.persistence."/persist/system" = {
     directories = [
