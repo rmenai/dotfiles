@@ -24,6 +24,7 @@ in {
     ../common/core
 
     ../common/optional/hyprland.nix
+    ../common/optional/games.nix
     ../common/optional/podman.nix
     ../common/optional/vm.nix
 
