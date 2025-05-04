@@ -35,6 +35,9 @@
   persist = {
     home = {
       ".vagrant.d" = lib.mkDefault true;
+      ".config/virt-viewer" = lib.mkDefault true;
+      ".config/VirtualBox" = lib.mkDefault true;
+      ".config/packer" = lib.mkDefault true;
     };
   };
 

@@ -2,11 +2,11 @@
 # ZINIT & Plugin Manager Setup
 #############################
 
-# Connect to tmux
-if [ "$TMUX" = "" ]; then
-  tmux attach -t main >/dev/null 2>&1 || tmux new -s main
-  exit
-fi
+# # Connect to tmux
+# if [[ -o login && -z "$TMUX" ]]; then
+#   tmux attach -t main >/dev/null 2>&1 || tmux new -s main
+#   exit
+# fi
 
 # Evaluate direnv if installed
 if command -v direnv &> /dev/null; then
@@ -86,7 +86,7 @@ if [ -d ~/.cargo/bin ]; then
 fi
 
 # Source OPAM init if available
-[[ ! -r '/home/rami/.opam/opam-init/init.zsh' ]] || source '/home/rami/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
+[[ ! -r '~/.opam/opam-init/init.zsh' ]] || source '~/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
 
 #############################
 # Powerlevel10k Prompt Configuration

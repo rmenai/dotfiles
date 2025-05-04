@@ -3,6 +3,9 @@
   virtualisation.libvirtd.qemu.vhostUserPackages = [pkgs.virtiofsd];
   virtualisation.spiceUSBRedirection.enable = true;
 
+  virtualisation.virtualbox.host.enable = true;
+  virtualisation.virtualbox.host.enableExtensionPack = true;
+
   services.spice-vdagentd.enable = true;
   programs.virt-manager.enable = true;
 
@@ -12,11 +15,13 @@
 
   environment.sessionVariables = {
     VAGRANT_DEFAULT_PROVIDER = "libvirt";
+    LIBVIRT_DEFAULT_URI = "qemu:///system";
   };
 
   environment.persistence."/persist/system" = {
     directories = [
       "/var/lib/libvirt"
+      "/etc/vbox"
     ];
   };
 
@@ -28,6 +33,7 @@
     qemu
     spice-protocol
     spice-gtk
+    packer
 
     pciutils
     kmod
