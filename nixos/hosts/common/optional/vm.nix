@@ -21,6 +21,8 @@
   };
 
   environment.systemPackages = with pkgs; [
+    remmina
+    freerdp
     virt-viewer
     libvirt
     qemu

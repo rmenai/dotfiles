@@ -1,4 +1,4 @@
-{
+{pkgs, ...}: {
   imports = [
     ./services/display.nix
     ./services/input.nix
@@ -9,6 +9,10 @@
     enable = true;
     xwayland.enable = true;
   };
+
+  environment.systemPackages = with pkgs; [
+    waypipe
+  ];
 
   environment = {
     sessionVariables = {

@@ -50,6 +50,12 @@ return {
           config = {},
         },
         {
+          lspconfig_name = "ansiblels",
+          mason_pkg = "ansible-language-server",
+          binary = "ansible-language-server",
+          config = {},
+        },
+        {
           lspconfig_name = "clangd",
           mason_pkg = "clangd",
           binary = "clangd",

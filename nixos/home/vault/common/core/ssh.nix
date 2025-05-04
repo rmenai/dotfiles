@@ -17,12 +17,18 @@
       UpdateHostKeys ask
 
       Host kali
-        HostName 10.10.10.10
+        HostName kali
         User vault
         IdentityFile ${config.hostSpec.home}/.ssh/id_vms
         ForwardAgent yes
         ForwardX11 yes
         ForwardX11Trusted yes
+
+      Host flare
+        HostName flare
+        User vault
+        IdentityFile ${config.hostSpec.home}/.ssh/id_vms
+        ForwardAgent yes
     '';
 
     matchBlocks = {

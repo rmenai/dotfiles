@@ -18,6 +18,7 @@ in {
       "keys/${config.hostSpec.username}/nullp/private_key".path = "${config.hostSpec.home}/.ssh/id_null";
       "keys/${config.hostSpec.username}/vms/private_key".path = "${config.hostSpec.home}/.ssh/id_vms";
       "keys/${config.hostSpec.username}/vms/account_hash" = {};
+      "keys/${config.hostSpec.username}/vms/account_password" = {};
       "data" = {
         sopsFile = "${sopsFolder}/files/surfingkeys.js";
         path = "${config.hostSpec.home}/.config/chrome/surfingkeys.js";
