@@ -31,6 +31,7 @@
       "Documents" = lib.mkDefault true;
       "Videos" = lib.mkDefault true;
       "Public" = lib.mkDefault true;
+      "Games" = lib.mkDefault true;
       ".dotfiles" = lib.mkDefault true;
       ".gnupg" = lib.mkDefault true;
       ".nixops" = lib.mkDefault true;

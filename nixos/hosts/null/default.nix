@@ -28,14 +28,15 @@ in {
     ../common/optional/podman.nix
     ../common/optional/vm.nix
 
-    ../common/optional/services/printing.nix
+    # ../common/optional/services/printing.nix
+    # ../common/optional/services/acpid.nix
+    # ../common/optional/services/tailscale.nix
     ../common/optional/services/bluetooth.nix
     ../common/optional/services/openssh.nix
     ../common/optional/services/tlp.nix
-    ../common/optional/services/acpid.nix
-    ../common/optional/services/tailscale.nix
 
     ../common/optional/containers
+    # ../common/apps/hotspot.nix
 
     # User config
     ../common/users/primary.nix
