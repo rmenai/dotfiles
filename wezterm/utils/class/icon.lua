@@ -11,14 +11,14 @@ local nf = require("wezterm").nerdfonts
 
 ---Tabs bar separators
 ---@class Utils.Class.Icons.Sep.tb
----@field leftmost string `▐`
----@field left     string ``
----@field right    string ``
+---@field leftmost string `│`
+---@field left     string ` `
+---@field right    string ` `
 ---
 ---Status-bar separators
 ---@class Utils.Class.Icons.Sep.sb
----@field left  string ``
----@field right string ``
+---@field left  string ``
+---@field right string ``
 ---@field modal string ``
 ---
 ---Separators
@@ -131,12 +131,33 @@ M.Workspace = nf.md_shield
 M.Folder = nf.md_folder
 M.Hostname = nf.md_monitor_shimmer
 
+-- M.Sep = {
+--   block = "█",
+--
+--   sb = {
+--     left = nf.pl_left_hard_divider,
+--     right = nf.pl_right_hard_divider,
+--     modal = nf.ple_forwardslash_separator,
+--   },
+--
+--   ws = {
+--     right = nf.ple_right_half_circle_thick,
+--     left = nf.ple_left_half_circle_thick,
+--   },
+--
+--   tb = {
+--     leftmost = "▐",
+--     left = nf.ple_upper_right_triangle,
+--     right = nf.ple_lower_left_triangle,
+--   },
+-- }
+
 M.Sep = {
   block = "█",
 
   sb = {
-    left = nf.pl_left_hard_divider,
-    right = nf.pl_right_hard_divider,
+    left = nf.ple_right_half_circle_thick,
+    right = nf.ple_left_half_circle_thick,
     modal = nf.ple_forwardslash_separator,
   },
 
@@ -146,9 +167,9 @@ M.Sep = {
   },
 
   tb = {
-    leftmost = "▐",
-    left = nf.ple_upper_right_triangle,
-    right = nf.ple_lower_left_triangle,
+    leftmost = "|",
+    left = " ",
+    right = " ",
   },
 }
 
@@ -184,19 +205,32 @@ M.Bat = {
     ["90"] = nf.md_battery_90,
     ["100"] = nf.md_battery,
   },
+  Unknown = {
+    ["00"] = nf.md_battery,
+    ["10"] = nf.md_battery,
+    ["20"] = nf.md_battery,
+    ["30"] = nf.md_battery,
+    ["40"] = nf.md_battery,
+    ["50"] = nf.md_battery,
+    ["60"] = nf.md_battery,
+    ["70"] = nf.md_battery,
+    ["80"] = nf.md_battery,
+    ["90"] = nf.md_battery,
+    ["100"] = nf.md_battery,
+  },
 }
 
 M.Nums = {
-  nf.md_numeric_1,
-  nf.md_numeric_2,
-  nf.md_numeric_3,
-  nf.md_numeric_4,
-  nf.md_numeric_5,
-  nf.md_numeric_6,
-  nf.md_numeric_7,
-  nf.md_numeric_8,
-  nf.md_numeric_9,
-  nf.md_numeric_10,
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "10",
 }
 
 M.Clock = {

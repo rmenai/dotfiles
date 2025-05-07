@@ -972,32 +972,19 @@ M.color.log = Logger:new("Utils.Fn.Color")
 ---Config.color_schemes = require("utils.color").get_schemes()
 ---~~~
 M.color.get_schemes = function()
-  local dir = M.fs.pathconcat(wt_cfg_dir, "picker", "assets", "colorschemes")
-  local files = M.fs.ls_dir(dir)
-  if not files then
-    M.color.log:error("Unable to read from directory: '%s'", M.fs.basename(dir))
-    return {}
-  end
-
   local schemes = {}
-  for i = 1, #files do
-    local name = M.fs.basename(files[i]:gsub("%.lua$", ""))
-    schemes[name] = require("picker.assets.colorschemes." .. name).scheme
-    M.color.log:debug("loaded %s colorscheme", name)
-  end
+  schemes["catppuccin-mocha"] = require("picker.assets.colorschemes.catppuccin-mocha").scheme
+  schemes["catppuccin-frappe"] = require("picker.assets.colorschemes.catppuccin-frappe").scheme
+  schemes["catppuccin-macchiato"] = require("picker.assets.colorschemes.catppuccin-macchiato").scheme
+  schemes["catppuccin-latte"] = require("picker.assets.colorschemes.catppuccin-latte").scheme
   return schemes
 end --~~}}}
 
---~~ {{{2 M.color.get_scheme() -> "kanagawa-wave"|"kanagawa-lotus"
+--~~ {{{2 M.color.get_scheme() -> "catppuccin-mocha"
 
 ---Determines and returns the appropriate color scheme based on the GUI appearance.
 ---
----This function checks the current GUI appearance (e.g., light or dark mode)
----and returns a predefined color scheme name accordingly.  If the appearance is
----detected as "Dark," it returns `"kanagawa-wave"`.  Otherwise, it defaults to
----`"kanagawa-lotus"`.
----
----@return "kanagawa-wave"|"kanagawa-lotus" colorscheme
+---@return "catppuccin-mocha" colorscheme
 ---
 ---@usage
 ---~~~lua
@@ -1006,10 +993,7 @@ end --~~}}}
 ---Config.color_scheme = require("utils.color").get_scheme()
 ---return Config
 ---~~~
-M.color.get_scheme = function()
-  if sfind((wt_gui and wt_gui.get_appearance() or ""), "Dark") then return "kanagawa-wave" end
-  return "kanagawa-lotus"
-end --~~}}}
+M.color.get_scheme = function() return "catppuccin-mocha" end
 
 --~~ {{{2 M.color.set_tab_button(Config: table, theme: table)
 
