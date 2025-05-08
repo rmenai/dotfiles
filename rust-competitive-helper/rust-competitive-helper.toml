@@ -1,8 +1,9 @@
 open_task_command = [
-    'tmux',
-    'new-window',
-    'nvim',
-    '+$LINE',
-    '+normal! $COLUMN|',
-    '$FILE',
+  "wezterm",
+  "cli",
+  "spawn-window",
+  "--",
+  "zsh",
+  "-c",
+  "nvim +$LINE +normal! $COLUMN| $FILE"
 ]

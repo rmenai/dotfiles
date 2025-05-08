@@ -3,6 +3,7 @@ local Config = {}
 
 Config.enable_wayland = true
 Config.default_cwd = fs.home()
+Config.default_prog = { "zsh" }
 
 Config.hyperlink_rules = {
   -- Matches: a URL in parens: (URL)

@@ -3,6 +3,7 @@ local Config = require("utils.class.config"):new()
 
 require("events.update-status")
 require("events.augment-command-palette")
+require("events.sessions")
 
 Config:add("config")
 Config:add("mappings")

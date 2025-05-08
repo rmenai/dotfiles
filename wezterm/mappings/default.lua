@@ -60,16 +60,17 @@ local mappings = {
   { "<leader>[", act.ActivateTabRelative(-1), "previous tab" },
 
   -- Numeric Tab Activation
-  { "<leader>1", act.ActivateTab(0), "go to tab 1" },
-  { "<leader>2", act.ActivateTab(1), "go to tab 2" },
-  { "<leader>3", act.ActivateTab(2), "go to tab 3" },
-  { "<leader>4", act.ActivateTab(3), "go to tab 4" },
-  { "<leader>5", act.ActivateTab(4), "go to tab 5" },
-  { "<leader>6", act.ActivateTab(5), "go to tab 6" },
-  { "<leader>7", act.ActivateTab(6), "go to tab 7" },
-  { "<leader>8", act.ActivateTab(7), "go to tab 8" },
-  { "<leader>9", act.ActivateTab(8), "go to tab 9" },
-  { "<leader>0", act.ActivateLastTab, "go to last tab" },
+  { "<leader>1", act.ActivateTab(1), "go to tab 1" },
+  { "<leader>2", act.ActivateTab(2), "go to tab 2" },
+  { "<leader>3", act.ActivateTab(3), "go to tab 3" },
+  { "<leader>4", act.ActivateTab(4), "go to tab 4" },
+  { "<leader>5", act.ActivateTab(5), "go to tab 5" },
+  { "<leader>6", act.ActivateTab(6), "go to tab 6" },
+  { "<leader>7", act.ActivateTab(7), "go to tab 7" },
+  { "<leader>8", act.ActivateTab(8), "go to tab 8" },
+  { "<leader>9", act.ActivateTab(9), "go to tab 9" },
+  { "<leader>0", act.ActivateTab(0), "go to tab 9" },
+  { "<leader>Minus", act.ActivateLastTab, "go to last tab" },
 
   { "<leader>p", workspace_switcher.switch_to_prev_workspace(), "go to last workspace" },
 
@@ -88,6 +89,14 @@ local mappings = {
     act.ShowLauncherArgs({
       title = "  Search:",
       flags = "FUZZY|LAUNCH_MENU_ITEMS|DOMAINS",
+    }),
+    "show launcher",
+  },
+  {
+    "<leader><a>",
+    act.ShowLauncherArgs({
+      title = "  Search:",
+      flags = "FUZZY|WORKSPACES",
     }),
     "show launcher",
   },
