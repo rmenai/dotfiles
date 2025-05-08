@@ -45,6 +45,7 @@ alias hrs="home-manager switch --flake $(realpath ~/.config/nixos)#vault@$(hostn
 alias hrb="home-manager build --flake $(realpath ~/.config/nixos)#vault@$(hostname)"
 
 alias hibernate="systemctl hibernate"
+alias rm="rm -I"
 
 # bat-dependent aliases
 if command -v bat &> /dev/null; then
