@@ -5,7 +5,10 @@ local key = require("utils.fn").key
 local Config = {}
 
 Config.disable_default_key_bindings = true
-Config.leader = { key = "Space", mods = "CTRL", timeout_milliseconds = 1000 }
+Config.leader = { key = "Space", mods = "CTRL", timeout_milliseconds = 750 }
+
+local wt = require("wezterm")
+local workspace_switcher = wt.plugin.require("https://github.com/MLFlexer/smart_workspace_switcher.wezterm")
 
 local mappings = {
   -- == Existing Non-Leader Bindings (Review and prune as desired) ==
@@ -25,14 +28,6 @@ local mappings = {
   { "<PageDown>", act.ScrollByPage(1), "scroll page down" },
   { "<C-S-Insert>", act.PasteFrom("PrimarySelection"), "paste from primary selection" },
   { "<C-Insert>", act.CopyTo("PrimarySelection"), "copy to primary selection" },
-  {
-    "<leader><o>",
-    act.ShowLauncherArgs({
-      title = "  Search:",
-      flags = "FUZZY|LAUNCH_MENU_ITEMS|DOMAINS",
-    }),
-    "show launcher",
-  },
 
   { "<C-Tab>", act.ActivateTabRelative(1), "next tab (default-like)" },
   { "<C-S-Tab>", act.ActivateTabRelative(-1), "previous tab (default-like)" },
@@ -45,8 +40,8 @@ local mappings = {
   { "<leader>h", act.ActivateKeyTable({ name = "help_mode", one_shot = true }), "help mode" },
   { "<leader>w", act.ActivateKeyTable({ name = "window_mode", one_shot = false }), "window management mode" },
   { "<leader>f", act.ActivateKeyTable({ name = "font_mode", one_shot = false }), "font management mode" },
-  { "<leader>c", act.ActivateCopyMode, "activate copy mode" },
-  { "<leader>p", act.ActivateKeyTable({ name = "pick_mode" }), "activate pick mode" },
+  { "<leader>y", act.ActivateCopyMode, "activate copy mode" },
+  { "<leader>P", act.ActivateKeyTable({ name = "pick_mode" }), "activate pick mode" },
 
   -- NEW Keybinding for Search Mode
   { "<leader>/", act.Search("CurrentSelectionOrEmptyString"), "activate search mode" }, -- Changed from <leader>s
@@ -58,7 +53,7 @@ local mappings = {
   { "<leader>z", act.TogglePaneZoomState, "toggle pane zoom" },
 
   -- Tab Management
-  { "<leader>t", act.SpawnTab("CurrentPaneDomain"), "new tab" },
+  { "<leader>c", act.SpawnTab("CurrentPaneDomain"), "new tab" },
   { "<leader>Q", act.CloseCurrentTab({ confirm = false }), "close current tab" },
   { "<leader>q", act.CloseCurrentTab({ confirm = true }), "close current tab" },
   { "<leader>]", act.ActivateTabRelative(1), "next tab" },
@@ -74,6 +69,9 @@ local mappings = {
   { "<leader>7", act.ActivateTab(6), "go to tab 7" },
   { "<leader>8", act.ActivateTab(7), "go to tab 8" },
   { "<leader>9", act.ActivateTab(8), "go to tab 9" },
+  { "<leader>0", act.ActivateLastTab, "go to last tab" },
+
+  { "<leader>p", workspace_switcher.switch_to_prev_workspace(), "go to last workspace" },
 
   -- Window Management (OS Windows)
   { "<leader>W", act.SpawnWindow, "new OS window" },
@@ -82,7 +80,17 @@ local mappings = {
   -- Utility
   { "<leader>r", act.ReloadConfiguration, "reload configuration" },
   { "<leader> ", act.ActivateCommandPalette, "command palette" },
-  { "<leader>O", act.QuickSelect, "quick select" },
+  { "<leader>Y", act.QuickSelect, "quick select" },
+
+  { "<leader>o", workspace_switcher.switch_workspace(), "switch workspace" },
+  {
+    "<leader><O>",
+    act.ShowLauncherArgs({
+      title = "  Search:",
+      flags = "FUZZY|LAUNCH_MENU_ITEMS|DOMAINS",
+    }),
+    "show launcher",
+  },
 }
 
 Config.keys = {}
