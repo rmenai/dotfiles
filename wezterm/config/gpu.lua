@@ -1,6 +1,6 @@
 local Config = {}
 
-Config.front_end = "WebGpu"
+Config.front_end = "OpenGL"
 Config.webgpu_force_fallback_adapter = false
 
 ---@diagnostic disable-next-line: undefined-field

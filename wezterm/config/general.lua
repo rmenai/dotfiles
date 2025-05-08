@@ -1,7 +1,7 @@
 local fs = require("utils.fn").fs
 local Config = {}
 
-Config.enable_wayland = false
+Config.enable_wayland = true
 Config.default_cwd = fs.home()
 
 Config.hyperlink_rules = {

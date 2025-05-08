@@ -8,18 +8,11 @@ Config.disable_default_key_bindings = true
 Config.leader = { key = "Space", mods = "CTRL", timeout_milliseconds = 1000 }
 
 local mappings = {
-  { "<C-Tab>", act.ActivateTabRelative(1), "next tab" },
-  { "<C-S-Tab>", act.ActivateTabRelative(-1), "prev tab" },
-  { "<M-CR>", act.ToggleFullScreen, "fullscreen" },
+  -- == Existing Non-Leader Bindings (Review and prune as desired) ==
   { "<C-S-c>", act.CopyTo("Clipboard"), "copy" },
   { "<C-S-v>", act.PasteFrom("Clipboard"), "paste" },
-  { "<C-S-f>", act.Search("CurrentSelectionOrEmptyString"), "search" },
   { "<C-S-k>", act.ClearScrollback("ScrollbackOnly"), "clear scrollback" },
-  { "<C-S-l>", act.ShowDebugOverlay, "debug overlay" },
-  { "<C-S-n>", act.SpawnWindow, "new window" },
-  { "<C-S-p>", act.ActivateCommandPalette, "command palette" },
-  { "<C-S-r>", act.ReloadConfiguration, "reload config" },
-  { "<C-S-t>", act.SpawnTab("CurrentPaneDomain"), "new pane" },
+  { "<leader><l>", act.ShowDebugOverlay, "debug overlay" },
   {
     "<C-S-u>",
     act.CharSelect({
@@ -28,50 +21,69 @@ local mappings = {
     }),
     "char select",
   },
-  { "<C-S-w>", act.CloseCurrentTab({ confirm = true }), "close tab" },
-  { "<C-S-z>", act.TogglePaneZoomState, "toggle zoom" },
-  { "<PageUp>", act.ScrollByPage(-1), "" },
-  { "<PageDown>", act.ScrollByPage(1), "" },
-  { "<C-S-Insert>", act.PasteFrom("PrimarySelection"), "" },
-  { "<C-Insert>", act.CopyTo("PrimarySelection"), "" },
-  { "<C-S-Space>", act.QuickSelect, "quick select" },
+  { "<PageUp>", act.ScrollByPage(-1), "scroll page up" },
+  { "<PageDown>", act.ScrollByPage(1), "scroll page down" },
+  { "<C-S-Insert>", act.PasteFrom("PrimarySelection"), "paste from primary selection" },
+  { "<C-Insert>", act.CopyTo("PrimarySelection"), "copy to primary selection" },
   {
-    "<S-M-t>",
+    "<leader><o>",
     act.ShowLauncherArgs({
       title = "  Search:",
       flags = "FUZZY|LAUNCH_MENU_ITEMS|DOMAINS",
     }),
-    "new window",
+    "show launcher",
   },
 
-  ---quick split and nav
-  { '<C-S-">', act.SplitHorizontal({ domain = "CurrentPaneDomain" }), "vsplit" },
-  { "<C-S-%>", act.SplitVertical({ domain = "CurrentPaneDomain" }), "hsplit" },
-  { "<C-M-h>", act.ActivatePaneDirection("Left"), "move left" },
-  { "<C-M-j>", act.ActivatePaneDirection("Down"), "mode down" },
-  { "<C-M-k>", act.ActivatePaneDirection("Up"), "move up" },
-  { "<C-M-l>", act.ActivatePaneDirection("Right"), "move right" },
+  { "<C-Tab>", act.ActivateTabRelative(1), "next tab (default-like)" },
+  { "<C-S-Tab>", act.ActivateTabRelative(-1), "previous tab (default-like)" },
 
-  ---key tables
-  { "<leader>h", act.ActivateKeyTable({ name = "help_mode", one_shot = true }), "help" },
-  {
-    "<leader>w",
-    act.ActivateKeyTable({ name = "window_mode", one_shot = false }),
-    "window mode",
-  },
-  {
-    "<leader>f",
-    act.ActivateKeyTable({ name = "font_mode", one_shot = false }),
-    "font mode",
-  },
-  { "<leader>c", act.ActivateCopyMode, "copy mode" },
-  { "<leader>s", act.Search("CurrentSelectionOrEmptyString"), "search mode" },
-  { "<leader>p", act.ActivateKeyTable({ name = "pick_mode" }), "pick mode" },
+  { "<C-Minus>", act.DecreaseFontSize, "decrease font size (default-like)" },
+  { "<C-=>", act.IncreaseFontSize, "increase font size (default-like)" },
+  { "<C-0>", act.ResetFontSize, "reset font size (default-like)" },
+
+  -- == Leader Key Table Activators (Your existing setup - unchanged) ==
+  { "<leader>h", act.ActivateKeyTable({ name = "help_mode", one_shot = true }), "help mode" },
+  { "<leader>w", act.ActivateKeyTable({ name = "window_mode", one_shot = false }), "window management mode" },
+  { "<leader>f", act.ActivateKeyTable({ name = "font_mode", one_shot = false }), "font management mode" },
+  { "<leader>c", act.ActivateCopyMode, "activate copy mode" },
+  { "<leader>p", act.ActivateKeyTable({ name = "pick_mode" }), "activate pick mode" },
+
+  -- NEW Keybinding for Search Mode
+  { "<leader>/", act.Search("CurrentSelectionOrEmptyString"), "activate search mode" }, -- Changed from <leader>s
+
+  -- Pane Management (using s and v as requested)
+  { "<leader>s", act.SplitVertical({ domain = "CurrentPaneDomain" }), "split pane vertically (new pane to the right, like Neovim <Leader>v)" },
+  { "<leader>v", act.SplitHorizontal({ domain = "CurrentPaneDomain" }), "split pane horizontally (new pane below, like Neovim <Leader>s)" },
+  { "<leader>x", act.CloseCurrentPane({ confirm = false }), "close current pane" },
+  { "<leader>z", act.TogglePaneZoomState, "toggle pane zoom" },
+
+  -- Tab Management
+  { "<leader>t", act.SpawnTab("CurrentPaneDomain"), "new tab" },
+  { "<leader>Q", act.CloseCurrentTab({ confirm = false }), "close current tab" },
+  { "<leader>q", act.CloseCurrentTab({ confirm = true }), "close current tab" },
+  { "<leader>]", act.ActivateTabRelative(1), "next tab" },
+  { "<leader>[", act.ActivateTabRelative(-1), "previous tab" },
+
+  -- Numeric Tab Activation
+  { "<leader>1", act.ActivateTab(0), "go to tab 1" },
+  { "<leader>2", act.ActivateTab(1), "go to tab 2" },
+  { "<leader>3", act.ActivateTab(2), "go to tab 3" },
+  { "<leader>4", act.ActivateTab(3), "go to tab 4" },
+  { "<leader>5", act.ActivateTab(4), "go to tab 5" },
+  { "<leader>6", act.ActivateTab(5), "go to tab 6" },
+  { "<leader>7", act.ActivateTab(6), "go to tab 7" },
+  { "<leader>8", act.ActivateTab(7), "go to tab 8" },
+  { "<leader>9", act.ActivateTab(8), "go to tab 9" },
+
+  -- Window Management (OS Windows)
+  { "<leader>W", act.SpawnWindow, "new OS window" },
+  { "<leader>F", act.ToggleFullScreen, "toggle fullscreen" },
+
+  -- Utility
+  { "<leader>r", act.ReloadConfiguration, "reload configuration" },
+  { "<leader> ", act.ActivateCommandPalette, "command palette" },
+  { "<leader>O", act.QuickSelect, "quick select" },
 }
-
-for i = 1, 24 do
-  mappings[#mappings + 1] = { "<S-F" .. i .. ">", act.ActivateTab(i - 1), "activate tab " .. i }
-end
 
 Config.keys = {}
 for _, map_tbl in ipairs(mappings) do

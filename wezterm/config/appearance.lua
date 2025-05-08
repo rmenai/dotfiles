@@ -21,6 +21,11 @@ Config.background = {
   },
 }
 
+Config.inactive_pane_hsb = {
+  saturation = 0.9,
+  brightness = 0.8,
+}
+
 Config.bold_brightens_ansi_colors = "BrightAndBold"
 
 Config.char_select_bg_color = theme.brights[6]
