@@ -1,8 +1,16 @@
-{lib, ...}: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   programs.neovim = {
     enable = true;
     defaultEditor = true;
   };
+
+  home.packages = [
+    pkgs.vimgolf
+  ];
 
   dotfiles = {
     files = {
@@ -15,6 +23,7 @@
       ".local/share/nvim" = lib.mkDefault true;
       ".local/state/nvim" = lib.mkDefault true;
       ".cache/nvim" = lib.mkDefault true;
+      ".vimgolf" = lib.mkDefault true;
     };
   };
 }
