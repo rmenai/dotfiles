@@ -8,21 +8,7 @@ local Config = {}
 Config.disable_default_key_bindings = true
 Config.leader = { key = "Space", mods = "CTRL", timeout_milliseconds = 750 }
 
-local workspace_switcher_path = "file://" .. wt.config_dir .. "/plugins/smart_workspace_switcher.wezterm"
-local success, workspace_switcher = pcall(wt.plugin.require, workspace_switcher_path)
-if not success then
-  wt.log_error("Failed to load smart_workspace_switcher plugin from: " .. workspace_switcher_path)
-  workspace_switcher = {
-    switch_to_prev_workspace = function()
-      wt.log_error("smart_workspace_switcher not loaded: switch_to_prev_workspace is a no-op")
-      return act.NoOp
-    end,
-    switch_workspace = function()
-      wt.log_error("smart_workspace_switcher not loaded: switch_workspace is a no-op")
-      return act.NoOp
-    end,
-  }
-end
+local workspace_switcher = require("../plugins.smart_workspace_switcher.plugin")
 
 local mappings = {
   -- == Existing Non-Leader Bindings (Review and prune as desired) ==
