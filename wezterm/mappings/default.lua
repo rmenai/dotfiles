@@ -8,7 +8,7 @@ Config.disable_default_key_bindings = true
 Config.leader = { key = "Space", mods = "CTRL", timeout_milliseconds = 750 }
 
 local wt = require("wezterm")
-local workspace_switcher = wt.plugin.require("https://github.com/MLFlexer/smart_workspace_switcher.wezterm")
+local workspace_switcher = wt.plugin.require("file://" .. wt.config_dir .. "/plugins/smart_workspace_switcher.wezterm")
 
 local mappings = {
   -- == Existing Non-Leader Bindings (Review and prune as desired) ==

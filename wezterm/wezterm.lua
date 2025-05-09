@@ -9,7 +9,7 @@ Config:add("config")
 Config:add("mappings")
 
 -- Plugins
-local smart_splits_plugin = wt.plugin.require("https://github.com/mrjones2014/smart-splits.nvim")
+local smart_splits_plugin = wt.plugin.require("file://" .. wt.config_dir .. "/plugins/smart-splits.nvim")
 smart_splits_plugin.apply_to_config(Config, {
   default_amount = 2,
   direction_keys = { "h", "j", "k", "l" },
