@@ -1,9 +1,10 @@
 open_task_command = [
   "wezterm",
   "cli",
-  "spawn-window",
+  "spawn",
+  "--cwd",
+  ".",
   "--",
-  "zsh",
-  "-c",
-  "nvim +$LINE +normal! $COLUMN| $FILE"
+  "nvim",
+  "$FILE",
 ]
