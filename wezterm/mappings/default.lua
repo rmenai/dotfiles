@@ -128,6 +128,10 @@ local mappings = {
     }),
     "show launcher",
   },
+
+  { "<leader>k", act.ScrollByPage(-1), "scroll page up" },
+  { "<leader>j", act.ScrollByPage(1), "scroll page down" },
+  { "<leader>K", act.ClearScrollback("ScrollbackOnly"), "clear scrollback" },
 }
 
 Config.keys = {}

@@ -6,11 +6,20 @@ local Config = {}
 
 local key_tables = {
   copy_mode = {
-    { "<ESC>", act.CopyMode("Close"), "exit" },
+    {
+      "<ESC>",
+      act.Multiple({
+        { CopyTo = "ClipboardAndPrimarySelection" },
+        { CopyMode = "MoveToScrollbackBottom" },
+        { CopyMode = "Close" },
+      }),
+      "selection",
+    },
     {
       "y",
       act.Multiple({
         { CopyTo = "ClipboardAndPrimarySelection" },
+        { CopyMode = "MoveToScrollbackBottom" },
         { CopyMode = "Close" },
       }),
       "copy selection",
