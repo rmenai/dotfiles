@@ -76,6 +76,7 @@
   };
 
   security.sudo.extraConfig = ''
+    Defaults !tty_tickets # share authentication across all ttys, not one per-tty
     Defaults lecture = never # rollback results in sudo lectures after each reboot
     Defaults timestamp_timeout=120 # only ask for password every 2h
   '';

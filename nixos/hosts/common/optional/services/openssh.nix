@@ -18,6 +18,10 @@
     ];
   };
 
+  programs.ssh = {
+    startAgent = true;
+  };
+
   security.pam = {
     rssh.enable = true;
     services.sudo.rssh = true;

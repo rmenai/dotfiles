@@ -15,6 +15,7 @@
 
     extraConfig = ''
       UpdateHostKeys ask
+      AddKeysToAgent yes
 
       Host kali
         HostName kali
