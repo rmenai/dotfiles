@@ -22,7 +22,7 @@ Config.background = {
 }
 
 Config.inactive_pane_hsb = {
-  saturation = 0.9,
+  saturation = 1,
   brightness = 0.8,
 }
 
