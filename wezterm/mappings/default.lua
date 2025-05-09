@@ -1,21 +1,34 @@
 ---@diagnostic disable-next-line: undefined-field
 local act = require("wezterm").action
 local key = require("utils.fn").key
+local wt = require("wezterm")
 
 local Config = {}
 
 Config.disable_default_key_bindings = true
 Config.leader = { key = "Space", mods = "CTRL", timeout_milliseconds = 750 }
 
-local wt = require("wezterm")
-local workspace_switcher = wt.plugin.require("file://" .. wt.config_dir .. "/plugins/smart_workspace_switcher.wezterm")
+local workspace_switcher_path = "file://" .. wt.config_dir .. "/plugins/smart_workspace_switcher.wezterm"
+local success, workspace_switcher = pcall(wt.plugin.require, workspace_switcher_path)
+if not success then
+  wt.log_error("Failed to load smart_workspace_switcher plugin from: " .. workspace_switcher_path)
+  workspace_switcher = {
+    switch_to_prev_workspace = function()
+      wt.log_error("smart_workspace_switcher not loaded: switch_to_prev_workspace is a no-op")
+      return act.NoOp
+    end,
+    switch_workspace = function()
+      wt.log_error("smart_workspace_switcher not loaded: switch_workspace is a no-op")
+      return act.NoOp
+    end,
+  }
+end
 
 local mappings = {
   -- == Existing Non-Leader Bindings (Review and prune as desired) ==
   { "<C-S-c>", act.CopyTo("Clipboard"), "copy" },
   { "<C-S-v>", act.PasteFrom("Clipboard"), "paste" },
   { "<C-S-k>", act.ClearScrollback("ScrollbackOnly"), "clear scrollback" },
-  { "<leader><l>", act.ShowDebugOverlay, "debug overlay" },
   {
     "<C-S-u>",
     act.CharSelect({
@@ -43,7 +56,7 @@ local mappings = {
   { "<leader>y", act.ActivateCopyMode, "activate copy mode" },
   { "<leader>P", act.ActivateKeyTable({ name = "pick_mode" }), "activate pick mode" },
 
-  -- NEW Keybinding for Search Mode
+  -- Search Mode
   { "<leader>/", act.Search("CurrentSelectionOrEmptyString"), "activate search mode" }, -- Changed from <leader>s
 
   -- Pane Management (using s and v as requested)
@@ -56,6 +69,19 @@ local mappings = {
   { "<leader>c", act.SpawnTab("CurrentPaneDomain"), "new tab" },
   { "<leader>Q", act.CloseCurrentTab({ confirm = false }), "close current tab" },
   { "<leader>q", act.CloseCurrentTab({ confirm = true }), "close current tab" },
+  {
+    "<leader>X",
+    wt.action_callback(function(window)
+      local mux_window = window:mux_window()
+      local count = #mux_window:tabs()
+
+      for _ = 1, count do
+        local active_pane = window:active_pane()
+        window:perform_action(act.CloseCurrentTab({ confirm = false }), active_pane)
+      end
+    end),
+    "Toggles full screen",
+  },
   { "<leader>]", act.ActivateTabRelative(1), "next tab" },
   { "<leader>[", act.ActivateTabRelative(-1), "previous tab" },
 
@@ -69,9 +95,11 @@ local mappings = {
   { "<leader>7", act.ActivateTab(7), "go to tab 7" },
   { "<leader>8", act.ActivateTab(8), "go to tab 8" },
   { "<leader>9", act.ActivateTab(9), "go to tab 9" },
-  { "<leader>0", act.ActivateTab(0), "go to tab 9" },
+  { "<leader>0", act.ActivateTab(0), "go to tab 0" },
   { "<leader>Minus", act.ActivateLastTab, "go to last tab" },
 
+  -- Workspace managment
+  { "<leader>o", workspace_switcher.switch_workspace(), "switch workspace" },
   { "<leader>p", workspace_switcher.switch_to_prev_workspace(), "go to last workspace" },
 
   -- Window Management (OS Windows)
@@ -79,11 +107,11 @@ local mappings = {
   { "<leader>F", act.ToggleFullScreen, "toggle fullscreen" },
 
   -- Utility
+  { "<leader><l>", act.ShowDebugOverlay, "debug overlay" },
   { "<leader>r", act.ReloadConfiguration, "reload configuration" },
   { "<leader> ", act.ActivateCommandPalette, "command palette" },
   { "<leader>Y", act.QuickSelect, "quick select" },
 
-  { "<leader>o", workspace_switcher.switch_workspace(), "switch workspace" },
   {
     "<leader><O>",
     act.ShowLauncherArgs({
