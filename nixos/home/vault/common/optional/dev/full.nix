@@ -4,7 +4,6 @@
   ...
 }: {
   home.packages = with pkgs; [
-    nodejs_23
     rustup
     luajit
     ocaml
@@ -12,7 +11,6 @@
     dune_3
     ocamlPackages.utop
     luajitPackages.luarocks
-    bun
     gnumake
     gcc
 

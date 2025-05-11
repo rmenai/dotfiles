@@ -31,6 +31,9 @@ local mappings = {
   { "<C-Tab>", act.ActivateTabRelative(1), "next tab (default-like)" },
   { "<C-S-Tab>", act.ActivateTabRelative(-1), "previous tab (default-like)" },
 
+  { "<C-S-{>", act.MoveTabRelative(-1), "move current tab one to the left" },
+  { "<C-S-}>", act.MoveTabRelative(1), "move current tab one to the right" },
+
   { "<C-Minus>", act.DecreaseFontSize, "decrease font size (default-like)" },
   { "<C-=>", act.IncreaseFontSize, "increase font size (default-like)" },
   { "<C-0>", act.ResetFontSize, "reset font size (default-like)" },

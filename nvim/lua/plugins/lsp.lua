@@ -24,6 +24,9 @@ return {
       lsp_defaults.capabilities = vim.tbl_deep_extend("force", lsp_defaults.capabilities, require("cmp_nvim_lsp").default_capabilities())
       require("mason-lspconfig").setup({})
 
+      local vue_ls_share = vim.fn.expand("$MASON/share/vue-language-server")
+      local vue_plugin_path = vue_ls_share .. "/node_modules/@vue/language-server"
+
       local servers = {
         {
           lspconfig_name = "ocamllsp",
@@ -95,21 +98,16 @@ return {
           mason_pkg = "vue-language-server",
           binary = "vue-language-server",
           config = {
-            filetypes = { "vue", "typescript", "javascript", "javascriptreact", "typescriptreact", "json" },
+            filetypes = { "vue" },
           },
         },
         {
-          lspconfig_name = "tsserver",
+          lspconfig_name = "ts_ls",
           mason_pkg = "typescript-language-server",
           binary = "typescript-language-server",
           config = {
             filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact" },
           },
-        },
-        {
-          lspconfig_name = "tailwindcss",
-          mason_pkg = "tailwindcss-language-server",
-          binary = "tailwindcss-language-server",
         },
         {
           lspconfig_name = "eslint",
