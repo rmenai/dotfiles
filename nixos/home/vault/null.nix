@@ -19,6 +19,7 @@
 
     common/optional/dev
     common/optional/dev/python.nix
+    common/optional/dev/javascript.nix
     common/optional/dev/full.nix
   ];
 

@@ -89,6 +89,48 @@ return {
             },
           },
         },
+
+        {
+          lspconfig_name = "volar",
+          mason_pkg = "vue-language-server",
+          binary = "vue-language-server",
+          config = {
+            filetypes = { "vue", "typescript", "javascript", "javascriptreact", "typescriptreact", "json" },
+          },
+        },
+        {
+          lspconfig_name = "tsserver",
+          mason_pkg = "typescript-language-server",
+          binary = "typescript-language-server",
+          config = {
+            filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact" },
+          },
+        },
+        {
+          lspconfig_name = "tailwindcss",
+          mason_pkg = "tailwindcss-language-server",
+          binary = "tailwindcss-language-server",
+        },
+        {
+          lspconfig_name = "eslint",
+          mason_pkg = "eslint-lsp",
+          binary = "typescript-eslint-language-server",
+          config = {
+            filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "html" },
+          },
+        },
+        {
+          lspconfig_name = "html",
+          mason_pkg = "html-lsp",
+          binary = "html-languageserver",
+          config = {},
+        },
+        {
+          lspconfig_name = "cssls",
+          mason_pkg = "css-lsp",
+          binary = "css-languageserver",
+          config = {},
+        },
       }
 
       -- Loop over the list and initialize each available LSP
