@@ -6,6 +6,7 @@
   home.packages = with pkgs; [
     python312Packages.debugpy
     python312Packages.httpx
+    poethepoet
     python312
     pyright
 

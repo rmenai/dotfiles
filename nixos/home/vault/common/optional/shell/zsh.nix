@@ -11,6 +11,7 @@
     files = {
       ".config/zsh" = lib.mkDefault "zsh";
       ".config/fsh" = lib.mkDefault "fsh";
+      ".zfunc" = lib.mkDefault "shell/.zfunc";
       ".zshrc" = lib.mkDefault "shell/.zshrc";
       ".p10k.zsh" = lib.mkDefault "shell/.p10k.zsh";
       ".profile" = lib.mkDefault "shell/.profile";
@@ -19,7 +20,7 @@
 
   persist = {
     home = {
-      ".local/share/zinit" = lib.mkDefault true;
+      ".local/share/zplug" = lib.mkDefault true;
       ".cache/fsh" = lib.mkDefault true;
       ".cache/p10k-${config.hostSpec.username}" = lib.mkDefault true;
       ".cache/zinit" = lib.mkDefault true;

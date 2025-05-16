@@ -121,6 +121,9 @@ map("n", "<Leader>t", "<Cmd>ToggleTerm<CR>", { desc = "Toggle terminal" })
 map("n", "<Leader>G", vim.cmd.Godbolt, { desc = "Toggle Godbolt" })
 map("n", "<Leader>H", vim.cmd.HexToggle, { desc = "Toggle hex view" })
 
+-- DB editor
+map("n", "<Leader>d", function() require("dbee").toggle() end, { desc = "Open Databse editor" })
+
 -- COMPILER + AUTO-SAVE
 local autosave_active = false
 map("n", "<F9>", vim.cmd.CompilerChoose, { desc = "Choose compiler" })
