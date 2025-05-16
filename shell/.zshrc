@@ -2,28 +2,22 @@
 # ZINIT & Plugin Manager Setup
 #############################
 
-# # Connect to tmux
-# if [[ -o login && -z "$TMUX" ]]; then
-#   tmux attach -t main >/dev/null 2>&1 || tmux new -s main
-#   exit
-# fi
-
 # Evaluate direnv if installed
 if command -v direnv &> /dev/null; then
   eval "$(direnv hook zsh)"
 fi
 
-# Define where to install Zinit
-export ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+# Define where to install Zplug
+export ZPLUG_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zplug"
 
-# Clone Zinit if not already installed
-if [ ! -d "$ZINIT_HOME" ] || [ ! -d "$ZINIT_HOME/.git" ]; then
+# Clone Zplug if not already installed
+if [ ! -d "$ZPLUG_HOME" ] || [ ! -d "$ZPLUG_HOME/.git" ]; then
   mkdir -p "$(dirname "$ZINIT_HOME")"
-  git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+  git clone https://github.com/zplug/zplug "$ZPLUG_HOME"
 fi
 
 # Source Zinit
-source "${ZINIT_HOME}/zinit.zsh"
+source "${ZPLUG_HOME}/init.zsh"
 
 #############################
 # Early Prompt Setup: Powerlevel10k Instant Prompt
@@ -63,18 +57,30 @@ ZVM_CURSOR_STYLE_ENABLED=true
 # Plugin Installation & Turbo Loading
 #############################
 
-# Load plugins concurrently using Zinit's "for" syntax.
-# Use light-mode for faster startup. Adjust lazy-loading (e.g. using 'wait' or 'defer') if you have plugins that aren’t needed immediately.
-zinit for \
-  light-mode \
-    jeffreytse/zsh-vi-mode \
-    zsh-users/zsh-autosuggestions \
-    zdharma-continuum/fast-syntax-highlighting \
-    zsh-users/zsh-completions \
-    romkatv/powerlevel10k
+zplug "romkatv/powerlevel10k", as:theme, depth:1
+zplug "jeffreytse/zsh-vi-mode"
+zplug "zsh-users/zsh-autosuggestions"
+zplug "zdharma-continuum/fast-syntax-highlighting", defer:2
+zplug "~/.zfunc", from:local, as:plugin, use:"*"
+zplug "zsh-users/zsh-completions"
+
+# Install plugins if there are plugins that have not been installed
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
+
+# Then, source plugins and add commands to $PATH
+zplug load
 
 # Load zsh-fsh catpuccin theme
-fast-theme XDG:catppuccin-mocha > /dev/null 2>&1
+if command -v fast-theme &> /dev/null; then
+  fast-theme XDG:catppuccin-mocha > /dev/null 2>&1
+else
+  echo "Warning: fast-theme command not available yet or plugin not fully loaded." >&2
+fi
 
 #############################
 # Packages Configuration
