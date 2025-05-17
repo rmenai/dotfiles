@@ -8,10 +8,7 @@
     python312Packages.httpx
     poethepoet
     python312
-    pyright
-
-    black
-    isort
+    ruff
   ];
 
   persist = {

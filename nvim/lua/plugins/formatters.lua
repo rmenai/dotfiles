@@ -7,13 +7,17 @@ return {
       require("conform").setup({
         formatters_by_ft = {
           yaml = { "prettier" },
-          markdown = { "prettier" },
+          markdown = { "markdownlint" },
           bash = { "shellharden" },
           zsh = { "shellharden" },
           sh = { "shellharden" },
           lua = { "stylua" },
           nix = { "alejandra" },
-          python = { "isort", "black" },
+          python = {
+            "ruff_fix",
+            "ruff_format",
+            "ruff_organize_imports",
+          },
           c = { "clang-format" },
           cpp = { "clang-format" },
           assembly = { "asmfmt" },

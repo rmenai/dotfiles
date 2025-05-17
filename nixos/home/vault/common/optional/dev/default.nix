@@ -9,6 +9,7 @@
     shellharden
     bash-language-server
     lua-language-server
+    markdownlint-cli
     nixd
   ];
 

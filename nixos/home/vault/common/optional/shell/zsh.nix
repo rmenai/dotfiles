@@ -23,7 +23,6 @@
       ".local/share/zplug" = lib.mkDefault true;
       ".cache/fsh" = lib.mkDefault true;
       ".cache/p10k-${config.hostSpec.username}" = lib.mkDefault true;
-      ".cache/zinit" = lib.mkDefault true;
     };
   };
 

@@ -25,7 +25,6 @@ return {
       require("mason-lspconfig").setup({})
 
       local vue_ls_share = vim.fn.expand("$MASON/share/vue-language-server")
-      local vue_plugin_path = vue_ls_share .. "/node_modules/@vue/language-server"
 
       local servers = {
         {
@@ -44,6 +43,23 @@ return {
           lspconfig_name = "pyright",
           mason_pkg = "pyright",
           binary = "pyright",
+          config = {
+            settings = {
+              pyright = {
+                disableOrganizeImports = true,
+              },
+              python = {
+                analysis = {
+                  ignore = { "*" },
+                },
+              },
+            },
+          },
+        },
+        {
+          lspconfig_name = "ruff",
+          mason_pkg = "ruff",
+          binary = "ruff",
           config = {},
         },
         {

@@ -159,7 +159,11 @@ return {
       "nvim-telescope/telescope.nvim",
     },
     cmd = "Neogit",
-    config = function() require("neogit").setup({}) end,
+    config = function()
+      require("neogit").setup({
+        console_timeout = 500,
+      })
+    end,
   },
   {
     -- CODE STRUCTURE VIEW
