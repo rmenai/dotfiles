@@ -93,3 +93,20 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = "*",
   command = "setlocal formatoptions-=cro",
 })
+
+vim.api.nvim_create_augroup("CleanupNeogitStatus", { clear = true })
+
+vim.api.nvim_create_autocmd("BufWinLeave", {
+  group = "CleanupNeogitStatus",
+  pattern = "*",
+  callback = function(args)
+    if vim.bo[args.buf].filetype ~= "NeogitStatus" then return end
+
+    local cmd = vim.v.argv
+    local launched_with_only_neogit = #args == 0 and vim.tbl_contains(cmd, "+Neogit")
+
+    if not launched_with_only_neogit then return end
+
+    vim.schedule(function() vim.cmd("q!") end)
+  end,
+})
