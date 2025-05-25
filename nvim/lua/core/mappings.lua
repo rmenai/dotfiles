@@ -12,7 +12,7 @@ map("n", "<Leader>V", ":vnew<CR>", { desc = "Create new vertical split" })
 
 -- Best remaps
 map("t", "<Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
-map("n", "<Leader>h", ":noh<CR>", { desc = "Clear search highlight" })
+map("n", "gh", ":noh<CR>", { desc = "Clear search highlight" })
 map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selected lines down" })
 map("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selected lines up" })
 map("n", "<C-d>", "<C-d>zz", { desc = "Scroll down and center" })
@@ -64,7 +64,6 @@ map("n", "<Leader>j", "<cmd>lprev<CR>zz", { desc = "Backward location list" })
 map("n", "<Leader><space>", function() require("telescope").extensions.picker_list.picker_list() end, { desc = "Open Telescope picker list" })
 map("n", "<Leader>f", function() require("telescope.builtin").find_files() end, { desc = "Find files" })
 map("n", "<Leader>/", function() require("telescope.builtin").live_grep() end, { desc = "Search in files" })
-map("n", "g?", function() require("telescope.builtin").grep_string() end, { desc = "Search in files" })
 map("n", "<Leader>c", function() require("telescope.builtin").commands() end, { desc = "Show commands" })
 
 -- INSTALLERS
@@ -120,6 +119,8 @@ map("n", "ggtb", function() require("gitsigns").toggle_current_line_blame() end,
 map("n", "ggd", function() require("gitsigns").diffthis() end, { desc = "Show diff" })
 map("n", "ggD", function() require("gitsigns").diffthis("~") end, { desc = "Show diff against previous commit" })
 map("n", "ggtd", function() require("gitsigns").toggle_deleted() end, { desc = "Toggle deleted lines" })
+map("n", "gqQ", function() require("gitsigns").setqflist("all") end)
+map("n", "gqq", require("gitsigns").setqflist)
 
 -- OUTLINES + TERM
 map("n", "<Leader>p", function() require("outline").toggle() end, { desc = "Toggle outline" })
@@ -127,7 +128,7 @@ map("n", "<Leader>t", "<Cmd>ToggleTerm<CR>", { desc = "Toggle terminal" })
 
 -- GODBOLT + HEX
 map("n", "<Leader>G", vim.cmd.Godbolt, { desc = "Toggle Godbolt" })
-map("n", "<Leader>H", vim.cmd.HexToggle, { desc = "Toggle hex view" })
+map("n", "<Leader>h", vim.cmd.HexToggle, { desc = "Toggle hex view" })
 
 -- DB editor
 map("n", "<Leader>d", function() require("dbee").toggle() end, { desc = "Open Database editor" })
