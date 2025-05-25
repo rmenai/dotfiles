@@ -15,7 +15,7 @@ if [ -e "/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh" ]; then
   . "/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh"
 fi
 
-# WSL config 
+# WSL config
 if grep -qi microsoft /proc/version; then
   export BROWSER=wslview
   export PATH="$PATH:/mnt/d/Programs/Path:/mnt/d/Programs/Sioyek"
@@ -92,6 +92,12 @@ if command -v tmux &> /dev/null; then
   alias tksv="tmux kill-server"
   alias tl="tmux list-sessions"
   alias ts="tmux new-session -s"
+fi
+
+# gh-dependent aliases
+if command -v ghcs &> /dev/null; then
+  alias \?="ghcs"
+  alias \?\?="ghce"
 fi
 
 # Standard aliases

@@ -1,10 +1,29 @@
 #############################
-# ZINIT & Plugin Manager Setup
+# Load Environment & Custom Scripts
 #############################
+
+# Load custom configuration files
+source "$HOME/.config/zsh/catppuccin_mocha-fzf.zsh"
+
+eval "$(gh copilot alias -- zsh)"
+
+# Initialize zoxide if installed
+if command -v zoxide &> /dev/null; then
+  eval "$(zoxide init --cmd cd zsh)"
+fi
 
 # Evaluate direnv if installed
 if command -v direnv &> /dev/null; then
   eval "$(direnv hook zsh)"
+fi
+
+#############################
+# ZINIT & Plugin Manager Setup
+#############################
+
+# Source .profile if not already loaded
+if [[ -f "$HOME/.profile" ]]; then
+  source "$HOME/.profile"
 fi
 
 # Define where to install Zplug
@@ -26,23 +45,6 @@ source "${ZPLUG_HOME}/init.zsh"
 # Enable Powerlevel10k instant prompt for a faster startup
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-#############################
-# Load Environment & Custom Scripts
-#############################
-
-# Source .profile if not already loaded
-if [[ -f "$HOME/.profile" ]]; then
-  source "$HOME/.profile"
-fi
-
-# Load custom configuration files
-source "$HOME/.config/zsh/catppuccin_mocha-fzf.zsh"
-
-# Initialize zoxide if installed
-if command -v zoxide &> /dev/null; then
-  eval "$(zoxide init --cmd cd zsh)"
 fi
 
 #############################
