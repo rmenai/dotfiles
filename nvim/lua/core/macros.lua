@@ -1,3 +1,4 @@
+-- Used for leetcode and codeforces setup
 local macros = {
   c = "ggV/type PreCalc<Enter>zf/TestType<Enter>VjzfjjVGzf/fn solve<Enter><Leader>hj^",
   v = "/cfg(test)<Enter>VGzf/fn part_one<Enter><Leader>hj^",
