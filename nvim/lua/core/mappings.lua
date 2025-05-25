@@ -3,7 +3,7 @@ local function map(mode, lhs, rhs, opts)
   vim.keymap.set(mode, lhs, rhs, opts)
 end
 
--- Remap spliting and resizing windows
+-- Remap splitting and resizing windows
 map("n", "<Leader>r", "<C-w><C-r>", { desc = "Rotate window layout" })
 map("n", "<Leader>s", "<C-w>s", { desc = "Split window horizontally" })
 map("n", "<Leader>v", "<C-w>v", { desc = "Split window vertically" })
@@ -122,7 +122,7 @@ map("n", "<Leader>G", vim.cmd.Godbolt, { desc = "Toggle Godbolt" })
 map("n", "<Leader>H", vim.cmd.HexToggle, { desc = "Toggle hex view" })
 
 -- DB editor
-map("n", "<Leader>d", function() require("dbee").toggle() end, { desc = "Open Databse editor" })
+map("n", "<Leader>d", function() require("dbee").toggle() end, { desc = "Open Database editor" })
 
 -- COMPILER + AUTO-SAVE
 local autosave_active = false

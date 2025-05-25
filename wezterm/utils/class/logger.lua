@@ -53,7 +53,7 @@ M.__index = M
 ---variable.  Setting it to `false` (either from the Debug overlay or from the configuration),
 ---will disable logging; the opposite happens when it is set to `true`.
 ---
----@param identifier? string indentifier that will be printed in brackets before the msg
+---@param identifier? string identifier that will be printed in brackets before the msg
 ---@param enabled?    boolean whether to enable logging or not. defaults to true at warn lvl
 ---@return Utils.Class.Logger
 function M:new(identifier, enabled)

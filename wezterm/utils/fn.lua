@@ -449,10 +449,10 @@ M.fs.pathshortener = function(path, len)
   local key = path .. ":" .. tostring(len)
   if CACHE["pathshortener"][key] then return CACHE["pathshortener"][key] end
 
-  local splitted_path = M.str.split(path, M.fs.path_separator)
+  local split_path = M.str.split(path, M.fs.path_separator)
   local short_path = ""
-  for i = 1, #splitted_path do
-    local dir = splitted_path[i]
+  for i = 1, #split_path do
+    local dir = split_path[i]
     local short_dir = ssub(dir, 1, len)
     if short_dir == "" then break end
     short_path = short_path .. (short_dir == "." and ssub(dir, 1, len + 1) or short_dir) .. M.fs.path_separator

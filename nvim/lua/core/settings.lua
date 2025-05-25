@@ -1,4 +1,4 @@
--- GLOBAL IDENTATION
+-- GLOBAL INDENTATION
 vim.o.autoindent = true
 vim.o.smartindent = true
 vim.o.expandtab = true

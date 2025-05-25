@@ -14,6 +14,7 @@
     shellcheck.enable = true;
     shellcheck.excludes = [".*zsh.*"];
     trim-trailing-whitespace.enable = true;
-    # typos.enable = true;
+    typos.enable = true;
+    typos.settings.configPath = ".typos.toml";
   };
 }

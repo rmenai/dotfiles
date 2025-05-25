@@ -1,0 +1,11 @@
+[default.extend-identifiers]
+WhiteSur = "WhiteSur"
+f38ba8 = "f38ba8"
+
+[default.extend-words]
+crypted = "crypted"
+edn = "edn"
+styl = "styl"
+
+[files]
+extend-exclude = ["chrome"]

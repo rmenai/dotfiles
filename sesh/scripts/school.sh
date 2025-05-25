@@ -8,5 +8,5 @@ tmux send-keys -t "$SESSION_NAME":1 "nvim main.ml" C-m
 tmux splitw -h
 tmux send-keys "utop" C-m
 
-tmux new-window -t "$SESSION_NAME":2 -n "Exercices" -c ~/Documents/Projects/school/cs
+tmux new-window -t "$SESSION_NAME":2 -n "Exercises" -c ~/Documents/Projects/school/cs
 tmux send-keys -t "$SESSION_NAME":2 "y" C-m

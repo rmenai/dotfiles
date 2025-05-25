@@ -16,7 +16,7 @@
       };
       "public" = {
         "path" = "/mnt/Shares/Public";
-        "browseable" = "yes";
+        "browsable" = "yes";
         "read only" = "no";
         "guest ok" = "yes";
         "create mask" = "0644";
@@ -26,7 +26,7 @@
       };
       "private" = {
         "path" = "/mnt/Shares/Private";
-        "browseable" = "yes";
+        "browsable" = "yes";
         "read only" = "no";
         "guest ok" = "no";
         "create mask" = "0644";

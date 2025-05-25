@@ -87,7 +87,7 @@ local mappings = {
   { "<leader>0", act.ActivateTab(0), "go to tab 0" },
   { "<leader>Minus", act.ActivateLastTab, "go to last tab" },
 
-  -- Workspace managment
+  -- Workspace management
   { "<leader>o", workspace_switcher.switch_workspace(), "switch workspace" },
   { "<leader>p", workspace_switcher.switch_to_prev_workspace(), "go to last workspace" },
 

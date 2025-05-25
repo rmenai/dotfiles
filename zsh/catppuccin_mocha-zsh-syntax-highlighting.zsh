@@ -15,7 +15,7 @@ typeset -gA ZSH_HIGHLIGHT_STYLES
 ## Comments
 ZSH_HIGHLIGHT_STYLES[comment]='fg=#585b70'
 ## Constants
-## Entitites
+## Entities
 ## Functions/methods
 ZSH_HIGHLIGHT_STYLES[alias]='fg=#a6e3a1'
 ZSH_HIGHLIGHT_STYLES[suffix-alias]='fg=#a6e3a1'
