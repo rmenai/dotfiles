@@ -25,12 +25,6 @@ return {
     config = function() require("mason").setup() end,
   },
 
-  {
-    "VonHeikemen/lsp-zero.nvim",
-    lazy = true,
-    config = false,
-  },
-
   -- LSP
   {
     "neovim/nvim-lspconfig",
@@ -38,7 +32,7 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     dependencies = { "williamboman/mason-lspconfig.nvim" },
     config = function()
-      require("mason-lspconfig").setup({})
+      require("mason-lspconfig").setup()
 
       vim.lsp.enable({
         "ocamllsp",
@@ -46,7 +40,6 @@ return {
         "ruff",
         "pyright",
         "bashls",
-        "ansiblels",
         "clangd",
         "volar",
         "ts_ls",
@@ -54,6 +47,8 @@ return {
         "html",
         "cssls",
         "lua_ls",
+        "tailwindcss",
+        "emmet_ls",
       })
     end,
   },

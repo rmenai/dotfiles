@@ -26,8 +26,15 @@ return {
       require("tailwind-tools").setup({
         document_color = {
           enabled = true,
-          kind = "background",
+          kind = "inline",
           debounce = 0,
+        },
+        conceal = {
+          enabled = true,
+          symbol = "…",
+          highlight = {
+            fg = "#a6d189",
+          },
         },
       })
     end,

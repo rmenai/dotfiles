@@ -267,3 +267,5 @@ map("n", "<Leader><space>l", function()
     print("LSP disabled")
   end
 end, { desc = "Toggle LSP" })
+
+map("n", "<Leader><space>t", function() vim.cmd("TailwindConcealToggle") end, { desc = "Toggle LSP" })
