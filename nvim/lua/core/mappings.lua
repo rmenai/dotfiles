@@ -26,17 +26,17 @@ map("n", "<Leader>ya", ":let @+=expand('%:p')<CR>", { desc = "Yank absolute path
 map("n", "<Leader>yf", ":let @+=expand('%:t')<CR>", { desc = "Yank filename to system clipboard" })
 map("n", "<Leader>yd", ":let @+=expand('%:p:h')<CR>", { desc = "Yank directory to system clipboard" })
 
-map("n", "<A-h>", function() require("smart-splits").resize_left() end, { desc = "Resize pane left" })
-map("n", "<A-j>", function() require("smart-splits").resize_down() end, { desc = "Resize pane down" })
-map("n", "<A-k>", function() require("smart-splits").resize_up() end, { desc = "Resize pane up" })
-map("n", "<A-l>", function() require("smart-splits").resize_right() end, { desc = "Resize pane right" })
+map({ "n", "v" }, "<A-h>", function() require("smart-splits").resize_left() end, { desc = "Resize pane left" })
+map({ "n", "v" }, "<A-j>", function() require("smart-splits").resize_down() end, { desc = "Resize pane down" })
+map({ "n", "v" }, "<A-k>", function() require("smart-splits").resize_up() end, { desc = "Resize pane up" })
+map({ "n", "v" }, "<A-l>", function() require("smart-splits").resize_right() end, { desc = "Resize pane right" })
 
 -- Moving between splits
-map("n", "<C-h>", function() require("smart-splits").move_cursor_left() end, { desc = "Move cursor left" })
-map("n", "<C-j>", function() require("smart-splits").move_cursor_down() end, { desc = "Move cursor down" })
-map("n", "<C-k>", function() require("smart-splits").move_cursor_up() end, { desc = "Move cursor up" })
-map("n", "<C-l>", function() require("smart-splits").move_cursor_right() end, { desc = "Move cursor right" })
-map("n", "<C-\\>", function() require("smart-splits").move_cursor_previous() end, { desc = "Move cursor to previous split" })
+map({ "n", "v" }, "<C-h>", function() require("smart-splits").move_cursor_left() end, { desc = "Move cursor left" })
+map({ "n", "v" }, "<C-j>", function() require("smart-splits").move_cursor_down() end, { desc = "Move cursor down" })
+map({ "n", "v" }, "<C-k>", function() require("smart-splits").move_cursor_up() end, { desc = "Move cursor up" })
+map({ "n", "v" }, "<C-l>", function() require("smart-splits").move_cursor_right() end, { desc = "Move cursor right" })
+map({ "n", "v" }, "<C-\\>", function() require("smart-splits").move_cursor_previous() end, { desc = "Move cursor to previous split" })
 
 -- Swapping buffers between windows
 map("n", "<leader><leader>h", function() require("smart-splits").swap_buf_left() end, { desc = "Swap buffer left" })
