@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 SESSION_NAME="School"
 
 tmux send-keys -t "$SESSION_NAME":1 "cd ~/Documents/Projects/school/cs/ocaml/bin" C-m

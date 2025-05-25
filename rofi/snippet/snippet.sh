@@ -15,7 +15,7 @@
 #                                                 | |    | |               
 #                                                 |_|    |_|               
 
-selection=$(rofi -i -theme "$HOME/.config/rofi/style-1.rasi" -dmenu $@ < /path-to-your/snippets.txt -p "󰅍")
-snippet=$(echo $selection)
+selection=$(rofi -i -theme "$HOME/.config/rofi/style-1.rasi" -dmenu "$@" < /path-to-your/snippets.txt -p "󰅍")
+snippet=$selection
 echo -n "$snippet" | wl-copy
 sleep 0.1

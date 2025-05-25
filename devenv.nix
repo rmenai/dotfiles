@@ -11,7 +11,9 @@
     commitizen.enable = true;
     end-of-file-fixer.enable = true;
     ripsecrets.enable = true;
-    # shellcheck.enable = true;
+    shellcheck.enable = true;
+    shellcheck.excludes = [".*zsh.*"];
+
     # trim-trailing-whitespace.enable = true;
     # typos.enable = true;
   };

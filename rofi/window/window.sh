@@ -6,4 +6,4 @@ theme='style-1'
 ## Run
 rofi \
     -show window \
-    -theme ${dir}/${theme}.rasi
+    -theme "$dir/$theme".rasi

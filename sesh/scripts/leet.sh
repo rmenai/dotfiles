@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 SESSION_NAME="LeetCode"
 
 tmux send-keys -t "$SESSION_NAME":1 "nvim leet" C-m

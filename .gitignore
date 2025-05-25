@@ -1,9 +1,82 @@
-# Devenv
+# Nix development overrides
 .devenv*
 devenv.local.nix
 
-# direnv
+# direnv local settings
 .direnv
 
-# pre-commit
+# pre-commit config (machine-specific)
 .pre-commit-config.yaml
+
+# === Operating System ===
+# macOS
+.DS_Store
+# Windows
+Thumbs.db
+
+# === Editors & IDEs ===
+# VS Code
+.vscode/
+# JetBrains IDEs
+.idea/
+
+# Vim / Neovim swap, undo, backup, view
+*.swp
+*.swo
+*.swn
+*.un~
+*.vimbackup
+[._]*.s[a-v][a-z]
+[._]s[a-v][a-z]
+**/undo/**
+**/backup/**
+**/swap/**
+**/view/**
+**/session/**
+
+# Lazy plugin / package directories
+packer_compiled.lua
+plugin/packer_compiled.lua
+
+# === Shell & Terminal ===
+# Zsh
+.zcompdump*
+.zsh_history
+
+# WezTerm
+wezterm_*persistent-state.json
+
+# Tmux
+.tmux/resurrect/
+.tmuxp/  # tmuxp sessions
+
+# === Window Managers & Compositors ===
+# Hyprland cache & logs (adjust if needed)
+.hypr/
+hyprland.log
+
+# === Miscellaneous ===
+# Log files
+*.log
+
+# Local overrides
+*.local
+
+# Backup and temp files
+*~
+*.tmp
+*.bak
+
+# Node modules (if you ever include JS tooling)
+node_modules/
+
+# Python caches
+__pycache__/
+*.py[cod]
+
+# Rust/Cargo
+/target/
+**/*.rs.bk
+
+# Other
+coverage/

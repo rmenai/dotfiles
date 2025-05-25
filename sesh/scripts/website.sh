@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 tmux send-keys "nvim src/app.vue" C-m
 
 tmux splitw -l 10

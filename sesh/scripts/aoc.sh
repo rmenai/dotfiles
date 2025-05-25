@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 tmux send-keys "y src/bin" C-m
 
 tmux splitw -l 10
