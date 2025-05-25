@@ -1,30 +1,4 @@
 return {
-  {
-    -- TREESITTER
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-    event = "BufReadPre",
-    config = function()
-      require("nvim-treesitter.configs").setup({
-        ensure_installed = { "lua", "vim", "vimdoc" },
-        auto_install = true,
-        highlight = { enable = true },
-        autotag = { enable = true },
-        autopairs = { enable = true },
-        rainbow = {
-          enable = true,
-          extended_mode = true,
-        },
-      })
-    end,
-  },
-
-  {
-    "williamboman/mason.nvim",
-    cmd = { "Mason", "MasonInstall", "MasonUninstall", "MasonUpdate", "MasonLog" },
-    config = function() require("mason").setup() end,
-  },
-
   -- Autocompletion
   {
     "L3MON4D3/LuaSnip",
@@ -38,101 +12,105 @@ return {
       require("luasnip.loaders.from_vscode").lazy_load({ paths = "./lua/snippets" })
     end,
   },
+
   {
-    "hrsh7th/nvim-cmp",
-    event = { "InsertEnter", "CmdlineEnter" },
+    "saghen/blink.cmp",
     dependencies = {
-      "L3MON4D3/LuaSnip",
-      "onsails/lspkind.nvim",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-cmdline",
-      "saadparwaiz1/cmp_luasnip",
-      "hrsh7th/cmp-path",
+      "fang2hou/blink-copilot",
+      "moyiz/blink-emoji.nvim",
     },
-    config = function()
-      local luasnip = require("luasnip")
-      local cmp = require("cmp")
-      local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+    version = "1.*",
+    opts = {
+      enabled = function() return vim.g.blink_cmp ~= false end,
 
-      local function select_next(fallback)
-        if cmp.visible() then
-          cmp.select_next_item()
-        elseif luasnip.locally_jumpable(1) then
-          luasnip.jump(1)
-        else
-          fallback()
-        end
-      end
+      keymap = {
+        preset = "enter",
+        ["<C-e>"] = { "show", "show_documentation", "hide_documentation" },
+        ["<CR>"] = { "accept", "fallback" },
+        ["<Tab>"] = { "snippet_forward", "select_next", "fallback" },
+        ["<S-Tab>"] = { "snippet_backward", "select_prev", "fallback" },
+        ["<C-u>"] = { "scroll_documentation_up", "fallback" },
+        ["<C-d>"] = { "scroll_documentation_down", "fallback" },
+      },
 
-      local function select_prev(fallback)
-        if cmp.visible() then
-          cmp.select_prev_item()
-        elseif luasnip.locally_jumpable(-1) then
-          luasnip.jump(-1)
-        else
-          fallback()
-        end
-      end
+      appearance = {
+        nerd_font_variant = "mono",
+      },
 
-      local function confirm_select(fallback)
-        if cmp.visible() then
-          if luasnip.expandable() then
-            luasnip.expand()
-          else
-            cmp.confirm({ select = true })
-          end
-        else
-          fallback()
-        end
-      end
+      completion = {
+        menu = {
+          auto_show = true,
+        },
+        documentation = {
+          auto_show = true,
+          auto_show_delay_ms = 250,
+        },
+        ghost_text = {
+          enabled = true,
+        },
+      },
 
-      -- Lazy load tailwind tools
-      local function lspkind_format(entry, vim_item) return require("tailwind-tools.cmp").lspkind_format(entry, vim_item) end
+      snippets = { preset = "luasnip" },
 
-      cmp.setup({
-        formatting = {
-          fields = { "abbr", "kind", "menu" },
-          format = require("lspkind").cmp_format({
-            mode = "symbol",
-            maxwidth = 50,
-            ellipsis_char = "...",
-
-            before = function(entry, vim_item)
-              if vim_item.kind == "Color" then return lspkind_format(entry, vim_item) end
-
-              return vim_item
+      sources = {
+        default = { "copilot", "lazydev", "lsp", "path", "snippets", "buffer", "emoji" },
+        min_keyword_length = function() return vim.bo.filetype == "markdown" and 2 or 0 end,
+        providers = {
+          lazydev = {
+            name = "LazyDev",
+            module = "lazydev.integrations.blink",
+            score_offset = 100,
+          },
+          copilot = {
+            name = "copilot",
+            module = "blink-copilot",
+            score_offset = 100,
+            async = true,
+          },
+          emoji = {
+            module = "blink-emoji",
+            name = "Emoji",
+            score_offset = 15, -- Tune by preference
+            opts = {
+              insert = true,
+              trigger = function() return { ":" } end,
+            },
+          },
+          cmdline = {
+            min_keyword_length = function(ctx)
+              if ctx.mode == "cmdline" and string.find(ctx.line, " ") == nil then return 4 end
+              return 0
             end,
-          }),
+          },
+          path = {
+            opts = {
+              get_cwd = function(_) return vim.fn.getcwd() end,
+            },
+          },
         },
-        mapping = cmp.mapping.preset.insert({
-          ["<C-k>"] = cmp.mapping.scroll_docs(-4),
-          ["<C-j>"] = cmp.mapping.scroll_docs(4),
-          ["<CR>"] = cmp.mapping(confirm_select),
-          ["<Tab>"] = cmp.mapping(select_next, { "i", "s" }),
-          ["<S-Tab>"] = cmp.mapping(select_prev, { "i", "s" }),
-        }),
-        sources = cmp.config.sources({
-          { name = "nvim_lsp" },
-          { name = "luasnip" },
-          { name = "path" },
-          { name = "crates" },
-        }, { name = "buffer" }),
-        snippet = {
-          expand = function(args) luasnip.lsp_expand(args.body) end,
+      },
+
+      fuzzy = {
+        implementation = "prefer_rust",
+        sorts = {
+          "exact",
+          "score",
+          "sort_text",
         },
-      })
+      },
 
-      cmp.setup.cmdline({ "/", "?" }, {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = { { name = "buffer" } },
-      })
+      signature = {
+        enabled = true,
+        window = {
+          show_documentation = false,
+        },
+      },
 
-      cmp.setup.cmdline({ ":" }, {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = { { name = "cmdline" }, { name = "path" } },
-      })
-
-      cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
-    end,
+      cmdline = {
+        keymap = { preset = "inherit" },
+        completion = { menu = { auto_show = true } },
+      },
+    },
+    opts_extend = { "sources.default" },
   },
 }

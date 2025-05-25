@@ -3,7 +3,6 @@ return {
     "mfussenegger/nvim-dap",
     dependencies = {
       "jay-babu/mason-nvim-dap.nvim",
-      "rcarriga/cmp-dap",
       "rcarriga/nvim-dap-ui",
       "nvim-neotest/nvim-nio",
       "mfussenegger/nvim-dap-python",

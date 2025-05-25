@@ -61,7 +61,7 @@ map("n", "<Leader>k", "<cmd>lnext<CR>zz", { desc = "Forward location list" })
 map("n", "<Leader>j", "<cmd>lprev<CR>zz", { desc = "Backward location list" })
 
 -- TELESCOPE
-map("n", "<Leader><space>", function() require("telescope").extensions.picker_list.picker_list() end, { desc = "Open Telescope picker list" })
+map("n", "<Leader><space>p", function() require("telescope").extensions.picker_list.picker_list() end, { desc = "Open Telescope picker list" })
 map("n", "<Leader>f", function() require("telescope.builtin").find_files() end, { desc = "Find files" })
 map("n", "<Leader>/", function() require("telescope.builtin").live_grep() end, { desc = "Search in files" })
 map("n", "<Leader>c", function() require("telescope.builtin").commands() end, { desc = "Show commands" })
@@ -87,7 +87,7 @@ map("n", "<Leader>a", nvimTreeFocusOrToggle, { desc = "Toggle NvimTree and find 
 map("n", "<Leader>U", function() require("undotree").toggle() end, { desc = "Toggle UndoTree" })
 
 -- GIT
-map("n", "<Leader>G", vim.cmd.CommitCurrentFile, { desc = "Commit current file" })
+map("n", "<Leader>Gc", vim.cmd.CommitCurrentFile, { desc = "Commit current file" })
 
 local function is_neogit_open()
   for _, win in ipairs(vim.api.nvim_list_wins()) do
@@ -106,56 +106,37 @@ map("n", "<Leader>g", function()
   end
 end, { desc = "Toggle Neogit" })
 
-map("n", "ggs", function() require("gitsigns").stage_hunk() end, { desc = "Stage hunk" })
-map("n", "ggr", function() require("gitsigns").reset_hunk() end, { desc = "Reset hunk" })
-map("v", "ggs", function() require("gitsigns").stage_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, { desc = "Stage selected hunk" })
-map("v", "ggr", function() require("gitsigns").reset_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, { desc = "Reset selected hunk" })
-map("n", "ggS", function() require("gitsigns").stage_buffer() end, { desc = "Stage buffer" })
-map("n", "ggu", function() require("gitsigns").undo_stage_hunk() end, { desc = "Undo stage hunk" })
-map("n", "ggR", function() require("gitsigns").reset_buffer() end, { desc = "Reset buffer" })
-map("n", "ggp", function() require("gitsigns").preview_hunk() end, { desc = "Preview hunk" })
-map("n", "ggb", function() require("gitsigns").blame_line({ full = true }) end, { desc = "Blame current line" })
-map("n", "ggtb", function() require("gitsigns").toggle_current_line_blame() end, { desc = "Toggle line blame" })
-map("n", "ggd", function() require("gitsigns").diffthis() end, { desc = "Show diff" })
-map("n", "ggD", function() require("gitsigns").diffthis("~") end, { desc = "Show diff against previous commit" })
-map("n", "ggtd", function() require("gitsigns").toggle_deleted() end, { desc = "Toggle deleted lines" })
-map("n", "gqQ", function() require("gitsigns").setqflist("all") end)
-map("n", "gqq", require("gitsigns").setqflist)
+map("n", "<Leader>Gs", function() require("gitsigns").stage_hunk() end, { desc = "Stage hunk" })
+map("n", "<Leader>Gr", function() require("gitsigns").reset_hunk() end, { desc = "Reset hunk" })
+map("v", "<Leader>Gs", function() require("gitsigns").stage_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, { desc = "Stage selected hunk" })
+map("v", "<Leader>Gr", function() require("gitsigns").reset_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, { desc = "Reset selected hunk" })
+map("n", "<Leader>GS", function() require("gitsigns").stage_buffer() end, { desc = "Stage buffer" })
+map("n", "<Leader>Gu", function() require("gitsigns").undo_stage_hunk() end, { desc = "Undo stage hunk" })
+map("n", "<Leader>GR", function() require("gitsigns").reset_buffer() end, { desc = "Reset buffer" })
+map("n", "<Leader>Gp", function() require("gitsigns").preview_hunk() end, { desc = "Preview hunk" })
+map("n", "<Leader>Gb", function() require("gitsigns").blame_line({ full = true }) end, { desc = "Blame current line" })
+map("n", "<Leader>Gtb", function() require("gitsigns").toggle_current_line_blame() end, { desc = "Toggle line blame" })
+map("n", "<Leader>Gd", function() require("gitsigns").diffthis() end, { desc = "Show diff" })
+map("n", "<Leader>GD", function() require("gitsigns").diffthis("~") end, { desc = "Show diff against previous commit" })
+map("n", "<Leader>Gtd", function() require("gitsigns").toggle_deleted() end, { desc = "Toggle deleted lines" })
+map("n", "<Leader>GQ", function() require("gitsigns").setqflist("all") end)
+map("n", "<Leader>Gq", require("gitsigns").setqflist)
 
 -- OUTLINES + TERM
 map("n", "<Leader>p", function() require("outline").toggle() end, { desc = "Toggle outline" })
 map("n", "<Leader>t", "<Cmd>ToggleTerm<CR>", { desc = "Toggle terminal" })
 
 -- GODBOLT + HEX
-map("n", "<Leader>G", vim.cmd.Godbolt, { desc = "Toggle Godbolt" })
 map("n", "<Leader>h", vim.cmd.HexToggle, { desc = "Toggle hex view" })
 
 -- DB editor
 map("n", "<Leader>d", function() require("dbee").toggle() end, { desc = "Open Database editor" })
 
 -- COMPILER + AUTO-SAVE
-local autosave_active = false
 map("n", "<F9>", vim.cmd.CompilerChoose, { desc = "Choose compiler" })
 map("n", "<F10>", vim.cmd.CompilerRun, { desc = "Run compiler" })
-map("n", "<F12>", function()
-  autosave_active = not autosave_active
-  if autosave_active then
-    require("auto-save").on()
-  else
-    require("auto-save").off()
-  end
-end, { desc = "Toggle autosave" })
 
 -- LSP
-local diagnostics_active = true
-map("n", "<F1>", function()
-  diagnostics_active = not diagnostics_active
-  if diagnostics_active then
-    vim.diagnostic.show()
-  else
-    vim.diagnostic.hide()
-  end
-end, { desc = "Toggle diagnostics" })
 map("n", "<F2>", vim.lsp.buf.rename, { desc = "Rename symbol" })
 map({ "n", "v", "i" }, "<F3>", function()
   if vim.bo.filetype == "rust" then
@@ -217,7 +198,6 @@ map("n", "gpo", function() require("crates").open_crates_io() end, { desc = "Ope
 map({ "n", "v" }, "<Leader>uu", function() vim.cmd("CopilotChatToggle") end, { desc = "Toggle Copilot Chat" })
 map({ "n", "v" }, "<Leader>ul", function() vim.cmd("CopilotChatLoad") end, { desc = "Load Copilot Session" })
 map({ "n", "v" }, "<Leader>us", function() vim.cmd("CopilotChatSave") end, { desc = "Save Copilot Session" })
-map({ "n", "v" }, "<Leader>ux", function() vim.cmd("CopilotChatStop") end, { desc = "Stop Copilot Chat" })
 map({ "n", "v" }, "<Leader>uc", function() vim.cmd("CopilotChatReset") end, { desc = "Reset Copilot Chat" })
 map({ "n", "v" }, "<Leader>ua", function() vim.cmd("CopilotChatAgents") end, { desc = "Switch Copilot Agent" })
 map({ "n", "v" }, "<Leader>um", function() vim.cmd("CopilotChatModels") end, { desc = "Select Copilot Model" })
@@ -230,3 +210,60 @@ map({ "n", "v" }, "<Leader>ue", function() vim.cmd("CopilotChatExplain") end, { 
 map({ "n", "v" }, "<Leader>uo", function() vim.cmd("CopilotChatOptimize") end, { desc = "Optimize Prompt with Copilot" })
 map({ "n", "v" }, "<Leader>ur", function() vim.cmd("CopilotChatReview") end, { desc = "Review Code with Copilot" })
 map({ "n", "v" }, "<Leader>ut", function() vim.cmd("CopilotChatTests") end, { desc = "Generate Tests" })
+
+vim.g.blink_cmp = true
+vim.g.diagnostics_active = true
+vim.g.copilot_enabled = false
+vim.g.auto_save = false
+vim.g.lsp_active = true
+
+map("n", "<Leader><space>u", function()
+  if vim.g.copilot_enabled then
+    vim.cmd("Copilot disable")
+    vim.g.copilot_enabled = false
+    print("Copilot disabled")
+  else
+    vim.cmd("Copilot enable")
+    vim.g.copilot_enabled = true
+    print("Copilot enabled")
+  end
+end, { desc = "Toggle Copilot" })
+
+map("n", "<Leader><space>c", function()
+  vim.g.blink_cmp = not vim.g.blink_cmp
+  local status = vim.g.blink_cmp and "enabled" or "disabled"
+  print("Blink.cmp " .. status)
+end, { desc = "Toggle Blink.cmp" })
+
+map("n", "<Leader><space>d", function()
+  vim.g.diagnostics_active = not vim.g.diagnostics_active
+  if vim.g.diagnostics_active then
+    vim.diagnostic.show()
+    print("Diagnostics enabled")
+  else
+    vim.diagnostic.hide()
+    print("Diagnostics disabled")
+  end
+end, { desc = "Toggle diagnostics" })
+
+map("n", "<Leader><space>s", function()
+  vim.g.auto_save = not vim.g.auto_save
+  if vim.g.auto_save then
+    require("auto-save").on()
+    print("Autosave enabled")
+  else
+    require("auto-save").off()
+    print("Autosave disabled")
+  end
+end, { desc = "Toggle autosave" })
+
+map("n", "<Leader><space>l", function()
+  vim.g.lsp_active = not vim.g.lsp_active
+  if vim.g.lsp_active then
+    vim.cmd("LspStart")
+    print("LSP enabled")
+  else
+    vim.cmd("LspStop")
+    print("LSP disabled")
+  end
+end, { desc = "Toggle LSP" })

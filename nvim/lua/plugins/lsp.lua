@@ -1,5 +1,31 @@
 return {
   {
+    -- TREESITTER
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    event = "BufReadPre",
+    config = function()
+      require("nvim-treesitter.configs").setup({
+        ensure_installed = { "lua", "vim", "vimdoc" },
+        auto_install = true,
+        highlight = { enable = true },
+        autotag = { enable = true },
+        autopairs = { enable = true },
+        rainbow = {
+          enable = true,
+          extended_mode = true,
+        },
+      })
+    end,
+  },
+
+  {
+    "williamboman/mason.nvim",
+    cmd = { "Mason", "MasonInstall", "MasonUninstall", "MasonUpdate", "MasonLog" },
+    config = function() require("mason").setup() end,
+  },
+
+  {
     "VonHeikemen/lsp-zero.nvim",
     lazy = true,
     config = false,
@@ -10,10 +36,7 @@ return {
     "neovim/nvim-lspconfig",
     cmd = { "LSPStart", "LSPStop", "LSPRestart", "LSPInfo", "LSPLog" },
     event = { "BufReadPre", "BufNewFile" },
-    dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      "williamboman/mason-lspconfig.nvim",
-    },
+    dependencies = { "williamboman/mason-lspconfig.nvim" },
     config = function()
       require("mason-lspconfig").setup({})
 
@@ -21,6 +44,7 @@ return {
         "ocamllsp",
         "nixd",
         "ruff",
+        "pyright",
         "bashls",
         "ansiblels",
         "clangd",
@@ -30,8 +54,17 @@ return {
         "html",
         "cssls",
         "lua_ls",
-        "pyright",
       })
     end,
+  },
+
+  {
+    "folke/lazydev.nvim",
+    ft = "lua",
+    opts = {
+      library = {
+        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+      },
+    },
   },
 }

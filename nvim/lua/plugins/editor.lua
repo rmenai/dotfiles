@@ -47,14 +47,17 @@ return {
     config = function()
       require("crates").setup({
         completion = {
-          cmp = {
-            enabled = true,
-          },
           crates = {
             enabled = true,
             max_results = 8,
             min_chars = 3,
           },
+        },
+        lsp = {
+          enabled = true,
+          actions = true,
+          completion = true,
+          hover = true,
         },
       })
     end,
@@ -87,7 +90,6 @@ return {
     -- AUTOMATIC PAIRS
     "windwp/nvim-autopairs",
     event = "InsertEnter",
-    dependencies = "hrsh7th/nvim-cmp",
     config = function()
       local Rule = require("nvim-autopairs.rule")
       local npairs = require("nvim-autopairs")
