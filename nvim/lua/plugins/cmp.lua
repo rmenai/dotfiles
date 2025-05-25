@@ -76,12 +76,12 @@ return {
               trigger = function() return { ":" } end,
             },
           },
-          cmdline = {
-            min_keyword_length = function(ctx)
-              if ctx.mode == "cmdline" and string.find(ctx.line, " ") == nil then return 4 end
-              return 0
-            end,
-          },
+          -- cmdline = {
+          --   min_keyword_length = function(ctx)
+          --     if ctx.mode == "cmdline" and string.find(ctx.line, " ") == nil then return 4 end
+          --     return 0
+          --   end,
+          -- },
           path = {
             opts = {
               get_cwd = function(_) return vim.fn.getcwd() end,
@@ -107,7 +107,7 @@ return {
       },
 
       cmdline = {
-        keymap = { preset = "inherit" },
+        keymap = { ["<Tab>"] = { "show", "accept" } },
         completion = { menu = { auto_show = true } },
       },
     },
