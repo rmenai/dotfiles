@@ -57,4 +57,3 @@ startup_command = "bash ~/.config/sesh/scripts/leet.sh"
 name = "Codeforces"
 path = "~/Documents/Projects/codeforces"
 startup_command = "bash ~/.config/sesh/scripts/codeforces.sh"
-
