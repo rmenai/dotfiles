@@ -13,8 +13,7 @@
     ripsecrets.enable = true;
     shellcheck.enable = true;
     shellcheck.excludes = [".*zsh.*"];
-
-    # trim-trailing-whitespace.enable = true;
+    trim-trailing-whitespace.enable = true;
     # typos.enable = true;
   };
 }

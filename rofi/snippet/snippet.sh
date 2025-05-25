@@ -6,14 +6,14 @@
 # Think of it as a pinned clipboard.
 # Note: wl-copy is part of wl-clipboard.
 # https://github.com/sameemul-haque/dotfiles/tree/master/.config/rofi/snippet
-#                    __  _                      _                      _   
-#                   / _|(_)                    (_)                    | |  
-#      _ __   ___  | |_  _          ___  _ __   _  _ __   _ __    ___ | |_ 
+#                    __  _                      _                      _
+#                   / _|(_)                    (_)                    | |
+#      _ __   ___  | |_  _          ___  _ __   _  _ __   _ __    ___ | |_
 #     | '__| / _ \ |  _|| | ______ / __|| '_ \ | || '_ \ | '_ \  / _ \| __|
-#     | |   | (_) || |  | ||______|\__ \| | | || || |_) || |_) ||  __/| |_ 
+#     | |   | (_) || |  | ||______|\__ \| | | || || |_) || |_) ||  __/| |_
 #     |_|    \___/ |_|  |_|        |___/|_| |_||_|| .__/ | .__/  \___| \__|
-#                                                 | |    | |               
-#                                                 |_|    |_|               
+#                                                 | |    | |
+#                                                 |_|    |_|
 
 selection=$(rofi -i -theme "$HOME/.config/rofi/style-1.rasi" -dmenu "$@" < /path-to-your/snippets.txt -p "󰅍")
 snippet=$selection

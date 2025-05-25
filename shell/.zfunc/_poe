@@ -36,7 +36,7 @@ function _poe {
         # get the list of tasks if we didn't already
         tasks=($(poe _list_tasks $target_path))
     fi
-    
+
     local ALL_EXLC=("-h" "--help" "--version")
 
     _arguments -C \
