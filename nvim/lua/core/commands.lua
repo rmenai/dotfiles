@@ -122,6 +122,65 @@ M.games_picker = function()
     :find()
 end
 
+M.copilot_picker = function()
+  local actions = require("telescope.actions")
+  local action_state = require("telescope.actions.state")
+  local pickers = require("telescope.pickers")
+  local finders = require("telescope.finders")
+  local conf = require("telescope.config").values
+
+  local commands = {
+    "CopilotChat",
+    "CopilotChatFix",
+    "CopilotChatDocs",
+    "CopilotChatLoad",
+    "CopilotChatOpen",
+    "CopilotChatSave",
+    "CopilotChatStop",
+    "CopilotChatClose",
+    "CopilotChatReset",
+    "CopilotChatTests",
+    "CopilotChatAgents",
+    "CopilotChatCommit",
+    "CopilotChatModels",
+    "CopilotChatReview",
+    "CopilotChatToggle",
+    "CopilotChatExplain",
+    "CopilotChatPrompts",
+    "CopilotChatOptimize",
+  }
+
+  local results = {}
+  for _, cmd in ipairs(commands) do
+    table.insert(results, { cmd, cmd })
+  end
+
+  pickers
+    .new({}, {
+      prompt_title = "Copilot Chat Commands",
+      finder = finders.new_table({
+        results = results,
+        entry_maker = function(entry)
+          return {
+            value = entry[2],
+            display = entry[1],
+            ordinal = entry[1],
+          }
+        end,
+      }),
+      sorter = conf.generic_sorter({}),
+      attach_mappings = function(_, map)
+        map("i", "<CR>", function(bufnr)
+          local selection = action_state.get_selected_entry(bufnr)
+          actions.close(bufnr)
+          vim.cmd(selection.value)
+        end)
+        return true
+      end,
+    })
+    :find()
+end
+
 M.setup_leetcode_cmds = function()
   local leet_cmds = require("leetcode.command").commands
 

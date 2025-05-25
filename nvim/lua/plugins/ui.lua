@@ -227,6 +227,7 @@ return {
           picker_list = {
             user_pickers = {
               { "leetcode", require("core.commands").leetcode_picker },
+              { "copilot", require("core.commands").copilot_picker },
               { "compiler", require("core.commands").compiler_picker },
               { "gitsigns", require("core.commands").gitsigns_picker },
               { "notify", require("core.commands").notify_picker },

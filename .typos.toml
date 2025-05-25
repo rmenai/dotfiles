@@ -6,6 +6,7 @@ f38ba8 = "f38ba8"
 crypted = "crypted"
 edn = "edn"
 styl = "styl"
+ue = "ue"
 
 [files]
 extend-exclude = ["chrome"]

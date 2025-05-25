@@ -204,5 +204,20 @@ map("n", "gpx", function() require("crates").expand_plain_crate_to_inline_table(
 map("n", "gpX", function() require("crates").extract_crate_into_table() end, { desc = "Extract crate into table" })
 map("n", "gpo", function() require("crates").open_crates_io() end, { desc = "Open crates.io" })
 
--- AI
-map({ "n", "v" }, "<Leader>u", ":CodeCompanionChat Toggle<CR>", { desc = "Toggle Advante" })
+-- CopilotChat mappings
+map({ "n", "v" }, "<Leader>uu", function() vim.cmd("CopilotChatToggle") end, { desc = "Toggle Copilot Chat" })
+map({ "n", "v" }, "<Leader>ul", function() vim.cmd("CopilotChatLoad") end, { desc = "Load Copilot Session" })
+map({ "n", "v" }, "<Leader>us", function() vim.cmd("CopilotChatSave") end, { desc = "Save Copilot Session" })
+map({ "n", "v" }, "<Leader>ux", function() vim.cmd("CopilotChatStop") end, { desc = "Stop Copilot Chat" })
+map({ "n", "v" }, "<Leader>uc", function() vim.cmd("CopilotChatReset") end, { desc = "Reset Copilot Chat" })
+map({ "n", "v" }, "<Leader>ua", function() vim.cmd("CopilotChatAgents") end, { desc = "Switch Copilot Agent" })
+map({ "n", "v" }, "<Leader>um", function() vim.cmd("CopilotChatModels") end, { desc = "Select Copilot Model" })
+map({ "n", "v" }, "<Leader>up", function() vim.cmd("CopilotChatPrompts") end, { desc = "List Copilot Prompts" })
+
+map({ "n", "v" }, "<Leader>uf", function() vim.cmd("CopilotChatFix") end, { desc = "Fix with Copilot" })
+map({ "n", "v" }, "<Leader>ud", function() vim.cmd("CopilotChatDocs") end, { desc = "Show Copilot Docs" })
+map({ "n", "v" }, "<Leader>ug", function() vim.cmd("CopilotChatCommit") end, { desc = "Commit Suggestion" })
+map({ "n", "v" }, "<Leader>ue", function() vim.cmd("CopilotChatExplain") end, { desc = "Explain Code with Copilot" })
+map({ "n", "v" }, "<Leader>uo", function() vim.cmd("CopilotChatOptimize") end, { desc = "Optimize Prompt with Copilot" })
+map({ "n", "v" }, "<Leader>ur", function() vim.cmd("CopilotChatReview") end, { desc = "Review Code with Copilot" })
+map({ "n", "v" }, "<Leader>ut", function() vim.cmd("CopilotChatTests") end, { desc = "Generate Tests" })

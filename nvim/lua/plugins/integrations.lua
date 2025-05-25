@@ -68,18 +68,32 @@ return {
   },
 
   {
-    "olimorris/codecompanion.nvim",
+    "CopilotC-Nvim/CopilotChat.nvim",
     dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter",
+      { "zbirenbaum/copilot.lua" },
+      { "nvim-lua/plenary.nvim", branch = "master" },
     },
-    cmd = { "CodeCompanion", "CodeCompanionChat" },
-    opts = {
-      strategies = {
-        chat = {
-          adapter = "copilot",
-        },
-      },
+    build = "make tiktoken",
+    opts = {},
+    cmd = {
+      "CopilotChat",
+      "CopilotChatFix",
+      "CopilotChatDocs",
+      "CopilotChatLoad",
+      "CopilotChatOpen",
+      "CopilotChatSave",
+      "CopilotChatStop",
+      "CopilotChatClose",
+      "CopilotChatReset",
+      "CopilotChatTests",
+      "CopilotChatAgents",
+      "CopilotChatCommit",
+      "CopilotChatModels",
+      "CopilotChatReview",
+      "CopilotChatToggle",
+      "CopilotChatExplain",
+      "CopilotChatPrompts",
+      "CopilotChatOptimize",
     },
   },
 
