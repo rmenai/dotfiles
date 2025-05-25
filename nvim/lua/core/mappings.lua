@@ -89,29 +89,37 @@ map("n", "<Leader>U", function() require("undotree").toggle() end, { desc = "Tog
 
 -- GIT
 map("n", "<Leader>G", vim.cmd.CommitCurrentFile, { desc = "Commit current file" })
-local neogit_open = false
-map("n", "<Leader>g", function()
-  neogit_open = not neogit_open
-  if neogit_open then
-    require("neogit").open({ kind = "auto" })
-  else
-    require("neogit").close()
-  end
-end, { desc = "Open Neogit" })
 
-map("n", "gns", function() require("gitsigns").stage_hunk() end, { desc = "Stage hunk" })
-map("n", "gnr", function() require("gitsigns").reset_hunk() end, { desc = "Reset hunk" })
-map("v", "gns", function() require("gitsigns").stage_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, { desc = "Stage selected hunk" })
-map("v", "gnr", function() require("gitsigns").reset_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, { desc = "Reset selected hunk" })
-map("n", "gnS", function() require("gitsigns").stage_buffer() end, { desc = "Stage buffer" })
-map("n", "gnu", function() require("gitsigns").undo_stage_hunk() end, { desc = "Undo stage hunk" })
-map("n", "gnR", function() require("gitsigns").reset_buffer() end, { desc = "Reset buffer" })
-map("n", "gnp", function() require("gitsigns").preview_hunk() end, { desc = "Preview hunk" })
-map("n", "gnb", function() require("gitsigns").blame_line({ full = true }) end, { desc = "Blame current line" })
-map("n", "gntb", function() require("gitsigns").toggle_current_line_blame() end, { desc = "Toggle line blame" })
-map("n", "gnd", function() require("gitsigns").diffthis() end, { desc = "Show diff" })
-map("n", "gnD", function() require("gitsigns").diffthis("~") end, { desc = "Show diff against previous commit" })
-map("n", "gntd", function() require("gitsigns").toggle_deleted() end, { desc = "Toggle deleted lines" })
+local function is_neogit_open()
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    local buf = vim.api.nvim_win_get_buf(win)
+    if vim.api.nvim_buf_get_option(buf, "filetype") == "NeogitStatus" then return true end
+  end
+  return false
+end
+
+-- toggle Neogit based on whether the status window actually exists
+map("n", "<Leader>g", function()
+  if is_neogit_open() then
+    require("neogit").close()
+  else
+    require("neogit").open({ kind = "auto" })
+  end
+end, { desc = "Toggle Neogit" })
+
+map("n", "gss", function() require("gitsigns").stage_hunk() end, { desc = "Stage hunk" })
+map("n", "gsr", function() require("gitsigns").reset_hunk() end, { desc = "Reset hunk" })
+map("v", "gss", function() require("gitsigns").stage_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, { desc = "Stage selected hunk" })
+map("v", "gsr", function() require("gitsigns").reset_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, { desc = "Reset selected hunk" })
+map("n", "gsS", function() require("gitsigns").stage_buffer() end, { desc = "Stage buffer" })
+map("n", "gsu", function() require("gitsigns").undo_stage_hunk() end, { desc = "Undo stage hunk" })
+map("n", "gsR", function() require("gitsigns").reset_buffer() end, { desc = "Reset buffer" })
+map("n", "gsp", function() require("gitsigns").preview_hunk() end, { desc = "Preview hunk" })
+map("n", "gsb", function() require("gitsigns").blame_line({ full = true }) end, { desc = "Blame current line" })
+map("n", "gstb", function() require("gitsigns").toggle_current_line_blame() end, { desc = "Toggle line blame" })
+map("n", "gsd", function() require("gitsigns").diffthis() end, { desc = "Show diff" })
+map("n", "gsD", function() require("gitsigns").diffthis("~") end, { desc = "Show diff against previous commit" })
+map("n", "gstd", function() require("gitsigns").toggle_deleted() end, { desc = "Toggle deleted lines" })
 
 -- OUTLINES + TERM
 map("n", "<Leader>p", function() require("outline").toggle() end, { desc = "Toggle outline" })
