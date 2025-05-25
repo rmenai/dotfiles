@@ -110,3 +110,28 @@ vim.api.nvim_create_autocmd("BufWinLeave", {
     vim.schedule(function() vim.cmd("q!") end)
   end,
 })
+
+vim.api.nvim_create_augroup("NvimTreeRefresh", { clear = true })
+vim.api.nvim_create_autocmd("User", {
+  group = "NvimTreeRefresh",
+  pattern = "NeogitCommitComplete",
+  callback = function()
+    local nvim_tree_win_id = nil
+    for _, winid in ipairs(vim.api.nvim_list_wins()) do
+      local bufnr = vim.api.nvim_win_get_buf(winid)
+      if vim.bo[bufnr] and vim.bo[bufnr].filetype == "NvimTree" then
+        nvim_tree_win_id = winid
+        break
+      end
+    end
+
+    if nvim_tree_win_id then
+      local success, nvim_tree_api = pcall(require, "nvim-tree.api")
+      if success and nvim_tree_api and nvim_tree_api.tree and nvim_tree_api.tree.reload then
+        nvim_tree_api.tree.reload()
+      else
+        vim.notify("NvimTree API not found. Could not refresh automatically after commit.", vim.log.levels.WARN)
+      end
+    end
+  end,
+})
