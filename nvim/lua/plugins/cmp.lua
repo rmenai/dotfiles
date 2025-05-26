@@ -54,7 +54,6 @@ return {
 
       sources = {
         default = { "copilot", "lazydev", "lsp", "path", "snippets", "buffer", "emoji" },
-        min_keyword_length = function() return vim.bo.filetype == "markdown" and 2 or 0 end,
         providers = {
           lazydev = {
             name = "LazyDev",

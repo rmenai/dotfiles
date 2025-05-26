@@ -11,7 +11,7 @@ return {
       local utils = require("core.utils")
 
       local home_dir = vim.fn.stdpath("data") .. "/leetcode"
-      local repo_url = "https://github.com/rmenai/leetcode.git"
+      local repo_url = "git@github.com:rmenai/leetcode.git"
 
       -- Sync repo on start
       if vim.fn.isdirectory(home_dir) == 0 then utils.sync_repo(home_dir, repo_url) end
