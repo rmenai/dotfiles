@@ -25,10 +25,32 @@ return {
 
       keymap = {
         preset = "enter",
-        ["<C-e>"] = { "show", "show_documentation", "hide_documentation" },
+        ["<A-space>"] = { "show", "show_documentation", "hide_documentation" },
+        ["<C-e>"] = { "hide" },
+        ["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
         ["<CR>"] = { "accept", "fallback" },
-        ["<Tab>"] = { "snippet_forward", "select_next", "fallback" },
-        ["<S-Tab>"] = { "snippet_backward", "select_prev", "fallback" },
+        ["<Tab>"] = {
+          function(cmp)
+            if not cmp.is_menu_visible() and cmp.is_ghost_text_visible() then
+              return cmp.cancel()
+            else
+              return cmp.select_next()
+            end
+          end,
+          "snippet_forward",
+          "fallback",
+        },
+        ["<S-Tab>"] = {
+          function(cmp)
+            if not cmp.is_menu_visible() and cmp.is_ghost_text_visible() then
+              return cmp.cancel()
+            else
+              return cmp.select_prev()
+            end
+          end,
+          "snippet_backward",
+          "fallback",
+        },
         ["<C-u>"] = { "scroll_documentation_up", "fallback" },
         ["<C-d>"] = { "scroll_documentation_down", "fallback" },
       },
@@ -39,21 +61,22 @@ return {
 
       completion = {
         menu = {
-          auto_show = true,
+          auto_show = false,
         },
         documentation = {
           auto_show = true,
-          auto_show_delay_ms = 250,
+          auto_show_delay_ms = 0,
         },
         ghost_text = {
           enabled = true,
+          show_with_menu = false,
         },
       },
 
       snippets = { preset = "luasnip" },
 
       sources = {
-        default = { "copilot", "lazydev", "lsp", "path", "snippets", "buffer", "emoji" },
+        default = { "copilot", "lsp", "lazydev", "snippets", "path", "buffer", "emoji" },
         providers = {
           lazydev = {
             name = "LazyDev",
@@ -69,11 +92,14 @@ return {
           emoji = {
             module = "blink-emoji",
             name = "Emoji",
-            score_offset = 15, -- Tune by preference
+            score_offset = 4,
             opts = {
               insert = true,
               trigger = function() return { ":" } end,
             },
+          },
+          buffer = {
+            score_offset = -8,
           },
           path = {
             opts = {
@@ -85,15 +111,10 @@ return {
 
       fuzzy = {
         implementation = "prefer_rust",
-        sorts = {
-          "exact",
-          "score",
-          "sort_text",
-        },
       },
 
       signature = {
-        enabled = true,
+        enabled = false,
         window = {
           show_documentation = true,
         },
