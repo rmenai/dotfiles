@@ -27,28 +27,26 @@ return {
         preset = "enter",
         ["<A-space>"] = { "show", "show_documentation", "hide_documentation" },
         ["<C-e>"] = { "hide" },
-        ["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
+        ["<C-S-K>"] = { "show_signature", "hide_signature", "fallback" },
         ["<CR>"] = { "accept", "fallback" },
         ["<Tab>"] = {
           function(cmp)
-            if not cmp.is_menu_visible() and cmp.is_ghost_text_visible() then
-              return cmp.cancel()
+            if cmp.snippet_active() then
+              return cmp.snippet_forward()
             else
               return cmp.select_next()
             end
           end,
-          "snippet_forward",
           "fallback",
         },
         ["<S-Tab>"] = {
           function(cmp)
-            if not cmp.is_menu_visible() and cmp.is_ghost_text_visible() then
-              return cmp.cancel()
+            if cmp.snippet_active() then
+              return cmp.snippet_backward()
             else
               return cmp.select_prev()
             end
           end,
-          "snippet_backward",
           "fallback",
         },
         ["<C-u>"] = { "scroll_documentation_up", "fallback" },
@@ -61,11 +59,17 @@ return {
 
       completion = {
         menu = {
-          auto_show = false,
+          auto_show = true,
+        },
+        list = {
+          selection = {
+            preselect = false,
+            auto_insert = false,
+          },
         },
         documentation = {
           auto_show = true,
-          auto_show_delay_ms = 0,
+          auto_show_delay_ms = 500,
         },
         ghost_text = {
           enabled = true,
@@ -121,12 +125,16 @@ return {
       },
 
       cmdline = {
-        keymap = {
-          ["<Tab>"] = { "show", "accept" },
-          ["<Down>"] = { "select_next", "fallback" },
-          ["<Up>"] = { "select_prev", "fallback" },
+        keymap = { preset = "inherit" },
+        completion = {
+          menu = { auto_show = true },
+          list = {
+            selection = {
+              preselect = false,
+              auto_insert = false,
+            },
+          },
         },
-        completion = { menu = { auto_show = true } },
       },
     },
     opts_extend = { "sources.default" },

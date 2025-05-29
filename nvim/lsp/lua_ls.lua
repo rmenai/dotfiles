@@ -27,6 +27,10 @@ return {
       diagnostics = {
         globals = { "vim" },
       },
+      completion = {
+        callSnippet = "Disable",
+        keywordSnippet = "Disable",
+      },
     },
   },
 }

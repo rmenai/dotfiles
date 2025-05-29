@@ -60,9 +60,6 @@ return {
     cmd = "Copilot",
     event = "InsertEnter",
     config = function()
-      vim.g.copilot_enabled = false
-      vim.cmd("Copilot disable")
-
       require("copilot").setup({
         suggestion = { enabled = false },
         panel = { enabled = false },
@@ -71,6 +68,9 @@ return {
           help = true,
         },
       })
+
+      vim.g.copilot_enabled = false
+      vim.cmd("Copilot disable")
     end,
   },
 
@@ -81,18 +81,6 @@ return {
       { "nvim-lua/plenary.nvim", branch = "master" },
     },
     build = "make tiktoken",
-    opts = {
-      mappings = {
-        submit_prompt = {
-          normal = "<CR>",
-          insert = "<C-CR>",
-        },
-        reset = {
-          normal = "<C-c>",
-          insert = "<C-c>",
-        },
-      },
-    },
     cmd = {
       "CopilotChat",
       "CopilotChatFix",
@@ -112,6 +100,18 @@ return {
       "CopilotChatExplain",
       "CopilotChatPrompts",
       "CopilotChatOptimize",
+    },
+    opts = {
+      mappings = {
+        submit_prompt = {
+          normal = "<CR>",
+          insert = "<C-CR>",
+        },
+        reset = {
+          normal = "<C-c>",
+          insert = "<C-c>",
+        },
+      },
     },
   },
 
