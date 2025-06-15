@@ -4,11 +4,11 @@
   ...
 }: {
   home.packages = with pkgs; [
-    python312Packages.debugpy
-    python312Packages.httpx
-    python312Packages.tiktoken
+    python311Packages.debugpy
+    python311Packages.httpx
+    python311Packages.tiktoken
     poethepoet
-    python312
+    python311
     ruff
   ];
 

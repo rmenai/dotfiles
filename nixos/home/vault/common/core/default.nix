@@ -10,6 +10,7 @@
 
     ./git.nix
     ./ssh.nix
+    ./mime.nix
   ];
 
   home = {

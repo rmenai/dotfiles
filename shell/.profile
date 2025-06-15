@@ -125,3 +125,15 @@ function s() {
   [[ -z "$session" ]] && return
   sesh connect "$session"
 }
+
+wtnvim() {
+  if [ "$1" = "" ]; then
+    echo "Usage: wtnvim <file>"
+    return 1
+  fi
+
+  wezterm cli spawn -- zsh -l -i -c "
+    cd \"$(dirname "$1")\" && \
+    nvim \"$(realpath "$1")\"; \
+    exec zsh"
+}

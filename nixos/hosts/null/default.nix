@@ -28,14 +28,17 @@ in {
     ../common/optional/podman.nix
     ../common/optional/vm.nix
 
-    # ../common/optional/services/printing.nix
     # ../common/optional/services/acpid.nix
-    ../common/optional/services/tailscale.nix
+    # ../common/optional/services/tailscale.nix
+    ../common/optional/services/display.nix
+    ../common/optional/services/input.nix
     ../common/optional/services/bluetooth.nix
+    ../common/optional/services/printing.nix
     ../common/optional/services/openssh.nix
+    ../common/optional/services/sound.nix
     ../common/optional/services/tlp.nix
 
-    ../common/optional/containers
+    # ../common/optional/containers
     # ../common/apps/hotspot.nix
 
     # User config
@@ -68,6 +71,21 @@ in {
   # boot.blacklistedKernelModules = ["nouveau"];
 
   networking.useNetworkd = true;
+  systemd.network.enable = true;
+
+  # systemd.network.netdevs."10-void" = {
+  #   netdevConfig = {
+  #     Kind = "bridge";
+  #     Name = "void";
+  #   };
+  # };
+  #
+  # systemd.network.networks."10-void" = {
+  #   matchConfig.Name = "void";
+  #   networkConfig = {
+  #     Address = "10.10.10.1/24";
+  #   };
+  # };
 
   systemd.network.networks."10-wlp0s20f3" = {
     matchConfig.Name = "wlp0s20f3";

@@ -20,19 +20,18 @@ in {
     shell = pkgs.zsh;
     extraGroups = lib.flatten [
       "wheel"
-      (ifTheyExist [
-        "audio"
-        "video"
-        "docker"
-        "podman"
-        "git"
-        "networkmanager"
-        "tss"
-        "libvirtd"
-        "vboxusers"
-        "scanner" # for print/scan"
-        "lp" # for print/scan"
-      ])
+      "input"
+      "audio"
+      "video"
+      "docker"
+      "podman"
+      "git"
+      "networkmanager"
+      "tss"
+      "libvirtd"
+      "vboxusers"
+      "scanner"
+      "lp"
     ];
 
     openssh.authorizedKeys.keys = [

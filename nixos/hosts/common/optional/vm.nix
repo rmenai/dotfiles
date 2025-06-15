@@ -3,8 +3,15 @@
   virtualisation.libvirtd.qemu.vhostUserPackages = [pkgs.virtiofsd];
   virtualisation.spiceUSBRedirection.enable = true;
 
-  virtualisation.virtualbox.host.enable = true;
-  virtualisation.virtualbox.host.enableExtensionPack = true;
+  virtualisation.virtualbox.host = {
+    enable = true;
+    enableKvm = true;
+    enableExtensionPack = true;
+    enableHardening = false;
+    addNetworkInterface = false;
+  };
+
+  virtualisation.waydroid.enable = true;
 
   services.spice-vdagentd.enable = true;
   programs.virt-manager.enable = true;
@@ -21,6 +28,7 @@
   environment.persistence."/persist/system" = {
     directories = [
       "/var/lib/libvirt"
+      "/var/lib/waydroid"
       "/etc/vbox"
     ];
   };

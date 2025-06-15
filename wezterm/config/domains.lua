@@ -12,7 +12,7 @@ Config.ssh_domains = {
     name = "flare",
     remote_address = "10.10.10.8",
     username = "vault",
-    multiplexing = "WezTerm",
+    multiplexing = "None",
   },
 }
 
