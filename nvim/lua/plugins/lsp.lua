@@ -49,6 +49,8 @@ return {
         "lua_ls",
         "tailwindcss",
         "emmet_ls",
+        "texlab",
+        "tinymist",
       })
     end,
   },
@@ -61,5 +63,12 @@ return {
         { path = "${3rd}/luv/library", words = { "vim%.uv" } },
       },
     },
+  },
+
+  {
+    "chomosuke/typst-preview.nvim",
+    ft = "typst",
+    version = "1.*",
+    opts = {},
   },
 }

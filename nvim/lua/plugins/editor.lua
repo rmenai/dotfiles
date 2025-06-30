@@ -6,9 +6,9 @@ return {
     ft = { "tex", "plaintex" },
     cmd = { "VimtexInfo", "VimtexCompile", "VimtexStopAll", "VimtexReload" },
     init = function()
-      vim.g.vimtex_view_method = "sioyek"
-      vim.g.vimtex_view_sioyek_exe = "sioyek.exe"
-      vim.g.vimtex_callback_progpath = "wsl nvim"
+      vim.g.vimtex_view_method = "zathura"
+      -- vim.g.vimtex_view_sioyek_exe = "sioyek.exe"
+      -- vim.g.vimtex_callback_progpath = "wsl nvim"
     end,
   },
   -- LANGUAGE SPECIFIC
@@ -105,6 +105,7 @@ return {
       npairs.setup({})
       npairs.get_rules("'")[1].not_filetypes = { "scheme", "lisp", "ocaml" }
       npairs.add_rule(Rule("'", "'"):with_pair(cond.not_filetypes({ "ocaml" })))
+      npairs.add_rule(Rule("$", "$", { "tex", "latex", "typ", "typst" }):with_pair())
     end,
   },
   {

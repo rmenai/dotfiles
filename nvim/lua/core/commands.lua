@@ -17,7 +17,7 @@ end
 local function is_rust_project() return vim.fn.glob("./Cargo.toml") ~= "" or vim.fn.expand("%:e") == "rs" end
 
 local function CompilerChoose()
-  local filetype = vim.api.nvim_buf_get_option(0, "filetype")
+  local filetype = vim.api.nvim_get_option_value("filetype", { buf = 0 })
   if filetype == "NvimTree" then vim.cmd("wincmd l") end
 
   local telescope = require("telescope.builtin")
@@ -25,6 +25,11 @@ local function CompilerChoose()
 
   if vim.fn.expand("%:e") == "tex" then
     telescope.commands({ default_text = "Vimtex" })
+    return
+  end
+
+  if vim.fn.expand("%:e") == "typ" then
+    M.typst_picker()
     return
   end
 
@@ -57,6 +62,11 @@ local function CompilerRun()
 
     if vim.fn.expand("%:e") == "tex" then
       vim.cmd.VimtexCompile()
+      return
+    end
+
+    if vim.fn.expand("%:e") == "typ" then
+      vim.cmd("!xdg-open " .. vim.fn.expand("%:r") .. ".pdf &")
       return
     end
 
@@ -112,8 +122,8 @@ M.games_picker = function()
       sorter = conf.generic_sorter({}),
       attach_mappings = function(_, map)
         map("i", "<CR>", function(bufnr)
-          local selection = action_state.get_selected_entry(bufnr)
           actions.close(bufnr)
+          local selection = action_state.get_selected_entry()
           vim.cmd(selection.value)
         end)
         return true
@@ -160,6 +170,42 @@ M.copilot_picker = function()
       prompt_title = "Copilot Chat Commands",
       finder = finders.new_table({
         results = results,
+        entry_maker = function(entry)
+          return {
+            value = entry[2],
+            display = entry[1],
+            ordinal = entry[1],
+          }
+        end,
+      }),
+      sorter = conf.generic_sorter({}),
+      attach_mappings = function(_, map)
+        map("i", "<CR>", function(bufnr)
+          actions.close(bufnr)
+          local selection = action_state.get_selected_entry()
+          vim.cmd(selection.value)
+        end)
+        return true
+      end,
+    })
+    :find()
+end
+
+M.typst_picker = function()
+  local actions = require("telescope.actions")
+  local action_state = require("telescope.actions.state")
+  local pickers = require("telescope.pickers")
+  local finders = require("telescope.finders")
+  local conf = require("telescope.config").values
+
+  pickers
+    .new({}, {
+      prompt_title = "Typst Actions",
+      finder = finders.new_table({
+        results = {
+          { "Open PDF", "!xdg-open " .. vim.fn.expand("%:r") .. ".pdf &" },
+          { "Preview typst file", "TypstPreview" },
+        },
         entry_maker = function(entry)
           return {
             value = entry[2],

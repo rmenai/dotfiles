@@ -8,9 +8,9 @@ return {
         formatters_by_ft = {
           yaml = { "prettier" },
           markdown = { "markdownlint" },
-          bash = { "shellharden" },
-          zsh = { "shellharden" },
-          sh = { "shellharden" },
+          -- bash = { "shellharden" },
+          -- zsh = { "shellharden" },
+          -- sh = { "shellharden" },
           lua = { "stylua" },
           nix = { "alejandra" },
           python = {
@@ -22,6 +22,7 @@ return {
           cpp = { "clang-format" },
           assembly = { "asmfmt" },
           ocaml = { "ocamlformat" },
+          tex = { "tex-fmt" },
         },
         default_format_opts = {
           lsp_format = "fallback",
