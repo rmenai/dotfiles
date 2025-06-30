@@ -86,3 +86,7 @@ codeforces.session
 obs-studio/*
 !obs-studio/themes/
 !obs-studio/themes/**
+
+BetterDiscord/*
+!BetterDiscord/themes/
+!BetterDiscord/themes/**
