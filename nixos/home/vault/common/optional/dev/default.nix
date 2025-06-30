@@ -10,6 +10,7 @@
     bash-language-server
     lua-language-server
     markdownlint-cli
+    nodejs_22
     typst
     tinymist
     typstyle
