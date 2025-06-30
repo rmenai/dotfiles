@@ -4,6 +4,7 @@ f38ba8 = "f38ba8"
 
 [default.extend-words]
 crypted = "crypted"
+typ = "typ"
 edn = "edn"
 styl = "styl"
 ue = "ue"

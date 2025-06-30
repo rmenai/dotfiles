@@ -24,7 +24,7 @@ fi
 
 # General environment variables
 export EDITOR="nvim" SUDO_EDITOR="nvim"
-export HISTFILE="$HOME/.histfile" HISTSIZE=1000 SAVEHIST=1000
+# export HISTFILE="$HOME/.histfile" HISTSIZE=1000 SAVEHIST=1000
 
 if [ "$ZSH_VERSION" != "" ]; then
   setopt SHARE_HISTORY

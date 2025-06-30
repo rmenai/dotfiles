@@ -59,12 +59,16 @@ ZVM_CURSOR_STYLE_ENABLED=true
 # Plugin Installation & Turbo Loading
 #############################
 
+export HISTORY_BASE="${XDG_DATA_HOME:-${HOME}/.local/share}/zsh/history"
+export HISTFILE="${XDG_DATA_HOME:-${HOME}/.local/share}/zsh/.histfile"
+
 zplug "romkatv/powerlevel10k", as:theme, depth:1
 zplug "jeffreytse/zsh-vi-mode"
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zdharma-continuum/fast-syntax-highlighting", defer:2
 zplug "~/.zfunc", from:local, as:plugin, use:"*"
 zplug "zsh-users/zsh-completions"
+zplug "jimhester/per-directory-history"
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
