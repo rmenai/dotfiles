@@ -59,13 +59,12 @@ scan_on() {
 # Toggles scanning state
 toggle_scan() {
     if scan_on; then
-        kill "$(pgrep -f "bluetoothctl scan on")"
+        kill $(pgrep -f "bluetoothctl --timeout 5 scan on")
         bluetoothctl scan off
         show_menu
     else
-        bluetoothctl scan on &
+        bluetoothctl --timeout 5 scan on
         echo "Scanning..."
-        sleep 5
         show_menu
     fi
 }
@@ -193,14 +192,14 @@ print_status() {
             paired_devices_cmd="paired-devices"
         fi
 
-        mapfile -t paired_devices < <(bluetoothctl "$paired_devices_cmd" | grep Device | cut -d ' ' -f 2)
+        mapfile -t paired_devices < <(bluetoothctl $paired_devices_cmd | grep Device | cut -d ' ' -f 2)
         counter=0
 
         for device in "${paired_devices[@]}"; do
             if device_connected "$device"; then
                 device_alias=$(bluetoothctl info "$device" | grep "Alias" | cut -d ' ' -f 2-)
 
-                if [ "$counter" -gt 0 ]; then
+                if [ $counter -gt 0 ]; then
                     printf ", %s" "$device_alias"
                 else
                     printf " %s" "$device_alias"
@@ -234,7 +233,7 @@ device_menu() {
     options="$connected\n$paired\n$trusted\n$divider\n$goback\nExit"
 
     # Open rofi menu, read chosen option
-    chosen="$(echo -e "$options" | "$rofi_command" "$device_name")"
+    chosen="$(echo -e "$options" | $rofi_command "$device_name")"
 
     # Match chosen option to command
     case "$chosen" in
@@ -279,7 +278,7 @@ show_menu() {
     fi
 
     # Open rofi menu, read chosen option
-    chosen="$(echo -e "$options" | "$rofi_command" "Bluetooth")"
+    chosen="$(echo -e "$options" | $rofi_command "Bluetooth")"
 
     # Match chosen option to command
     case "$chosen" in
@@ -307,7 +306,9 @@ show_menu() {
 }
 
 # Rofi command to pipe into, can add any options here
-rofi_command="rofi -dmenu $* -theme ${dir}/${theme}.rasi -p \"󰂯\" "
+rofi_command="rofi -dmenu $* -theme ${dir}/${theme}.rasi -p 󰂯 "
+# rofi_command="rofi -dmenu $* -p"
+# rofi_command="rofi -dmenu $* -p"
 
 case "$1" in
     --status)
