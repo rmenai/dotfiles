@@ -15,8 +15,8 @@
 
   persist = {
     home = {
-      ".cache/wezterm" = lib.mkDefault true;
-      ".local/share/wezterm" = lib.mkDefault true;
+      # ".cache/wezterm" = lib.mkDefault true;
+      # ".local/share/wezterm" = lib.mkDefault true;
     };
   };
 }

@@ -7,7 +7,7 @@
 
   persist = {
     home = {
-      ".local/share/zoxide" = lib.mkDefault true;
+      # ".local/share/zoxide" = lib.mkDefault true;
     };
   };
 }

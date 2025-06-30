@@ -21,7 +21,7 @@
 
   persist = {
     home = {
-      ".local/state/yazi" = lib.mkDefault true;
+      # ".local/state/yazi" = lib.mkDefault true;
     };
   };
 }

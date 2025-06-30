@@ -38,10 +38,10 @@
       ".cargo" = lib.mkDefault true;
       ".rustup" = lib.mkDefault true;
       ".opam" = lib.mkDefault true;
-      ".cache/js-v8flags" = lib.mkDefault true;
-      ".cache/node-gyp" = lib.mkDefault true;
-      ".cache/luarocks" = lib.mkDefault true;
-      ".cache/dune" = lib.mkDefault true;
+      # ".cache/js-v8flags" = lib.mkDefault true;
+      # ".cache/node-gyp" = lib.mkDefault true;
+      # ".cache/luarocks" = lib.mkDefault true;
+      # ".cache/dune" = lib.mkDefault true;
     };
   };
 }

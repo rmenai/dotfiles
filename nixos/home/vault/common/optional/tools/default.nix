@@ -3,6 +3,7 @@
     ./blender.nix
     ./obsidian.nix
     ./steam.nix
-    ./audacity.nix
+    ./zathura.nix
+    ./media.nix
   ];
 }

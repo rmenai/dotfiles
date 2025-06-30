@@ -20,9 +20,9 @@
 
   persist = {
     home = {
-      ".local/share/zplug" = lib.mkDefault true;
-      ".cache/fsh" = lib.mkDefault true;
-      ".cache/p10k-${config.hostSpec.username}" = lib.mkDefault true;
+      # ".local/share/zplug" = lib.mkDefault true;
+      # ".cache/fsh" = lib.mkDefault true;
+      # ".cache/p10k-${config.hostSpec.username}" = lib.mkDefault true;
     };
   };
 

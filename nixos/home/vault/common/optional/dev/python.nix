@@ -14,8 +14,8 @@
 
   persist = {
     home = {
-      ".cache/pip" = lib.mkDefault true;
-      ".cache/pypoetry" = lib.mkDefault true;
+      # ".cache/pip" = lib.mkDefault true;
+      # ".cache/pypoetry" = lib.mkDefault true;
     };
   };
 }

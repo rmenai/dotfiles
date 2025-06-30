@@ -20,9 +20,9 @@
 
   persist = {
     home = {
-      ".local/share/nvim" = lib.mkDefault true;
-      ".local/state/nvim" = lib.mkDefault true;
-      ".cache/nvim" = lib.mkDefault true;
+      # ".local/share/nvim" = lib.mkDefault true;
+      # ".local/state/nvim" = lib.mkDefault true;
+      # ".cache/nvim" = lib.mkDefault true;
       ".vimgolf" = lib.mkDefault true;
     };
   };

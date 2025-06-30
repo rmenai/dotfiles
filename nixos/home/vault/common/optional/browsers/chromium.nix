@@ -15,8 +15,8 @@
 
   persist = {
     home = {
-      ".config/chromium" = lib.mkDefault true;
-      ".cache/chromium" = lib.mkDefault true;
+      # ".config/chromium" = lib.mkDefault true;
+      # ".cache/chromium" = lib.mkDefault true;
     };
   };
 }

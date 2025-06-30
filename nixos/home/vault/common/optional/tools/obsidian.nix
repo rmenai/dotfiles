@@ -9,7 +9,7 @@
 
   persist = {
     home = {
-      ".config/obsidian" = lib.mkDefault true;
+      # ".config/obsidian" = lib.mkdefault true;
     };
   };
 }

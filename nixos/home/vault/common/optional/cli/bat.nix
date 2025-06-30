@@ -31,7 +31,7 @@
 
   persist = {
     home = {
-      ".cache/bat" = lib.mkDefault true;
+      # ".cache/bat" = lib.mkDefault true;
     };
   };
 }

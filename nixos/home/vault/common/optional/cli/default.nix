@@ -20,7 +20,6 @@
 
   home.packages = with pkgs; [
     ripgrep
-    wl-clipboard
     xclip
     xsel
     undollar

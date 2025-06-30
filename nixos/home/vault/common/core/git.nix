@@ -16,10 +16,10 @@
 
   persist = {
     home = {
-      ".config/gh" = lib.mkDefault true;
-      ".cache/gh" = lib.mkDefault true;
-      ".local/share/gh" = lib.mkDefault true;
-      ".cache/gitstatus" = lib.mkDefault true;
+      # ".config/gh" = lib.mkDefault true;
+      # ".cache/gh" = lib.mkDefault true;
+      # ".local/share/gh" = lib.mkDefault true;
+      # ".cache/gitstatus" = lib.mkDefault true;
     };
   };
 }

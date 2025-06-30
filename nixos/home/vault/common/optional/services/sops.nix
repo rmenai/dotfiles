@@ -28,7 +28,7 @@ in {
 
   persist = {
     home = {
-      ".config/sops" = lib.mkDefault true;
+      # ".config/sops" = lib.mkDefault true;
     };
   };
 }

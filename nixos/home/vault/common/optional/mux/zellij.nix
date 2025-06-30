@@ -13,7 +13,7 @@
 
   persist = {
     home = {
-      ".cache/zellij" = lib.mkDefault true;
+      # ".cache/zellij" = lib.mkDefault true;
     };
   };
 }

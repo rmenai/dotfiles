@@ -17,6 +17,7 @@
   environment.systemPackages = with pkgs; [
     steam-run
     mangohud
+    gamescope
     itch
 
     (pkgs.writeShellScriptBin "gamerun" ''

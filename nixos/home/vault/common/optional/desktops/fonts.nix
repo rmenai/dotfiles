@@ -15,7 +15,7 @@
 
   persist = {
     home = {
-      ".cache/fontconfig" = lib.mkDefault true;
+      # ".cache/fontconfig" = lib.mkDefault true;
     };
   };
 }

@@ -7,9 +7,9 @@
     discord
   ];
 
-  persist = {
-    home = {
-      ".config/discord" = lib.mkDefault true;
+  dotfiles = {
+    files = {
+      ".config/BetterDiscord" = lib.mkDefault "BetterDiscord";
     };
   };
 }

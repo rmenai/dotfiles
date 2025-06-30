@@ -9,8 +9,8 @@
 
   persist = {
     home = {
-      ".local/share/whatsapp-for-linux" = lib.mkDefault true;
-      ".cache/whatsapp-for-linux" = lib.mkDefault true;
+      # ".local/share/whatsapp-for-linux" = lib.mkDefault true;
+      # ".cache/whatsapp-for-linux" = lib.mkDefault true;
     };
   };
 }

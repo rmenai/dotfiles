@@ -17,7 +17,7 @@
   programs.virt-manager.enable = true;
 
   # https://www.rodolfocarvalho.net/blog/resize-disk-vagrant-libvirt/
-  boot.kernelModules = ["kvm-intel" "9p" "9pnet" "9pnet_virtio"];
+  boot.kernelModules = ["9p" "9pnet" "9pnet_virtio"];
   boot.extraModprobeConfig = "options kvm_intel nested=1";
 
   environment.sessionVariables = {

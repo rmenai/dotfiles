@@ -16,7 +16,7 @@
   persist = {
     home = {
       ".mozilla/firefox" = lib.mkDefault true;
-      ".cache/mozilla/firefox" = lib.mkDefault true;
+      # ".cache/mozilla/firefox" = lib.mkDefault true;
     };
   };
 }

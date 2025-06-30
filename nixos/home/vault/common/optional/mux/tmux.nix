@@ -17,7 +17,7 @@
 
   persist = {
     home = {
-      ".local/share/tmux" = lib.mkDefault true;
+      # ".local/share/tmux" = lib.mkDefault true;
     };
   };
 }

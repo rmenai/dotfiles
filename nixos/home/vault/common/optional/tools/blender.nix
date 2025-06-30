@@ -9,7 +9,7 @@
 
   persist = {
     home = {
-      ".config/blender" = lib.mkDefault true;
+      # ".config/blender" = lib.mkDefault true;
     };
   };
 }

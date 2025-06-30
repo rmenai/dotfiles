@@ -33,18 +33,20 @@
   programs.home-manager.enable = true;
   systemd.user.startServices = "sd-switch";
 
-  persist = {
-    home = {
-      ".vagrant.d" = lib.mkDefault true;
-      ".config/virt-viewer" = lib.mkDefault true;
-      ".config/VirtualBox" = lib.mkDefault true;
-      ".config/packer" = lib.mkDefault true;
-    };
-  };
-
   dotfiles = {
     files = {
       ".config/nixos" = lib.mkDefault "nixos";
+      ".config/easyeffects" = lib.mkDefault "easyeffects";
+      ".config/obs-studio" = lib.mkDefault "obs-studio";
+    };
+  };
+
+  persist = {
+    home = {
+      ".vagrant.d" = lib.mkDefault true;
+      # ".config/virt-viewer" = lib.mkDefault true;
+      # ".config/VirtualBox" = lib.mkDefault true;
+      # ".config/packer" = lib.mkDefault true;
     };
   };
 }
