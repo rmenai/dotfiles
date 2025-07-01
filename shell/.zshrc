@@ -5,7 +5,9 @@
 # Load custom configuration files
 source "$HOME/.config/zsh/catppuccin_mocha-fzf.zsh"
 
-eval "$(gh copilot alias -- zsh)"
+if command -v gh &> /dev/null; then
+  eval "$(gh copilot alias -- zsh)"
+fi
 
 # Initialize zoxide if installed
 if command -v zoxide &> /dev/null; then
@@ -16,6 +18,11 @@ fi
 if command -v direnv &> /dev/null; then
   eval "$(direnv hook zsh)"
 fi
+
+if command -v fnm &> /dev/null; then
+  eval "$(fnm env --use-on-cd --shell zsh)"
+fi
+
 
 #############################
 # ZINIT & Plugin Manager Setup
@@ -97,8 +104,12 @@ if [ -d ~/.cargo/bin ]; then
   export PATH=$PATH:~/.cargo/bin/
 fi
 
+if [ -d ~/.local/bin ]; then
+  export PATH=$PATH:~/.local/bin
+fi
+
 # Source OPAM init if available
-[[ ! -r '~/.opam/opam-init/init.zsh' ]] || source '~/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
+[[ ! -r "$HOME/.opam/opam-init/init.zsh" ]] || source "$HOME/.opam/opam-init/init.zsh" > /dev/null 2> /dev/null
 
 #############################
 # Powerlevel10k Prompt Configuration

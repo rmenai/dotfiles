@@ -4,13 +4,12 @@
   ...
 }: {
   home.packages = with pkgs; [
-    bun
-    eslint
+    fnm
   ];
 
   persist = {
     home = {
-      # ".cache/node-gyp" = lib.mkDefault true;
+      ".bun" = lib.mkDefault true;
     };
   };
 }

@@ -1,33 +1,36 @@
-{
-  pkgs,
-  lib,
-  ...
-}: {
+{pkgs, ...}: {
+  imports = [
+    ./ide.nix
+    ./godot.nix
+    ./android.nix
+    ./node.nix
+    ./ocaml.nix
+    ./python.nix
+    ./rust.nix
+  ];
+
   home.packages = with pkgs; [
     devenv
     direnv
-    shellharden
-    bash-language-server
-    lua-language-server
-    markdownlint-cli
-    nodejs_22
-    typst
-    tinymist
-    typstyle
-    texlab
+    gnumake
+    gcc
+    luajit
     nixd
-    aoc-cli
-    godot
-    mold
-  ];
 
-  persist = {
-    home = {
-      # ".cache/pre-commit" = lib.mkDefault true;
-      # ".cache/lua-language-server" = lib.mkDefault true;
-      # ".config/github-copilot" = lib.mkDefault true;
-      # ".local/share/devenv" = lib.mkDefault true;
-      ".bun" = lib.mkDefault true;
-    };
-  };
+    # shellharden
+    # bash-language-server
+    # lua-language-server
+    # markdownlint-cli
+    # typst
+    # tinymist
+    # typstyle
+    # texlab
+    # lldb_19
+    # stylua
+    # cpplint
+    # alejandra
+    # asmfmt
+    # clang-tools
+    # mold
+  ];
 }
