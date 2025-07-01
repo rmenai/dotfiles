@@ -7,30 +7,26 @@
     ./ocaml.nix
     ./python.nix
     ./rust.nix
+    ./latex.nix
   ];
 
   home.packages = with pkgs; [
     devenv
     direnv
-    gnumake
-    gcc
-    luajit
-    nixd
 
-    # shellharden
-    # bash-language-server
-    # lua-language-server
-    # markdownlint-cli
-    # typst
-    # tinymist
-    # typstyle
-    # texlab
-    # lldb_19
-    # stylua
-    # cpplint
-    # alejandra
-    # asmfmt
-    # clang-tools
-    # mold
+    gcc
+    gnumake
+    mold
+
+    luajit
+    clang-tools
+    nixd
+    shellharden
+    markdownlint-cli
+    lldb_19
+    stylua
+    cpplint
+    alejandra
+    asmfmt
   ];
 }
