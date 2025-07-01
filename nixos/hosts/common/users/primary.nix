@@ -4,9 +4,7 @@
   config,
   lib,
   ...
-}: let
-  ifTheyExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
-in {
+}: {
   sops.secrets."keys/vault/nullp/account_hash".neededForUsers = true;
   users.mutableUsers = false;
 
@@ -32,6 +30,8 @@ in {
       "vboxusers"
       "scanner"
       "lp"
+      "kvm"
+      "adbusers"
     ];
 
     openssh.authorizedKeys.keys = [

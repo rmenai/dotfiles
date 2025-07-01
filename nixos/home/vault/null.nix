@@ -18,6 +18,7 @@
     common/optional/cli
 
     common/optional/dev
+    common/optional/dev/jetbrains.nix
     common/optional/dev/python.nix
     common/optional/dev/javascript.nix
     common/optional/dev/full.nix

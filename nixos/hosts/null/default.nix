@@ -27,6 +27,7 @@ in {
     ../common/optional/podman.nix
     ../common/optional/vm.nix
     ../common/optional/obs.nix
+    ../common/optional/adb.nix
 
     # ../common/optional/services/acpid.nix
     # ../common/optional/services/tailscale.nix
