@@ -10,6 +10,7 @@
     poethepoet
     python311
     ruff
+    uv
   ];
 
   persist = {

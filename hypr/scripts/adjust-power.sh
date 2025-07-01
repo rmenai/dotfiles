@@ -11,7 +11,8 @@ while true; do
       pkill hypridle || true
       hypridle -c ~/.config/hypr/hypridle.power.conf &>/dev/null &
     else
-      hyprctl keyword monitor "eDP-1, highres@highrr, 0x0, 1.6"
+      # hyprctl keyword monitor "eDP-1, highres@highrr, 0x0, 1.6"
+      hyprctl keyword monitor "eDP-1, 1920x1200@60, 0x0, 1"
       pkill hypridle || true
       hypridle -c ~/.config/hypr/hypridle.conf &>/dev/null &
     fi
