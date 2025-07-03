@@ -8,6 +8,7 @@
     ./python.nix
     ./rust.nix
     ./latex.nix
+    ./ai.nix
   ];
 
   home.packages = with pkgs; [

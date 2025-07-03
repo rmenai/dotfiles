@@ -33,7 +33,7 @@
       ".nixops" = lib.mkDefault true;
       ".cache" = lib.mkDefault true;
       ".config" = lib.mkDefault true;
-      ".local/share" = lib.mkDefault true;
+      ".local" = lib.mkDefault true;
 
       # ".local/share/keyrings" = lib.mkDefault true;
       # ".local/share/direnv" = lib.mkDefault true;

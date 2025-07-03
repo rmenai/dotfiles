@@ -97,6 +97,8 @@ in {
     10.10.10.8  flare
   '';
 
+  networking.firewall.allowedTCPPorts = [8080];
+
   environment = {
     systemPackages = with pkgs; [
       ep
