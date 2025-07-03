@@ -269,3 +269,4 @@ map("n", "<Leader><space>l", function()
 end, { desc = "Toggle LSP" })
 
 map("n", "<Leader><space>t", function() vim.cmd("TailwindConcealToggle") end, { desc = "Toggle LSP" })
+map("n", "<Leader><space>f", function() vim.cmd("FormatToggle") end, { desc = "Toggle Format" })
