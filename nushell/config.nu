@@ -8,7 +8,6 @@ def "hrs" [] { home-manager switch --flake $"($env.HOME)/.config/nixos#vault@(ho
 def "hrb" [] { home-manager build --flake $"($env.HOME)/.config/nixos#vault@(hostname)" }
 
 alias hibernate = systemctl hibernate
-alias rm = rm -I
 
 # Standard ls aliases
 alias ll = ls -l
@@ -48,14 +47,14 @@ alias "?" = gh copilot suggest
 alias "??" = gh copilot explain
 
 # Yazi function
-def y [...args] {
-    let tmp = (mktemp -t "yazi-cwd.XXXXXX")
-    yazi ...$args --cwd-file=$tmp
-    let cwd = (open $tmp | str trim)
-    if ($cwd != "" and $cwd != $env.PWD) {
-        cd $cwd
-    }
-    rm -f $tmp
+def --env y [...args] {
+	let tmp = (mktemp -t "yazi-cwd.XXXXXX")
+	yazi ...$args --cwd-file $tmp
+	let cwd = (open $tmp)
+	if $cwd != "" and $cwd != $env.PWD {
+		cd $cwd
+	}
+	rm -fp $tmp
 }
 
 # Sesh function
