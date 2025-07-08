@@ -36,6 +36,7 @@
   dotfiles = {
     files = {
       ".config/btop" = lib.mkDefault "btop";
+      ".config/atuin" = lib.mkDefault "atuin";
     };
   };
 }

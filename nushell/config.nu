@@ -36,6 +36,13 @@ alias tksv = tmux kill-server
 alias tl = tmux list-sessions
 alias ts = tmux new-session -s
 
+alias a = atuin
+alias ast = atuin stats
+alias asr = atuin scripts run
+alias asn = atuin scripts new
+alias asd = atuin scripts delete
+alias asl = atuin scripts list
+
 # gh dependent aliases
 alias "?" = gh copilot suggest
 alias "??" = gh copilot explain
@@ -138,14 +145,6 @@ $env.config.cursor_shape = {
     vi_normal: block
 }
 
-$env.config.history = {
-    max_size: 100_000
-    sync_on_enter: true
-    file_format: "sqlite"
-    isolation: false
-    # history_file_on_exit: "~/.local/share/nushell/history.sqlite3"
-}
-
 $env.config.hooks.command_not_found = { |command_name|
     print (command-not-found $command_name | str trim)
 }
@@ -159,6 +158,10 @@ if not ($starship_config_path | path exists) {
     mkdir ($starship_config_path | path dirname)
     starship init nu | save -f $starship_config_path
 }
+
+
+source nu_scripts/aliases/git/git-aliases.nu
+source nu_scripts/aliases/bat/bat-aliases.nu
 
 source nu_scripts/themes/nu-themes/catppuccin-mocha.nu
 source nu_scripts/nu-hooks/nu-hooks/rusty-paths/rusty-paths.nu
@@ -182,3 +185,4 @@ source nu_scripts/modules/docker/mod.nu
 
 source ~/.cache/carapace/init.nu
 source ~/.local/share/zoxide/zoxide.nu
+source ~/.local/share/atuin/init.nu

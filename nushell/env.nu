@@ -25,16 +25,19 @@ $env.PATH = (
 # Editor configuration
 $env.EDITOR = "nvim"; $env.SUDO_EDITOR = "nvim"
 
-# History configuration
-$env.HISTORY_BASE = ($nu.data-dir | path join "history")
-
 # Set MANPAGER only if bat is installed
 $env.MANPAGER = "sh -c 'col -bx | bat -l man -p'"
 
 # Carapace
-$env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense'
-mkdir ~/.cache/carapace
-carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
+if not ("~/.cache/carapace/init.nu" | path expand | path exists) {
+    mkdir ~/.cache/carapace
+    carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
+}
+
+if not ("~/.local/share/atuin/init.nu" | path expand | path exists) {
+    mkdir ~/.local/share/atuin
+    atuin init nu | save --force ~/.local/share/atuin/init.nu
+}
 
 # Zoxide
 if not ("~/.local/share/zoxide/zoxide.nu" | path expand | path exists) {
