@@ -4,10 +4,16 @@
   ...
 }: {
   boot.initrd.systemd.services.btrfs-rollback = {
-    description = "Rollback BTRFS root";
+    description = "Rollback BTRFS root (skip on hibernation resume)";
     wantedBy = ["initrd.target"];
-    after = ["initrd-root-device.target"];
-    before = ["sysroot.mount"];
+    after = [
+      "initrd-root-device.target"
+      "local-fs-pre.target"
+    ];
+    before = [
+      "sysroot.mount"
+      "create-needed-for-boot-dirs.service"
+    ];
     unitConfig.DefaultDependencies = "no";
     serviceConfig.Type = "oneshot";
     script = ''
@@ -37,6 +43,8 @@
   };
 
   fileSystems."/persist".neededForBoot = true;
+  fileSystems."/var/lib/sbctl".neededForBoot = true;
+
   environment.persistence."/persist/system" = {
     hideMounts = true;
     directories = [
@@ -45,6 +53,7 @@
       "/var/lib/nixos"
       "/var/lib/systemd/coredump"
       "/var/lib/systemd"
+      "/var/lib/sbctl"
       "/root"
       {
         directory = "/var/lib/colord";

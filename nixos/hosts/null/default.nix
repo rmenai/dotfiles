@@ -16,7 +16,7 @@ in {
     # Disk config
     ../common/disks/btrfs-luks-impermanence.nix
     ../common/disks/impermanence.nix
-    ../common/disks/secure-boot.nix
+    ../common/disks/hibernation.nix
     ../common/disks/tpm.nix
 
     # Host config

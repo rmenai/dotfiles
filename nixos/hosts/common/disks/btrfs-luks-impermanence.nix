@@ -91,7 +91,4 @@
   };
 
   swapDevices = [{device = "/.swapvol/swapfile";}];
-
-  boot.resumeDevice = "/dev/mapper/root_vg-root";
-  boot.kernelParams = ["resume_offset=533760"];
 }

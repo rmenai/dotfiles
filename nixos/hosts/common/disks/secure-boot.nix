@@ -14,12 +14,4 @@
     enable = true;
     pkiBundle = "/var/lib/sbctl";
   };
-
-  environment.persistence."/persist/system" = {
-    directories = [
-      "/var/lib/sbctl"
-    ];
-  };
-
-  fileSystems."/var/lib/sbctl".neededForBoot = true;
 }

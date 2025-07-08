@@ -8,6 +8,7 @@ def "hrs" [] { home-manager switch --flake $"($env.HOME)/.config/nixos#vault@(ho
 def "hrb" [] { home-manager build --flake $"($env.HOME)/.config/nixos#vault@(hostname)" }
 
 alias hibernate = systemctl hibernate
+alias suspend = systemctl suspend
 
 # Standard ls aliases
 alias ll = ls -l
