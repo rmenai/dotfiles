@@ -18,14 +18,19 @@
     enableZshIntegration = true;
   };
 
+  programs.ncspot.enable = true;
+
   home.packages = with pkgs; [
     ripgrep
     xclip
     xsel
-    undollar
     btop
     unzip
     zip
+
+    tokei
+    ripgrep-all
+    atuin
   ];
 
   dotfiles = {
