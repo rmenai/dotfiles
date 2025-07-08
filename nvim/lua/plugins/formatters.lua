@@ -11,6 +11,7 @@ return {
           -- bash = { "shellharden" },
           -- zsh = { "shellharden" },
           -- sh = { "shellharden" },
+          nu = { "nufmt" },
           lua = { "stylua" },
           nix = { "alejandra" },
           python = {

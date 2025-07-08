@@ -51,6 +51,7 @@ return {
         "emmet_ls",
         "texlab",
         "tinymist",
+        "nushell",
       })
     end,
   },
