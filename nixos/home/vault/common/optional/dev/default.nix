@@ -9,11 +9,17 @@
     ./rust.nix
     ./latex.nix
     ./ai.nix
+    ./r.nix
   ];
 
   home.packages = with pkgs; [
     devenv
     direnv
+    jc
+
+    dua
+    hyperfine
+    dust
 
     gcc
     gnumake

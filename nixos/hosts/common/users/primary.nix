@@ -15,7 +15,7 @@
     description = config.hostSpec.userFullName;
     hashedPasswordFile = config.sops.secrets."keys/vault/nullp/account_hash".path;
     packages = [inputs.home-manager.packages.${pkgs.system}.default];
-    shell = pkgs.zsh;
+    shell = pkgs.nushell;
     extraGroups = lib.flatten [
       "wheel"
       "input"

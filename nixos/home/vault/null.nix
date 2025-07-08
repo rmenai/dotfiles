@@ -11,6 +11,7 @@
     common/optional/terminals/wezterm.nix
     common/optional/terminals/kitty.nix
     common/optional/shell/zsh.nix
+    common/optional/shell/nushell.nix
     common/optional/mux/tmux.nix
 
     common/optional/tools

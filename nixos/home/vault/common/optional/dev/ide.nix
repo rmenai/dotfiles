@@ -6,5 +6,7 @@
     jetbrains.clion
     jetbrains.webstorm
     jetbrains.datagrip
+
+    evil-helix
   ];
 }

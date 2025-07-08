@@ -23,6 +23,8 @@ in {
     ../common/core
 
     ../common/optional/hyprland.nix
+    ../common/optional/fonts.nix
+    ../common/optional/oxidise.nix
     ../common/optional/games.nix
     ../common/optional/podman.nix
     ../common/optional/vm.nix

@@ -86,6 +86,12 @@
     optimise.automatic = true;
   };
 
+  system.activationScripts.diff = ''
+    if [[ -e /run/current-system ]]; then
+      ${pkgs.nushell}/bin/nu -c "let diff_closure = (${pkgs.nix}/bin/nix store diff-closures /run/current-system '$systemConfig'); let table = (\$diff_closure | lines | where \$it =~ KiB | where \$it =~ → | parse -r '^(?<Package>\S+): (?<Old>[^,]+)(?:.*) → (?<New>[^,]+)(?:.*), (?<DiffBin>.*)$' | insert Diff { get DiffBin | ansi strip | into filesize } | sort-by -r Diff | reject DiffBin); if (\$table | get Diff | is-not-empty) { print \"\"; \$table | append [[Package Old New Diff]; [\"\" \"\" \"\" \"\"]] | append [[Package Old New Diff]; [\"\" \"\" \"Total:\" (\$table | get Diff | math sum) ]] | print; print \"\" }"
+    fi
+  '';
+
   security.sudo.extraConfig = ''
     Defaults !tty_tickets # share authentication across all ttys, not one per-tty
     Defaults lecture = never # rollback results in sudo lectures after each reboot
@@ -94,12 +100,16 @@
 
   environment = {
     systemPackages = with pkgs; [
+      nix-index
       cachix
+      comma
       wget
       git
       vim
     ];
   };
+
+  programs.command-not-found.enable = true;
 
   programs.nix-ld = {
     enable = true;
