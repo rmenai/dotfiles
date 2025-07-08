@@ -2,7 +2,7 @@ local wezterm = require("wezterm")
 local mux = wezterm.mux
 local workspace = mux.get_active_workspace()
 
-local function sh(cmd) return { "zsh", "-c", cmd .. "; exec zsh" } end
+local function sh(cmd) return { "nu", "-c", cmd .. "; exec nu" } end
 
 local function main(win, gui) win:spawn_tab({ args = sh("nvim wezterm.lua") }) end
 

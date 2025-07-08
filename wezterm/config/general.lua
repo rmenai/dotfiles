@@ -3,7 +3,7 @@ local Config = {}
 
 Config.enable_wayland = true
 Config.default_cwd = fs.home()
-Config.default_prog = { "zsh" }
+Config.default_prog = { "nu" }
 Config.scrollback_lines = 5000
 
 Config.hyperlink_rules = {

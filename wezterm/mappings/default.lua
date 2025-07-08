@@ -10,6 +10,16 @@ Config.leader = { key = "Space", mods = "CTRL", timeout_milliseconds = 750 }
 
 local workspace_switcher = require("../plugins.smart_workspace_switcher.plugin")
 
+local bacon_action = wt.action_callback(function(window, pane)
+  local new_pane = pane:split({
+    direction = "Bottom",
+    size = 0.3,
+  })
+
+  new_pane:send_text("bacon\n")
+  pane:activate() -- Return focus to original pane
+end)
+
 local mappings = {
   -- == Existing Non-Leader Bindings (Review and prune as desired) ==
   { "<C-S-c>", act.CopyTo("Clipboard"), "copy" },
@@ -121,6 +131,8 @@ local mappings = {
   { "<leader>k", act.ScrollByPage(-1), "scroll page up" },
   { "<leader>j", act.ScrollByPage(1), "scroll page down" },
   { "<leader>K", act.ClearScrollback("ScrollbackOnly"), "clear scrollback" },
+
+  { "<leader><b>", bacon_action, "run bacon in bottom split" },
 }
 
 Config.keys = {}
