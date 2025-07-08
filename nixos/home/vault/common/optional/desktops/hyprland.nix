@@ -13,7 +13,6 @@
     hyprlock
     hyprpaper
     hypridle
-    hyprlock
     dunst
     libnotify
     pamixer
