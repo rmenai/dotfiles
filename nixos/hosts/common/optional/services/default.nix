@@ -7,5 +7,6 @@
     ./printing.nix
     ./acpid.nix
     ./tlp.nix
+    ./suspend-then-hibernate.nix
   ];
 }

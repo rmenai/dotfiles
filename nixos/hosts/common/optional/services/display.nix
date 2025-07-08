@@ -13,10 +13,6 @@
     };
   };
 
-  services.logind.extraConfig = ''
-    HandlePowerKey=suspend
-  '';
-
   environment.persistence."/persist/system" = {
     directories = [
       "/var/lib/sddm"

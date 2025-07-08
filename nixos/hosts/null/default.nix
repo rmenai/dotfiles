@@ -40,6 +40,7 @@ in {
     ../common/optional/services/openssh.nix
     ../common/optional/services/sound.nix
     ../common/optional/services/tlp.nix
+    ../common/optional/services/suspend-then-hibernate.nix
 
     # ../common/optional/containers
     # ../common/apps/hotspot.nix
