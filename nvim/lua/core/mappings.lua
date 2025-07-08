@@ -211,6 +211,17 @@ map({ "n", "v" }, "<Leader>uo", function() vim.cmd("CopilotChatOptimize") end, {
 map({ "n", "v" }, "<Leader>ur", function() vim.cmd("CopilotChatReview") end, { desc = "Review Code with Copilot" })
 map({ "n", "v" }, "<Leader>ut", function() vim.cmd("CopilotChatTests") end, { desc = "Generate Tests" })
 
+-- NEOTEST
+map("n", "gtr", function() require("neotest").run.run() end, { desc = "Run nearest test" })
+map("n", "gtf", function() require("neotest").run.run(vim.fn.expand("%")) end, { desc = "Run tests in current file" })
+map("n", "gtd", function() require("neotest").run.run({ strategy = "dap" }) end, { desc = "Debug nearest test" })
+map("n", "gts", function() require("neotest").run.stop() end, { desc = "Stop nearest test" })
+map("n", "gta", function() require("neotest").run.attach() end, { desc = "Attach to nearest test" })
+map("n", "gto", function() require("neotest").output.open({ enter = true }) end, { desc = "Open test output" })
+map("n", "gtO", function() require("neotest").output_panel.toggle() end, { desc = "Toggle test output panel" })
+map("n", "gtt", function() require("neotest").summary.toggle() end, { desc = "Toggle test summary" })
+map("n", "gtw", function() require("neotest").watch.toggle() end, { desc = "Toggle test watch" })
+
 vim.g.blink_cmp = true
 vim.g.diagnostics_active = true
 vim.g.copilot_enabled = false

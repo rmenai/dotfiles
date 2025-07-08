@@ -52,6 +52,7 @@ return {
         "texlab",
         "tinymist",
         "nushell",
+        -- "bacon_ls",
       })
     end,
   },

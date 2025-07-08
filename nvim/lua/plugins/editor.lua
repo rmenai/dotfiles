@@ -41,11 +41,30 @@ return {
   },
   {
     "mrcjkb/rustaceanvim",
-    version = "^6",
     ft = "rust",
     config = function()
+      local executors = require("rustaceanvim.executors")
+
+      vim.g.rustaceanvim = {
+        tools = {
+          executor = executors.toggleterm,
+          test_executor = executors.neotest,
+          crate_test_executor = executors.toggleterm,
+        },
+        server = {
+          default_settings = {
+            ["rust-analyzer"] = {
+              completion = {
+                capable = {
+                  snippets = "add_parenthesis",
+                },
+              },
+            },
+          },
+        },
+      }
+
       require("core.patches").patch_runnables()
-      require("neotest")
     end,
   },
   {

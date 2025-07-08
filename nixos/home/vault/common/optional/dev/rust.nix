@@ -5,12 +5,12 @@
 }: {
   home.packages = with pkgs; [
     rustup
-    bacon
   ];
 
   dotfiles = {
     files = {
       ".config/rust-competitive-helper" = lib.mkDefault "rust-competitive-helper";
+      ".config/bacon" = lib.mkDefault "bacon";
     };
   };
 
