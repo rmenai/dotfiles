@@ -75,4 +75,26 @@ M.patch_runnables = function()
   end
 end
 
+M.patch_toggleterm = function()
+  require("rustaceanvim.executors").toggleterm = {
+    execute_command = function(command, args, cwd, opts)
+      local ok, term = pcall(require, "toggleterm.terminal")
+      if not ok then
+        vim.schedule(function() vim.notify("toggleterm not found.", vim.log.levels.ERROR) end)
+        return
+      end
+
+      local shell = require("rustaceanvim.shell")
+      term.Terminal
+        :new({
+          dir = cwd,
+          env = opts.env,
+          cmd = shell.make_command_from_args(command, args),
+          close_on_exit = false,
+        })
+        :toggle()
+    end,
+  }
+end
+
 return M

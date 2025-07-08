@@ -45,6 +45,8 @@ return {
     config = function()
       local executors = require("rustaceanvim.executors")
 
+      require("core.patches").patch_toggleterm()
+
       vim.g.rustaceanvim = {
         tools = {
           executor = executors.toggleterm,

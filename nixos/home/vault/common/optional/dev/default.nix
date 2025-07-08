@@ -30,6 +30,7 @@
     nixd
     shellharden
     markdownlint-cli
+    lua-language-server
     lldb_19
     stylua
     cpplint
