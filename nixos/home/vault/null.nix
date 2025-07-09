@@ -24,8 +24,4 @@
     username = "vault";
     home = "/home/vault";
   };
-
-  home.packages = with pkgs; [
-    ani-cli
-  ];
 }

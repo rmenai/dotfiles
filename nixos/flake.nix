@@ -41,6 +41,11 @@
       url = "git+ssh://git@github.com/rmenai/nix-secrets.git?ref=main&shallow=1";
       flake = false;
     };
+
+    curd = {
+      url = "github:Wraient/curd";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {

@@ -24,9 +24,12 @@
     ripgrep
     xclip
     xsel
-    btop
     unzip
     zip
+
+    btop
+    bottom
+    bandwhich
 
     tokei
     ripgrep-all

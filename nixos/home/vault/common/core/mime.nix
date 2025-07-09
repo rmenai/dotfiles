@@ -74,13 +74,13 @@ in {
     "audio/ogg" = "mpv.desktop";
     "audio/x-vorbis+ogg" = "mpv.desktop";
 
-    # Image files - imv
-    "image/jpeg" = "imv.desktop";
-    "image/png" = "imv.desktop";
-    "image/gif" = "imv.desktop";
-    "image/webp" = "imv.desktop";
-    "image/tiff" = "imv.desktop";
-    "image/bmp" = "imv.desktop";
-    "image/svg+xml" = "imv.desktop";
+    # Image files - oculante
+    "image/jpeg" = "oculante.desktop";
+    "image/png" = "oculante.desktop";
+    "image/gif" = "oculante.desktop";
+    "image/webp" = "oculante.desktop";
+    "image/tiff" = "oculante.desktop";
+    "image/bmp" = "oculante.desktop";
+    "image/svg+xml" = "oculante.desktop";
   };
 }

@@ -5,10 +5,8 @@
 }: {
   home.packages = with pkgs; [
     yazi
-    ffmpeg
     p7zip
     poppler
-    imagemagick
     jq
     fd
   ];
