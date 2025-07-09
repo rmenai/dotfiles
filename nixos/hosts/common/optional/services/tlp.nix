@@ -8,11 +8,16 @@
       CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
 
       CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
-      CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+      CPU_ENERGY_PERF_POLICY_ON_BAT = "balance_power";
 
       PLATFORM_PROFILE_ON_AC = "performance";
-      PLATFORM_PROFILE_ON_BAT = "low-power";
+      PLATFORM_PROFILE_ON_BAT = "balanced";
 
+      RUNTIME_PM_ON_AC = "auto";
+      RUNTIME_PM_ON_BAT = "auto";
+
+      CPU_BOOST_ON_AC = 1;
+      CPU_HWP_DYN_BOOST_ON_AC = 1;
       CPU_BOOST_ON_BAT = 0;
       CPU_HWP_DYN_BOOST_ON_BAT = 0;
 
@@ -22,8 +27,9 @@
       SOUND_POWER_SAVE_ON_BAT = 0;
       SOUND_POWER_SAVE_CONTROLLER = "N";
       WIFI_PWR_ON_BAT = "off";
+      WIFI_PWR_ON_AC = "off";
       RESTORE_DEVICE_STATE_ON_STARTUP = 1;
-      USB_AUTOSUSPEND = 0;
+      USB_AUTOSUSPEND = 1;
     };
   };
 }
