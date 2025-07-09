@@ -13,7 +13,8 @@
 
   services.logind = {
     powerKey = "hibernate";
-    lidSwitch = "suspend";
+    lidSwitch = "suspend-then-hibernate";
+    lidSwitchExternalPower = "suspend-then-hibernate";
   };
 
   systemd.sleep.extraConfig = ''

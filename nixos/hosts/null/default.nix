@@ -40,7 +40,6 @@ in {
     ../common/optional/services/openssh.nix
     ../common/optional/services/sound.nix
     ../common/optional/services/tlp.nix
-    ../common/optional/services/suspend-then-hibernate.nix
 
     # ../common/optional/containers
     # ../common/apps/hotspot.nix
@@ -65,9 +64,12 @@ in {
   hardware.nvidia = {
     package = config.boot.kernelPackages.nvidiaPackages.latest;
     modesetting.enable = true;
-    powerManagement.finegrained = true;
     nvidiaSettings = true;
     open = true;
+
+    # These cause options with performence and suspend
+    powerManagement.enable = false;
+    powerManagement.finegrained = false;
 
     # Info: <https://wiki.nixos.org/wiki/NVIDIA#Common_setup>
     prime = {
@@ -79,9 +81,6 @@ in {
         enableOffloadCmd = true;
       };
     };
-
-    # Info: <https://download.nvidia.com/XFree86/Linux-x86_64/460.73.01/README/dynamicpowermanagement.html>
-    powerManagement.enable = true;
   };
 
   services.fstrim.enable = true;
