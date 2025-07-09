@@ -47,6 +47,51 @@ alias asl = atuin scripts list
 alias "?" = gh copilot suggest
 alias "??" = gh copilot explain
 
+def h [
+    --aliases (-a)
+    --custom (-c)
+    --plugin (-p)
+    --builtin (-b)
+    --all
+] {
+    mut result = []
+
+    # Show aliases if requested
+    if $aliases or $all {
+        $result = ($result | append (help aliases | insert length {|row| $row.name | str length} | sort-by length | reverse | select name expansion))
+    }
+
+    # Show custom functions if requested
+    if $custom or $all {
+        $result = ($result | append (help commands | where command_type == "custom" | insert length {|row| $row.name |
+        str length} | sort-by length | reverse))
+    }
+
+    # Show plugin functions if requested
+    if $plugin or $all {
+        $result = ($result | append (help commands | where command_type == "plugin" | insert length {|row| $row.name |
+        str length} | sort-by length | reverse))
+    }
+
+    # Show builtin functions if requested
+    if $builtin or $all {
+        $result = ($result | append (help commands | where command_type == "built-in" | insert length {|row| $row.name |
+        str length} | sort-by length | reverse))
+    }
+
+    if ($result | is-empty) {
+        print "Usage: h [--aliases] [--custom] [--plugin] [--builtin] [--all]"
+        print "  -a, --aliases     Show aliases"
+        print "  -c, --custom      Show custom functions"
+        print "  -p, --plugin      Show plugin functions"
+        print "  -b, --builtin     Show builtin functions"
+        print "      --all         Show everything"
+        return
+    }
+
+    $result
+}
+
 # Yazi function
 def --env y [...args] {
 	let tmp = (mktemp -t "yazi-cwd.XXXXXX")
