@@ -8,13 +8,13 @@
     inputs.impermanence.nixosModules.home-manager.impermanence
   ];
 
-  home.persistence."/persist/home/${config.hostSpec.username}" = {
+  home.persistence."/persist/home/${config.spec.username}" = {
     allowOther = true;
   };
 
   home.file = {
     ".adventofcode.session" = {
-      source = config.lib.file.mkOutOfStoreSymlink "/persist${config.hostSpec.home}/.adventofcode.session";
+      source = config.lib.file.mkOutOfStoreSymlink "/persist${config.spec.home}/.adventofcode.session";
       force = true;
     };
   };

@@ -1,6 +1,5 @@
 {
   inputs,
-  lib,
   config,
   ...
 }: let
@@ -9,26 +8,20 @@ in {
   imports = [inputs.sops-nix.homeManagerModules.sops];
 
   sops = {
-    age.keyFile = "${config.hostSpec.home}/.config/sops/age/keys.txt";
+    age.keyFile = "${config.spec.home}/.config/sops/age/keys.txt";
 
     defaultSopsFile = "${sopsFolder}/secrets.yaml";
     validateSopsFiles = false;
 
     secrets = {
-      "keys/${config.hostSpec.username}/nullp/private_key".path = "${config.hostSpec.home}/.ssh/id_null";
-      "keys/${config.hostSpec.username}/vms/private_key".path = "${config.hostSpec.home}/.ssh/id_vms";
-      "keys/${config.hostSpec.username}/vms/account_hash" = {};
-      "keys/${config.hostSpec.username}/vms/account_password" = {};
+      "keys/${config.spec.username}/nullp/private_key".path = "${config.spec.home}/.ssh/id_null";
+      "keys/${config.spec.username}/vms/private_key".path = "${config.spec.home}/.ssh/id_vms";
+      "keys/${config.spec.username}/vms/account_hash" = {};
+      "keys/${config.spec.username}/vms/account_password" = {};
       "data" = {
         sopsFile = "${sopsFolder}/files/surfingkeys.js";
-        path = "${config.hostSpec.home}/.config/chrome/surfingkeys.js";
+        path = "${config.spec.home}/.config/chrome/surfingkeys.js";
       };
-    };
-  };
-
-  persist = {
-    home = {
-      # ".config/sops" = lib.mkDefault true;
     };
   };
 }

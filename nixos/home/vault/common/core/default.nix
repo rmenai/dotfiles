@@ -5,8 +5,10 @@
   ...
 }: {
   imports = lib.flatten [
-    ../../../../modules/common
-    ../../../../modules/home
+    (map lib.custom.relativeToRoot [
+      "modules/core"
+      "modules/home/core"
+    ])
 
     ./git.nix
     ./ssh.nix
@@ -14,8 +16,8 @@
   ];
 
   home = {
-    username = lib.mkDefault config.hostSpec.username;
-    homeDirectory = lib.mkDefault config.hostSpec.home;
+    username = lib.mkDefault config.spec.username;
+    homeDirectory = lib.mkDefault config.spec.home;
     stateVersion = lib.mkDefault "24.11";
   };
 

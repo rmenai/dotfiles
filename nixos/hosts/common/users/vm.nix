@@ -5,22 +5,14 @@
   lib,
   ...
 }: {
-  sops.secrets."keys/vault/nullp/account_hash".neededForUsers = true;
   users.mutableUsers = false;
-
-  spec = {
-    username = "vault";
-    handle = "rmenai";
-    userFullName = "Rami Menai";
-    email = "rami@menai.me";
-  };
 
   users.users.${config.spec.username} = {
     name = config.spec.username;
     home = config.spec.home;
     isNormalUser = true;
     description = config.spec.userFullName;
-    hashedPasswordFile = config.sops.secrets."keys/vault/nullp/account_hash".path;
+    password = "test";
     packages = [inputs.home-manager.packages.${pkgs.system}.default];
     shell = pkgs.nushell;
     extraGroups = lib.flatten [

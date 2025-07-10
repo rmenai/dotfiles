@@ -11,7 +11,7 @@ in {
     inputs.impermanence.nixosModules.impermanence
     inputs.lanzaboote.nixosModules.lanzaboote
 
-    ./hardware-configuration.nix
+    ./hardware.nix
 
     # Disk config
     ../common/disks/btrfs-luks-impermanence.nix
@@ -30,6 +30,7 @@ in {
     ../common/optional/vm.nix
     ../common/optional/obs.nix
     ../common/optional/adb.nix
+    ../common/optional/nu.nix
 
     # ../common/optional/services/acpid.nix
     # ../common/optional/services/tailscale.nix
@@ -48,9 +49,12 @@ in {
     ../common/users/primary.nix
   ];
 
-  hostSpec = {
+  spec = {
     hostName = "null";
   };
+
+  time.timeZone = lib.mkDefault "Europe/Paris";
+  i18n.defaultLocale = lib.mkDefault "en_US.UTF-8";
 
   boot.supportedFilesystems = ["ntfs" "btrfs"];
   system.stateVersion = "24.11";
@@ -81,6 +85,16 @@ in {
         enableOffloadCmd = true;
       };
     };
+  };
+
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      stdenv
+      libgcc
+      libllvm
+      portaudio
+    ];
   };
 
   services.fstrim.enable = true;

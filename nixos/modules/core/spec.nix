@@ -3,7 +3,7 @@
   lib,
   ...
 }: {
-  options.hostSpec = {
+  options.spec = {
     username = lib.mkOption {
       type = lib.types.str;
       description = "The username of the host";
@@ -32,7 +32,7 @@
     home = lib.mkOption {
       type = lib.types.str;
       description = "The home directory of the user";
-      default = "/home/${config.hostSpec.username}";
+      default = "/home/${config.spec.username}";
     };
     persistFolder = lib.mkOption {
       type = lib.types.str;

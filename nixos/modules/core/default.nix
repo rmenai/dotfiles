@@ -1,5 +1,5 @@
 {
   imports = [
-    ./host-spec.nix
+    ./spec.nix
   ];
 }

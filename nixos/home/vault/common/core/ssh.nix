@@ -6,7 +6,7 @@
   programs.ssh = {
     enable = true;
     controlMaster = "auto";
-    controlPath = "${config.hostSpec.home}/.ssh/sockets/S.%r@%h:%p";
+    controlPath = "${config.spec.home}/.ssh/sockets/S.%r@%h:%p";
     controlPersist = "20m";
     serverAliveCountMax = 3;
     serverAliveInterval = 5;
@@ -20,7 +20,7 @@
       Host kali
         HostName kali
         User vault
-        IdentityFile ${config.hostSpec.home}/.ssh/id_vms
+        IdentityFile ${config.spec.home}/.ssh/id_vms
         ForwardAgent yes
         ForwardX11 yes
         ForwardX11Trusted yes
@@ -28,7 +28,7 @@
       Host flare
         HostName flare
         User vault
-        IdentityFile ${config.hostSpec.home}/.ssh/id_vms
+        IdentityFile ${config.spec.home}/.ssh/id_vms
         ForwardAgent yes
     '';
 
@@ -36,7 +36,7 @@
       "default" = {
         host = "github.com";
         identitiesOnly = true;
-        identityFile = ["${config.hostSpec.home}/.ssh/id_null"];
+        identityFile = ["${config.spec.home}/.ssh/id_null"];
       };
     };
   };

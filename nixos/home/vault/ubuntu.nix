@@ -9,7 +9,7 @@
     common/optional/dev
   ];
 
-  hostSpec = {
+  spec = {
     username = builtins.getEnv "USER";
     home = builtins.getEnv "HOME";
   };

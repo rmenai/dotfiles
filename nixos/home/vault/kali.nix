@@ -11,7 +11,7 @@
     common/optional/dev
   ];
 
-  hostSpec = {
+  spec = {
     username = "vault";
     home = "/home/vault";
   };

@@ -74,10 +74,10 @@
   };
 
   environment.persistence."/persist" = {
-    users.${config.hostSpec.username} = {
+    users.${config.spec.username} = {
       directories = lib.attrNames (
         lib.filterAttrs (k: v: v)
-        config.home-manager.users.${config.hostSpec.username}.persist.home
+        config.home-manager.users.${config.spec.username}.persist.home
       );
     };
   };

@@ -8,7 +8,7 @@
       WantedBy = ["default.target"];
     };
     Service = {
-      ExecStart = "${config.hostSpec.home}/.config/hypr/scripts/adjust-power.sh";
+      ExecStart = "${config.spec.home}/.config/hypr/scripts/adjust-power.sh";
       Type = "simple";
       Restart = "always";
       RestartSec = "1s";
