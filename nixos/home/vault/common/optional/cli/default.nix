@@ -36,8 +36,8 @@
     atuin
   ];
 
-  dotfiles = {
-    files = {
+  features.dotfiles = {
+    paths = {
       ".config/btop" = lib.mkDefault "btop";
       ".config/atuin" = lib.mkDefault "atuin";
     };

@@ -23,8 +23,8 @@
     kdePackages.kdenlive
   ];
 
-  dotfiles = {
-    files = {
+  features.dotfiles = {
+    paths = {
       ".config/curd" = lib.mkDefault "curd";
     };
   };

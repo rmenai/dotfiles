@@ -7,8 +7,8 @@
     discord
   ];
 
-  dotfiles = {
-    files = {
+  features.dotfiles = {
+    paths = {
       ".config/BetterDiscord" = lib.mkDefault "BetterDiscord";
     };
   };

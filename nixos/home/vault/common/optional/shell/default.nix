@@ -1,6 +1,6 @@
 {lib, ...}: {
-  dotfiles = {
-    files = {
+  features.dotfiles = {
+    paths = {
       ".profile" = lib.mkDefault "shell/.profile";
     };
   };

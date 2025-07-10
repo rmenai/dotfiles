@@ -7,16 +7,9 @@
     brave
   ];
 
-  dotfiles = {
-    files = {
+  features.dotfiles = {
+    paths = {
       ".config/chrome" = lib.mkDefault "chrome";
-    };
-  };
-
-  persist = {
-    home = {
-      # ".config/BraveSoftware/Brave-Browser" = lib.mkDefault true;
-      # ".cache/BraveSoftware/Brave-Browser" = lib.mkDefault true;
     };
   };
 }

@@ -9,8 +9,8 @@
     })
   ];
 
-  persist = {
-    home = {
+  features.persist = {
+    directories = {
       ".ollama" = lib.mkDefault true;
     };
   };

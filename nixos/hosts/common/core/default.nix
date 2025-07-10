@@ -11,11 +11,17 @@
     inputs.sops-nix.nixosModules.sops
 
     (map lib.custom.relativeToRoot [
-      "modules/core"
+      "modules/common/core"
+      "modules/common/features"
+
       "modules/hosts/core"
+      "modules/hosts/features"
+      "modules/hosts/hardware"
+      "modules/hosts/profiles"
     ])
 
     ./services
+    ./home.nix
     ./sops.nix
     ./ssh.nix
   ];
@@ -45,7 +51,7 @@
 
       trusted-users = [
         "root"
-        config.spec.username
+        config.spec.user
       ];
       auto-optimise-store = true;
       warn-dirty = false;

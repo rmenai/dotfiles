@@ -5,15 +5,8 @@
     enableZshIntegration = true;
   };
 
-  dotfiles = {
-    files = {
+  features.dotfiles = {
+    paths = {
       ".config/zellij" = lib.mkDefault "zellij";
     };
   };
-
-  persist = {
-    home = {
-      # ".cache/zellij" = lib.mkDefault true;
-    };
-  };
-}

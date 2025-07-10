@@ -3,9 +3,9 @@
   networking.firewall.allowedUDPPorts = [41641];
   environment.systemPackages = [pkgs.tailscale];
 
-  environment.persistence."/persist/system" = {
-    directories = [
-      "/var/lib/tailscale"
-    ];
+  features.persist = {
+    directories = {
+      "/var/lib/tailscale" = true;
+    };
   };
 }

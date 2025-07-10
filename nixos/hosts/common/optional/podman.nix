@@ -20,10 +20,10 @@
     };
   };
 
-  environment.persistence."/persist/system" = {
-    directories = [
-      "/var/lib/containers"
-    ];
+  features.persist = {
+    directories = {
+      "/var/lib/containers" = true;
+    };
   };
 
   environment.systemPackages = with pkgs; [

@@ -1,10 +1,6 @@
-{
-  config,
-  lib,
-  ...
-}: {
+{lib, ...}: {
   options.spec = {
-    username = lib.mkOption {
+    user = lib.mkOption {
       type = lib.types.str;
       description = "The username of the host";
     };
@@ -28,16 +24,6 @@
       type = lib.types.str;
       description = "The handle of the user (eg: github user)";
       default = "localhost";
-    };
-    home = lib.mkOption {
-      type = lib.types.str;
-      description = "The home directory of the user";
-      default = "/home/${config.spec.username}";
-    };
-    persistFolder = lib.mkOption {
-      type = lib.types.str;
-      description = "The folder to persist data if impermenance is enabled";
-      default = "/persist";
     };
   };
 }

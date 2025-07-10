@@ -12,7 +12,6 @@
   ];
 
   spec = {
-    username = "vault";
-    home = "/home/vault";
+    user = "vault";
   };
 }

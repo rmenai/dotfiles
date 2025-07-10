@@ -7,8 +7,8 @@
     kitty
   ];
 
-  dotfiles = {
-    files = {
+  features.dotfiles = {
+    paths = {
       ".config/kitty" = lib.mkDefault "kitty";
     };
   };

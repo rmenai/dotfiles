@@ -1,8 +1,4 @@
-{
-  pkgs,
-  lib,
-  ...
-}: {
+{pkgs, ...}: {
   home.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
     nerd-fonts.fira-code
@@ -12,10 +8,4 @@
   ];
 
   fonts.fontconfig.enable = true;
-
-  persist = {
-    home = {
-      # ".cache/fontconfig" = lib.mkDefault true;
-    };
-  };
 }

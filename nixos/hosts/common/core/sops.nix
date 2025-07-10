@@ -1,5 +1,6 @@
 {
   inputs,
+  lib,
   pkgs,
   ...
 }: let
@@ -19,10 +20,10 @@ in {
   environment.sessionVariables.SOPS_FOLDER = sopsFolder;
   environment.systemPackages = [pkgs.sops];
 
-  environment.persistence."/persist/system" = {
-    directories = [
-      "/var/lib/sops-nix"
-    ];
+  features.persist = {
+    directories = {
+      "/var/lib/sops-nix" = lib.mkDefault true;
+    };
   };
 
   fileSystems."/var/lib/sops-nix".neededForBoot = true;

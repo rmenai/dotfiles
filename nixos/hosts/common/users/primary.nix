@@ -1,23 +1,23 @@
 {
-  inputs,
-  pkgs,
   config,
+  inputs,
   lib,
+  pkgs,
   ...
 }: {
   sops.secrets."keys/vault/nullp/account_hash".neededForUsers = true;
   users.mutableUsers = false;
 
   spec = {
-    username = "vault";
+    user = "vault";
     handle = "rmenai";
     userFullName = "Rami Menai";
     email = "rami@menai.me";
   };
 
-  users.users.${config.spec.username} = {
-    name = config.spec.username;
-    home = config.spec.home;
+  users.users.${config.spec.user} = {
+    name = config.spec.user;
+    home = "/home/${config.spec.user}";
     isNormalUser = true;
     description = config.spec.userFullName;
     hashedPasswordFile = config.sops.secrets."keys/vault/nullp/account_hash".path;
@@ -44,24 +44,6 @@
     openssh.authorizedKeys.keys = [
       (builtins.readFile ./keys/id_null.pub)
       (builtins.readFile ./keys/id_vms.pub)
-    ];
-  };
-
-  systemd.tmpfiles.rules = [
-    "d /persist/${config.spec.username}/ 0777 root root -"
-    "d /persist/home/${config.spec.username} 0700 ${config.spec.username} users -"
-  ];
-
-  programs.zsh.enable = true;
-  programs.git.enable = true;
-
-  home-manager = {
-    extraSpecialArgs = {
-      inherit pkgs inputs;
-    };
-
-    users.${config.spec.username}.imports = [
-      (lib.custom.relativeToRoot "home/${config.spec.username}/${config.spec.hostName}.nix")
     ];
   };
 }

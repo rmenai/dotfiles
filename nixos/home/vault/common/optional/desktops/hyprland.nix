@@ -39,22 +39,14 @@
     wtype
   ];
 
-  dotfiles = {
-    files = {
+  features.dotfiles = {
+    paths = {
       ".config/hypr" = lib.mkDefault "hypr";
       ".config/waybar" = lib.mkDefault "waybar";
       ".config/rofi" = lib.mkDefault "rofi";
       ".config/swaylock" = lib.mkDefault "swaylock";
       ".config/dunst" = lib.mkDefault "dunst";
       ".config/cliphist" = lib.mkDefault "cliphist";
-    };
-  };
-
-  persist = {
-    home = {
-      # ".local/share/hyprland" = lib.mkDefault true;
-      # ".local/share/sddm" = lib.mkDefault true;
-      # ".cache/snowflake" = lib.mkDefault true;
     };
   };
 }

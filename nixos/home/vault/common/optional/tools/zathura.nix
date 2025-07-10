@@ -12,8 +12,8 @@
     "application/x-pdf" = "org.pwmt.zathura-pdf-mupdf.desktop";
   };
 
-  dotfiles = {
-    files = {
+  features.dotfiles = {
+    paths = {
       ".config/zathura" = lib.mkDefault "zathura";
     };
   };

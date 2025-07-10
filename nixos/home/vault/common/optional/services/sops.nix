@@ -8,19 +8,19 @@ in {
   imports = [inputs.sops-nix.homeManagerModules.sops];
 
   sops = {
-    age.keyFile = "${config.spec.home}/.config/sops/age/keys.txt";
+    age.keyFile = "/home/${config.spec.user}/.config/sops/age/keys.txt";
 
     defaultSopsFile = "${sopsFolder}/secrets.yaml";
     validateSopsFiles = false;
 
     secrets = {
-      "keys/${config.spec.username}/nullp/private_key".path = "${config.spec.home}/.ssh/id_null";
-      "keys/${config.spec.username}/vms/private_key".path = "${config.spec.home}/.ssh/id_vms";
-      "keys/${config.spec.username}/vms/account_hash" = {};
-      "keys/${config.spec.username}/vms/account_password" = {};
+      "keys/${config.spec.user}/nullp/private_key".path = "/home/${config.spec.user}/.ssh/id_null";
+      "keys/${config.spec.user}/vms/private_key".path = "/home/${config.spec.user}/.ssh/id_vms";
+      "keys/${config.spec.user}/vms/account_hash" = {};
+      "keys/${config.spec.user}/vms/account_password" = {};
       "data" = {
         sopsFile = "${sopsFolder}/files/surfingkeys.js";
-        path = "${config.spec.home}/.config/chrome/surfingkeys.js";
+        path = "/home/${config.spec.user}/.config/chrome/surfingkeys.js";
       };
     };
   };

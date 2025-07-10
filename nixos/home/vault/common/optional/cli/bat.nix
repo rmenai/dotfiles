@@ -23,15 +23,9 @@
     '';
   };
 
-  dotfiles = {
-    files = {
+  features.dotfiles = {
+    paths = {
       ".config/bat" = lib.mkDefault "bat";
-    };
-  };
-
-  persist = {
-    home = {
-      # ".cache/bat" = lib.mkDefault true;
     };
   };
 }

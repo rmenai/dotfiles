@@ -7,14 +7,14 @@
     opam
   ];
 
-  dotfiles = {
-    files = {
+  features.dotfiles = {
+    paths = {
       ".config/utop" = lib.mkDefault "utop";
     };
   };
 
-  persist = {
-    home = {
+  features.persist = {
+    directories = {
       ".opam" = lib.mkDefault true;
     };
   };

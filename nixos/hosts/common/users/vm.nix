@@ -7,9 +7,9 @@
 }: {
   users.mutableUsers = false;
 
-  users.users.${config.spec.username} = {
-    name = config.spec.username;
-    home = config.spec.home;
+  users.users.${config.spec.user} = {
+    name = config.spec.user;
+    home = "/home/${config.spec.user}";
     isNormalUser = true;
     description = config.spec.userFullName;
     password = "test";
@@ -40,8 +40,8 @@
   };
 
   systemd.tmpfiles.rules = [
-    "d /persist/${config.spec.username}/ 0777 root root -"
-    "d /persist/home/${config.spec.username} 0700 ${config.spec.username} users -"
+    "d ${config.features.impermanence.persistFolder}/${config.spec.user}/ 0777 root root -"
+    "d ${config.features.impermanence.persistFolder}/home/${config.spec.user} 0700 ${config.spec.user} users -"
   ];
 
   programs.zsh.enable = true;
@@ -52,8 +52,8 @@
       inherit pkgs inputs;
     };
 
-    users.${config.spec.username}.imports = [
-      (lib.custom.relativeToRoot "home/${config.spec.username}/${config.spec.hostName}.nix")
+    users.${config.spec.user}.imports = [
+      (lib.custom.relativeToRoot "home/${config.spec.user}/${config.spec.user}.nix")
     ];
   };
 }

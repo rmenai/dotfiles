@@ -7,16 +7,9 @@
     firefox
   ];
 
-  dotfiles = {
-    files = {
+  features.dotfiles = {
+    paths = {
       ".config/chrome" = lib.mkDefault "chrome";
-    };
-  };
-
-  persist = {
-    home = {
-      ".mozilla/firefox" = lib.mkDefault true;
-      # ".cache/mozilla/firefox" = lib.mkDefault true;
     };
   };
 }

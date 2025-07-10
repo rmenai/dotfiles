@@ -7,15 +7,15 @@
     rustup
   ];
 
-  dotfiles = {
-    files = {
+  features.dotfiles = {
+    paths = {
       ".config/rust-competitive-helper" = lib.mkDefault "rust-competitive-helper";
       ".config/bacon" = lib.mkDefault "bacon";
     };
   };
 
-  persist = {
-    home = {
+  features.persist = {
+    directories = {
       ".cargo" = lib.mkDefault true;
       ".rustup" = lib.mkDefault true;
     };

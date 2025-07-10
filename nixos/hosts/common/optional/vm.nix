@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   virtualisation.libvirtd.enable = true;
   virtualisation.libvirtd.qemu.vhostUserPackages = [pkgs.virtiofsd];
   virtualisation.spiceUSBRedirection.enable = true;
@@ -25,12 +29,12 @@
     LIBVIRT_DEFAULT_URI = "qemu:///system";
   };
 
-  environment.persistence."/persist/system" = {
-    directories = [
-      "/var/lib/libvirt"
-      "/var/lib/waydroid"
-      "/etc/vbox"
-    ];
+  features.persist = {
+    directories = {
+      "/var/lib/libvirt" = true;
+      "/var/lib/waydroid" = true;
+      "/etc/vbox" = true;
+    };
   };
 
   environment.systemPackages = with pkgs; [

@@ -6,8 +6,12 @@
 }: {
   imports = lib.flatten [
     (map lib.custom.relativeToRoot [
-      "modules/core"
+      "modules/common/core"
+      "modules/common/features"
+
       "modules/home/core"
+      "modules/home/features"
+      "modules/home/profiles"
     ])
 
     ./git.nix
@@ -16,8 +20,8 @@
   ];
 
   home = {
-    username = lib.mkDefault config.spec.username;
-    homeDirectory = lib.mkDefault config.spec.home;
+    username = lib.mkDefault config.spec.user;
+    homeDirectory = lib.mkDefault "/home/${config.spec.user}";
     stateVersion = lib.mkDefault "24.11";
   };
 
@@ -35,20 +39,17 @@
   programs.home-manager.enable = true;
   systemd.user.startServices = "sd-switch";
 
-  dotfiles = {
-    files = {
+  features.dotfiles = {
+    paths = {
       ".config/nixos" = lib.mkDefault "nixos";
       ".config/easyeffects" = lib.mkDefault "easyeffects";
       ".config/obs-studio" = lib.mkDefault "obs-studio";
     };
   };
 
-  persist = {
-    home = {
+  features.persist = {
+    directories = {
       ".vagrant.d" = lib.mkDefault true;
-      # ".config/virt-viewer" = lib.mkDefault true;
-      # ".config/VirtualBox" = lib.mkDefault true;
-      # ".config/packer" = lib.mkDefault true;
     };
   };
 }

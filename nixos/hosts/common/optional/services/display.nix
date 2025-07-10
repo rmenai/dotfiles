@@ -13,10 +13,10 @@
     };
   };
 
-  environment.persistence."/persist/system" = {
-    directories = [
-      "/var/lib/sddm"
-      "/usr/share/sddm"
-    ];
+  features.persist = {
+    directories = {
+      "/var/lib/sddm" = true;
+      "/usr/share/sddm" = true;
+    };
   };
 }

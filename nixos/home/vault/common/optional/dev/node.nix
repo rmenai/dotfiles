@@ -7,8 +7,8 @@
     fnm
   ];
 
-  persist = {
-    home = {
+  features.persist = {
+    directories = {
       ".bun" = lib.mkDefault true;
     };
   };

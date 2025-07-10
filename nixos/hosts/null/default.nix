@@ -15,7 +15,6 @@ in {
 
     # Disk config
     ../common/disks/btrfs-luks-impermanence.nix
-    ../common/disks/impermanence.nix
     ../common/disks/hibernation.nix
     ../common/disks/tpm.nix
 
@@ -36,10 +35,8 @@ in {
     # ../common/optional/services/tailscale.nix
     ../common/optional/services/display.nix
     ../common/optional/services/input.nix
-    ../common/optional/services/bluetooth.nix
     ../common/optional/services/printing.nix
     ../common/optional/services/openssh.nix
-    ../common/optional/services/sound.nix
     ../common/optional/services/tlp.nix
 
     # ../common/optional/containers
@@ -51,6 +48,32 @@ in {
 
   spec = {
     hostName = "null";
+  };
+
+  features = {
+    audio.enable = true;
+    bluetooth.enable = true;
+    impermanence.enable = true;
+    persist.enable = true;
+  };
+
+  features.persist = {
+    directories = {
+      "/etc/nixos" = true;
+      "/var/log" = true;
+      "/var/lib/nixos" = true;
+      "/var/lib/systemd/coredump" = true;
+      "/var/lib/systemd" = true;
+      "/var/lib/sbctl" = true;
+      "/root" = true;
+      "/var/lib/colord" = true;
+    };
+  };
+
+  features.persist = {
+    files = {
+      "/etc/machine-id" = true;
+    };
   };
 
   time.timeZone = lib.mkDefault "Europe/Paris";

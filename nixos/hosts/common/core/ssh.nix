@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   programs.ssh = {
     startAgent = true;
     enableAskPassword = true;
@@ -12,9 +17,9 @@
     ];
   };
 
-  environment.persistence."/persist/system" = {
-    directories = [
-      "/etc/ssh"
-    ];
+  features.persist = {
+    directories = {
+      "/etc/ssh" = lib.mkDefault true;
+    };
   };
 }

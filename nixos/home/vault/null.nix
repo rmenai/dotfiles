@@ -21,7 +21,15 @@
   ];
 
   spec = {
-    username = "vault";
-    home = "/home/vault";
+    user = "vault";
+    handle = "rmenai";
+    userFullName = "Rami Menai";
+    email = "rami@menai.me";
+  };
+
+  features = {
+    impermanence.enable = true;
+    persist.enable = true;
+    dotfiles.enable = true;
   };
 }

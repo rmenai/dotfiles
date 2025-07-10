@@ -6,7 +6,7 @@
   programs.ssh = {
     enable = true;
     controlMaster = "auto";
-    controlPath = "${config.spec.home}/.ssh/sockets/S.%r@%h:%p";
+    controlPath = "/home/${config.spec.user}/.ssh/sockets/S.%r@%h:%p";
     controlPersist = "20m";
     serverAliveCountMax = 3;
     serverAliveInterval = 5;
@@ -20,7 +20,7 @@
       Host kali
         HostName kali
         User vault
-        IdentityFile ${config.spec.home}/.ssh/id_vms
+        IdentityFile /home/${config.spec.user}/.ssh/id_vms
         ForwardAgent yes
         ForwardX11 yes
         ForwardX11Trusted yes
@@ -28,7 +28,7 @@
       Host flare
         HostName flare
         User vault
-        IdentityFile ${config.spec.home}/.ssh/id_vms
+        IdentityFile /home/${config.spec.user}/.ssh/id_vms
         ForwardAgent yes
     '';
 
@@ -36,13 +36,13 @@
       "default" = {
         host = "github.com";
         identitiesOnly = true;
-        identityFile = ["${config.spec.home}/.ssh/id_null"];
+        identityFile = ["/home/${config.spec.user}/.ssh/id_null"];
       };
     };
   };
 
-  persist = {
-    home = {
+  features.persist = {
+    directories = {
       ".ssh" = lib.mkDefault true;
     };
   };

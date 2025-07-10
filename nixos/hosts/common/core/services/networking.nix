@@ -4,11 +4,11 @@
     networkmanager.enable = true;
   };
 
-  environment.persistence."/persist/system" = {
-    directories = [
-      "/var/lib/bluetooth"
-      "/var/lib/NetworkManager"
-      "/etc/NetworkManager/system-connections"
-    ];
+  features.persist = {
+    directories = {
+      "/var/lib/bluetooth" = true;
+      "/var/lib/NetworkManager" = true;
+      "/etc/NetworkManager/system-connections" = true;
+    };
   };
 }

@@ -7,16 +7,9 @@
     wezterm
   ];
 
-  dotfiles = {
-    files = {
+  features.dotfiles = {
+    paths = {
       ".config/wezterm" = lib.mkDefault "wezterm";
-    };
-  };
-
-  persist = {
-    home = {
-      # ".cache/wezterm" = lib.mkDefault true;
-      # ".local/share/wezterm" = lib.mkDefault true;
     };
   };
 }

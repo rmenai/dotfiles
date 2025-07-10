@@ -12,17 +12,14 @@
     pkgs.vimgolf
   ];
 
-  dotfiles = {
-    files = {
+  features.dotfiles = {
+    paths = {
       ".config/nvim" = lib.mkDefault "nvim";
     };
   };
 
-  persist = {
-    home = {
-      # ".local/share/nvim" = lib.mkDefault true;
-      # ".local/state/nvim" = lib.mkDefault true;
-      # ".cache/nvim" = lib.mkDefault true;
+  features.persist = {
+    directories = {
       ".vimgolf" = lib.mkDefault true;
     };
   };
