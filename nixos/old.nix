@@ -22,7 +22,7 @@
     # };
     # mkHomeConfigs = hosts: lib.foldl (acc: set: acc // set) {} (lib.map mkHomeConfig hosts);
 
-    # homeConfigurations = mkHomeConfigs (lib.attrNames hostUserMap);
+    homeConfigurations = mkHomeConfigs (lib.attrNames hostUserMap);
 
     #
     # formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);

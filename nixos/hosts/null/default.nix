@@ -101,8 +101,8 @@
     };
 
     containers = {
-      httpd.enable = true;
-      echo.enable = true;
+      httpd.enable = false;
+      echo.enable = false;
     };
   };
 

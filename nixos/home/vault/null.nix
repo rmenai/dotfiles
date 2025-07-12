@@ -1,10 +1,10 @@
-{ lib, inputs, ... }: {
+{ func, lib, inputs, ... }: {
   imports = lib.flatten [
     inputs.impermanence.nixosModules.home-manager.impermanence
     inputs.sops-nix.homeManagerModules.sops
 
-    (map lib.custom.relativeToRoot [ "modules/common" ])
-    (map lib.custom.relativeToRoot [ "modules/home" ])
+    (map func.custom.relativeToRoot [ "modules/common" ])
+    (map func.custom.relativeToRoot [ "modules/home" ])
   ];
 
   spec = {

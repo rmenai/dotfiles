@@ -4,7 +4,7 @@
   };
 
   config = lib.mkIf config.features.profiles.core.enable {
-    system.stateVersion = lib.mkDefault "25.05";
+    system.stateVersion = lib.mkDefault "25.11";
 
     features = {
       system = {

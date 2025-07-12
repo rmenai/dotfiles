@@ -4,7 +4,7 @@
   };
 
   config = lib.mkIf config.features.profiles.core.enable {
-    home.stateVersion = lib.mkDefault "25.05";
+    home.stateVersion = lib.mkDefault "25.11";
 
     features.system = {
       nix.enable = true;

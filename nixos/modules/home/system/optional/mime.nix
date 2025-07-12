@@ -14,7 +14,7 @@
           FILE_PATH="$1"
           DIR_PATH=$(dirname "$FILE_PATH")
           CMD="cd \"$DIR_PATH\" && nvim \"$FILE_PATH\""
-          ${pkgs.wezterm}/bin/wezterm cli spawn -- nu -l -i -c "$CMD"
+          ${pkgs.wezterm}/bin/wezterm cli spawn -- zsh -l -i -c "$CMD"
         '';
     in {
       name = "Neovim (WezTerm)";
