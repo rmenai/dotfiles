@@ -1,5 +1,0 @@
-{
-  imports = [
-    ./spec.nix
-  ];
-}

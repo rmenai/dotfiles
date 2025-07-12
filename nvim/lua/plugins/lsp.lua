@@ -36,7 +36,8 @@ return {
 
       vim.lsp.enable({
         "ocamllsp",
-        "nixd",
+        -- "nixd",
+        "nil_ls",
         "ruff",
         "pyright",
         "bashls",

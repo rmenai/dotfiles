@@ -1,0 +1,1 @@
+{ imports = [ ./dotfiles.nix ./core ]; }

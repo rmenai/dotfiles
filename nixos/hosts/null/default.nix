@@ -1,130 +1,122 @@
-{
-  inputs,
-  lib,
-  pkgs,
-  config,
-  ...
-}: let
-in {
+{ inputs, lib, pkgs, ... }: {
   imports = lib.flatten [
     inputs.disko.nixosModules.disko
     inputs.impermanence.nixosModules.impermanence
     inputs.lanzaboote.nixosModules.lanzaboote
+    inputs.home-manager.nixosModules.home-manager
+    inputs.sops-nix.nixosModules.sops
 
+    (map lib.custom.relativeToRoot [ "modules/common" "modules/nixos" ])
     ./hardware.nix
-
-    # Disk config
-    ../common/disks/btrfs-luks-impermanence.nix
-    ../common/disks/hibernation.nix
-    ../common/disks/tpm.nix
-
-    # Host config
-    ../common/core
-
-    ../common/optional/hyprland.nix
-    ../common/optional/fonts.nix
-    ../common/optional/oxidise.nix
-    ../common/optional/games.nix
-    ../common/optional/podman.nix
-    ../common/optional/vm.nix
-    ../common/optional/obs.nix
-    ../common/optional/adb.nix
-    ../common/optional/nu.nix
-
-    # ../common/optional/services/acpid.nix
-    # ../common/optional/services/tailscale.nix
-    ../common/optional/services/display.nix
-    ../common/optional/services/input.nix
-    ../common/optional/services/printing.nix
-    ../common/optional/services/openssh.nix
-    ../common/optional/services/tlp.nix
-
-    # ../common/optional/containers
-    # ../common/apps/hotspot.nix
-
-    # User config
-    ../common/users/primary.nix
   ];
 
   spec = {
     hostName = "null";
+    timeZone = "Europe/Paris";
+    defaultLocale = "en_US.UTF-8";
   };
 
   features = {
-    audio.enable = true;
-    bluetooth.enable = true;
-    impermanence.enable = true;
-    persist.enable = true;
-  };
+    profiles = { core.enable = true; };
+    users = { vault.enable = true; };
 
-  features.persist = {
-    directories = {
-      "/etc/nixos" = true;
-      "/var/log" = true;
-      "/var/lib/nixos" = true;
-      "/var/lib/systemd/coredump" = true;
-      "/var/lib/systemd" = true;
-      "/var/lib/sbctl" = true;
-      "/root" = true;
-      "/var/lib/colord" = true;
-    };
-  };
-
-  features.persist = {
-    files = {
-      "/etc/machine-id" = true;
-    };
-  };
-
-  time.timeZone = lib.mkDefault "Europe/Paris";
-  i18n.defaultLocale = lib.mkDefault "en_US.UTF-8";
-
-  boot.supportedFilesystems = ["ntfs" "btrfs"];
-  system.stateVersion = "24.11";
-
-  hardware.graphics = {
-    enable = true;
-  };
-
-  hardware.enableAllFirmware = true;
-
-  hardware.nvidia = {
-    package = config.boot.kernelPackages.nvidiaPackages.latest;
-    modesetting.enable = true;
-    nvidiaSettings = true;
-    open = true;
-
-    # These cause options with performence and suspend
-    powerManagement.enable = false;
-    powerManagement.finegrained = false;
-
-    # Info: <https://wiki.nixos.org/wiki/NVIDIA#Common_setup>
-    prime = {
-      intelBusId = "PCI:0:2:0";
-      nvidiaBusId = "PCI:1:0:0";
-
-      offload = {
-        enable = true;
-        enableOffloadCmd = true;
+    hardware = {
+      disko = {
+        profile = "btrfs-luks";
+        device = "/dev/nvme0n1";
+        swapSize = "32G";
       };
+
+      nvidia = {
+        enable = true;
+        intelBusId = "PCI:0:2:0";
+        nvidiaBusId = "PCI:1:0:0";
+      };
+
+      intel.enable = true;
+      ssd.enable = true;
+    };
+
+    boot = {
+      systemd.enable = true;
+      initrd.enable = true;
+    };
+
+    services = {
+      audio = { pipewire.enable = true; };
+      printing = { cups.enable = true; };
+      security = { tpm.enable = true; };
+
+      networking = {
+        networkManager.enable = true;
+        bluetooth.enable = true;
+        openssh.enable = true;
+      };
+
+      power = {
+        tlp = {
+          enable = true;
+          profile = "performance";
+        };
+      };
+
+      virtualization = {
+        libvirt.enable = true;
+        virtualbox.enable = true;
+        waydroid.enable = true;
+        podman.enable = true;
+      };
+    };
+
+    impermanence = {
+      enable = true;
+      persistFolder = "/persist";
+    };
+
+    hibernation = {
+      enable = true;
+      resumeDevice = "/dev/disk/by-uuid/dfe71357-a2e8-479a-b976-0cd1269cbfa2";
+      resumeOffset = "533760";
+      delaySec = "1h";
+    };
+
+    display = {
+      xserver.enable = true;
+      sddm.enable = true;
+      autoLogin.enable = true;
+    };
+
+    desktop = {
+      hyprland.enable = true;
+      fonts.enable = true;
+    };
+
+    apps = {
+      oxidise.enable = true;
+      gaming.enable = true;
+      obs.enable = true;
+      adb.enable = true;
+    };
+
+    containers = {
+      httpd.enable = true;
+      echo.enable = true;
+    };
+  };
+
+  virtualisation.vmVariant = {
+    features = {
+      hardware.disko.profile = lib.mkForce "none";
+
+      impermanence.enable = lib.mkForce false;
+      hibernation.enable = lib.mkForce false;
     };
   };
 
   programs.nix-ld = {
     enable = true;
-    libraries = with pkgs; [
-      stdenv
-      libgcc
-      libllvm
-      portaudio
-    ];
+    libraries = with pkgs; [ stdenv libgcc libllvm portaudio ];
   };
-
-  services.fstrim.enable = true;
-  hardware.cpu.intel.updateMicrocode = true;
-
-  networking.useNetworkd = true;
-  systemd.network.enable = true;
 
   systemd.network.networks."10-wlp0s20f3" = {
     matchConfig.Name = "wlp0s20f3";
@@ -135,18 +127,4 @@ in {
     10.10.10.10 kali
     10.10.10.8  flare
   '';
-
-  networking.firewall.allowedTCPPorts = [8080];
-
-  environment = {
-    systemPackages = with pkgs; [
-      ep
-    ];
-  };
-
-  # GPU passthrough and virtualization
-  # boot.kernelParams = ["intel_iommu=on" "iommu=pt" "vfio-pci.ids=10de:28e0,10de:22be"];
-  # boot.initrd.kernelModules = ["vfio-pci" "vfio" "vfio_iommu_type1"];
-  # boot.kernelModules = ["vfio-pci"];
-  # boot.blacklistedKernelModules = ["nouveau"];
 }

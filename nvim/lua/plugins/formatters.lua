@@ -8,12 +8,8 @@ return {
         formatters_by_ft = {
           yaml = { "prettier" },
           markdown = { "markdownlint" },
-          -- bash = { "shellharden" },
-          -- zsh = { "shellharden" },
-          -- sh = { "shellharden" },
           nu = { "nufmt" },
           lua = { "stylua" },
-          nix = { "alejandra" },
           python = {
             "ruff_fix",
             "ruff_format",

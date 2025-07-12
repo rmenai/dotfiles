@@ -1,24 +1,23 @@
-{
-  imports = [
-    common/core
-
-    common/optional/services/sops.nix
-    common/optional/services/persist.nix
-    common/optional/services/mpris.nix
-
-    common/optional/desktops/hyprland.nix
-    common/optional/browsers/brave.nix
-    common/optional/terminals/wezterm.nix
-    common/optional/terminals/kitty.nix
-    common/optional/shell/zsh.nix
-    common/optional/shell/nushell.nix
-    common/optional/mux/tmux.nix
-
-    common/optional/tools
-    common/optional/comms
-    common/optional/cli
-    common/optional/dev
+{ lib, ... }: {
+  imports = lib.flatten [
+    # Core modules.
+    (map lib.custom.relativeToRoot [ "modules/common" "modules/home" ])
   ];
+
+  # common/core
+  #
+  # common/optional/desktops/hyprland.nix
+  # common/optional/browsers/brave.nix
+  # common/optional/terminals/wezterm.nix
+  # common/optional/terminals/kitty.nix
+  # common/optional/shell/zsh.nix
+  # common/optional/shell/nushell.nix
+  # common/optional/mux/tmux.nix
+  #
+  # common/optional/tools
+  # common/optional/comms
+  # common/optional/cli
+  # common/optional/dev
 
   spec = {
     user = "vault";
@@ -28,8 +27,9 @@
   };
 
   features = {
-    impermanence.enable = true;
-    persist.enable = true;
-    dotfiles.enable = true;
+    profiles = { core.enable = true; };
+
+    # impermanence.enable = true;
+    # dotfiles.enable = true;
   };
 }

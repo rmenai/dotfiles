@@ -1,141 +1,11 @@
-# NixOS aliases
-def "nix-shell" [...rest] { ^nix-shell --run zsh ...$rest }
-def "nrs" [] { sudo nixos-rebuild switch --flake $"($env.HOME)/.config/nixos#(hostname)" }
-def "nrb" [] { sudo nixos-rebuild boot --flake $"($env.HOME)/.config/nixos#(hostname)" }
-def "nrt" [] { sudo nixos-rebuild test --flake $"($env.HOME)/.config/nixos#(hostname)" }
+# Nushell Configuration
+# This file contains the core configuration for Nushell
 
-def "hrs" [] { home-manager switch --flake $"($env.HOME)/.config/nixos#vault@(hostname)" }
-def "hrb" [] { home-manager build --flake $"($env.HOME)/.config/nixos#vault@(hostname)" }
+# Load custom aliases and functions
+source ~/.config/nushell/aliases.nu
+source ~/.config/nushell/functions.nu
 
-alias hibernate = systemctl hibernate
-alias suspend = systemctl suspend
-
-# Standard ls aliases
-alias ll = ls -l
-alias la = ls -a
-
-alias cat = bat
-
-# fzf and bat dependent alias
-alias fzfp = fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"
-
-# xclip dependent aliases
-alias c = clipboard copy
-alias p = clipboard paste
-
-# nvim dependent aliases
-alias v = nvim
-alias vimdiff = nvim -d
-
-# tmux dependent aliases
-alias t = tmux
-alias ta = tmux attach
-alias tad = tmux attach -d -t
-alias tkss = tmux kill-session -t
-alias tksv = tmux kill-server
-alias tl = tmux list-sessions
-alias ts = tmux new-session -s
-
-alias a = atuin
-alias ast = atuin stats
-alias asr = atuin scripts run
-alias asn = atuin scripts new
-alias asd = atuin scripts delete
-alias asl = atuin scripts list
-
-# gh dependent aliases
-alias "?" = gh copilot suggest
-alias "??" = gh copilot explain
-
-def h [
-    --aliases (-a)
-    --custom (-c)
-    --plugin (-p)
-    --builtin (-b)
-    --all
-] {
-    mut result = []
-
-    # Show aliases if requested
-    if $aliases or $all {
-        $result = ($result | append (help aliases | insert length {|row| $row.name | str length} | sort-by length | reverse | select name expansion))
-    }
-
-    # Show custom functions if requested
-    if $custom or $all {
-        $result = ($result | append (help commands | where command_type == "custom" | insert length {|row| $row.name |
-        str length} | sort-by length | reverse))
-    }
-
-    # Show plugin functions if requested
-    if $plugin or $all {
-        $result = ($result | append (help commands | where command_type == "plugin" | insert length {|row| $row.name |
-        str length} | sort-by length | reverse))
-    }
-
-    # Show builtin functions if requested
-    if $builtin or $all {
-        $result = ($result | append (help commands | where command_type == "built-in" | insert length {|row| $row.name |
-        str length} | sort-by length | reverse))
-    }
-
-    if ($result | is-empty) {
-        print "Usage: h [--aliases] [--custom] [--plugin] [--builtin] [--all]"
-        print "  -a, --aliases     Show aliases"
-        print "  -c, --custom      Show custom functions"
-        print "  -p, --plugin      Show plugin functions"
-        print "  -b, --builtin     Show builtin functions"
-        print "      --all         Show everything"
-        return
-    }
-
-    $result
-}
-
-# Yazi function
-def --env y [...args] {
-	let tmp = (mktemp -t "yazi-cwd.XXXXXX")
-	yazi ...$args --cwd-file $tmp
-	let cwd = (open $tmp)
-	if $cwd != "" and $cwd != $env.PWD {
-		cd $cwd
-	}
-	rm -fp $tmp
-}
-
-# Sesh function
-def s [] {
-    let session = (sesh list -t -c | fzf --height 40% --reverse --border-label ' sesh ' --border --prompt '⚡  ')
-    if ($session | str length) > 0 {
-        sesh connect $session
-    }
-}
-
-# Wezterm nvim function
-def wtnvim [file: string] {
-    if ($file | str length) == 0 {
-        print "Usage: wtnvim <file>"
-        return
-    }
-
-    let dir = ($file | path dirname)
-    let realfile = ($file | path expand)
-
-    wezterm cli spawn -- zsh -l -i -c $"cd \"($dir)\" && nvim \"($realfile)\"; exec zsh"
-}
-
-def "notify on done" [
-    task: closure
-] {
-    let start = date now
-    let result = do $task
-    let end = date now
-    let total = $end - $start | format duration sec
-    let body = $"Task completed in ($total)"
-    notify -s "Task Finished" -t $body
-    return $result
-}
-
+# Completion configuration
 let carapace_completer = {|spans: list<string>|
     carapace $spans.0 nushell ...$spans
     | from json
@@ -160,6 +30,7 @@ let external_completer = {|spans|
     } | do $in $spans
 }
 
+# Main configuration
 $env.config = {
     edit_mode: "vi"
     show_banner: false
@@ -184,27 +55,31 @@ $env.config = {
     }
 }
 
+# Cursor configuration
 $env.config.cursor_shape = {
     emacs: line
     vi_insert: line
     vi_normal: block
 }
 
+# Command not found hook
 $env.config.hooks.command_not_found = { |command_name|
     print (command-not-found $command_name | str trim)
 }
 
+# PWD change hook (direnv integration)
 $env.config.hooks.env_change.PWD = (
     $env.config.hooks.env_change.PWD | append (source nu_scripts/nu-hooks/nu-hooks/direnv/config.nu)
 )
 
+# Starship prompt initialization
 let starship_config_path = ($nu.data-dir | path join "vendor/autoload/starship.nu")
 if not ($starship_config_path | path exists) {
     mkdir ($starship_config_path | path dirname)
     starship init nu | save -f $starship_config_path
 }
 
-
+# Third-party modules and scripts
 source nu_scripts/aliases/git/git-aliases.nu
 source nu_scripts/aliases/bat/bat-aliases.nu
 
@@ -228,6 +103,7 @@ source nu_scripts/modules/formats/from-env.nu
 source nu_scripts/modules/fnm/fnm.nu
 source nu_scripts/modules/docker/mod.nu
 
+# External tool integrations
 source ~/.cache/carapace/init.nu
 source ~/.local/share/zoxide/zoxide.nu
 source ~/.local/share/atuin/init.nu
