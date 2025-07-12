@@ -1,1 +1,1 @@
-{ imports = [ ./home.nix ./nix.nix ]; }
+{ imports = [ ./home.nix ./nix.nix ./dotfiles.nix ]; }

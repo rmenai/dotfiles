@@ -1,1 +1,1 @@
-{ imports = [ ./dotfiles.nix ./core ]; }
+{ imports = [ ./core ./optional ]; }

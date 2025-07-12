@@ -11,5 +11,9 @@
         warn-dirty = false;
       };
     };
+
+    features.dotfiles = {
+      paths = { ".config/nixos" = lib.mkDefault "nixos"; };
+    };
   };
 }

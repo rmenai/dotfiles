@@ -6,7 +6,9 @@
     inputs.home-manager.nixosModules.home-manager
     inputs.sops-nix.nixosModules.sops
 
-    (map lib.custom.relativeToRoot [ "modules/common" "modules/nixos" ])
+    (map lib.custom.relativeToRoot [ "modules/common" ])
+    (map lib.custom.relativeToRoot [ "modules/nixos" ])
+
     ./hardware.nix
   ];
 
