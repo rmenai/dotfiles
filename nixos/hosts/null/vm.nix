@@ -6,9 +6,9 @@
       impermanence.enable = lib.mkForce false;
       hibernation.enable = lib.mkForce false;
 
-      display.sddm.enable = lib.mkForce false;
-      display.xserver.enable = lib.mkForce false;
-      display.hyprland.enable = lib.mkForce false;
+      # display.sddm.enable = lib.mkForce false;
+      # display.xserver.enable = lib.mkForce false;
+      # desktop.hyprland.enable = lib.mkForce false;
     };
 
     home-manager.users.${config.spec.user} = {

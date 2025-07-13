@@ -30,9 +30,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-secrets = {
-      url =
-        "git+ssh://git@github.com/rmenai/nix-secrets.git?ref=main&shallow=1";
+    secrets = {
+      url = "git+ssh://git@github.com/rmenai/secrets.git?ref=main&shallow=1";
       flake = false;
     };
 

@@ -4,7 +4,7 @@
   };
 
   config = lib.mkIf config.features.system.sops.enable {
-    sops = let sopsFolder = builtins.toString inputs.nix-secrets;
+    sops = let sopsFolder = builtins.toString inputs.secrets;
     in {
       age.keyFile = "/home/${config.spec.user}/.config/sops/age/keys.txt";
 

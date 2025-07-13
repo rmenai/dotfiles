@@ -45,6 +45,6 @@ if not ("~/.local/share/atuin/init.nu" | path expand | path exists) {
 
 # Zoxide
 if not ("~/.local/share/zoxide/zoxide.nu" | path expand | path exists) {
-    mkdir ~/local/share/zoxide
+    mkdir ~/.local/share/zoxide
     zoxide init nushell --cmd cd | save -f ~/.local/share/zoxide/zoxide.nu
 }

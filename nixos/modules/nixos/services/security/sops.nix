@@ -1,7 +1,7 @@
 { config, inputs, lib, pkgs, ... }:
 let
   cfg = config.features.services.security.sops;
-  sopsFolder = builtins.toString inputs.nix-secrets;
+  sopsFolder = builtins.toString inputs.secrets;
 in {
   options.features.services.security.sops = {
     enable = lib.mkEnableOption "sops secrets management";

@@ -43,11 +43,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1751854533,
-        "narHash": "sha256-U/OQFplExOR1jazZY4KkaQkJqOl59xlh21HP9mI79Vc=",
+        "lastModified": 1752113600,
+        "narHash": "sha256-7LYDxKxZgBQ8LZUuolAQ8UkIB+jb4A2UmiR+kzY9CLI=",
         "owner": "nix-community",
         "repo": "disko",
-        "rev": "16b74a1e304197248a1bc663280f2548dbfcae3c",
+        "rev": "79264292b7e3482e5702932949de9cbb69fedf6d",
         "type": "github"
       },
       "original": {
@@ -59,11 +59,11 @@
     "dotfiles": {
       "flake": false,
       "locked": {
-        "lastModified": 1752367226,
-        "narHash": "sha256-wG3OSv/UIue8xiBIlYlcAkZ9UDSqt/uSX6G66XFIbKM=",
+        "lastModified": 1752402705,
+        "narHash": "sha256-VnhTHLcfIvDdmEvaaZwIFjAjsFLJDjY+bYDPoycIIPE=",
         "ref": "main",
-        "rev": "532a6f7a59209f757f53af8739cf07288fd0514b",
-        "revCount": 409,
+        "rev": "ea9bb7713c713373dfdb8dbf013d94518504eaf4",
+        "revCount": 410,
         "submodules": true,
         "type": "git",
         "url": "ssh://git@github.com/rmenai/dotfiles.git"
@@ -193,11 +193,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1752062782,
-        "narHash": "sha256-Dod77HcIByOyfGLEJOgRxg2Fmk2Y5lVgMEcN/xVEt/8=",
+        "lastModified": 1752373701,
+        "narHash": "sha256-d0d7y9gjv9HU0Amws6kHJucR8bxrQ0PfVKxt2ll5cfs=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "bec8ff39811568eb7c8c8d1e2a1a476326748f51",
+        "rev": "fc25398450cdab61af9654928dfef9d101f51140",
         "type": "github"
       },
       "original": {
@@ -244,24 +244,6 @@
         "owner": "nix-community",
         "repo": "lanzaboote",
         "type": "github"
-      }
-    },
-    "nix-secrets": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1752327549,
-        "narHash": "sha256-5xztSP2mMnej7CgLX4UH1GSi+q1zfyipPwkJyP2GAoU=",
-        "ref": "main",
-        "rev": "61cea780125cab4deb31372f1a8354cbb84183a3",
-        "shallow": true,
-        "type": "git",
-        "url": "ssh://git@github.com/rmenai/nix-secrets.git"
-      },
-      "original": {
-        "ref": "main",
-        "shallow": true,
-        "type": "git",
-        "url": "ssh://git@github.com/rmenai/nix-secrets.git"
       }
     },
     "nixpkgs": {
@@ -369,11 +351,11 @@
         "home-manager": "home-manager",
         "impermanence": "impermanence",
         "lanzaboote": "lanzaboote",
-        "nix-secrets": "nix-secrets",
         "nixpkgs": "nixpkgs",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "pre-commit-hooks": "pre-commit-hooks",
+        "secrets": "secrets",
         "sops-nix": "sops-nix"
       }
     },
@@ -396,6 +378,24 @@
         "owner": "oxalica",
         "repo": "rust-overlay",
         "type": "github"
+      }
+    },
+    "secrets": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1752403466,
+        "narHash": "sha256-RTnFSoTB6Qo50zzd9bo6+8eBJWp6efZ41ijlzGSgCfg=",
+        "ref": "main",
+        "rev": "98ea1235ba2fbbb95496e482f84bf22a94613b0d",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@github.com/rmenai/secrets.git"
+      },
+      "original": {
+        "ref": "main",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@github.com/rmenai/secrets.git"
       }
     },
     "sops-nix": {
