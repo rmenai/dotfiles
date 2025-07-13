@@ -1,4 +1,4 @@
-{ config, func, inputs, lib, pkgs, ... }: {
+{ func, inputs, lib, pkgs, ... }: {
   imports = lib.flatten [
     inputs.disko.nixosModules.disko
     inputs.impermanence.nixosModules.impermanence
@@ -10,6 +10,7 @@
     (map func.custom.relativeToRoot [ "modules/nixos" ])
 
     ./hardware.nix
+    ./vm.nix
   ];
 
   spec = {
@@ -104,31 +105,6 @@
       httpd.enable = false;
       echo.enable = false;
     };
-  };
-
-  virtualisation.vmVariant = {
-    features = {
-      hardware.disko.profile = lib.mkForce "none";
-
-      impermanence.enable = lib.mkForce false;
-      hibernation.enable = lib.mkForce false;
-      display.sddm.enable = lib.mkForce false;
-      display.xserver.enable = lib.mkForce false;
-      desktop.hyprland.enable = lib.mkForce false;
-    };
-
-    home-manager.users.${config.spec.user}.features = {
-      impermanence.enable = lib.mkForce false;
-      persist.enable = lib.mkForce false;
-      dotfiles.useFlake = true; # Use dotfiles from flake input instead.
-    };
-
-    # virtualisation.sharedDirectories = {
-    #   dotfiles = {
-    #     source = "/home/${config.spec.user}/.dotfiles";
-    #     target = "/home/${config.spec.user}/.dotfiles";
-    #   };
-    # };
   };
 
   programs.nix-ld = {

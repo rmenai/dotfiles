@@ -59,11 +59,11 @@
     "dotfiles": {
       "flake": false,
       "locked": {
-        "lastModified": 1752087215,
-        "narHash": "sha256-1pwjMsp5FpZqMY1MIGEukG7K0kz2E0bXqNZjIoud8FE=",
+        "lastModified": 1752367226,
+        "narHash": "sha256-wG3OSv/UIue8xiBIlYlcAkZ9UDSqt/uSX6G66XFIbKM=",
         "ref": "main",
-        "rev": "76672bb423236b1063a24f7d3e0c4d1168b9d8f9",
-        "revCount": 403,
+        "rev": "532a6f7a59209f757f53af8739cf07288fd0514b",
+        "revCount": 409,
         "submodules": true,
         "type": "git",
         "url": "ssh://git@github.com/rmenai/dotfiles.git"

@@ -7,10 +7,11 @@
       description =
         "Mapping of destination file paths to source subdirectories inside ~/.dotfiles.";
     };
-    useFlake = lib.mkOption {
+
+    autoSetupLocal = lib.mkOption {
       type = lib.types.bool;
-      default = false;
-      description = "Use the flake input instead of local ~/.dotfiles";
+      default = true;
+      description = "Create ~/.dotfiles from flake input if it doesn't exist";
     };
   };
 
@@ -18,11 +19,20 @@
     flakeFolder = builtins.toString inputs.dotfiles;
     localFolder = "/home/${config.home.username}/.dotfiles";
   in {
+    # Create editable dotfiles directory from flake input if it doesn't exist
+    home.activation = lib.mkIf config.features.dotfiles.autoSetupLocal {
+      setupDotfiles = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        if [ ! -d "${localFolder}" ]; then
+          run mkdir -p "${localFolder}"
+          run cp -r "${flakeFolder}"/* "${localFolder}/" || true
+          run chmod -R u+w "${localFolder}" || true
+          echo "Created editable dotfiles directory at ${localFolder}"
+        fi
+      '';
+    };
+
     home.file = builtins.mapAttrs (target: file: {
-      source = if config.features.dotfiles.useFlake then
-        "${flakeFolder}/${file}"
-      else
-        config.lib.file.mkOutOfStoreSymlink "${localFolder}/${file}";
+      source = config.lib.file.mkOutOfStoreSymlink "${localFolder}/${file}";
     }) (lib.filterAttrs (k: v: v != "") config.features.dotfiles.paths);
   });
 }

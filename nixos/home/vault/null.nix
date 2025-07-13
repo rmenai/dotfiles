@@ -18,7 +18,6 @@
     profiles = { core.enable = true; };
 
     dotfiles.enable = true;
-    # dotfiles.useFlake = true;
     impermanence.enable = true;
     persist.enable = true;
 
