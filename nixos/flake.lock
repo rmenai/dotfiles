@@ -56,6 +56,25 @@
         "type": "github"
       }
     },
+    "dotfiles": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1752087215,
+        "narHash": "sha256-1pwjMsp5FpZqMY1MIGEukG7K0kz2E0bXqNZjIoud8FE=",
+        "ref": "main",
+        "rev": "76672bb423236b1063a24f7d3e0c4d1168b9d8f9",
+        "revCount": 403,
+        "submodules": true,
+        "type": "git",
+        "url": "ssh://git@github.com/rmenai/dotfiles.git"
+      },
+      "original": {
+        "ref": "main",
+        "submodules": true,
+        "type": "git",
+        "url": "ssh://git@github.com/rmenai/dotfiles.git"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -345,6 +364,7 @@
       "inputs": {
         "curd": "curd",
         "disko": "disko",
+        "dotfiles": "dotfiles",
         "hardware": "hardware",
         "home-manager": "home-manager",
         "impermanence": "impermanence",

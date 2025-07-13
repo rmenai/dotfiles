@@ -36,6 +36,12 @@
       flake = false;
     };
 
+    dotfiles = {
+      url =
+        "git+ssh://git@github.com/rmenai/dotfiles.git?ref=main&submodules=1";
+      flake = false;
+    };
+
     pre-commit-hooks = {
       url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -65,7 +71,7 @@
         ${host} = lib.nixosSystem {
           specialArgs = {
             inherit inputs outputs;
-            lib = extendedLib;
+            func = extendedLib;
           };
           modules = [ ./hosts/${host} ];
         };

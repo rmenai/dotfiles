@@ -7,7 +7,7 @@
     nixpkgs = { config.allowUnfree = true; };
 
     nix = {
-      package = pkgs.nix;
+      package = lib.mkDefault pkgs.nix;
 
       settings = {
         connect-timeout = 5;

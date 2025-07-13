@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, outputs, ... }: {
+{ func, config, lib, pkgs, inputs, outputs, ... }: {
   options.features.system.home = {
     enable = lib.mkEnableOption "home-manager configuration";
   };
@@ -7,14 +7,14 @@
     home-manager = {
       useUserPackages = true;
 
-      extraSpecialArgs = { inherit pkgs inputs outputs; };
+      extraSpecialArgs = { inherit func pkgs inputs outputs; };
 
       backupFileExtension = "backup-" + pkgs.lib.readFile
         "${pkgs.runCommand "timestamp" { }
         "echo -n `date '+%Y%m%d%H%M%S'` > $out"}";
 
       users.${config.spec.user}.imports = [
-        (lib.custom.relativeToRoot
+        (func.custom.relativeToRoot
           "home/${config.spec.user}/${config.spec.hostName}.nix")
       ];
     };
