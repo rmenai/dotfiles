@@ -1,28 +1,156 @@
 # NixOS rebuild functions
 def "nrs" [
+    --specialisation (-s): string # Apply a specific specialisation
+    --upgrade (-u) # Upgrade packages to latest versions
+    --upgrade-all (-U) # Upgrade all packages including those pinned
+    --rollback (-r) # Rollback to previous generation
+    --show-trace (-t) # Show detailed error traces
+    --impure (-i) # Allow impure evaluation
+    --refresh # Refresh flake inputs
+    --fast (-f) # Skip some checks for faster rebuilds (no-build-output + use-substitutes)
 ] {
     # Rebuild and switch to new NixOS configuration
-    sudo nixos-rebuild switch --flake $"($env.HOME)/.config/nixos#(hostname)"
+    let hostname = (^hostname | str trim)
+    mut cmd = ["sudo" "nixos-rebuild" "switch" "--flake" $"($env.HOME)/.config/nixos#($hostname)"]
+
+    if $specialisation != null {
+        $cmd = ($cmd | append ["--specialisation" $specialisation])
+    }
+
+    if $upgrade {
+        $cmd = ($cmd | append "--upgrade")
+    }
+
+    if $upgrade_all {
+        $cmd = ($cmd | append "--upgrade-all")
+    }
+
+    if $rollback {
+        $cmd = ($cmd | append "--rollback")
+    }
+
+    if $show_trace {
+        $cmd = ($cmd | append "--show-trace")
+    }
+
+    if $impure {
+        $cmd = ($cmd | append "--impure")
+    }
+
+    if $refresh {
+        $cmd = ($cmd | append "--refresh")
+    }
+
+    if $fast {
+        $cmd = ($cmd | append ["--no-build-output" "--use-substitutes"])
+    }
+
+    run-external $cmd.0 ...($cmd | skip 1)
 }
 
 def "nrb" [
+    --specialisation (-s): string # Apply a specific specialisation
+    --show-trace (-t) # Show detailed error traces
+    --impure (-i) # Allow impure evaluation
+    --refresh # Refresh flake inputs
+    --fast (-f) # Skip some checks for faster rebuilds
 ] {
     # Rebuild NixOS configuration for next boot (doesn't switch current session)
-    sudo nixos-rebuild boot --flake $"($env.HOME)/.config/nixos#(hostname)"
+    let hostname = (^hostname | str trim)
+    mut cmd = ["sudo" "nixos-rebuild" "boot" "--flake" $"($env.HOME)/.config/nixos#($hostname)"]
+
+    if $specialisation != null {
+        $cmd = ($cmd | append ["--specialisation" $specialisation])
+    }
+
+    if $show_trace {
+        $cmd = ($cmd | append "--show-trace")
+    }
+
+    if $impure {
+        $cmd = ($cmd | append "--impure")
+    }
+
+    if $refresh {
+        $cmd = ($cmd | append "--refresh")
+    }
+
+    if $fast {
+        $cmd = ($cmd | append ["--no-build-output" "--use-substitutes"])
+    }
+
+    run-external $cmd.0 ...($cmd | skip 1)
 }
 
 def "nrt" [
+    --specialisation (-s): string # Apply a specific specialisation
+    --show-trace (-t) # Show detailed error traces
+    --impure (-i) # Allow impure evaluation
+    --refresh # Refresh flake inputs
+    --fast (-f) # Skip some checks for faster rebuilds
 ] {
     # Test NixOS configuration build without switching or affecting boot
-    sudo nixos-rebuild test --flake $"($env.HOME)/.config/nixos#(hostname)"
+    let hostname = (^hostname | str trim)
+    mut cmd = ["sudo" "nixos-rebuild" "test" "--flake" $"($env.HOME)/.config/nixos#($hostname)"]
+
+    if $specialisation != null {
+        $cmd = ($cmd | append ["--specialisation" $specialisation])
+    }
+
+    if $show_trace {
+        $cmd = ($cmd | append "--show-trace")
+    }
+
+    if $impure {
+        $cmd = ($cmd | append "--impure")
+    }
+
+    if $refresh {
+        $cmd = ($cmd | append "--refresh")
+    }
+
+    if $fast {
+        $cmd = ($cmd | append ["--no-build-output" "--use-substitutes"])
+    }
+
+    run-external $cmd.0 ...($cmd | skip 1)
 }
 
 def "nrv" [
     --run (-r) # Run the built VM immediately after building
+    --specialisation (-s): string # Apply a specific specialisation
+    --show-trace (-t) # Show detailed error traces
+    --impure (-i) # Allow impure evaluation
+    --refresh # Refresh flake inputs
+    --fast (-f) # Skip some checks for faster rebuilds
 ] {
     # Build NixOS configuration as a virtual machine
     cd ~/Documents/Machines/NixOS
-    nixos-rebuild build-vm --flake $"($env.HOME)/.config/nixos#(hostname)"
+
+    let hostname = (^hostname | str trim)
+    mut cmd = ["nixos-rebuild" "build-vm" "--flake" $"($env.HOME)/.config/nixos#($hostname)"]
+
+    if $specialisation != null {
+        $cmd = ($cmd | append ["--specialisation" $specialisation])
+    }
+
+    if $show_trace {
+        $cmd = ($cmd | append "--show-trace")
+    }
+
+    if $impure {
+        $cmd = ($cmd | append "--impure")
+    }
+
+    if $refresh {
+        $cmd = ($cmd | append "--refresh")
+    }
+
+    if $fast {
+        $cmd = ($cmd | append ["--no-build-output" "--use-substitutes"])
+    }
+
+    run-external $cmd.0 ...($cmd | skip 1)
 
     if $run {
         ^$"./result/bin/run-vm-vm"
@@ -34,17 +162,18 @@ def "nvb" [
     --run (-r) # Run the built VM immediately after building
 ] {
     # Build a NixOS VM from a specific configuration file
-    nix-build '<nixpkgs/nixos>' -A vm -I nixpkgs=channel:nixos-unstable -I $"nixos-config=($config_file)"
+    ^nix-build '<nixpkgs/nixos>' -A vm -I nixpkgs=channel:nixos-unstable -I $"nixos-config=($config_file)"
 
     if $run {
-        ./result/bin/run-nixos-vm
+        ^./result/bin/run-nixos-vm
     }
 }
 
 def "nvc" [] {
     # Clean NixOS VM build results and disk images
     let has_vm_results = (try { ls result/bin/run* | is-not-empty } catch { false })
-    let system_qcow = $"(hostname).qcow2"
+    let hostname = (^hostname | str trim)
+    let system_qcow = $"($hostname).qcow2"
     let nixos_qcow = "nixos.qcow2"
     let has_system_qcow = ($system_qcow | path exists)
     let has_nixos_qcow = ($nixos_qcow | path exists)
@@ -73,13 +202,13 @@ def "nvc" [] {
 def "hrs" [
 ] {
     # Rebuild and switch Home Manager configuration
-    home-manager switch --flake $"($env.HOME)/.config/nixos#vault@(hostname)"
+    home-manager switch --flake $"($env.HOME)/.config/nixos#vault@(^hostname)"
 }
 
 def "hrb" [
 ] {
     # Build Home Manager configuration without switching
-    home-manager build --flake $"($env.HOME)/.config/nixos#vault@(hostname)"
+    home-manager build --flake $"($env.HOME)/.config/nixos#vault@(^hostname)"
 }
 
 # Enhanced help command with filtering options
