@@ -117,6 +117,15 @@
     mode = "0600";
   };
 
+  sops.secrets."id_ed25519_vm.pub" = {
+    key = "users/vault/ssh_public_key";
+    sopsFile = "${builtins.toString inputs.secrets}/hosts/vm.yaml";
+    path = "/home/${config.spec.user}/.ssh/id_ed25519_vm.pub";
+    owner = config.spec.user;
+    group = "users";
+    mode = "0600";
+  };
+
   programs.nix-ld = {
     enable = true;
     libraries = with pkgs; [ stdenv libgcc libllvm portaudio ];

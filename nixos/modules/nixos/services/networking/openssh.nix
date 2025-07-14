@@ -68,6 +68,13 @@
       mode = "0600";
     };
 
+    sops.secrets."users/vault/ssh_public_key" = {
+      path = "/home/${config.spec.user}/.ssh/id_ed25519.pub";
+      owner = config.spec.user;
+      group = "users";
+      mode = "0600";
+    };
+
     systemd.tmpfiles.rules =
       [ "d /home/${config.spec.user}/.ssh 0700 ${config.spec.user} users -" ];
 

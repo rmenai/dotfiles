@@ -45,13 +45,16 @@ in with lib; {
 
   config = mkIf cfg.enable {
     sops.secrets."secrets/tailscale_auth_key" = {
-      restartUnits = [ "tailscale-autoconnect.service" ];
+      restartUnits = [ "tailscaled-autoconnect.service" ];
     };
 
     services.tailscale = {
       enable = true;
+      authKeyFile = lib.mkIf cfg.autoprovision.enable
+        config.sops.secrets."secrets/tailscale_auth_key".path;
       useRoutingFeatures = cfg.routingFeature;
       port = cfg.port;
+      extraUpFlags = cfg.autoprovision.options;
     };
 
     environment.systemPackages = [ pkgs.tailscale ];
@@ -63,34 +66,5 @@ in with lib; {
     };
 
     features.persist = { directories = { "/var/lib/tailscale" = true; }; };
-
-    # Auto-provisioning service
-    systemd.services.tailscale-autoconnect = mkIf cfg.autoprovision.enable {
-      description = "Automatic connection to Tailscale";
-
-      after = [ "network-pre.target" "tailscale.service" ];
-      wants = [ "network-pre.target" "tailscale.service" ];
-      wantedBy = [ "multi-user.target" ];
-
-      serviceConfig.Type = "oneshot";
-
-      script = ''
-        #!/usr/bin/env bash
-
-        # Wait for tailscaled to settle
-        sleep 2
-
-        # Check if we are already authenticated to tailscale
-        status="$(${pkgs.tailscale}/bin/tailscale status -json | ${pkgs.jq}/bin/jq -r .BackendState)"
-        if [ $status = "Running" ]; then # if so, then do nothing
-          exit 0
-        fi
-
-        # Otherwise authenticate with tailscale
-        ${pkgs.tailscale}/bin/tailscale up --auth-key file:${
-          config.sops.secrets."secrets/tailscale_auth_key".path
-        } ${lib.concatStringsSep " " cfg.autoprovision.options}
-      '';
-    };
   };
 }
