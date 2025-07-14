@@ -14,7 +14,7 @@ if ("~/.opam" | path expand | path exists) {
     opam env | lines | split column ';' vars | get vars | parse "{var}='{value}'" | transpose --header-row --as-record | load-env
 }
 
-$env.NUPM_HOME = ($env.XDG_DATA_HOME | path join "nupm")
+$env.NUPM_HOME = ("~/.local/share" | path join "nupm")
 $env.NU_LIB_DIRS = [
     ...
     ($env.NUPM_HOME | path join "modules")
