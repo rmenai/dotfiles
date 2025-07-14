@@ -25,7 +25,7 @@ def "nrv" [
     nixos-rebuild build-vm --flake $"($env.HOME)/.config/nixos#(hostname)"
 
     if $run {
-        ^$"./result/bin/run-(hostname)-vm"
+        ^$"./result/bin/run-vm-vm"
     }
 }
 

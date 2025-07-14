@@ -1,5 +1,7 @@
-{ config, lib, ... }: {
+{ lib, ... }: {
   virtualisation.vmVariant = {
+    spec.host = lib.mkForce "vm";
+
     features = {
       hardware.disko.profile = lib.mkForce "none";
 
@@ -11,14 +13,7 @@
       # desktop.hyprland.enable = lib.mkForce false;
     };
 
-    home-manager.users.${config.spec.user} = {
-      features = {
-        impermanence.enable = lib.mkForce false;
-        persist.enable = lib.mkForce false;
-      };
-    };
-
-    users.users.${config.spec.user}.initialPassword = "test";
+    # users.users.${config.spec.user} = { initialPassword = "test"; };
 
     virtualisation = {
       diskSize = 65536;

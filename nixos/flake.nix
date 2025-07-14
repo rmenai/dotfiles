@@ -6,8 +6,6 @@
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    hardware.url = "github:nixos/nixos-hardware";
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -39,11 +37,6 @@
       url =
         "git+ssh://git@github.com/rmenai/dotfiles.git?ref=main&submodules=1";
       flake = false;
-    };
-
-    pre-commit-hooks = {
-      url = "github:cachix/git-hooks.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     curd = {

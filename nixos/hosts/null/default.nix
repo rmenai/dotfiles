@@ -1,4 +1,4 @@
-{ func, inputs, lib, pkgs, ... }: {
+{ config, func, inputs, lib, pkgs, ... }: {
   imports = lib.flatten [
     inputs.disko.nixosModules.disko
     inputs.impermanence.nixosModules.impermanence
@@ -14,7 +14,7 @@
   ];
 
   spec = {
-    hostName = "null";
+    host = "null";
     timeZone = "Europe/Paris";
     defaultLocale = "en_US.UTF-8";
   };
@@ -54,6 +54,7 @@
         networkManager.enable = true;
         bluetooth.enable = true;
         openssh.enable = true;
+        tailscale.enable = true;
       };
 
       power = {
@@ -105,6 +106,15 @@
       httpd.enable = false;
       echo.enable = false;
     };
+  };
+
+  sops.secrets."id_ed25519_vm" = {
+    key = "users/vault/ssh_private_key";
+    sopsFile = "${builtins.toString inputs.secrets}/hosts/vm.yaml";
+    path = "/home/${config.spec.user}/.ssh/id_ed25519_vm";
+    owner = config.spec.user;
+    group = "users";
+    mode = "0600";
   };
 
   programs.nix-ld = {

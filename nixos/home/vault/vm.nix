@@ -1,4 +1,4 @@
-{ config, func, lib, inputs, ... }: {
+{ func, lib, inputs, ... }: {
   imports = lib.flatten [
     inputs.impermanence.nixosModules.home-manager.impermanence
     inputs.sops-nix.homeManagerModules.sops
@@ -18,8 +18,8 @@
     profiles = { core.enable = true; };
 
     dotfiles.enable = true;
-    impermanence.enable = true;
-    persist.enable = true;
+    impermanence.enable = false;
+    persist.enable = false;
 
     system = {
       mime.enable = true;
@@ -101,31 +101,10 @@
     };
   };
 
-  programs.ssh.extraConfig = ''
-    UpdateHostKeys ask
-    AddKeysToAgent yes
-
-    Host kali
-      HostName kali
-      User vault
-      IdentityFile /home/${config.spec.user}/.ssh/id_ed25519_vm
-      ForwardAgent yes
-      ForwardX11 yes
-      ForwardX11Trusted yes
-
-    Host flare
-      HostName flare
-      User vault
-      IdentityFile /home/${config.spec.user}/.ssh/id_ed25519_vm
-      ForwardAgent yes
-  '';
-
   features.dotfiles = {
     paths = {
       ".config/easyeffects" = lib.mkDefault "easyeffects";
       ".config/obs-studio" = lib.mkDefault "obs-studio";
     };
   };
-
-  features.persist = { directories = { ".vagrant.d" = lib.mkDefault true; }; };
 }

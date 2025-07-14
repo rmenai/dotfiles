@@ -4,7 +4,7 @@
       type = lib.types.str;
       description = "The username of the host";
     };
-    hostName = lib.mkOption {
+    host = lib.mkOption {
       type = lib.types.str;
       description = "The hostname of the host";
     };

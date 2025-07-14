@@ -4,7 +4,7 @@
   };
 
   config = lib.mkIf config.features.users.vault.enable {
-    sops.secrets."keys/vault/nullp/account_hash".neededForUsers = true;
+    sops.secrets."users/vault/password_hash".neededForUsers = true;
     users.mutableUsers = false;
 
     spec = {
@@ -19,16 +19,10 @@
       home = "/home/${config.spec.user}";
       isNormalUser = true;
       description = config.spec.userFullName;
-      hashedPasswordFile =
-        config.sops.secrets."keys/vault/nullp/account_hash".path;
+      hashedPasswordFile = config.sops.secrets."users/vault/password_hash".path;
       packages = [ inputs.home-manager.packages.${pkgs.system}.default ];
       shell = pkgs.nushell;
       extraGroups = lib.flatten [ "wheel" "input" ];
-
-      openssh.authorizedKeys.keys = [
-        (builtins.readFile ./keys/id_null.pub)
-        (builtins.readFile ./keys/id_vms.pub)
-      ];
     };
   };
 }

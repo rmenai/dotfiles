@@ -15,11 +15,11 @@
 
       users.${config.spec.user}.imports = [
         (func.custom.relativeToRoot
-          "home/${config.spec.user}/${config.spec.hostName}.nix")
+          "home/${config.spec.user}/${config.spec.host}.nix")
       ];
     };
 
-    systemd.tmpfiles.rules = lib.mkIf config.features.impermanence.enable [
+    systemd.tmpfiles.rules = [
       "d ${config.features.impermanence.persistFolder}/${config.spec.user}/ 0777 root root -"
       "d ${config.features.impermanence.persistFolder}/home/${config.spec.user} 0700 ${config.spec.user} users -"
     ];

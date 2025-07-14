@@ -61,6 +61,16 @@
       ];
     };
 
+    sops.secrets."users/vault/ssh_private_key" = {
+      path = "/home/${config.spec.user}/.ssh/id_ed25519";
+      owner = config.spec.user;
+      group = "users";
+      mode = "0600";
+    };
+
+    systemd.tmpfiles.rules =
+      [ "d /home/${config.spec.user}/.ssh 0700 ${config.spec.user} users -" ];
+
     security.pam = {
       rssh.enable = true;
       services.sudo.rssh = true;

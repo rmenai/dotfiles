@@ -14,30 +14,11 @@
       hashKnownHosts = true;
       addKeysToAgent = "yes";
 
-      extraConfig = ''
-        UpdateHostKeys ask
-        AddKeysToAgent yes
-
-        Host kali
-          HostName kali
-          User vault
-          IdentityFile /home/${config.spec.user}/.ssh/id_vms
-          ForwardAgent yes
-          ForwardX11 yes
-          ForwardX11Trusted yes
-
-        Host flare
-          HostName flare
-          User vault
-          IdentityFile /home/${config.spec.user}/.ssh/id_vms
-          ForwardAgent yes
-      '';
-
       matchBlocks = {
         "default" = {
           host = "github.com";
           identitiesOnly = true;
-          identityFile = [ "/home/${config.spec.user}/.ssh/id_null" ];
+          identityFile = [ "/home/${config.spec.user}/.ssh/id_ed25519" ];
         };
       };
     };

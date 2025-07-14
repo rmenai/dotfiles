@@ -1,4 +1,4 @@
-{ config, lib, inputs, ... }: {
+{ config, lib, pkgs, inputs, ... }: {
   options.features.dotfiles = {
     enable = lib.mkEnableOption "dotfiles management";
     paths = lib.mkOption {
@@ -23,10 +23,12 @@
     home.activation = lib.mkIf config.features.dotfiles.autoSetupLocal {
       setupDotfiles = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         if [ ! -d "${localFolder}" ]; then
-          run mkdir -p "${localFolder}"
-          run cp -r "${flakeFolder}"/* "${localFolder}/" || true
+          run mkdir -p "$(dirname "${localFolder}")"
+          run ${pkgs.git}/bin/git clone https://github.com/rmenai/dotfiles.git "${localFolder}"
+          run cd "${localFolder}"
+          run ${pkgs.git}/bin/git submodule update --init --recursive
           run chmod -R u+w "${localFolder}" || true
-          echo "Created editable dotfiles directory at ${localFolder}"
+          echo "Cloned dotfiles repository with submodules at ${localFolder}"
         fi
       '';
     };

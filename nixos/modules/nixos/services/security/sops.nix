@@ -6,12 +6,6 @@ in {
   options.features.services.security.sops = {
     enable = lib.mkEnableOption "sops secrets management";
 
-    defaultSopsFile = lib.mkOption {
-      type = lib.types.str;
-      default = "${sopsFolder}/secrets.yaml";
-      description = "Default sops file to use";
-    };
-
     validateSopsFiles = lib.mkOption {
       type = lib.types.bool;
       default = true;
@@ -21,24 +15,35 @@ in {
 
   config = lib.mkIf cfg.enable {
     sops = {
-      defaultSopsFile = cfg.defaultSopsFile;
+      defaultSopsFile = "${sopsFolder}/hosts/${config.spec.host}.yaml";
       validateSopsFiles = cfg.validateSopsFiles;
 
       age = {
-        sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-        keyFile = "/var/lib/sops-nix/key.txt";
+        keyFile = "/var/lib/sops/key.txt";
         generateKey = true;
       };
+
+      secrets."users/vault/age_key" = {
+        path = "/home/${config.spec.user}/.config/sops/age/key.txt";
+        owner = config.spec.user;
+        group = "users";
+        mode = "0600";
+      };
     };
+
+    systemd.tmpfiles.rules = [
+      "d /home/${config.spec.user}/.config 0755 ${config.spec.user} users -"
+      "d /home/${config.spec.user}/.config/sops 0755 ${config.spec.user} users -"
+      "d /home/${config.spec.user}/.config/sops/age 0755 ${config.spec.user} users -"
+    ];
 
     environment.sessionVariables.SOPS_FOLDER = sopsFolder;
     environment.systemPackages = [ pkgs.sops ];
 
-    fileSystems."/var/lib/sops-nix".neededForBoot = true;
-    fileSystems."/etc/ssh".neededForBoot = true;
+    fileSystems."/var/lib/sops".neededForBoot = true;
 
     features.persist = {
-      directories = { "/var/lib/sops-nix" = lib.mkDefault true; };
+      directories = { "/var/lib/sops" = lib.mkDefault true; };
     };
   };
 }
