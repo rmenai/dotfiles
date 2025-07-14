@@ -90,3 +90,5 @@ obs-studio/*
 BetterDiscord/*
 !BetterDiscord/themes/
 !BetterDiscord/themes/**
+
+.Trash*
