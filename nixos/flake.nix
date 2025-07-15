@@ -16,6 +16,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    microvm = {
+      url = "github:astro/microvm.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -35,12 +40,6 @@
 
     secrets = {
       url = "git+ssh://git@github.com/rmenai/secrets.git?ref=main&shallow=1";
-      flake = false;
-    };
-
-    dotfiles = {
-      url =
-        "git+ssh://git@github.com/rmenai/dotfiles.git?ref=main&submodules=1";
       flake = false;
     };
 

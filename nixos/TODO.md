@@ -515,3 +515,21 @@ The tool is designed to work seamlessly with Nix flakes and can be distributed a
   };
 }
 ```
+
+# Specializations
+
+- Custumize my laptop so that I have multiple boot entries, each one for one specific purpose. For example, it is useful
+  to have a specialization for gpu passthrew for virtual machines, or gaming.
+
+# nixos-generators
+
+- Generate iso files, or any image for any platform from any of my configs.
+
+# Virtual machine
+
+- Integrate microvm, or something else, which would allow me to run a virtual machine from my config to test it.
+- Nixos shell ?
+
+# Binfmt
+
+Cool, allows to run other platoforms in nixos

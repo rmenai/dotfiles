@@ -24,16 +24,16 @@
 
     features.persist = { directories = { "/var/lib/libvirt" = true; }; };
 
-    environment.systemPackages = with pkgs; [
-      remmina
-      freerdp
-      virt-viewer
-      libvirt
-      qemu
-      spice-protocol
-      spice-gtk
-      packer
-      vagrant
+    environment.systemPackages = [
+      pkgs.remmina
+      pkgs.freerdp
+      pkgs.virt-viewer
+      pkgs.libvirt
+      pkgs.qemu
+      pkgs.spice-protocol
+      pkgs.spice-gtk
+      pkgs.packer
+      pkgs.stable.vagrant
     ];
   };
 }

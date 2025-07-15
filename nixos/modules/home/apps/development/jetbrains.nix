@@ -4,13 +4,13 @@
   };
 
   config = lib.mkIf config.features.apps.development.jetbrains.enable {
-    home.packages = with pkgs; [
-      jetbrains.pycharm-professional
-      jetbrains.rust-rover
-      jetbrains.rider
-      jetbrains.clion
-      jetbrains.webstorm
-      jetbrains.datagrip
+    home.packages = [
+      pkgs.jetbrains.pycharm-professional
+      pkgs.jetbrains.rust-rover
+      pkgs.jetbrains.rider
+      pkgs.jetbrains.clion
+      pkgs.jetbrains.webstorm
+      pkgs.jetbrains.datagrip
     ];
   };
 }

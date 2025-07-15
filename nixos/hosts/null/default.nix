@@ -1,5 +1,7 @@
 { config, func, inputs, lib, pkgs, ... }: {
   imports = lib.flatten [
+    inputs.microvm.nixosModules.host
+
     (map func.custom.relativeToRoot [ "modules/common" ])
     (map func.custom.relativeToRoot [ "modules/nixos" ])
 
@@ -77,6 +79,7 @@
         libvirt.enable = true;
         virtualbox.enable = true;
         waydroid.enable = true;
+        microvm.enable = true;
         podman.enable = true;
       };
     };
@@ -159,5 +162,5 @@
     libraries = with pkgs; [ stdenv libgcc libllvm portaudio ];
   };
 
-  environment.systemPackages = [ pkgs.colmena ];
+  environment.systemPackages = with pkgs; [ colmena ];
 }

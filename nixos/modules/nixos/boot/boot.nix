@@ -2,7 +2,7 @@
   options.features.boot = {
     configurationLimit = lib.mkOption {
       type = lib.types.int;
-      default = 32;
+      default = 16;
       description = "Maximum number of configurations to keep";
     };
 

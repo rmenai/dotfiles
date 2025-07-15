@@ -6,11 +6,6 @@
       enable = lib.mkEnableOption "automatic garbage collection" // {
         default = true;
       };
-      olderThan = lib.mkOption {
-        type = lib.types.str;
-        default = "30d";
-        description = "Delete generations older than the specified time";
-      };
     };
   };
 
@@ -52,8 +47,8 @@
 
       gc = lib.mkIf config.features.system.nix.gc.enable {
         automatic = true;
-        options =
-          "--delete-older-than ${config.features.system.nix.gc.olderThan}";
+        randomizedDelaySec = "14m";
+        options = "--delete-older-than 10d";
       };
 
       optimise.automatic = true;

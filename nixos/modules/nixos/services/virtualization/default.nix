@@ -1,1 +1,9 @@
-{ imports = [ ./libvirt.nix ./virtualbox.nix ./waydroid.nix ./podman.nix ]; }
+{
+  imports = [
+    ./libvirt.nix
+    ./virtualbox.nix
+    ./waydroid.nix
+    ./podman.nix
+    ./microvm.nix
+  ];
+}

@@ -4,23 +4,23 @@
   };
 
   config = lib.mkIf config.features.apps.misc.media.enable {
-    home.packages = with pkgs; [
-      ffmpeg
-      imagemagick
-      yt-dlp
+    home.packages = [
+      pkgs.ffmpeg
+      pkgs.imagemagick
+      pkgs.yt-dlp
 
       inputs.curd.packages.${pkgs.system}.default
 
-      oculante
-      termusic
-      youtube-tui
-      ani-cli
+      pkgs.oculante
+      pkgs.termusic
+      pkgs.youtube-tui
+      pkgs.ani-cli
 
-      mpv
-      gimp
-      krita
-      audacity
-      kdePackages.kdenlive
+      pkgs.mpv
+      pkgs.stable.gimp
+      pkgs.krita
+      pkgs.audacity
+      pkgs.kdePackages.kdenlive
     ];
 
     xdg.mimeApps.defaultApplications = {
