@@ -8,13 +8,10 @@
     (lib.mkIf config.features.services.networking.networkd.enable {
       networking.useNetworkd = true;
       systemd.network.enable = true;
-
-      networking.hostName = config.spec.host;
     })
 
     (lib.mkIf config.features.services.networking.networkManager.enable {
       networking.networkmanager.enable = true;
-      networking.hostName = config.spec.host;
 
       users.users.${config.spec.user}.extraGroups = [ "networkmanager" ];
 
@@ -27,6 +24,7 @@
       };
     })
     {
+      networking.hostName = config.spec.host;
       networking.firewall.enable = true;
       networking.firewall.allowPing = true;
     }

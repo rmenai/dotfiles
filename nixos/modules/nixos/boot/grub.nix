@@ -3,15 +3,16 @@
     enable = lib.mkEnableOption "GRUB bootloader";
   };
 
-  config = {
+  config = lib.mkIf config.features.boot.grub.enable {
     boot.loader = {
       grub = {
-        enable = config.features.boot.grub.enable;
+        enable = true;
         configurationLimit = config.features.boot.configurationLimit;
         efiSupport = true;
+        efiInstallAsRemovable = true;
       };
 
-      efi.canTouchEfiVariables = true;
+      efi.canTouchEfiVariables = false;
       timeout = config.features.boot.timeout;
     };
   };

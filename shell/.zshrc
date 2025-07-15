@@ -115,6 +115,10 @@ if command -v fnm &> /dev/null; then
   eval "$(fnm env --use-on-cd --shell zsh)"
 fi
 
+if command -v atuin &> /dev/null; then
+  eval "$(atuin init zsh)"
+fi
+
 # Source OPAM init if available
 [[ ! -r "$HOME/.opam/opam-init/init.zsh" ]] || source "$HOME/.opam/opam-init/init.zsh" > /dev/null 2> /dev/null
 
@@ -156,15 +160,13 @@ alias la="ls -A"
 
 # Tool-dependent aliases
 if command -v bat &> /dev/null; then
-  # Uncomment if you want to override cat
-  # alias cat="bat"
-  # alias -g -- -h="-h 2>&1 | bat --language=help --style=plain"
-  # alias -g -- --help="--help 2>&1 | bat --language=help --style=plain"
+  alias cat="bat"
+  alias -g -- -h="-h 2>&1 | bat --language=help --style=plain"
+  alias -g -- --help="--help 2>&1 | bat --language=help --style=plain"
 fi
 
 if command -v exa &> /dev/null; then
-  # Uncomment if you want to override ls
-  # alias ls="exa"
+  alias ls="exa"
 fi
 
 # Combined tool aliases

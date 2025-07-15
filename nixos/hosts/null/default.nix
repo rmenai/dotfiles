@@ -1,15 +1,10 @@
 { config, func, inputs, lib, pkgs, ... }: {
   imports = lib.flatten [
-    inputs.disko.nixosModules.disko
-    inputs.impermanence.nixosModules.impermanence
-    inputs.lanzaboote.nixosModules.lanzaboote
-    inputs.home-manager.nixosModules.home-manager
-    inputs.sops-nix.nixosModules.sops
-
     (map func.custom.relativeToRoot [ "modules/common" ])
     (map func.custom.relativeToRoot [ "modules/nixos" ])
 
     ./hardware.nix
+    ./networking.nix
     ./vm.nix
   ];
 
@@ -19,9 +14,22 @@
     defaultLocale = "en_US.UTF-8";
   };
 
+  deployment = {
+    allowLocalDeployment = true;
+    targetHost = "null";
+    targetUser = "root";
+    tags = [ "laptop" ];
+  };
+
   features = {
     profiles = { core.enable = true; };
     users = { vault.enable = true; };
+
+    system = {
+      nix.enable = true;
+      home.enable = true;
+      sops.enable = true;
+    };
 
     hardware = {
       disko = {
@@ -38,6 +46,7 @@
 
       intel.enable = true;
       ssd.enable = true;
+      ram.enable = true;
     };
 
     boot = {
@@ -96,6 +105,7 @@
     };
 
     apps = {
+      core.enable = true;
       oxidise.enable = true;
       gaming.enable = true;
       obs.enable = true;
@@ -126,18 +136,28 @@
     mode = "0600";
   };
 
+  sops.secrets."id_ed25519_ubuntu" = {
+    key = "users/vault/ssh_private_key";
+    sopsFile = "${builtins.toString inputs.secrets}/hosts/ubuntu.yaml";
+    path = "/home/${config.spec.user}/.ssh/id_ed25519_ubuntu";
+    owner = config.spec.user;
+    group = "users";
+    mode = "0600";
+  };
+
+  sops.secrets."id_ed25519_ubuntu.pub" = {
+    key = "users/vault/ssh_public_key";
+    sopsFile = "${builtins.toString inputs.secrets}/hosts/ubuntu.yaml";
+    path = "/home/${config.spec.user}/.ssh/id_ed25519_ubuntu.pub";
+    owner = config.spec.user;
+    group = "users";
+    mode = "0600";
+  };
+
   programs.nix-ld = {
     enable = true;
     libraries = with pkgs; [ stdenv libgcc libllvm portaudio ];
   };
 
-  systemd.network.networks."10-wlp0s20f3" = {
-    matchConfig.Name = "wlp0s20f3";
-    networkConfig.DHCP = "yes";
-  };
-
-  networking.extraHosts = ''
-    10.10.10.10 kali
-    10.10.10.8  flare
-  '';
+  environment.systemPackages = [ pkgs.colmena ];
 }

@@ -10,6 +10,8 @@
       xsel
       unzip
       zip
+      git
+      gh
 
       btop
       bottom
@@ -24,6 +26,7 @@
       paths = {
         ".config/btop" = lib.mkDefault "btop";
         ".config/atuin" = lib.mkDefault "atuin";
+        ".config/git" = lib.mkDefault "git";
       };
     };
   };

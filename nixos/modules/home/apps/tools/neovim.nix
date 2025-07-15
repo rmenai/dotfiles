@@ -1,9 +1,9 @@
 { config, lib, pkgs, ... }: {
-  options.features.apps.development.neovim = {
+  options.features.apps.tools.neovim = {
     enable = lib.mkEnableOption "Neovim text editor";
   };
 
-  config = lib.mkIf config.features.apps.development.neovim.enable {
+  config = lib.mkIf config.features.apps.tools.neovim.enable {
     programs.neovim = {
       enable = true;
       defaultEditor = true;

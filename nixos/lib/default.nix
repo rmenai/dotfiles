@@ -1,12 +1,14 @@
-{lib, ...}: {
-  relativeToRoot = lib.path.append ../.;
-  scanPaths = path:
-    builtins.map (f: (path + "/${f}")) (
-      builtins.attrNames (
-        lib.attrsets.filterAttrs (
-          path: _type:
-            (_type == "directory") || ((path != "default.nix") && (lib.strings.hasSuffix ".nix" path))
-        ) (builtins.readDir path)
-      )
-    );
+{ lib, ... }:
+let
+  hosts = import ./hosts.nix { inherit lib; };
+  nixos = import ./nixos.nix { inherit lib; };
+  home = import ./home.nix { inherit lib; };
+  colmena = import ./colmena.nix { inherit lib; };
+  utils = import ./utils.nix { inherit lib; };
+in {
+  inherit (utils) relativeToRoot scanPaths;
+  inherit (hosts) discoverHosts;
+  inherit (nixos) mkNixosConfigurations;
+  inherit (home) mkHomeConfigurations;
+  inherit (colmena) mkColmenaConfig;
 }

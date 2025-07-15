@@ -1,8 +1,5 @@
-{ func, lib, inputs, ... }: {
+{ func, lib, ... }: {
   imports = lib.flatten [
-    inputs.impermanence.nixosModules.home-manager.impermanence
-    inputs.sops-nix.homeManagerModules.sops
-
     (map func.custom.relativeToRoot [ "modules/common" ])
     (map func.custom.relativeToRoot [ "modules/home" ])
   ];
@@ -22,8 +19,10 @@
     persist.enable = false;
 
     system = {
-      mime.enable = true;
+      nix.enable = true;
+      home.enable = true;
       sops.enable = true;
+      mime.enable = true;
     };
 
     services = {
@@ -83,7 +82,6 @@
 
       tools = {
         core.enable = true;
-        git.enable = true;
         bat.enable = true;
         eza.enable = true;
         fzf.enable = true;

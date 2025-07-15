@@ -11,6 +11,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    colmena = {
+      url = "github:zhaofengli/colmena";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -45,80 +50,55 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, colmena, home-manager, ... }@inputs:
     let
-      inherit (self) outputs;
-      inherit (nixpkgs) lib;
+      lib = import ./lib { inherit (nixpkgs) lib inputs; };
 
-      forAllSystems = nixpkgs.lib.genAttrs [ "x86_64-linux" ];
+      systems = [ "x86_64-linux" ];
+      forAllSystems = nixpkgs.lib.genAttrs systems;
+      forEachSystem = f: forAllSystems (system: f system);
 
-      readHosts = lib.filter (name: name != "common")
-        (lib.attrNames (builtins.readDir ./hosts));
+      hosts = lib.discoverHosts ./hosts;
 
-      # Extended lib with custom functions
-      extendedLib = nixpkgs.lib.extend
-        (self: super: { custom = import ./lib { inherit (nixpkgs) lib; }; });
+      extendedLib = nixpkgs.lib.extend (self: super: { custom = lib; });
 
-      mkHost = host: {
-        ${host} = lib.nixosSystem {
-          specialArgs = {
-            inherit inputs outputs;
-            func = extendedLib;
-          };
-          modules = [ ./hosts/${host} ];
+      # Create pkgs with overlays for each system
+      mkPkgs = system:
+        import nixpkgs {
+          inherit system;
+          overlays = [ self.overlays.default ];
         };
+
+      commonSpecialArgs = {
+        inherit inputs;
+        outputs = self;
+        func = extendedLib;
+      };
+    in {
+      nixosConfigurations = lib.mkNixosConfigurations {
+        inherit hosts commonSpecialArgs;
+        hostsDir = ./hosts;
       };
 
-      mkHostConfigs = hosts:
-        lib.foldl (acc: set: acc // set) { } (lib.map mkHost hosts);
+      homeConfigurations = lib.mkHomeConfigurations {
+        inherit hosts home-manager commonSpecialArgs systems;
+        homeDir = ./home;
+        mkPkgs = mkPkgs;
+      };
 
-      # Function to create home-manager configurations
-      # This creates configurations for each user@host combination
-      mkHomeConfig = host:
-        let
-          # Read the host directory to find available home configurations
-          homeDir = ./home;
-          availableUsers = if builtins.pathExists homeDir then
-            lib.attrNames (builtins.readDir homeDir)
-          else
-            [ ];
-
-          # Create configs for each user that has a config for this host
-          userConfigs = lib.genAttrs
-            (lib.filter (user: builtins.pathExists ./home/${user}/${host}.nix)
-              availableUsers) (user:
-                home-manager.lib.homeManagerConfiguration {
-                  pkgs = nixpkgs.legacyPackages.x86_64-linux;
-                  extraSpecialArgs = {
-                    inherit inputs outputs;
-                    func = extendedLib;
-                  };
-                  modules = [ ./home/${user}/${host}.nix ];
-                });
-          # Rename keys to user@host format
-        in lib.mapAttrs' (user: config: {
-          name = "${user}@${host}";
-          value = config;
-        }) userConfigs;
-
-      mkHomeConfigs = hosts:
-        lib.foldl (acc: set: acc // set) { } (lib.map mkHomeConfig hosts);
-
-    in {
-      nixosConfigurations = mkHostConfigs readHosts;
-
-      # Add home-manager configurations
-      homeConfigurations = mkHomeConfigs readHosts;
+      colmena = lib.mkColmenaConfig {
+        inherit commonSpecialArgs mkPkgs;
+        hostsDir = ./hosts;
+        deploymentConfig = ./deployment.nix;
+        system = "x86_64-linux";
+      };
 
       overlays = import ./overlays { inherit inputs; };
-      packages = forAllSystems (system:
-        let
-          pkgs = import nixpkgs {
-            inherit system;
-            overlays = [ self.overlays.default ];
-          };
-        in lib.packagesFromDirectoryRecursive {
-          callPackage = lib.callPackageWith pkgs;
+
+      packages = forEachSystem (system:
+        let pkgs = mkPkgs system;
+        in nixpkgs.lib.packagesFromDirectoryRecursive {
+          callPackage = nixpkgs.lib.callPackageWith pkgs;
           directory = ./pkgs;
         });
     };

@@ -10,7 +10,7 @@
 
     passwordAuthentication = lib.mkOption {
       type = lib.types.bool;
-      default = false;
+      default = true;
       description = "Whether to allow password authentication";
     };
 
@@ -21,7 +21,7 @@
         "prohibit-password"
         "forced-commands-only"
       ];
-      default = "no";
+      default = "yes";
       description = "Whether to allow root login";
     };
   };
@@ -32,10 +32,8 @@
       ports = config.features.services.networking.openssh.ports;
 
       settings = {
-        PasswordAuthentication =
-          config.features.services.networking.openssh.passwordAuthentication;
-        PermitRootLogin =
-          config.features.services.networking.openssh.permitRootLogin;
+        PasswordAuthentication = true;
+        PermitRootLogin = "yes";
         StreamLocalBindUnlink = "yes";
         GatewayPorts = "clientspecified";
       };
@@ -60,23 +58,6 @@
         '')
       ];
     };
-
-    sops.secrets."users/vault/ssh_private_key" = {
-      path = "/home/${config.spec.user}/.ssh/id_ed25519";
-      owner = config.spec.user;
-      group = "users";
-      mode = "0600";
-    };
-
-    sops.secrets."users/vault/ssh_public_key" = {
-      path = "/home/${config.spec.user}/.ssh/id_ed25519.pub";
-      owner = config.spec.user;
-      group = "users";
-      mode = "0600";
-    };
-
-    systemd.tmpfiles.rules =
-      [ "d /home/${config.spec.user}/.ssh 0700 ${config.spec.user} users -" ];
 
     security.pam = {
       rssh.enable = true;

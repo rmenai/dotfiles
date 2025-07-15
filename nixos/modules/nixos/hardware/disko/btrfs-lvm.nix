@@ -1,5 +1,5 @@
 { config, lib, ... }: {
-  config = lib.mkIf (config.features.hardware.disko.profile == "btrfs-luks") {
+  config = lib.mkIf (config.features.hardware.disko.profile == "btrfs-lvm") {
     boot.initrd.services.lvm.enable = true;
 
     disko.devices = {
@@ -27,18 +27,12 @@
               };
             };
 
-            luks = {
-              name = "luks";
+            lvm = {
+              name = "lvm";
               size = "100%";
               content = {
-                type = "luks";
-                name = "crypted";
-                settings = { allowDiscards = true; };
-
-                content = {
-                  type = "lvm_pv";
-                  vg = "root_vg";
-                };
+                type = "lvm_pv";
+                vg = "root_vg";
               };
             };
           };
@@ -57,11 +51,6 @@
 
                 subvolumes = {
                   "/root" = { mountpoint = "/"; };
-
-                  "/persist" = {
-                    mountOptions = [ "subvol=persist" "noatime" ];
-                    mountpoint = "/persist";
-                  };
 
                   "/nix" = {
                     mountOptions = [ "subvol=nix" "noatime" ];

@@ -6,15 +6,9 @@
   config = lib.mkIf config.features.profiles.core.enable {
     system.stateVersion = lib.mkDefault "25.11";
 
-    features = {
-      system = {
-        nix.enable = true;
-        home.enable = true;
-      };
-
-      services = { security.sops.enable = true; };
-      apps = { core.enable = true; };
-    };
+    users.users.root.openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDDw4/okVV4KIt0XvVU+ecFmhYOVS/ETmDAK04WgN1ic vault@null"
+    ];
 
     security.sudo.extraConfig = ''
       Defaults !tty_tickets # share authentication across all ttys, not one per-tty

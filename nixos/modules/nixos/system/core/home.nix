@@ -19,7 +19,7 @@
       ];
     };
 
-    systemd.tmpfiles.rules = [
+    systemd.tmpfiles.rules = lib.mkIf config.features.impermanence.enable [
       "d ${config.features.impermanence.persistFolder}/${config.spec.user}/ 0777 root root -"
       "d ${config.features.impermanence.persistFolder}/home/${config.spec.user} 0700 ${config.spec.user} users -"
     ];

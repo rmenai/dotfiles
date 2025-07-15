@@ -1,1 +1,1 @@
-{ imports = [ ./vault.nix ]; }
+{ imports = [ ./alice.nix ./vault.nix ]; }

@@ -17,8 +17,6 @@
       comma
     ];
 
-    programs.command-not-found.enable = true;
-
     system.activationScripts.diff =
       lib.mkIf config.features.apps.oxidise.systemDiff.enable ''
         if [[ -e /run/current-system ]]; then

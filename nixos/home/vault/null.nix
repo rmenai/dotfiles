@@ -1,8 +1,5 @@
-{ config, func, lib, inputs, ... }: {
+{ config, func, lib, ... }: {
   imports = lib.flatten [
-    inputs.impermanence.nixosModules.home-manager.impermanence
-    inputs.sops-nix.homeManagerModules.sops
-
     (map func.custom.relativeToRoot [ "modules/common" ])
     (map func.custom.relativeToRoot [ "modules/home" ])
   ];
@@ -22,6 +19,8 @@
     persist.enable = true;
 
     system = {
+      nix.enable = true;
+      home.enable = true;
       mime.enable = true;
       sops.enable = true;
     };
@@ -64,6 +63,7 @@
 
       development = {
         core.enable = true;
+        tools.enable = true;
 
         android.enable = true;
         godot.enable = true;
@@ -71,7 +71,6 @@
 
         helix.enable = true;
         jetbrains.enable = true;
-        neovim.enable = true;
 
         latex.enable = true;
         node.enable = true;
@@ -79,17 +78,6 @@
         python.enable = true;
         r.enable = true;
         rust.enable = true;
-      };
-
-      tools = {
-        core.enable = true;
-        git.enable = true;
-        bat.enable = true;
-        eza.enable = true;
-        fzf.enable = true;
-        neofetch.enable = true;
-        yazi.enable = true;
-        zoxide.enable = true;
       };
 
       misc = {
@@ -118,6 +106,14 @@
       User vault
       IdentityFile /home/${config.spec.user}/.ssh/id_ed25519_vm
       ForwardAgent yes
+
+    Host ubuntu
+      HostName ubuntu
+      User vault
+      IdentityFile /home/${config.spec.user}/.ssh/id_ed25519
+      ForwardAgent yes
+      ForwardX11 yes
+      ForwardX11Trusted yes
   '';
 
   features.dotfiles = {

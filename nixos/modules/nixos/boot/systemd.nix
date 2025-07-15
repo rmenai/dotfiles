@@ -9,6 +9,7 @@
         enable = true;
         configurationLimit = config.features.boot.configurationLimit;
       };
+
       efi.canTouchEfiVariables = true;
       timeout = config.features.boot.timeout;
     };
