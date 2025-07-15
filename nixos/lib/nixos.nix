@@ -3,6 +3,6 @@
     lib.genAttrs hosts (host:
       lib.nixosSystem {
         specialArgs = commonSpecialArgs;
-        modules = [ (hostsDir + "/${host}") ];
+        modules = [ ../modules/common/deployment.nix (hostsDir + "/${host}") ];
       });
 }

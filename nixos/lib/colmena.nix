@@ -9,24 +9,29 @@
       else
         [ ];
 
-      baseConfig =
-        if deploymentConfig != null && builtins.pathExists deploymentConfig then
-          import deploymentConfig
-        else
-          { };
-
       hostConfigs = lib.genAttrs hosts (host: {
-        deployment = baseConfig.deployment or { };
+        deployment = { };
         imports = [ (hostsDir + "/${host}") ];
-        _module.args.isColmena = true;
       });
 
       metaConfig = {
         nixpkgs = mkPkgs system;
         specialArgs = commonSpecialArgs;
-      } // (baseConfig.meta or { });
+        description = "Personal NixOS infrastructure";
+      };
 
-      defaultsConfig = baseConfig.defaults or { };
+      defaultsConfig = {
+        deployment = {
+          targetUser = lib.mkDefault "root";
+          targetPort = lib.mkDefault 22;
+
+          # Build settings
+          buildOnTarget = false;
+
+          # Deployment tags for selective deployment
+          tags = [ "nixos" ];
+        };
+      };
     in {
       meta = metaConfig;
       defaults = defaultsConfig;
