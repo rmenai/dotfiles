@@ -4,3 +4,6 @@ sync_frequency = "1h"
 style = "compact"
 inline_height = 20
 enter_accept = true
+
+[theme]
+name = "catppuccin-mocha-pink"

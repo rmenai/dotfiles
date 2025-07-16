@@ -1,1 +1,1 @@
-{ imports = [ ./fonts.nix ./hyprland.nix ]; }
+{ imports = [ ./hyprland.nix ./catppuccin.nix ./fonts.nix ]; }

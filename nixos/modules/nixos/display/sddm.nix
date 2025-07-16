@@ -1,4 +1,4 @@
-{ config, lib, ... }: {
+{ config, lib, pkgs, ... }: {
   options.features.display.sddm = {
     enable = lib.mkEnableOption "SDDM display manager";
 
@@ -23,6 +23,7 @@
     services.displayManager = {
       sddm = {
         enable = true;
+        package = pkgs.kdePackages.sddm;
         wayland.enable = config.features.display.sddm.wayland.enable;
       };
 
