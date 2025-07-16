@@ -4,7 +4,10 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
+  imports = [
+    (modulesPath + "/profiles/qemu-guest.nix")
+    (modulesPath + "/virtualisation/digital-ocean-config.nix")
+  ];
 
   boot.initrd.availableKernelModules =
     [ "ata_piix" "uhci_hcd" "virtio_pci" "virtio_scsi" "virtio_blk" ];
@@ -25,41 +28,32 @@
 
 # Custom hardware settings
 {
+  virtualisation.digitalOcean = {
+    setRootPassword = true;
+    setSshKeys = false;
+    seedEntropy = true;
+  };
+
   features = {
     hardware = {
       disko = {
-        profile = "btrfs-lvm";
+        profile = "simple-ext4";
         device = "/dev/vda";
-        swapSize = "4G";
       };
     };
   };
-
-  # features = {
-  #   hardware = {
-  #     disko = {
-  #       profile = "simple-ext4";
-  #       device = "/dev/vda";
-  #       swapSize = "4G";
-  #     };
-  #   };
-  # };
-  #
-  # fileSystems."/" = {
-  #   device = "/dev/vda1";
-  #   fsType = "ext4";
-  # };
 
   boot = {
     loader = {
       grub = {
         enable = true;
+        efiSupport = true;
+        efiInstallAsRemovable = true;
         device = "nodev";
       };
     };
 
     initrd.systemd.enable = true;
-    tmp.useTmpfs = true;
   };
 
   hardware.enableRedistributableFirmware = true;

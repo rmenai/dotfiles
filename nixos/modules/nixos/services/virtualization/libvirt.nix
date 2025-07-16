@@ -29,6 +29,7 @@
       pkgs.freerdp
       pkgs.virt-viewer
       pkgs.libvirt
+      pkgs.libvirt-glib
       pkgs.qemu
       pkgs.spice-protocol
       pkgs.spice-gtk

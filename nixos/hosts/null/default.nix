@@ -102,19 +102,19 @@
     mode = "0600";
   };
 
-  sops.secrets."id_ed25519_ubuntu" = {
+  sops.secrets."id_ed25519_fork" = {
     key = "users/vault/ssh_private_key";
-    sopsFile = "${builtins.toString inputs.secrets}/hosts/ubuntu.yaml";
-    path = "/home/${config.spec.user}/.ssh/id_ed25519_ubuntu";
+    sopsFile = "${builtins.toString inputs.secrets}/hosts/fork.yaml";
+    path = "/home/${config.spec.user}/.ssh/id_ed25519_fork";
     owner = config.spec.user;
     group = "users";
     mode = "0600";
   };
 
-  sops.secrets."id_ed25519_ubuntu.pub" = {
+  sops.secrets."id_ed25519_fork.pub" = {
     key = "users/vault/ssh_public_key";
-    sopsFile = "${builtins.toString inputs.secrets}/hosts/ubuntu.yaml";
-    path = "/home/${config.spec.user}/.ssh/id_ed25519_ubuntu.pub";
+    sopsFile = "${builtins.toString inputs.secrets}/hosts/fork.yaml";
+    path = "/home/${config.spec.user}/.ssh/id_ed25519_fork.pub";
     owner = config.spec.user;
     group = "users";
     mode = "0600";

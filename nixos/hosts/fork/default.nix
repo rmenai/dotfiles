@@ -8,13 +8,13 @@
   ];
 
   spec = {
-    host = "ubuntu";
+    host = "fork";
     timeZone = "Europe/Paris";
     defaultLocale = "en_US.UTF-8";
   };
 
   deployment = {
-    targetHost = "ubuntu";
+    targetHost = "fork";
     targetUser = "root";
     tags = [ "vps" ];
   };

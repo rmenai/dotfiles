@@ -5,7 +5,6 @@
 
     ./hardware.nix
     ./networking.nix
-    ./variants.nix
   ];
 
   spec = {

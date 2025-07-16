@@ -45,9 +45,8 @@
     };
   };
 
-  # hardware.enableRedistributableFirmware = true;
-  # hardware.cpu.intel.updateMicrocode = true;
-  # services.fstrim.enable = true;
+  hardware.enableRedistributableFirmware = true;
+  hardware.cpu.intel.updateMicrocode = true;
 
   zramSwap = {
     enable = true;

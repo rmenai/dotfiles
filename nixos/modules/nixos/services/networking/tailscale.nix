@@ -30,13 +30,7 @@ in with lib; {
       enable = mkEnableOption "enable auto provisioning" // { default = true; };
       options = mkOption {
         type = types.listOf types.str;
-        default = [
-          "--ssh"
-          "--accept-dns"
-          "--accept-routes"
-          "--advertise-connector"
-          "--advertise-exit-node"
-        ];
+        default = [ "--ssh" "--accept-dns" "--accept-routes" ];
         example = [ "--advertise-exit-node" ];
         description = "Options to pass to Tailscale";
       };

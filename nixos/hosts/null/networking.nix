@@ -2,8 +2,6 @@
   features.services.networking.resolved.enable = true;
 
   networking = {
-    hostName = config.spec.host;
-
     networkmanager = {
       enable = true;
       wifi.powersave = false;
@@ -24,6 +22,7 @@
   boot.kernelModules = [ "tcp_bbr" ];
 
   hardware.firmware = [ pkgs.wireless-regdb ];
+  hardware.wirelessRegulatoryDatabase = true;
 
   boot.kernel.sysctl = {
     # Enable BBR congestion control
@@ -48,6 +47,10 @@
     "net.core.netdev_max_backlog" = 5000;
     "net.core.netdev_budget" = 300;
   };
+
+  boot.extraModprobeConfig = ''
+    options cfg80211 ieee80211_regdom="FR"
+  '';
 
   users.users.${config.spec.user}.extraGroups = [ "networkmanager" ];
 

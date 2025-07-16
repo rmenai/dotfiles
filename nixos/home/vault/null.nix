@@ -109,15 +109,15 @@
       ForwardAgent yes
 
     Host vm
-      HostName ubuntu
+      HostName vm
       User vault
       IdentityFile /home/${config.spec.user}/.ssh/id_ed25519_vm
       ForwardAgent yes
       ForwardX11 yes
       ForwardX11Trusted yes
 
-    Host ubuntu
-      HostName ubuntu
+    Host fork
+      HostName fork
       User vault
       IdentityFile /home/${config.spec.user}/.ssh/id_ed25519
       ForwardAgent yes
