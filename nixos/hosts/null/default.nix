@@ -7,7 +7,7 @@
 
     ./hardware.nix
     ./networking.nix
-    ./vm.nix
+    ./variants.nix
   ];
 
   spec = {
@@ -33,46 +33,20 @@
       sops.enable = true;
     };
 
-    hardware = {
-      disko = {
-        profile = "btrfs-luks";
-        device = "/dev/nvme0n1";
-        swapSize = "32G";
-      };
-
-      nvidia = {
-        enable = true;
-        intelBusId = "PCI:0:2:0";
-        nvidiaBusId = "PCI:1:0:0";
-      };
-
-      intel.enable = true;
-      ssd.enable = true;
-      ram.enable = true;
-    };
-
-    boot = {
-      systemd.enable = true;
-      initrd.enable = true;
-    };
-
     services = {
       audio = { pipewire.enable = true; };
       printing = { cups.enable = true; };
       security = { tpm.enable = true; };
 
+      power.tlp = {
+        enable = true;
+        profile = "performance";
+      };
+
       networking = {
-        networkManager.enable = true;
         bluetooth.enable = true;
         openssh.enable = true;
         tailscale.enable = true;
-      };
-
-      power = {
-        tlp = {
-          enable = true;
-          profile = "performance";
-        };
       };
 
       virtualization = {
@@ -82,18 +56,6 @@
         microvm.enable = true;
         podman.enable = true;
       };
-    };
-
-    impermanence = {
-      enable = true;
-      persistFolder = "/persist";
-    };
-
-    hibernation = {
-      enable = true;
-      resumeDevice = "/dev/disk/by-uuid/dfe71357-a2e8-479a-b976-0cd1269cbfa2";
-      resumeOffset = "533760";
-      delaySec = "1h";
     };
 
     display = {

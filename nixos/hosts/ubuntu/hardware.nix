@@ -21,4 +21,54 @@
   # networking.interfaces.ens4.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+} //
+
+# Custom hardware settings
+{
+  features = {
+    hardware = {
+      disko = {
+        profile = "btrfs-lvm";
+        device = "/dev/vda";
+        swapSize = "4G";
+      };
+    };
+  };
+
+  # features = {
+  #   hardware = {
+  #     disko = {
+  #       profile = "simple-ext4";
+  #       device = "/dev/vda";
+  #       swapSize = "4G";
+  #     };
+  #   };
+  # };
+  #
+  # fileSystems."/" = {
+  #   device = "/dev/vda1";
+  #   fsType = "ext4";
+  # };
+
+  boot = {
+    loader = {
+      grub = {
+        enable = true;
+        device = "nodev";
+      };
+    };
+
+    initrd.systemd.enable = true;
+    tmp.useTmpfs = true;
+  };
+
+  hardware.enableRedistributableFirmware = true;
+  hardware.cpu.intel.updateMicrocode = true;
+  services.fstrim.enable = true;
+
+  zramSwap = {
+    enable = true;
+    algorithm = "zstd";
+    memoryPercent = 30;
+  };
 }

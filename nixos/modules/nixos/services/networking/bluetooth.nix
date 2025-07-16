@@ -30,5 +30,6 @@
         };
       };
     };
+    features.persist = { directories = { "/var/lib/bluetooth" = true; }; };
   };
 }

@@ -5,5 +5,7 @@
     ./bluetooth.nix
     ./openssh.nix
     ./samba.nix
+    ./resolved.nix
+    ./unbound.nix
   ];
 }

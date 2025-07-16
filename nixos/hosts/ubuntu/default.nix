@@ -29,19 +29,6 @@
       sops.enable = true;
     };
 
-    hardware = {
-      disko = {
-        profile = "btrfs-lvm";
-        device = "/dev/vda";
-        swapSize = "4G";
-      };
-
-      ssd.enable = true;
-      ram.enable = true;
-    };
-
-    boot = { initrd.enable = true; };
-
     services = {
       networking = {
         openssh.enable = true;

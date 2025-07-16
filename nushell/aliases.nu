@@ -20,6 +20,9 @@ alias p = clipboard paste
 alias v = nvim
 alias vimdiff = nvim -d
 
+alias r = nix repl
+alias g = nvim +Neogit
+
 # tmux dependent aliases
 alias t = tmux
 alias ta = tmux attach
