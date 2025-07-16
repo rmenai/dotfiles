@@ -45,6 +45,7 @@
       networking = {
         bluetooth.enable = true;
         tailscale.enable = true;
+        openssh.enable = true;
       };
 
       security = {

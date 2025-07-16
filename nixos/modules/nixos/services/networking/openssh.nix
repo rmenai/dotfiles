@@ -10,7 +10,7 @@
 
       settings = {
         PasswordAuthentication = false;
-        PermitRootLogin = "no";
+        PermitRootLogin = "yes";
         MaxAuthTries = 5;
         MaxSessions = 8;
         LoginGraceTime = 30;
