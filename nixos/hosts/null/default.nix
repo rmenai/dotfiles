@@ -36,7 +36,6 @@
     services = {
       audio = { pipewire.enable = true; };
       printing = { cups.enable = true; };
-      security = { tpm.enable = true; };
 
       power.tlp = {
         enable = true;
@@ -45,8 +44,12 @@
 
       networking = {
         bluetooth.enable = true;
-        openssh.enable = true;
         tailscale.enable = true;
+      };
+
+      security = {
+        tpm.enable = true;
+        fail2ban.enable = true;
       };
 
       virtualization = {

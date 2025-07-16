@@ -11,7 +11,7 @@
     networks."10-eth0" = {
       matchConfig.Name = "eth0";
       address = [ "159.223.238.92/20" "10.18.0.5/16" ];
-      routes = [{ routeConfig.Gateway = "159.223.224.1"; }];
+      routes = [{ Gateway = "159.223.224.1"; }];
       dns = [ "8.8.8.8" ];
     };
 
