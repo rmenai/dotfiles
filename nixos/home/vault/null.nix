@@ -108,6 +108,14 @@
       IdentityFile /home/${config.spec.user}/.ssh/id_ed25519_vm
       ForwardAgent yes
 
+    Host vm
+      HostName ubuntu
+      User vault
+      IdentityFile /home/${config.spec.user}/.ssh/id_ed25519_vm
+      ForwardAgent yes
+      ForwardX11 yes
+      ForwardX11Trusted yes
+
     Host ubuntu
       HostName ubuntu
       User vault

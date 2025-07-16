@@ -17,6 +17,7 @@
     users.users.${config.spec.user} = {
       name = config.spec.user;
       home = "/home/${config.spec.user}";
+      createHome = true;
       isNormalUser = true;
       description = config.spec.userFullName;
       hashedPasswordFile = config.sops.secrets."users/vault/password_hash".path;
@@ -50,6 +51,7 @@
       "d /home/${config.spec.user}/.config 0755 ${config.spec.user} users -"
       "d /home/${config.spec.user}/.config/sops 0755 ${config.spec.user} users -"
       "d /home/${config.spec.user}/.config/sops/age 0755 ${config.spec.user} users -"
+      "d /home/${config.spec.user}/.ssh 0700 ${config.spec.user} users -"
     ];
   };
 }

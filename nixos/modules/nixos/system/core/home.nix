@@ -9,10 +9,6 @@
 
       extraSpecialArgs = { inherit func pkgs inputs outputs; };
 
-      backupFileExtension = "backup-" + pkgs.lib.readFile
-        "${pkgs.runCommand "timestamp" { }
-        "echo -n `date '+%Y%m%d%H%M%S'` > $out"}";
-
       users.${config.spec.user}.imports = [
         (func.custom.relativeToRoot
           "home/${config.spec.user}/${config.spec.host}.nix")

@@ -1,35 +1,12 @@
 { config, lib, pkgs, ... }: {
   options.features.services.networking.openssh = {
     enable = lib.mkEnableOption "OpenSSH server and client configuration";
-
-    ports = lib.mkOption {
-      type = lib.types.listOf lib.types.int;
-      default = [ 22 ];
-      description = "SSH server ports";
-    };
-
-    passwordAuthentication = lib.mkOption {
-      type = lib.types.bool;
-      default = true;
-      description = "Whether to allow password authentication";
-    };
-
-    permitRootLogin = lib.mkOption {
-      type = lib.types.enum [
-        "yes"
-        "no"
-        "prohibit-password"
-        "forced-commands-only"
-      ];
-      default = "yes";
-      description = "Whether to allow root login";
-    };
   };
 
   config = lib.mkIf config.features.services.networking.openssh.enable {
     services.openssh = {
       enable = true;
-      ports = config.features.services.networking.openssh.ports;
+      ports = [ 22 ];
 
       settings = {
         PasswordAuthentication = true;
@@ -38,10 +15,17 @@
         GatewayPorts = "clientspecified";
       };
 
-      hostKeys = [{
-        path = "/etc/ssh/ssh_host_ed25519_key";
-        type = "ed25519";
-      }];
+      hostKeys = [
+        {
+          path = "/etc/ssh/ssh_host_ed25519_key";
+          type = "ed25519";
+        }
+        {
+          path = "/etc/ssh/ssh_host_rsa_key";
+          type = "rsa";
+          bits = 4096;
+        }
+      ];
     };
 
     programs.ssh = {
@@ -64,8 +48,7 @@
       services.sudo.rssh = true;
     };
 
-    networking.firewall.allowedTCPPorts =
-      config.features.services.networking.openssh.ports;
+    networking.firewall.allowedTCPPorts = [ 22 ];
 
     users.users.${config.spec.user}.extraGroups = [ "git" ];
 

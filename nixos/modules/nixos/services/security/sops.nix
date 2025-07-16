@@ -17,15 +17,17 @@ in {
     sops = {
       defaultSopsFile = "${sopsFolder}/hosts/${config.spec.host}.yaml";
       validateSopsFiles = cfg.validateSopsFiles;
+      gnupg.sshKeyPaths = [ ];
 
       age = {
         keyFile = "/var/lib/sops/key.txt";
         generateKey = true;
+        sshKeyPaths = [ ];
       };
     };
 
     environment.sessionVariables.SOPS_FOLDER = sopsFolder;
-    environment.systemPackages = [ pkgs.sops ];
+    environment.systemPackages = [ pkgs.sops pkgs.age ];
 
     fileSystems."/var/lib/sops" =
       lib.mkIf config.features.impermanence.enable { neededForBoot = true; };
