@@ -67,7 +67,6 @@
 
     initrd.systemd.enable = true;
     supportedFilesystems = [ "ntfs" "btrfs" ];
-    tmp.useTmpfs = true;
   };
 
   hardware.enableRedistributableFirmware = true;
