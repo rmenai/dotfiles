@@ -10,19 +10,19 @@
 
     networks."10-eth0" = {
       matchConfig.Name = "eth0";
-      address = [ "165.232.82.203/20" "10.18.0.6/16" ];
-      routes = [{ routeConfig.Gateway = "165.232.80.1"; }];
+      address = [ "159.223.238.92/20" "10.18.0.5/16" ];
+      routes = [{ routeConfig.Gateway = "159.223.224.1"; }];
       dns = [ "8.8.8.8" ];
     };
 
     networks."20-eth1" = {
       matchConfig.Name = "eth1";
-      address = [ "10.110.0.2/20" ];
+      address = [ "10.110.0.5/20" ];
     };
   };
 
   services.udev.extraRules = ''
-    ATTR{address}=="b2:b9:7a:72:a9:20", NAME="eth0"
-    ATTR{address}=="9a:24:f5:ac:aa:cb", NAME="eth1"
+    ATTR{address}=="b6:9a:16:4e:36:c3", NAME="eth0"
+    ATTR{address}=="0a:5b:77:ce:84:43", NAME="eth1"
   '';
 }
