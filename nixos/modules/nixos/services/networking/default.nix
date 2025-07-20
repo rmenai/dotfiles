@@ -7,5 +7,6 @@
     ./samba.nix
     ./resolved.nix
     ./unbound.nix
+    ./avahi.nix
   ];
 }

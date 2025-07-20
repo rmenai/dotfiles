@@ -5,12 +5,14 @@
 
   config = lib.mkIf config.features.services.audio.pulseaudio.enable {
     security.rtkit.enable = true;
+
+    services.pipewire.enable = false;
     services.pulseaudio = {
       enable = true;
       support32Bit = true;
     };
 
     users.users.${config.spec.user}.extraGroups = [ "audio" ];
-    environment.systemPackages = with pkgs; [ pavucontrol ];
+    environment.systemPackages = with pkgs; [ pavucontrol pulseaudio ];
   };
 }

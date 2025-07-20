@@ -23,7 +23,12 @@
         sops.enable = true;
       };
 
-      services.security.fail2ban.enable = true;
+      services = {
+        security.fail2ban.enable = true;
+        networking.avahi.enable = true;
+        power.update-greeting.enable = true;
+      };
+
       apps.core.enable = true;
     };
 

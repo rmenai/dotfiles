@@ -7,16 +7,10 @@
 
       impermanence.enable = lib.mkForce false;
       hibernation.enable = lib.mkForce false;
-
-      # display.sddm.enable = lib.mkForce false;
-      # display.xserver.enable = lib.mkForce false;
-      # desktop.hyprland.enable = lib.mkForce false;
     };
 
-    # users.users.${config.spec.user} = { initialPassword = "test"; };
-
     virtualisation = {
-      diskSize = 65536;
+      diskSize = 60 * 1024;
       memorySize = 8192;
       cores = 4;
       graphics = true;

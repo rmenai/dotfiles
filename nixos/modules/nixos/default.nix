@@ -8,6 +8,8 @@
     inputs.sops-nix.nixosModules.sops
     inputs.catppuccin.nixosModules.catppuccin
 
+    "${inputs.secrets}/nixos.nix"
+
     ./apps
     ./boot
     ./containers
