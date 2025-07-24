@@ -129,5 +129,11 @@
     libraries = with pkgs; [ stdenv libgcc libllvm portaudio ];
   };
 
-  environment.systemPackages = with pkgs; [ colmena ];
+  environment.systemPackages = with pkgs;
+    [
+      (writeShellScriptBin "colmena" ''
+        cd /home/vault/.dotfiles/nixos
+        exec ${colmena}/bin/colmena "$@" --impure
+      '')
+    ];
 }

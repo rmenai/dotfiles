@@ -8,5 +8,6 @@
     ./resolved.nix
     ./unbound.nix
     ./avahi.nix
+    ./cockpit.nix
   ];
 }

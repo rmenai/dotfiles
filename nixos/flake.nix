@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     home-manager = {
@@ -53,6 +53,11 @@
       url = "github:Wraient/curd";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nh = {
+      url = "github:nix-community/nh/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, colmena, home-manager, ... }@inputs:
@@ -80,6 +85,8 @@
         func = extendedLib;
       };
     in {
+      inherit inputs;
+
       nixosConfigurations = lib.mkNixosConfigurations {
         inherit hosts commonSpecialArgs;
         hostsDir = ./hosts;

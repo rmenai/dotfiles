@@ -10,26 +10,26 @@
       hostName = config.spec.host;
 
       firewall = {
-        enable = true;
-        allowPing = true;
+        enable = lib.mkDefault true;
+        allowPing = lib.mkDefault true;
         trustedInterfaces = [ "tailscale0" ];
       };
     };
 
     features = {
       system = {
-        nix.enable = true;
-        home.enable = true;
-        sops.enable = true;
+        nix.enable = lib.mkDefault true;
+        home.enable = lib.mkDefault true;
+        sops.enable = lib.mkDefault true;
       };
 
       services = {
-        security.fail2ban.enable = true;
-        networking.avahi.enable = true;
-        power.update-greeting.enable = true;
+        security.fail2ban.enable = lib.mkDefault true;
+        networking.avahi.enable = lib.mkDefault true;
+        power.update-greeting.enable = lib.mkDefault true;
       };
 
-      apps.core.enable = true;
+      apps.core.enable = lib.mkDefault true;
     };
 
     users.users.root.openssh.authorizedKeys.keys = [

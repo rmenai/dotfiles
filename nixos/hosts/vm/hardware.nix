@@ -25,24 +25,19 @@
 
 # Custom hardware settings
 {
-  features = {
-    hardware = {
-      disko = {
-        profile = "simple-ext4";
-        device = "/dev/vda";
-      };
-    };
-  };
-
   boot = {
     loader = {
       grub = {
         enable = true;
-        efiSupport = true;
-        efiInstallAsRemovable = true;
         device = "/dev/vda";
+        forceInstall = true; # This bypasses the embedding warning
       };
     };
+  };
+
+  fileSystems."/" = {
+    device = "/dev/vda";
+    fsType = "ext4";
   };
 
   hardware.enableRedistributableFirmware = true;

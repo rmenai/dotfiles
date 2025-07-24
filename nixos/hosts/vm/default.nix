@@ -5,6 +5,7 @@
 
     ./hardware.nix
     ./networking.nix
+    ./variants.nix
   ];
 
   spec = {
@@ -35,6 +36,8 @@
         tailscale.enable = true;
       };
     };
+
+    # containers = { httpd.enable = true; };
 
     apps = {
       core.enable = true;

@@ -9,7 +9,7 @@
       xwayland.enable = true;
     };
 
-    environment.systemPackages = with pkgs; [ sway waypipe ];
+    environment.systemPackages = with pkgs; [ sway waypipe kitty ];
 
     users.users.${config.spec.user}.extraGroups = [ "video" ];
 

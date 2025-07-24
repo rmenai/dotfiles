@@ -1,7 +1,7 @@
-{ lib, ... }: {
+{
   networking = {
     useNetworkd = true;
-    usePredictableInterfaceNames = lib.mkForce false;
+    usePredictableInterfaceNames = false;
     dhcpcd.enable = false;
   };
 

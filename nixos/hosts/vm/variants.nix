@@ -1,17 +1,6 @@
 { lib, ... }: {
   virtualisation.vmVariant = {
-    features = {
-      hardware.disko.profile = lib.mkForce "none";
-
-      impermanence.enable = lib.mkForce false;
-      hibernation.enable = lib.mkForce false;
-
-      # display = {
-      #   autoLogin.enable = lib.mkForce false;
-      #   sddm.enable = lib.mkForce false;
-      #   xserver.enable = lib.mkForce false;
-      # };
-    };
+    features = { hardware.disko.profile = lib.mkForce "none"; };
 
     virtualisation = {
       diskSize = 60 * 1024;
@@ -24,7 +13,7 @@
       sharedDirectories = {
         sops-key = {
           source = "/var/lib/sops";
-          target = "/var/lib/sops";
+          target = "/mnt/var/lib/sops";
           securityModel = "passthrough";
         };
       };
@@ -38,6 +27,21 @@
           "-display gtk,gl=on" # Hardware-accelerated display
         ];
       };
+    };
+
+    systemd.services.setup-sops-key = {
+      description = "Copy SOPS key if it does not exist";
+      serviceConfig.Type = "oneshot";
+
+      # Ensure sops-nix waits for this to complete
+      before = [ "sops-nix.service" ];
+      wantedBy = [ "multi-user.target" ];
+
+      script = ''
+        echo "Setting up SOPS key for the first time..."
+        mkdir -p /var/lib/sops
+        cp /mnt/var/lib/sops/key.txt /var/lib/sops/key.txt
+      '';
     };
   };
 }

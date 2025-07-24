@@ -5,6 +5,7 @@
 
   config = lib.mkIf config.features.services.virtualization.libvirt.enable {
     virtualisation.libvirtd.enable = true;
+    virtualisation.libvirtd.qemu.runAsRoot = true;
     virtualisation.libvirtd.qemu.vhostUserPackages = [ pkgs.virtiofsd ];
     virtualisation.spiceUSBRedirection.enable = true;
 

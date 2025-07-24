@@ -21,7 +21,7 @@ in {
 
       age = {
         keyFile = "/var/lib/sops/key.txt";
-        generateKey = true;
+        generateKey = false;
         sshKeyPaths = [ ];
       };
     };

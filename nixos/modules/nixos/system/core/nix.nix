@@ -1,12 +1,6 @@
-{ config, lib, inputs, outputs, ... }: {
+{ config, lib, pkgs, inputs, outputs, ... }: {
   options.features.system.nix = {
     enable = lib.mkEnableOption "nix configuration";
-
-    gc = {
-      enable = lib.mkEnableOption "automatic garbage collection" // {
-        default = true;
-      };
-    };
   };
 
   config = lib.mkIf config.features.system.nix.enable {
@@ -45,13 +39,15 @@
         experimental-features = [ "nix-command" "flakes" ];
       };
 
-      gc = lib.mkIf config.features.system.nix.gc.enable {
-        automatic = true;
-        randomizedDelaySec = "14m";
-        options = "--delete-older-than 10d";
-      };
-
       optimise.automatic = true;
+    };
+
+    programs.nh = {
+      enable = true;
+      package = inputs.nh.packages.${pkgs.system}.default;
+      clean.enable = true;
+      clean.extraArgs = "--keep-since 4d --keep 16";
+      flake = "/home/${config.spec.user}/.dotfiles/nixos";
     };
   };
 }

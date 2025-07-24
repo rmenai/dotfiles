@@ -24,7 +24,10 @@
     };
 
     features.dotfiles = {
-      paths = { ".config/nixos" = lib.mkDefault "nixos"; };
+      paths = {
+        ".config/nixos" = lib.mkDefault "nixos";
+        ".config/nixpkgs" = lib.mkDefault "nixpkgs";
+      };
     };
   };
 }
