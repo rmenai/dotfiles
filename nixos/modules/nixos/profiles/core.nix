@@ -17,19 +17,11 @@
     };
 
     features = {
-      system = {
-        nix.enable = lib.mkDefault true;
-        home.enable = lib.mkDefault true;
-        sops.enable = lib.mkDefault true;
-      };
-
       services = {
         security.fail2ban.enable = lib.mkDefault true;
         networking.avahi.enable = lib.mkDefault true;
         power.update-greeting.enable = lib.mkDefault true;
       };
-
-      apps.core.enable = lib.mkDefault true;
     };
 
     users.users.root.openssh.authorizedKeys.keys = [

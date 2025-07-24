@@ -17,7 +17,7 @@
   deployment = {
     targetHost = "vm";
     targetUser = "root";
-    tags = [ "vps" ];
+    tags = [ "vm" ];
   };
 
   features = {

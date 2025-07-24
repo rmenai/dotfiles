@@ -5,12 +5,6 @@
 
       impermanence.enable = lib.mkForce false;
       hibernation.enable = lib.mkForce false;
-
-      # display = {
-      #   autoLogin.enable = lib.mkForce false;
-      #   sddm.enable = lib.mkForce false;
-      #   xserver.enable = lib.mkForce false;
-      # };
     };
 
     virtualisation = {

@@ -23,10 +23,5 @@
         };
       };
     })
-    {
-      networking.hostName = config.spec.host;
-      networking.firewall.enable = true;
-      networking.firewall.allowPing = true;
-    }
   ];
 }

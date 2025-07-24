@@ -12,6 +12,7 @@
     firewall = {
       enable = true;
       allowPing = true;
+      trustedInterfaces = [ "tailscale0" ];
     };
 
     extraHosts = ''

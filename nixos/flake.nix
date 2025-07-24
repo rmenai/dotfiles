@@ -69,6 +69,7 @@
       forEachSystem = f: forAllSystems (system: f system);
 
       hosts = lib.discoverHosts ./hosts;
+      miscHosts = lib.discoverHosts ./misc;
 
       extendedLib = nixpkgs.lib.extend (self: super: { custom = lib; });
 
@@ -90,40 +91,10 @@
       nixosConfigurations = lib.mkNixosConfigurations {
         inherit hosts commonSpecialArgs;
         hostsDir = ./hosts;
-      } // {
-        my-microvm = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            inputs.microvm.nixosModules.microvm
-            {
-              networking.hostName = "qemu";
-              microvm = {
-                hypervisor = "qemu";
-                vcpu = 4;
-                mem = 8 * 1024;
-
-                interfaces = [{
-                  type = "user";
-                  id = "vm-qemu";
-                  mac = "02:00:00:00:00:01";
-                }];
-
-                shares = [{
-                  tag = "ro-store";
-                  source = "/nix/store";
-                  mountPoint = "/nix/.ro-store";
-                }];
-              };
-
-              services.openssh.enable = true;
-              services.openssh.settings.PasswordAuthentication = true;
-              users.users.root.password = "test123";
-              services.xserver.enable = false;
-
-              # imports = [ ./hosts/vm ];
-            }
-          ];
-        };
+      } // lib.mkNixosConfigurations {
+        inherit commonSpecialArgs;
+        hosts = miscHosts;
+        hostsDir = ./misc;
       };
 
       homeConfigurations = lib.mkHomeConfigurations {

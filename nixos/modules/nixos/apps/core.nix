@@ -22,14 +22,6 @@
       ];
     };
 
-    home-manager.users.root = {
-      home.stateVersion = config.system.stateVersion;
-      programs.git = {
-        enable = true;
-        extraConfig.safe.directory = "/home/${config.spec.user}/.dotfiles";
-      };
-    };
-
     users.users.${config.spec.user}.extraGroups = [ "git" ];
   };
 }
