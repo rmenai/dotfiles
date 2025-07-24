@@ -22,6 +22,6 @@
 
     system.nix.enable = true;
     services.networking.openssh.enable = true;
-    app.core.enable = true;
+    apps.core.enable = true;
   };
 }

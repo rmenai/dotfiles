@@ -113,10 +113,62 @@
       overlays = import ./overlays { inherit inputs; };
 
       packages = forEachSystem (system:
-        let pkgs = mkPkgs system;
-        in nixpkgs.lib.packagesFromDirectoryRecursive {
-          callPackage = nixpkgs.lib.callPackageWith pkgs;
-          directory = ./pkgs;
-        });
+        let
+          pkgsFromDir = nixpkgs.lib.packagesFromDirectoryRecursive {
+            callPackage = nixpkgs.lib.callPackageWith mkPkgs system;
+            directory = ./pkgs;
+          };
+
+          extraPackages = {
+            microvm =
+              self.nixosConfigurations.microvm.config.microvm.declaredRunner;
+            vm = self.nixosConfigurations.vm.config.system.build.vm;
+            null = self.nixosConfigurations.null.config.system.build.vm;
+            fork = self.nixosConfigurations.fork.config.system.build.vm;
+          };
+
+          extraImages = {
+            virtualbox = inputs.nixos-generators.nixosGenerate {
+              system = "x86_64-linux";
+              format = "virtualbox";
+            };
+
+            vagrant-virtualbox = inputs.nixos-generators.nixosGenerate {
+              system = "x86_64-linux";
+              format = "vagrant-virtualbox";
+            };
+
+            qcow = inputs.nixos-generators.nixosGenerate {
+              system = "x86_64-linux";
+              format = "qcow";
+            };
+
+            qcow-efi = inputs.nixos-generators.nixosGenerate {
+              system = "x86_64-linux";
+              format = "qcow-efi";
+            };
+
+            do = inputs.nixos-generators.nixosGenerate {
+              system = "x86_64-linux";
+              format = "do";
+            };
+
+            docker = inputs.nixos-generators.nixosGenerate {
+              system = "x86_64-linux";
+              format = "docker";
+            };
+
+            iso = inputs.nixos-generators.nixosGenerate {
+              system = "x86_64-linux";
+              format = "iso";
+            };
+
+            install-iso = inputs.nixos-generators.nixosGenerate {
+              system = "x86_64-linux";
+              format = "install-iso";
+            };
+          };
+
+        in pkgsFromDir // extraPackages // extraImages);
     };
 }

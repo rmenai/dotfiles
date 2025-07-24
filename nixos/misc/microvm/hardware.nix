@@ -25,21 +25,6 @@
 
 # Custom hardware settings
 {
-  # boot = {
-  #   loader = {
-  #     grub = {
-  #       enable = true;
-  #       device = "/dev/vda";
-  #       forceInstall = true; # This bypasses the embedding warning
-  #     };
-  #   };
-  # };
-
-  # fileSystems."/" = {
-  #   device = "/dev/vda";
-  #   fsType = "ext4";
-  # };
-
   hardware.enableRedistributableFirmware = true;
   hardware.cpu.intel.updateMicrocode = true;
 
