@@ -1,11 +1,15 @@
-{ func, lib, ... }: {
+{ func, lib, inputs, ... }: {
   imports = lib.flatten [
+    inputs.microvm.nixosModules.host
+
     (map func.custom.relativeToRoot [ "modules/common" ])
     (map func.custom.relativeToRoot [ "modules/nixos" ])
 
     ./hardware.nix
     ./networking.nix
     ./variants.nix
+
+    ./app.nix
   ];
 
   spec = {
@@ -35,6 +39,8 @@
         openssh.enable = true;
         tailscale.enable = true;
       };
+
+      virtualization.microvm.enable = true;
     };
 
     apps = {
