@@ -53,12 +53,6 @@ in with lib; {
 
     environment.systemPackages = [ pkgs.tailscale ];
 
-    networking.firewall = {
-      enable = true;
-      allowedUDPPorts = [ cfg.port ];
-      trustedInterfaces = [ "tailscale0" ];
-    };
-
     features.persist = { directories = { "/var/lib/tailscale" = true; }; };
   };
 }

@@ -9,5 +9,6 @@
     ./unbound.nix
     ./avahi.nix
     ./cockpit.nix
+    ./syncthing.nix
   ];
 }

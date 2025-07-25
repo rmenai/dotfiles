@@ -9,12 +9,6 @@
       dns = "systemd-resolved";
     };
 
-    firewall = {
-      enable = true;
-      allowPing = true;
-      trustedInterfaces = [ "tailscale0" ];
-    };
-
     extraHosts = ''
       10.10.10.10 kali
       10.10.10.8  flare

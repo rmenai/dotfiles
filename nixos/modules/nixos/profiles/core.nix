@@ -13,6 +13,8 @@
         enable = lib.mkDefault true;
         allowPing = lib.mkDefault true;
         trustedInterfaces = [ "tailscale0" ];
+        allowedTCPPorts = lib.mkForce [ ];
+        allowedUDPPorts = lib.mkForce [ 41641 ];
       };
     };
 

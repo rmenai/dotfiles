@@ -7,7 +7,6 @@
     services.avahi = {
       enable = true;
       nssmdns4 = true;
-      openFirewall = true;
       domainName = "local";
       publish = {
         enable = true;

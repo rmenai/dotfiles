@@ -1,4 +1,6 @@
-{ config, func, inputs, lib, pkgs, ... }: {
+{ config, func, inputs, lib, pkgs, ... }:
+let sopsFolder = builtins.toString inputs.secrets;
+in {
   imports = lib.flatten [
     inputs.microvm.nixosModules.host
 
@@ -46,6 +48,7 @@
         bluetooth.enable = true;
         tailscale.enable = true;
         openssh.enable = true;
+        syncthing.enable = true;
       };
 
       security = {
@@ -85,6 +88,25 @@
     containers = {
       httpd.enable = false;
       echo.enable = false;
+    };
+  };
+
+  services.syncthing.settings = {
+    folders = {
+      "Notes" = {
+        id = "cgmyu-yuita";
+        path = "/home/${config.spec.user}/Documents/Notes";
+        devices = [ "s23" "fork" ];
+        ignorePerms = true;
+        versioning = {
+          type = "staggered";
+          fsPath = ".stversions";
+          params = {
+            cleanInterval = "86400";
+            maxAge = "31536000";
+          };
+        };
+      };
     };
   };
 
