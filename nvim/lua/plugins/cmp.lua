@@ -15,7 +15,7 @@ return {
 
   {
     "saghen/blink.cmp",
-    build = "nix run .#build-plugin",
+    version = "1.*",
     dependencies = {
       "fang2hou/blink-copilot",
       "moyiz/blink-emoji.nvim",

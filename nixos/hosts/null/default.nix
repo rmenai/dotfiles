@@ -1,6 +1,4 @@
-{ config, func, inputs, lib, pkgs, ... }:
-let sopsFolder = builtins.toString inputs.secrets;
-in {
+{ config, func, inputs, lib, pkgs, ... }: {
   imports = lib.flatten [
     inputs.microvm.nixosModules.host
 
@@ -96,7 +94,7 @@ in {
       "Notes" = {
         id = "cgmyu-yuita";
         path = "/home/${config.spec.user}/Documents/Notes";
-        devices = [ "s23" "fork" ];
+        devices = [ "s23" "kernel" ];
         ignorePerms = true;
         versioning = {
           type = "staggered";
@@ -128,19 +126,19 @@ in {
     mode = "0600";
   };
 
-  sops.secrets."id_ed25519_fork" = {
+  sops.secrets."id_ed25519_kernel" = {
     key = "users/vault/ssh_private_key";
-    sopsFile = "${builtins.toString inputs.secrets}/hosts/fork.yaml";
-    path = "/home/${config.spec.user}/.ssh/id_ed25519_fork";
+    sopsFile = "${builtins.toString inputs.secrets}/hosts/kernel.yaml";
+    path = "/home/${config.spec.user}/.ssh/id_ed25519_kernel";
     owner = config.spec.user;
     group = "users";
     mode = "0600";
   };
 
-  sops.secrets."id_ed25519_fork.pub" = {
+  sops.secrets."id_ed25519_kernel.pub" = {
     key = "users/vault/ssh_public_key";
-    sopsFile = "${builtins.toString inputs.secrets}/hosts/fork.yaml";
-    path = "/home/${config.spec.user}/.ssh/id_ed25519_fork.pub";
+    sopsFile = "${builtins.toString inputs.secrets}/hosts/kernel.yaml";
+    path = "/home/${config.spec.user}/.ssh/id_ed25519_kernel.pub";
     owner = config.spec.user;
     group = "users";
     mode = "0600";

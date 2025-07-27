@@ -116,8 +116,8 @@
       ForwardX11 yes
       ForwardX11Trusted yes
 
-    Host fork
-      HostName fork
+    Host kernel
+      HostName kernel
       User vault
       IdentityFile /home/${config.spec.user}/.ssh/id_ed25519
       ForwardAgent yes
