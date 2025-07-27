@@ -1,4 +1,11 @@
 {
-  imports =
-    [ ./audio ./power ./printing ./security ./networking ./virtualization ];
+  imports = [
+    ./audio
+    ./power
+    ./printing
+    ./security
+    ./networking
+    ./virtualization
+    ./monitoring
+  ];
 }

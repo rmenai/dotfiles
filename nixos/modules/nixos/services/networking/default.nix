@@ -10,5 +10,8 @@
     ./avahi.nix
     ./cockpit.nix
     ./syncthing.nix
+    ./technitium.nix
+    ./adguardhome.nix
+    ./caddy.nix
   ];
 }

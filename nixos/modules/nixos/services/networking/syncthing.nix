@@ -9,6 +9,7 @@
       user = config.spec.user;
       dataDir = "/home/${config.spec.user}";
       configDir = "/home/${config.spec.user}/.config/syncthing";
+      guiAddress = "0.0.0.0:8384";
     };
 
     features.persist = {

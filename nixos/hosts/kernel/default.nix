@@ -34,8 +34,12 @@
       networking = {
         openssh.enable = true;
         tailscale.enable = true;
+        caddy.enable = true;
         syncthing.enable = true;
+        adguardhome.enable = true;
       };
+
+      monitoring.uptime-kuma.enable = true;
     };
 
     apps = {
