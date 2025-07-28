@@ -86,16 +86,10 @@
   };
 
   # TODO
-  # - Tailscale
-  # - Caddy
-  # - Adgard Home
-  # - Syncthing
   # - Nextcloud
   # - Immich
   # - Calibre-Web
   # - Audiobookshelf
-  # - Fail2Ban
-  # - UptimeKuma
   # - SearxNG
   # - KeyCloack
   # - Restic
