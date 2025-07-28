@@ -65,4 +65,10 @@
     algorithm = "zstd";
     memoryPercent = 30;
   };
+
+  swapDevices = [{
+    device = "/swapfile";
+    size = 2048;
+    priority = 1; # Lower than zram priority
+  }];
 }

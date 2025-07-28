@@ -41,4 +41,17 @@
   #   listenHTTP = true;
   #   group = "adguardhome";
   # };
+
+  # # Enable ACME for Let's Encrypt
+  # security.acme = {
+  #   acceptTerms = true;
+  #   defaults.email = "rami@menai.me";
+  #
+  #   certs."adguard.lab.menai.me" = {
+  #     dnsProvider = "cloudflare";
+  #     dnsResolver = "1.1.1.1:53";
+  #     environmentFile = config.sops.secrets."secrets/cloudflare_acme".path;
+  #     webroot = null;
+  #   };
+  # };
 }

@@ -48,6 +48,24 @@
     };
   };
 
+  services.adguardhome = {
+    settings = {
+      dns = {
+        upstream_dns = [
+          "https://dns.quad9.net/dns-query"
+          "https://1.1.1.1/dns-query"
+          "https://1.0.0.1/dns-query"
+        ];
+        fallback_dns = [ "1.1.1.1" "1.0.0.1" ];
+      };
+
+      filtering = {
+        protection_enabled = true;
+        filtering_enabled = true;
+      };
+    };
+  };
+
   services.syncthing.settings = {
     folders = {
       "Notes" = {
@@ -66,4 +84,20 @@
       };
     };
   };
+
+  # TODO
+  # - Tailscale
+  # - Caddy
+  # - Adgard Home
+  # - Syncthing
+  # - Nextcloud
+  # - Immich
+  # - Calibre-Web
+  # - Audiobookshelf
+  # - Fail2Ban
+  # - UptimeKuma
+  # - SearxNG
+  # - KeyCloack
+  # - Restic
+  # - Microbin
 }

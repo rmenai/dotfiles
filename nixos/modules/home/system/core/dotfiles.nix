@@ -16,7 +16,7 @@
   };
 
   config = lib.mkIf config.features.dotfiles.enable
-    (let localFolder = "/home/${config.home.username}/.dotfiles";
+    (let localFolder = "/home/${config.spec.user}/.dotfiles";
     in {
       # Create editable dotfiles directory from flake input if it doesn't exist
       home.activation = lib.mkIf config.features.dotfiles.autoSetupLocal {
