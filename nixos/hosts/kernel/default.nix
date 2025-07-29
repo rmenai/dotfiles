@@ -77,6 +77,7 @@
       WASTEBIN_MAX_BODY_SIZE = 1024 * 1024; # 1MB
       WASTEBIN_THEME = "catppuccin";
       WASTEBIN_TITLE = "wastebin";
+      WASTEBIN_PASTE_EXPIRATIONS = "10m,1h,1d,1w=d,1M,1y,0";
     };
   };
 

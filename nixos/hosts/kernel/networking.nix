@@ -55,7 +55,7 @@
           output file /var/log/caddy/access.log {
             roll_size 100mb
             roll_keep 5
-            roll_keep_for 720h
+            roll_keep_for 168h
           }
         }
       }
@@ -76,16 +76,16 @@
       }
 
       lab.menai.me {
-        rate_limit {
-          zone redirects {
-            key {remote_host}
-            events 60
-            window 1m
-          }
-        }
-
       	redir / /status/home 301
       	reverse_proxy http://127.0.0.1:3001
+      	import cloudflare
+        import logging
+        import security
+      }
+
+      go.menai.me {
+        redir / https://shlink.lab.menai.me permanent
+      	reverse_proxy http://127.0.0.1:8385
       	import cloudflare
         import logging
         import security
@@ -94,14 +94,11 @@
       bin.menai.me {
         rate_limit {
           zone uploads {
+            match {
+              method POST
+            }
             key {remote_host}
             events 5
-            window 1m
-            match_method POST
-          }
-          zone general {
-            key {remote_host}
-            events 30
             window 1m
           }
         }
@@ -110,23 +107,8 @@
           max_size 2MB
         }
 
-      	reverse_proxy http://127.0.0.1:8088
-      	import cloudflare
-        import logging
-        import security
-      }
-
-      go.menai.me {
-        rate_limit {
-          zone redirects {
-            key {remote_host}
-            events 60
-            window 1m
-          }
-        }
-
-      	reverse_proxy http://127.0.0.1:8385
-      	import cloudflare
+        reverse_proxy http://127.0.0.1:8088
+        import cloudflare
         import logging
         import security
       }
