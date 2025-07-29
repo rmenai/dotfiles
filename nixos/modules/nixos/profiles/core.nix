@@ -13,8 +13,6 @@
         enable = lib.mkDefault true;
         allowPing = lib.mkDefault true;
         trustedInterfaces = [ "tailscale0" ];
-        allowedTCPPorts = lib.mkForce [ ];
-        allowedUDPPorts = lib.mkForce [ 41641 ];
       };
     };
 
@@ -26,9 +24,12 @@
       };
     };
 
-    users.users.root.openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDDw4/okVV4KIt0XvVU+ecFmhYOVS/ETmDAK04WgN1ic vault@null"
-    ];
+    users.users.root = {
+      hashedPassword = config.private.secrets.rootPasswordHash;
+      openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDDw4/okVV4KIt0XvVU+ecFmhYOVS/ETmDAK04WgN1ic vault@null"
+      ];
+    };
 
     security.sudo.extraConfig = ''
       Defaults !tty_tickets # share authentication across all ttys, not one per-tty

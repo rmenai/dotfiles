@@ -7,5 +7,6 @@
     ./networking
     ./virtualization
     ./monitoring
+    ./databases
   ];
 }

@@ -5,10 +5,11 @@
     dhcpcd.enable = false;
 
     firewall = {
-      trustedInterfaces = [ "tailscale0" ];
+      enable = true;
 
-      allowedTCPPorts = lib.mkForce [ 80 53 443 853 ];
-      allowedUDPPorts = lib.mkForce [ 53 41641 ];
+      trustedInterfaces = [ "tailscale0" "podman0" ];
+      allowedTCPPorts = lib.mkForce [ 80 443 ];
+      allowedUDPPorts = lib.mkForce [ 41641 ];
     };
   };
 
@@ -51,6 +52,26 @@
       lab.menai.me {
       	redir / /status/home 301
       	reverse_proxy http://127.0.0.1:3001
+      	import cloudflare
+      }
+
+      paste.menai.me {
+      	reverse_proxy http://127.0.0.1:8088
+      	import cloudflare
+      }
+
+      go.menai.me {
+      	reverse_proxy http://127.0.0.1:8385
+      	import cloudflare
+      }
+
+      uptime.lab.menai.me {
+      	reverse_proxy http://127.0.0.1:3001
+      	import cloudflare
+      }
+
+      shlink.lab.menai.me {
+      	reverse_proxy http://127.0.0.1:8386
       	import cloudflare
       }
 

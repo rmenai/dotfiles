@@ -13,5 +13,9 @@
     ./technitium.nix
     ./adguardhome.nix
     ./caddy.nix
+    ./privatebin.nix
+    ./hastebin.nix
+    ./wastebin.nix
+    ./shlink.nix
   ];
 }

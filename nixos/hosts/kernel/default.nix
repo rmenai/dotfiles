@@ -37,14 +37,45 @@
         caddy.enable = true;
         syncthing.enable = true;
         adguardhome.enable = true;
+        hastebin.enable = true;
+        shlink.enable = true;
       };
 
+      databases.postgresql.enable = true;
       monitoring.uptime-kuma.enable = true;
+      virtualization.podman.enable = true;
     };
 
     apps = {
       core.enable = true;
       oxidise.enable = true;
+    };
+  };
+
+  virtualisation.oci-containers.containers."shlink" = {
+    environment = {
+      DEFAULT_DOMAIN = "go.menai.me";
+      IS_HTTPS_ENABLED = "true";
+      SHORT_URL_TRAILING_SLASH = "true";
+      GEOLITE_LICENSE_KEY = config.private.secrets.geoliteKey;
+      ANONYMIZE_REMOTE_ADDR = "false";
+    };
+  };
+
+  virtualisation.oci-containers.containers."shlink-web" = {
+    environment = {
+      SHLINK_SERVER_NAME = "menai.me";
+      SHLINK_SERVER_URL = "https://go.menai.me";
+      SHLINK_SERVER_API_KEY = config.private.secrets.shlinkKey;
+    };
+  };
+
+  services.wastebin = {
+    settings = {
+      WASTEBIN_BASE_URL = "https://bin.menai.me";
+      WASTEBIN_MAX_BODY_SIZE = "1048576"; # 1MB
+      WASTEBIN_THEME = "catppuccin";
+      WASTEBIN_TITLE = "wastebin";
     };
   };
 

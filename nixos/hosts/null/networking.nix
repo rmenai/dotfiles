@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ config, lib, pkgs, ... }: {
   features.services.networking.resolved.enable = true;
 
   networking = {
@@ -12,6 +12,14 @@
       10.10.10.10 kali
       10.10.10.8  flare
     '';
+
+    firewall = {
+      enable = true;
+      allowPing = true;
+      trustedInterfaces = [ "tailscale0" ];
+      allowedTCPPorts = lib.mkForce [ ];
+      allowedUDPPorts = lib.mkForce [ 41641 ];
+    };
   };
 
   boot.kernelModules = [ "tcp_bbr" ];

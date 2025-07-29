@@ -14,6 +14,7 @@
       davfs2
       quickemu
       quickgui
+      distrobox
     ];
   };
 }

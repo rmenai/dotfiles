@@ -4,6 +4,6 @@
   };
 
   config = lib.mkIf config.features.services.networking.technitium.enable {
-    services.technitium-dns-server.enable = true;
+    services.technitium-dns-server = { enable = true; };
   };
 }
