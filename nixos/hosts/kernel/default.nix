@@ -37,10 +37,11 @@
         caddy.enable = true;
         syncthing.enable = true;
         adguardhome.enable = true;
-        hastebin.enable = true;
+        wastebin.enable = true;
         shlink.enable = true;
       };
 
+      security.fail2ban.enable = true;
       databases.postgresql.enable = true;
       monitoring.uptime-kuma.enable = true;
       virtualization.podman.enable = true;
@@ -73,7 +74,7 @@
   services.wastebin = {
     settings = {
       WASTEBIN_BASE_URL = "https://bin.menai.me";
-      WASTEBIN_MAX_BODY_SIZE = "1048576"; # 1MB
+      WASTEBIN_MAX_BODY_SIZE = 1024 * 1024; # 1MB
       WASTEBIN_THEME = "catppuccin";
       WASTEBIN_TITLE = "wastebin";
     };
@@ -124,5 +125,4 @@
   # - SearxNG
   # - KeyCloack
   # - Restic
-  # - Microbin
 }

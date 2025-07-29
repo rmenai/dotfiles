@@ -7,8 +7,12 @@
     services.caddy = {
       enable = true;
       package = pkgs.caddy.withPlugins {
-        plugins = [ "github.com/caddy-dns/cloudflare@v0.2.1" ];
-        hash = "sha256-2D7dnG50CwtCho+U+iHmSj2w14zllQXPjmTHr6lJZ/A=";
+        plugins = [
+          "github.com/caddy-dns/cloudflare@v0.2.1"
+          "github.com/mholt/caddy-ratelimit@v0.1.0"
+        ];
+
+        hash = "sha256-4E7pRg4JPy7fT6q9fP0bCRWS7pLWNRDYHSrxC1+XrhQ=";
       };
     };
 

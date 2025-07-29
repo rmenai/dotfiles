@@ -49,41 +49,156 @@
       	}
       }
 
+      # Global snippet for logging
+      (logging) {
+        log {
+          output file /var/log/caddy/access.log {
+            roll_size 100mb
+            roll_keep 5
+            roll_keep_for 720h
+          }
+        }
+      }
+
+      # Global snippet for security headers
+      (security) {
+        header {
+          # Security headers
+          Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+          X-Content-Type-Options "nosniff"
+          X-Frame-Options "DENY"
+          X-XSS-Protection "1; mode=block"
+          Referrer-Policy "strict-origin-when-cross-origin"
+
+          # Remove server info
+          -Server
+        }
+      }
+
       lab.menai.me {
+        rate_limit {
+          zone redirects {
+            key {remote_host}
+            events 60
+            window 1m
+          }
+        }
+
       	redir / /status/home 301
       	reverse_proxy http://127.0.0.1:3001
       	import cloudflare
+        import logging
+        import security
       }
 
-      paste.menai.me {
+      bin.menai.me {
+        rate_limit {
+          zone uploads {
+            key {remote_host}
+            events 5
+            window 1m
+            match_method POST
+          }
+          zone general {
+            key {remote_host}
+            events 30
+            window 1m
+          }
+        }
+
+        request_body {
+          max_size 2MB
+        }
+
       	reverse_proxy http://127.0.0.1:8088
       	import cloudflare
+        import logging
+        import security
       }
 
       go.menai.me {
+        rate_limit {
+          zone redirects {
+            key {remote_host}
+            events 60
+            window 1m
+          }
+        }
+
       	reverse_proxy http://127.0.0.1:8385
       	import cloudflare
+        import logging
+        import security
       }
 
       uptime.lab.menai.me {
       	reverse_proxy http://127.0.0.1:3001
       	import cloudflare
+        import security
       }
 
       shlink.lab.menai.me {
       	reverse_proxy http://127.0.0.1:8386
       	import cloudflare
+        import security
       }
 
       syncthing.lab.menai.me {
       	reverse_proxy http://127.0.0.1:8384
       	import cloudflare
+        import security
       }
 
       adguard.lab.menai.me {
       	reverse_proxy http://127.0.0.1:3000
       	import cloudflare
+        import security
       }
+    '';
+  };
+
+  services.fail2ban = {
+    jails = {
+      # General HTTP flood protection
+      http-flood = {
+        settings = {
+          enabled = true;
+          filter = "http-flood";
+          action = "iptables[name=HTTP-FLOOD, port=http, protocol=tcp]";
+          logpath = "/var/log/caddy/access.log";
+          maxretry = 100; # 100 requests
+          bantime = "10m";
+          findtime = "1m"; # Within 1 minute
+        };
+      };
+    };
+
+    ignoreIP = [
+      # Add Cloudflare IP ranges to avoid blocking legitimate traffic
+      "103.21.244.0/22"
+      "103.22.200.0/22"
+      "103.31.4.0/22"
+      "104.16.0.0/13"
+      "104.24.0.0/14"
+      "108.162.192.0/18"
+      "131.0.72.0/22"
+      "141.101.64.0/18"
+      "162.158.0.0/15"
+      "172.64.0.0/13"
+      "173.245.48.0/20"
+      "188.114.96.0/20"
+      "190.93.240.0/20"
+      "197.234.240.0/22"
+      "198.41.128.0/17"
+    ];
+  };
+
+  environment.etc = {
+    "fail2ban/filter.d/http-flood.conf".text = ''
+      [Definition]
+      # General flood protection for all services
+      failregex = ^<HOST> - - \[.*\] ".* HTTP/.*" .* .*$
+      ignoreregex =
     '';
   };
 }
