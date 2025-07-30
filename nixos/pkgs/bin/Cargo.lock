@@ -122,6 +122,18 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "72b3254f16251a8381aa12e40e3c4d2f0199f8c6508fbecb9d91f575e0fbb8c6"
 
 [[package]]
+name = "bin"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "arboard",
+ "clap",
+ "reqwest",
+ "serde_json",
+ "tokio",
+]
+
+[[package]]
 name = "bitflags"
 version = "1.3.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1725,18 +1737,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1a05d73b933a847d6cccdda8f838a22ff101ad9bf93e33684f39c1f5f0eece3d"
 dependencies = [
  "unicode-ident",
-]
-
-[[package]]
-name = "wastebin"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "arboard",
- "clap",
- "reqwest",
- "serde_json",
- "tokio",
 ]
 
 [[package]]

@@ -1,10 +1,10 @@
 [package]
-name = "wastebin"
+name = "bin"
 version = "0.1.0"
 edition = "2024"
 
 [[bin]]
-name = "wastebin"
+name = "bin"
 path = "src/main.rs"
 
 [dependencies]

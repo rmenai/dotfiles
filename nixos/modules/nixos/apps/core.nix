@@ -1,9 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{ config, lib, pkgs, outputs, ... }: {
   options.features.apps.core = { enable = lib.mkEnableOption "Core apps"; };
 
   config = lib.mkIf config.features.apps.core.enable {
     environment.systemPackages = with pkgs; [
-      wastebin
+      outputs.packages.${pkgs.system}.bin
+      magic-wormhole-rs
       fastfetch
       wget
       curl

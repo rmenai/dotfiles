@@ -124,7 +124,7 @@ local function WastePaste(opts)
   -- Function to create the paste
   local function create_paste(text, opts)
     -- Build command
-    local cmd = { "wastebin" }
+    local cmd = { "bin" }
 
     if opts.extension and opts.extension ~= "" then
       table.insert(cmd, "--extension")

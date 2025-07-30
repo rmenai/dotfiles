@@ -6,7 +6,7 @@ use std::env;
 use std::io::{self, Read};
 
 #[derive(Parser)]
-#[command(name = "wastebin")]
+#[command(name = "bin")]
 #[command(about = "Create pastes from stdin")]
 #[command(version = "0.1.0")]
 struct Args {

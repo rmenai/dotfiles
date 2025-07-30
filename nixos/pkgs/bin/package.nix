@@ -1,7 +1,7 @@
 { lib, rustPlatform, }:
 
 rustPlatform.buildRustPackage {
-  pname = "wastebin";
+  pname = "bin";
   version = "0.1.0";
 
   src = ./.;
@@ -13,5 +13,6 @@ rustPlatform.buildRustPackage {
       "https://github.com/rmenai/dotfiles/tree/main/nixos/pkgs/wastebin";
     license = lib.licenses.mit;
     maintainers = [ "rmenai" ];
+    mainProgram = "bin";
   };
 }
