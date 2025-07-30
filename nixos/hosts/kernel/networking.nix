@@ -41,12 +41,21 @@
   services.caddy = {
     environmentFile = config.sops.secrets."secrets/cloudflare".path;
 
+    globalConfig = ''
+      servers {
+        trusted_proxies cloudflare {
+          interval 12h
+          timeout 15s
+        }
+      }
+    '';
+
     extraConfig = ''
       # Global snippet for Cloudflare DNS
       (cloudflare) {
-      	tls {
-      		dns cloudflare {env.CLOUDFLARE_API_KEY}
-      	}
+        tls {
+          dns cloudflare {env.CLOUDFLARE_API_KEY}
+        }
       }
 
       # Global snippet for logging
@@ -75,20 +84,22 @@
         }
       }
 
-      lab.menai.me {
-      	redir / /status/home 301
-      	reverse_proxy http://127.0.0.1:3001
-      	import cloudflare
+      (common) {
+        import cloudflare
         import logging
         import security
       }
 
+      lab.menai.me {
+        redir / /status/home 301
+        reverse_proxy http://127.0.0.1:3001
+        import common
+      }
+
       go.menai.me {
         redir / https://shlink.lab.menai.me permanent
-      	reverse_proxy http://127.0.0.1:8385
-      	import cloudflare
-        import logging
-        import security
+        reverse_proxy http://127.0.0.1:8385
+        import common
       }
 
       bin.menai.me {
@@ -97,44 +108,38 @@
             match {
               method POST
             }
-            key {remote_host}
-            events 5
-            window 1m
+            key {client_ip}
+            events 64
+            window 10m
           }
         }
 
         request_body {
-          max_size 2MB
+          max_size 100KB
         }
 
         reverse_proxy http://127.0.0.1:8088
-        import cloudflare
-        import logging
-        import security
+        import common
       }
 
       uptime.lab.menai.me {
-      	reverse_proxy http://127.0.0.1:3001
-      	import cloudflare
-        import security
+        reverse_proxy http://127.0.0.1:3001
+        import common
       }
 
       shlink.lab.menai.me {
-      	reverse_proxy http://127.0.0.1:8386
-      	import cloudflare
-        import security
+        reverse_proxy http://127.0.0.1:8386
+        import common
       }
 
       syncthing.lab.menai.me {
-      	reverse_proxy http://127.0.0.1:8384
-      	import cloudflare
-        import security
+        reverse_proxy http://127.0.0.1:8384
+        import common
       }
 
       adguard.lab.menai.me {
-      	reverse_proxy http://127.0.0.1:3000
-      	import cloudflare
-        import security
+        reverse_proxy http://127.0.0.1:3000
+        import common
       }
     '';
   };
