@@ -3,7 +3,7 @@ local M = {}
 local function CommitCurrentFile()
   local file_path = vim.fn.expand("%:p") -- Get the full path of the current file
   if file_path == "" then
-    print("No file is currently open")
+    vim.notify("No file is currently open")
     return
   end
 
@@ -81,6 +81,170 @@ local function CompilerRun()
 
   action_util.run_task_action(tasks[1], "restart")
 end
+
+local function WastePaste(opts)
+  local content
+
+  -- Get the content to paste
+  local lstart1 = opts.line1
+  local lstart2 = opts.line2
+
+  if not (lstart1 == lstart2) then
+    -- Visual mode - get selected text
+    local start_pos = vim.fn.getpos("'<")
+    local end_pos = vim.fn.getpos("'>")
+    local lines = vim.fn.getline(start_pos[2], end_pos[2])
+
+    for i, line in ipairs(lines) do
+      lines[i] = string.sub(line, start_pos[3], end_pos[3])
+    end
+
+    content = table.concat(lines, "\n")
+  else
+    -- Normal mode - get whole file
+    local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+    content = table.concat(lines, "\n")
+  end
+
+  -- Get file extension
+  local extension = vim.fn.expand("%:e")
+  if extension == "" then
+    extension = "" -- default extension
+  end
+
+  -- Default options
+  local options = {
+    extension = extension,
+    expires = 604800, -- 1 week in seconds
+    title = "",
+    burn = false,
+    password = "",
+  }
+
+  -- Function to create the paste
+  local function create_paste(text, opts)
+    -- Build command
+    local cmd = { "wastebin" }
+
+    if opts.extension and opts.extension ~= "" then
+      table.insert(cmd, "--extension")
+      table.insert(cmd, opts.extension)
+    end
+
+    if opts.title and opts.title ~= "" then
+      table.insert(cmd, "--title")
+      table.insert(cmd, opts.title)
+    end
+
+    if opts.expires then
+      table.insert(cmd, "--expires")
+      table.insert(cmd, tostring(opts.expires))
+    end
+
+    if opts.burn then table.insert(cmd, "--burn") end
+
+    if opts.password and opts.password ~= "" then
+      table.insert(cmd, "--password")
+      table.insert(cmd, opts.password)
+    end
+
+    -- Execute command
+    vim.system(cmd, { stdin = text, text = true }, function(result)
+      vim.schedule(function()
+        if result.code == 0 then
+          if result.stdout then vim.notify(result.stdout) end
+        end
+      end)
+    end)
+  end
+
+  -- Show options UI
+  local function show_options_ui()
+    local choices = {
+      "1. Create paste",
+      "2. Cancel",
+      "",
+      "3. Extension: " .. options.extension,
+      "4. Expiration: " .. (options.expires == 604800 and "1 week" or options.expires .. " seconds"),
+      "5. Title: " .. (options.title == "" and "(none)" or options.title),
+      "6. Burn after reading: " .. (options.burn and "yes" or "no"),
+      "7. Password: " .. (options.password == "" and "(none)" or "***"),
+    }
+
+    vim.ui.select(choices, {
+      prompt = "WastePaste Options:",
+      format_item = function(item) return item end,
+    }, function(choice, idx)
+      if not choice then return end
+
+      if idx == 4 then
+        vim.ui.input({ prompt = "Extension: ", default = options.extension }, function(input)
+          if input then
+            options.extension = input
+            show_options_ui()
+          end
+        end)
+      elseif idx == 5 then
+        local exp_choices = {
+          "1 hour (3600)",
+          "1 day (86400)",
+          "1 week (604800)",
+          "1 month (2592000)",
+          "Custom...",
+        }
+        vim.ui.select(exp_choices, { prompt = "Expiration:" }, function(exp_choice, exp_idx)
+          if not exp_choice then
+            show_options_ui()
+            return
+          end
+
+          if exp_idx == 1 then
+            options.expires = 3600
+          elseif exp_idx == 2 then
+            options.expires = 86400
+          elseif exp_idx == 3 then
+            options.expires = 604800
+          elseif exp_idx == 4 then
+            options.expires = 2592000
+          elseif exp_idx == 5 then
+            vim.ui.input({ prompt = "Expiration (seconds): " }, function(input)
+              if input and tonumber(input) then options.expires = tonumber(input) end
+              show_options_ui()
+            end)
+            return
+          end
+          show_options_ui()
+        end)
+      elseif idx == 6 then
+        vim.ui.input({ prompt = "Title: ", default = options.title }, function(input)
+          if input then
+            options.title = input
+            show_options_ui()
+          end
+        end)
+      elseif idx == 7 then
+        options.burn = not options.burn
+        show_options_ui()
+      elseif idx == 8 then
+        vim.ui.input({ prompt = "Password: ", default = options.password }, function(input)
+          if input then
+            options.password = input
+            show_options_ui()
+          end
+        end)
+      elseif idx == 1 then
+        create_paste(content, options)
+      elseif idx == 2 then
+        return
+      end
+    end)
+  end
+
+  -- Start the UI flow
+  show_options_ui()
+end
+
+vim.api.nvim_create_user_command("WastePaste", WastePaste, { range = true })
 
 -- Custom pickers
 M.leetcode_picker = function() require("telescope.builtin").commands({ default_text = "Leet" }) end

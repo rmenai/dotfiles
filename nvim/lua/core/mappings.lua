@@ -17,7 +17,7 @@ map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selected lines down" })
 map("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selected lines up" })
 map("n", "<C-d>", "<C-d>zz", { desc = "Scroll down and center" })
 map("n", "<C-u>", "<C-u>zz", { desc = "Scroll up and center" })
-map("v", "<leader>y", '"+y', { desc = "Yank to system clipboard" })
+map("v", "<leader>yy", '"+y', { desc = "Yank to system clipboard" })
 map("n", "<Leader>yy", '"+Y', { desc = "Yank line to system clipboard" })
 
 -- Paths
@@ -25,6 +25,8 @@ map("n", "<Leader>yr", ":let @+=expand('%')<CR>", { desc = "Yank relative path t
 map("n", "<Leader>ya", ":let @+=expand('%:p')<CR>", { desc = "Yank absolute path to system clipboard" })
 map("n", "<Leader>yf", ":let @+=expand('%:t')<CR>", { desc = "Yank filename to system clipboard" })
 map("n", "<Leader>yd", ":let @+=expand('%:p:h')<CR>", { desc = "Yank directory to system clipboard" })
+
+map({ "n", "v" }, "<leader>yw", ":WastePaste<CR>", { desc = "Create WastePaste" })
 
 map({ "n", "v" }, "<A-h>", function() require("smart-splits").resize_left() end, { desc = "Resize pane left" })
 map({ "n", "v" }, "<A-j>", function() require("smart-splits").resize_down() end, { desc = "Resize pane down" })

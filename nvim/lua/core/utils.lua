@@ -78,4 +78,24 @@ M.is_server_available = function(mason_pkg, binary)
   return false
 end
 
+M.get_content = function(opts)
+  local content
+
+  -- opts.count will be -1 if no range is given (e.g., called in normal mode without a visual selection)
+  if opts.count == -1 then
+    -- No range provided, so get the whole buffer
+    local all_lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+    content = table.concat(all_lines, "\n")
+    vim.notify("Processed whole buffer.", vim.log.levels.INFO)
+  else
+    -- Range was provided (from visual selection), so get only those lines
+    -- vim.api is 0-indexed, but command ranges are 1-indexed, so we subtract 1.
+    local ranged_lines = vim.api.nvim_buf_get_lines(0, opts.line1 - 1, opts.line2, false)
+    content = table.concat(ranged_lines, "\n")
+    vim.notify("Processed selection.", vim.log.levels.INFO)
+  end
+
+  return content
+end
+
 return M
