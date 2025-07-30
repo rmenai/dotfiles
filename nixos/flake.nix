@@ -114,8 +114,9 @@
 
       packages = forEachSystem (system:
         let
+          pkgs = mkPkgs system;
           pkgsFromDir = nixpkgs.lib.packagesFromDirectoryRecursive {
-            callPackage = nixpkgs.lib.callPackageWith mkPkgs system;
+            callPackage = pkgs.callPackage;
             directory = ./pkgs;
           };
 
@@ -169,6 +170,6 @@
             };
           };
 
-        in pkgsFromDir // extraPackages // extraImages);
+        in pkgsFromDir);
     };
 }

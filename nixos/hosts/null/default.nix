@@ -156,4 +156,6 @@
         exec ${colmena}/bin/colmena "$@" --impure
       '')
     ];
+
+  environment.sessionVariables.WASTEBIN_URL = "https://bin.menai.me";
 }

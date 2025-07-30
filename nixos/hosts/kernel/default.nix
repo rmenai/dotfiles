@@ -118,10 +118,13 @@
     };
   };
 
+  environment.sessionVariables.WASTEBIN_URL = "https://bin.menai.me";
+
   # TODO
   # - Nextcloud
   # - Immich
   # - Calibre-Web
+  # - Vaultwarden
   # - Audiobookshelf
   # - SearxNG
   # - KeyCloack

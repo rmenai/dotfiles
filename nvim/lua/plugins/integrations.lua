@@ -136,4 +136,10 @@ return {
     cmd = "Sudoku",
     config = function() require("sudoku").setup({}) end,
   },
+
+  {
+    "matze/wastebin.nvim",
+    cmd = "WastePaste",
+    config = true,
+  },
 }
