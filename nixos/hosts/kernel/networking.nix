@@ -91,12 +91,28 @@
       }
 
       lab.menai.me {
+        rate_limit {
+          zone vault {
+            key {client_ip}
+            events 100
+            window 1m
+          }
+        }
+
         redir / /status/home 301
         reverse_proxy http://127.0.0.1:3001
         import common
       }
 
       go.menai.me {
+        rate_limit {
+          zone vault {
+            key {client_ip}
+            events 100
+            window 1m
+          }
+        }
+
         redir / https://shlink.lab.menai.me permanent
         reverse_proxy http://127.0.0.1:8385
         import common
@@ -123,8 +139,36 @@
       }
 
       vault.menai.me {
+        rate_limit {
+          zone vault {
+            key {client_ip}
+            events 100
+            window 1m
+          }
+        }
+
         redir /admin* https://vault.lab.menai.me{uri} permanent
         reverse_proxy http://127.0.0.1:8222
+        import common
+      }
+
+      tools.menai.me {
+        redir /* https://omni.tools.menai.me{uri} permanent
+        import common
+      }
+
+      omni.tools.menai.me {
+        reverse_proxy http://127.0.0.1:8080
+        import common
+      }
+
+      pdf.tools.menai.me {
+        reverse_proxy http://127.0.0.1:8082
+        import common
+      }
+
+      chef.tools.menai.me {
+        reverse_proxy http://127.0.0.1:8083
         import common
       }
 

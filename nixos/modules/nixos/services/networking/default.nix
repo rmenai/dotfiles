@@ -19,5 +19,8 @@
     ./shlink.nix
     ./vaultwarden.nix
     ./nullmailer.nix
+    ./omnitools.nix
+    ./stirlingpdf.nix
+    ./cyberchef.nix
   ];
 }

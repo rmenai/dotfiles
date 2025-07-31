@@ -40,6 +40,9 @@
         vaultwarden.enable = true;
         wastebin.enable = true;
         shlink.enable = true;
+        omnitools.enable = true;
+        stirlingpdf.enable = true;
+        cyberchef.enable = true;
       };
 
       security.fail2ban.enable = true;
@@ -154,12 +157,13 @@
   # - iSponsorBlockTV
   # - Tandoor
   # - Bytestash
-  # - omnitools
   # - Paperless
   # - AudioBookshelf
-  # - StirlingPDF
-  # - tubetube
   # - Picsur
   # - Kimai
   # - Ubooquity
+
+  # - StirlingPDF
+  # - omnitools
+  # - tubetube
 }

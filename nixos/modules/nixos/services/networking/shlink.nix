@@ -9,7 +9,6 @@
       ports = [ "127.0.0.1:8385:8385" ];
       environment = {
         PORT = "8385";
-        SHELL_VERBOSITY = "3";
 
         DB_DRIVER = "postgres";
         DB_HOST = "host.docker.internal";
