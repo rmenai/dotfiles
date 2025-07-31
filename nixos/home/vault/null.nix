@@ -1,4 +1,4 @@
-{ config, func, lib, ... }: {
+{ config, func, lib, pkgs, ... }: {
   imports = lib.flatten [
     (map func.custom.relativeToRoot [ "modules/common" ])
     (map func.custom.relativeToRoot [ "modules/home" ])
@@ -89,6 +89,8 @@
       };
     };
   };
+
+  home.packages = with pkgs; [ bitwarden-desktop ];
 
   programs.ssh.extraConfig = ''
     UpdateHostKeys ask
