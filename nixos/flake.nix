@@ -170,6 +170,6 @@
             };
           };
 
-        in pkgsFromDir);
+        in pkgsFromDir // extraPackages // extraImages);
     };
 }

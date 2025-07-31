@@ -122,6 +122,18 @@
         import common
       }
 
+      vault.menai.me {
+        redir /admin* https://vault.lab.menai.me{uri} permanent
+        reverse_proxy http://127.0.0.1:8222
+        import common
+      }
+
+      vault.lab.menai.me {
+        redir / /admin 301
+        reverse_proxy http://127.0.0.1:8222
+        import common
+      }
+
       uptime.lab.menai.me {
         reverse_proxy http://127.0.0.1:3001
         import common

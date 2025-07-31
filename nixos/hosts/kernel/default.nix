@@ -37,6 +37,7 @@
         caddy.enable = true;
         syncthing.enable = true;
         adguardhome.enable = true;
+        vaultwarden.enable = true;
         wastebin.enable = true;
         shlink.enable = true;
       };
@@ -118,15 +119,47 @@
     };
   };
 
+  services.nullmailer = {
+    config = {
+      me = "menai.me";
+      defaulthost = "menai.me";
+      defaultdomain = "menai.me";
+      allmailfrom = "noreply@mail.menai.me";
+      adminaddr = "rami@menai.me";
+    };
+  };
+
+  services.vaultwarden = {
+    config = {
+      DOMAIN = "https://vault.menai.me";
+      SIGNUPS_ALLOWED = false;
+
+      SMTP_HOST = "smtp.eu.mailgun.org";
+      SMTP_FROM = "noreply@mail.menai.me";
+      SMTP_USERNAME = "noreply@mail.menai.me";
+      SMTP_PORT = 2525;
+    };
+  };
+
   environment.sessionVariables.WASTEBIN_URL = "https://bin.menai.me";
 
   # TODO
   # - Nextcloud
   # - Immich
   # - Calibre-Web
-  # - Vaultwarden
   # - Audiobookshelf
   # - SearxNG
   # - KeyCloack
   # - Restic
+  # - iSponsorBlockTV
+  # - Tandoor
+  # - Bytestash
+  # - omnitools
+  # - Paperless
+  # - AudioBookshelf
+  # - StirlingPDF
+  # - tubetube
+  # - Picsur
+  # - Kimai
+  # - Ubooquity
 }

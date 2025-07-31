@@ -17,5 +17,7 @@
     ./hastebin.nix
     ./wastebin.nix
     ./shlink.nix
+    ./vaultwarden.nix
+    ./nullmailer.nix
   ];
 }
