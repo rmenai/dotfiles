@@ -48,6 +48,7 @@
         searxng.enable = true;
         tandoor.enable = true;
         picsur.enable = true;
+        calibre.enable = true;
       };
 
       security.fail2ban.enable = true;
@@ -181,11 +182,9 @@
   # TODO
   # - Nextcloud
   # - Immich
-  # - KeyCloack
-  # - Restic
 
-  # - Calibre-Web
   # - AudioBookshelf
-  # - iSponsorBlockTV
   # - Komga
+
+  # - iSponsorBlockTV
 }

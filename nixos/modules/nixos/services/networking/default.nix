@@ -27,5 +27,6 @@
     ./tandoor.nix
     ./picsur.nix
     ./paperless.nix
+    ./calibre.nix
   ];
 }
