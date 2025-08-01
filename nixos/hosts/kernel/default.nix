@@ -39,6 +39,7 @@
         adguardhome.enable = true;
         vaultwarden.enable = true;
         wastebin.enable = true;
+        bytestash.enable = true;
         shlink.enable = true;
         omnitools.enable = true;
         stirlingpdf.enable = true;
@@ -160,7 +161,6 @@
 
   # - Paperless
 
-  # - Bytestash
   # - Tandoor
   # - Picsur
   # - tubetube

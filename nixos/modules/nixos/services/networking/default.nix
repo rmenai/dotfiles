@@ -23,5 +23,6 @@
     ./stirlingpdf.nix
     ./cyberchef.nix
     ./searxng.nix
+    ./bytestash.nix
   ];
 }

@@ -92,7 +92,7 @@
 
       lab.menai.me {
         rate_limit {
-          zone vault {
+          zone shared {
             key {client_ip}
             events 100
             window 1m
@@ -106,7 +106,7 @@
 
       go.menai.me {
         rate_limit {
-          zone vault {
+          zone shared {
             key {client_ip}
             events 100
             window 1m
@@ -120,6 +120,11 @@
 
       bin.menai.me {
         rate_limit {
+          zone shared {
+            key {client_ip}
+            events 100
+            window 1m
+          }
           zone uploads {
             match {
               method POST
@@ -138,11 +143,36 @@
         import common
       }
 
-      vault.menai.me {
+      bytes.menai.me {
         rate_limit {
-          zone vault {
+          zone shared {
             key {client_ip}
             events 100
+            window 1m
+          }
+          zone uploads {
+            match {
+              method POST
+            }
+            key {client_ip}
+            events 64
+            window 10m
+          }
+        }
+
+        request_body {
+          max_size 100KB
+        }
+
+        reverse_proxy http://127.0.0.1:5000
+        import common
+      }
+
+      vault.menai.me {
+        rate_limit {
+          zone shared {
+            key {client_ip}
+            events 200
             window 1m
           }
         }
