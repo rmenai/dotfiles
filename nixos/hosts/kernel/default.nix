@@ -150,9 +150,9 @@
   services.tandoor-recipes = {
     extraConfig = {
       DOMAIN = "https://vault.menai.me";
-      ALLOWED_HOSTS = "recipes.menai.me,chef.menai.me,chef.lab.menai.me";
-      ENABLE_PDF_EXPORT = 1;
       ENABLE_SIGNUP = 0;
+      ENABLE_PDF_EXPORT = 1;
+
       EMAIL_HOST = "smtp.eu.mailgun.org";
       EMAIL_PORT = 2525;
       EMAIL_HOST_USER = "noreply@mail.menai.me";
