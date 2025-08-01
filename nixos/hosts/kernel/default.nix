@@ -76,14 +76,6 @@
     };
   };
 
-  virtualisation.oci-containers.containers."shlink-web" = {
-    environment = {
-      SHLINK_SERVER_NAME = "menai.me";
-      SHLINK_SERVER_URL = "https://go.menai.me";
-      SHLINK_SERVER_API_KEY = config.private.secrets.shlinkKey;
-    };
-  };
-
   services.wastebin = {
     settings = {
       WASTEBIN_BASE_URL = "https://bin.menai.me";
