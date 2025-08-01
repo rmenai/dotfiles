@@ -25,5 +25,6 @@
     ./searxng.nix
     ./bytestash.nix
     ./tandoor.nix
+    ./picsur.nix
   ];
 }

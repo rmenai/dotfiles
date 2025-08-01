@@ -46,6 +46,7 @@
         cyberchef.enable = true;
         searxng.enable = true;
         tandoor.enable = true;
+        picsur.enable = true;
       };
 
       security.fail2ban.enable = true;
@@ -176,7 +177,4 @@
   # - Komga
 
   # - Paperless
-
-  # - Picsur
-  # - tubetube
 }

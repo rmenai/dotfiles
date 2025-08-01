@@ -143,6 +143,27 @@
         import common
       }
 
+      img.menai.me {
+        rate_limit {
+          zone shared {
+            key {client_ip}
+            events 100
+            window 1m
+          }
+          zone uploads {
+            match {
+              method POST
+            }
+            key {client_ip}
+            events 64
+            window 10m
+          }
+        }
+
+        reverse_proxy http://127.0.0.1:8070
+        import common
+      }
+
       bytes.menai.me {
         rate_limit {
           zone shared {
