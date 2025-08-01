@@ -22,5 +22,6 @@
     ./omnitools.nix
     ./stirlingpdf.nix
     ./cyberchef.nix
+    ./searxng.nix
   ];
 }

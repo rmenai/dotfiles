@@ -152,6 +152,11 @@
         import common
       }
 
+      search.menai.me {
+        reverse_proxy http://127.0.0.1:9080
+        import common
+      }
+
       tools.menai.me {
         redir /* https://omni.tools.menai.me{uri} permanent
         import common

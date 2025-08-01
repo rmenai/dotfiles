@@ -43,6 +43,7 @@
         omnitools.enable = true;
         stirlingpdf.enable = true;
         cyberchef.enable = true;
+        searxng.enable = true;
       };
 
       security.fail2ban.enable = true;
@@ -149,21 +150,18 @@
   # TODO
   # - Nextcloud
   # - Immich
-  # - Calibre-Web
-  # - Audiobookshelf
-  # - SearxNG
   # - KeyCloack
   # - Restic
-  # - iSponsorBlockTV
-  # - Tandoor
-  # - Bytestash
-  # - Paperless
-  # - AudioBookshelf
-  # - Picsur
-  # - Kimai
-  # - Ubooquity
 
-  # - StirlingPDF
-  # - omnitools
+  # - Calibre-Web
+  # - AudioBookshelf
+  # - iSponsorBlockTV
+  # - Komga
+
+  # - Paperless
+
+  # - Bytestash
+  # - Tandoor
+  # - Picsur
   # - tubetube
 }
