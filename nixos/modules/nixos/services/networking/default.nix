@@ -26,5 +26,6 @@
     ./bytestash.nix
     ./tandoor.nix
     ./picsur.nix
+    ./paperless.nix
   ];
 }

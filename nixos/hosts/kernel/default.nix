@@ -38,6 +38,7 @@
         syncthing.enable = true;
         adguardhome.enable = true;
         vaultwarden.enable = true;
+        paperless.enable = true;
         wastebin.enable = true;
         bytestash.enable = true;
         shlink.enable = true;
@@ -158,8 +159,20 @@
       EMAIL_PORT = 2525;
       EMAIL_HOST_USER = "noreply@mail.menai.me";
       DEFAULT_FROM_EMAIL = "noreply@mail.menai.me";
-      EMAIL_USE_TLS = 1;
-      EMAIL_USE_SSL = 0;
+    };
+  };
+
+  services.paperless = {
+    settings = {
+      PAPERLESS_URL = "https://docs.menai.me";
+      PAPERLESS_CONSUMER_IGNORE_PATTERN = [ ".DS_STORE/*" "desktop.ini" ];
+      PAPERLESS_OCR_LANGUAGE = "fra+eng";
+      PAPERLESS_ACCOUNT_ALLOW_SIGNUPS = false;
+
+      PAPERLESS_EMAIL_HOST = "smtp.eu.mailgun.org";
+      PAPERLESS_EMAIL_FROM = "noreply@mail.menai.me";
+      PAPERLESS_EMAIL_HOST_USER = "noreply@mail.menai.me";
+      PAPERLESS_EMAIL_PORT = 2525;
     };
   };
 
@@ -175,6 +188,4 @@
   # - AudioBookshelf
   # - iSponsorBlockTV
   # - Komga
-
-  # - Paperless
 }
