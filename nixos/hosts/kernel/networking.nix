@@ -168,6 +168,33 @@
         import common
       }
 
+      recipes.menai.me {
+        redir /* https://chef.menai.me{uri} permanent
+        import common
+      }
+
+      chef.menai.me {
+        rate_limit {
+          zone shared {
+            key {client_ip}
+            events 100
+            window 1m
+          }
+          zone uploads {
+            match {
+              method POST
+            }
+            key {client_ip}
+            events 64
+            window 10m
+          }
+        }
+
+        redir /admin* https://chef.lab.menai.me{uri} permanent
+        reverse_proxy http://127.0.0.1:9090
+        import common
+      }
+
       vault.menai.me {
         rate_limit {
           zone shared {
@@ -204,6 +231,12 @@
 
       chef.tools.menai.me {
         reverse_proxy http://127.0.0.1:8083
+        import common
+      }
+
+      chef.lab.menai.me {
+        redir / /admin 301
+        reverse_proxy http://127.0.0.1:9090
         import common
       }
 

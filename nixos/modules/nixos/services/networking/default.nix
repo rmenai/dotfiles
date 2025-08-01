@@ -24,5 +24,6 @@
     ./cyberchef.nix
     ./searxng.nix
     ./bytestash.nix
+    ./tandoor.nix
   ];
 }

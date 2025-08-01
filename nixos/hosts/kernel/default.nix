@@ -45,6 +45,7 @@
         stirlingpdf.enable = true;
         cyberchef.enable = true;
         searxng.enable = true;
+        tandoor.enable = true;
       };
 
       security.fail2ban.enable = true;
@@ -146,6 +147,21 @@
     };
   };
 
+  services.tandoor-recipes = {
+    extraConfig = {
+      DOMAIN = "https://vault.menai.me";
+      ALLOWED_HOSTS = "recipes.menai.me,chef.menai.me,chef.lab.menai.me";
+      ENABLE_PDF_EXPORT = 1;
+      ENABLE_SIGNUP = 0;
+      EMAIL_HOST = "smtp.eu.mailgun.org";
+      EMAIL_PORT = 2525;
+      EMAIL_HOST_USER = "noreply@mail.menai.me";
+      DEFAULT_FROM_EMAIL = "noreply@mail.menai.me";
+      EMAIL_USE_TLS = 1;
+      EMAIL_USE_SSL = 0;
+    };
+  };
+
   environment.sessionVariables.WASTEBIN_URL = "https://bin.menai.me";
 
   # TODO
@@ -161,7 +177,6 @@
 
   # - Paperless
 
-  # - Tandoor
   # - Picsur
   # - tubetube
 }

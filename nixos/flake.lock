@@ -499,10 +499,10 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1754011162,
-        "narHash": "sha256-r4CjMnWAfTBsQtAxexcHUPzZIT4LvAx1NuAo0ESELBg=",
+        "lastModified": 1754014111,
+        "narHash": "sha256-82V68gGpOoUl09lL/9xl3c1BTo+f57t7XDBz+IApRCg=",
         "ref": "main",
-        "rev": "7dfc8701664bbe968804d20ac94f475d65f73dc8",
+        "rev": "03ede10eee75cc7df7330116fdb8dcecda5303f6",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/rmenai/secrets.git"
