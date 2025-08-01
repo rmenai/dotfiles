@@ -28,5 +28,6 @@
     ./picsur.nix
     ./paperless.nix
     ./calibre.nix
+    ./audiobookshelf.nix
   ];
 }

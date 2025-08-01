@@ -49,6 +49,7 @@
         tandoor.enable = true;
         picsur.enable = true;
         calibre.enable = true;
+        audiobookshelf.enable = true;
       };
 
       security.fail2ban.enable = true;
@@ -180,11 +181,9 @@
   environment.sessionVariables.WASTEBIN_URL = "https://bin.menai.me";
 
   # TODO
+  # - iSponsorBlockTV
   # - Nextcloud
   # - Immich
 
-  # - AudioBookshelf
   # - Komga
-
-  # - iSponsorBlockTV
 }

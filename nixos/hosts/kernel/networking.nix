@@ -258,6 +258,27 @@
         import common
       }
 
+      audio.menai.me {
+        rate_limit {
+          zone shared {
+            key {client_ip}
+            events 100
+            window 1m
+          }
+          zone uploads {
+            match {
+              method POST
+            }
+            key {client_ip}
+            events 64
+            window 10m
+          }
+        }
+
+        reverse_proxy http://127.0.0.1:8000
+        import common
+      }
+
       vault.menai.me {
         rate_limit {
           zone shared {
@@ -269,6 +290,16 @@
 
         redir /admin* https://vault.lab.menai.me{uri} permanent
         reverse_proxy http://127.0.0.1:8222
+        import common
+      }
+
+      rss.menai.me {
+        redir /* https://rsshub.app{uri} permanent
+        import common
+      }
+
+      read.menai.me {
+        redir /* https://read.readwise.io{uri} permanent
         import common
       }
 
