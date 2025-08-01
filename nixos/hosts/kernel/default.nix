@@ -42,14 +42,16 @@
         wastebin.enable = true;
         bytestash.enable = true;
         shlink.enable = true;
-        omnitools.enable = true;
-        stirlingpdf.enable = true;
-        cyberchef.enable = true;
         searxng.enable = true;
         tandoor.enable = true;
         picsur.enable = true;
         calibre.enable = true;
         audiobookshelf.enable = true;
+        komga.enable = true;
+
+        omnitools.enable = true;
+        stirlingpdf.enable = true;
+        cyberchef.enable = true;
       };
 
       security.fail2ban.enable = true;
@@ -184,6 +186,4 @@
   # - iSponsorBlockTV
   # - Nextcloud
   # - Immich
-
-  # - Komga
 }

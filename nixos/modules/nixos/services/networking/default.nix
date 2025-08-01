@@ -29,5 +29,6 @@
     ./paperless.nix
     ./calibre.nix
     ./audiobookshelf.nix
+    ./komga.nix
   ];
 }
