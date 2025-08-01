@@ -11,6 +11,10 @@
       vim
       git
       gh
+
+      nix-index
+      cachix
+      comma
     ];
 
     programs.command-not-found.enable = true;

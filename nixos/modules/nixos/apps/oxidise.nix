@@ -10,12 +10,8 @@
   };
 
   config = lib.mkIf config.features.apps.oxidise.enable {
-    environment.systemPackages = with pkgs; [
-      (lib.hiPrio pkgs.uutils-coreutils-noprefix)
-      nix-index
-      cachix
-      comma
-    ];
+    environment.systemPackages =
+      [ (lib.hiPrio pkgs.uutils-coreutils-noprefix) ];
 
     system.activationScripts.diff =
       lib.mkIf config.features.apps.oxidise.systemDiff.enable ''
