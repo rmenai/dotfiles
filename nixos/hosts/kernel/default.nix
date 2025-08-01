@@ -47,11 +47,11 @@
         picsur.enable = true;
         calibre.enable = true;
         audiobookshelf.enable = true;
-        komga.enable = true;
-
         omnitools.enable = true;
         stirlingpdf.enable = true;
         cyberchef.enable = true;
+
+        komga.enable = false;
       };
 
       security.fail2ban.enable = true;

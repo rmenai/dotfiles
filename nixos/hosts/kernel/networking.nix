@@ -238,79 +238,28 @@
       }
 
       books.menai.me {
-        rate_limit {
-          zone shared {
-            key {client_ip}
-            events 100
-            window 1m
-          }
-          zone uploads {
-            match {
-              method POST
-            }
-            key {client_ip}
-            events 64
-            window 10m
-          }
-        }
-
         reverse_proxy http://127.0.0.1:8084
         import common
       }
 
       audio.menai.me {
-        rate_limit {
-          zone shared {
-            key {client_ip}
-            events 100
-            window 1m
-          }
-          zone uploads {
-            match {
-              method POST
-            }
-            key {client_ip}
-            events 64
-            window 10m
-          }
-        }
-
         reverse_proxy http://127.0.0.1:8000
         import common
       }
 
       manga.menai.me {
-        rate_limit {
-          zone shared {
-            key {client_ip}
-            events 100
-            window 1m
-          }
-          zone uploads {
-            match {
-              method POST
-            }
-            key {client_ip}
-            events 64
-            window 10m
-          }
-        }
-
         reverse_proxy http://127.0.0.1:10080
         import common
       }
 
       vault.menai.me {
-        rate_limit {
-          zone shared {
-            key {client_ip}
-            events 200
-            window 1m
-          }
-        }
-
         redir /admin* https://vault.lab.menai.me{uri} permanent
         reverse_proxy http://127.0.0.1:8222
+        import common
+      }
+
+      search.menai.me {
+        reverse_proxy http://127.0.0.1:9080
         import common
       }
 
@@ -321,11 +270,6 @@
 
       read.menai.me {
         redir /* https://read.readwise.io{uri} permanent
-        import common
-      }
-
-      search.menai.me {
-        reverse_proxy http://127.0.0.1:9080
         import common
       }
 
@@ -346,12 +290,6 @@
 
       chef.tools.menai.me {
         reverse_proxy http://127.0.0.1:8083
-        import common
-      }
-
-      chef.lab.menai.me {
-        redir / /admin 301
-        reverse_proxy http://127.0.0.1:9090
         import common
       }
 
