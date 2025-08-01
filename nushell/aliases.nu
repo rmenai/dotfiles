@@ -40,6 +40,9 @@ alias asn = atuin scripts new
 alias asd = atuin scripts delete
 alias asl = atuin scripts list
 
+# wormhole-rs aliase
+alias warp = wormhole-rs
+
 # gh dependent aliases
 alias "?" = gh copilot suggest
 alias "??" = gh copilot explain
