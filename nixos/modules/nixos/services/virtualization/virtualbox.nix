@@ -1,4 +1,4 @@
-{ config, lib, ... }: {
+{ config, lib, pkgs, ... }: {
   options.features.services.virtualization.virtualbox = {
     enable = lib.mkEnableOption "VirtualBox virtualization";
   };
@@ -6,6 +6,8 @@
   config = lib.mkIf config.features.services.virtualization.virtualbox.enable {
     virtualisation.virtualbox.host = {
       enable = true;
+      package = pkgs.stable.virtualbox;
+
       enableKvm = true;
       enableExtensionPack = true;
       enableHardening = false;

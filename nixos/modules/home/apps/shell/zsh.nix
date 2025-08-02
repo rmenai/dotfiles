@@ -1,10 +1,10 @@
-{ lib, config, ... }: {
+{ config, lib, pkgs, ... }: {
   options.features.apps.shell.zsh = {
     enable = lib.mkEnableOption "Zsh shell";
   };
 
   config = lib.mkIf config.features.apps.shell.zsh.enable {
-    programs.zsh = { enable = true; };
+    home.packages = with pkgs; [ zsh ];
 
     features.dotfiles = {
       paths = {

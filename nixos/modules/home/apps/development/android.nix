@@ -4,14 +4,14 @@
   };
 
   config = lib.mkIf config.features.apps.development.android.enable {
-    home.packages = with pkgs; [
+    home.packages = [
       # androidenv.androidPkgs.platform-tools
-      android-studio
-      android-studio-tools
-      apktool
-      jadx
-      frida-tools
-      ghidra
+      pkgs.stable.android-studio
+      pkgs.stable.android-studio-tools
+      pkgs.apktool
+      pkgs.jadx
+      pkgs.frida-tools
+      pkgs.ghidra
     ];
   };
 }

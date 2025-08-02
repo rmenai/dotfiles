@@ -7,7 +7,6 @@
     programs.zellij = {
       enable = true;
       enableBashIntegration = true;
-      enableZshIntegration = true;
     };
 
     features.dotfiles = {

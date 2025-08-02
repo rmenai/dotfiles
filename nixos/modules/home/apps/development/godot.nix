@@ -4,6 +4,6 @@
   };
 
   config = lib.mkIf config.features.apps.development.godot.enable {
-    home.packages = with pkgs; [ godot ];
+    home.packages = [ pkgs.stable.godot ];
   };
 }

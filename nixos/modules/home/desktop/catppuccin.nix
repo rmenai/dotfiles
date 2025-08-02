@@ -55,7 +55,6 @@ in {
       ghostty.enable = true;
       gitui.enable = true;
       glamour.enable = true;
-      gtk.enable = false;
       gtk.icon.enable = true;
       helix.enable = true;
       imv.enable = true;
