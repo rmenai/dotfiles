@@ -4,7 +4,7 @@
   };
 
   config = lib.mkIf config.features.apps.terminals.wezterm.enable {
-    home.packages = [ pkgs.stable.wezterm ];
+    home.packages = [ pkgs.wezterm ];
 
     features.dotfiles = {
       paths = { ".config/wezterm" = lib.mkDefault "wezterm"; };
