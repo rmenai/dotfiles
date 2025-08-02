@@ -12,6 +12,7 @@
       image = "ghcr.io/jordan-dalby/bytestash:latest";
       ports = [ "127.0.0.1:5000:5000" ];
       volumes = [ "/var/lib/bytestash:/data/snippets" ];
+      extraOptions = [ "--pull=always" ];
       environmentFiles = [ config.sops.secrets."secrets/bytestash".path ];
       environment = {
         PORT = "5000";

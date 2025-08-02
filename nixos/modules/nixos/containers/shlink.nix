@@ -13,6 +13,7 @@
     virtualisation.oci-containers.containers."shlink" = {
       image = "shlinkio/shlink:stable";
       ports = [ "127.0.0.1:8385:8385" ];
+      extraOptions = [ "--pull=always" ];
       environment = config.features.containers.shlink.environment;
     };
   };

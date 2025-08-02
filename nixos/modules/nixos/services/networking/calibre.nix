@@ -20,6 +20,8 @@
         "/var/lib/calibre/ingest:/cwa-book-ingest"
         "/var/lib/calibre/library:/calibre-library"
       ];
+
+      extraOptions = [ "--pull=always" ];
     };
 
     features.persist = {

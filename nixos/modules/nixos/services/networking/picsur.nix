@@ -9,6 +9,7 @@
     virtualisation.oci-containers.containers."picsur" = {
       image = "ghcr.io/caramelfur/picsur:latest";
       ports = [ "127.0.0.1:8070:8080" ];
+      extraOptions = [ "--pull=always" ];
       environmentFiles = [ config.sops.secrets."secrets/picsur".path ];
       environment = {
         PICSUR_DB_HOST = "host.docker.internal";
