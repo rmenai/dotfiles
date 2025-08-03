@@ -161,7 +161,6 @@
   services.paperless = {
     settings = {
       PAPERLESS_URL = "https://docs.menai.me";
-      PAPERLESS_CONSUMER_IGNORE_PATTERN = [ ".DS_STORE/*" "desktop.ini" ];
       PAPERLESS_OCR_LANGUAGE = "fra+eng";
       PAPERLESS_ACCOUNT_ALLOW_SIGNUPS = false;
 

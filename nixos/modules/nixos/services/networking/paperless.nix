@@ -9,6 +9,7 @@
     services.paperless = {
       enable = true;
       dataDir = "/var/lib/paperless";
+      consumptionDirIsPublic = true;
       address = "0.0.0.0";
       port = 28981;
       environmentFile = config.sops.secrets."secrets/paperless".path;
