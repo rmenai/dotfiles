@@ -13,7 +13,7 @@
           "github.com/WeidiDeng/caddy-cloudflare-ip@v0.0.0-20231130002422-f53b62aa13cb"
         ];
 
-        hash = "sha256-dEkr9u6WokYjC+6gT9WZ3kF/yGBYTn+NQe5rpmitRW8=";
+        hash = "sha256-nafCoLotyb+P9JjcIUW9/eBE1NzASA2S/1iyoACB2Hw=";
       };
     };
 

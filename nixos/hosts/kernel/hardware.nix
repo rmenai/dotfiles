@@ -54,6 +54,7 @@
     };
 
     initrd.systemd.enable = true;
+    kernel.sysctl = { "vm.swappiness" = 10; };
   };
 
   hardware.enableRedistributableFirmware = true;
@@ -63,7 +64,7 @@
   zramSwap = {
     enable = true;
     algorithm = "zstd";
-    memoryPercent = 30;
+    memoryPercent = 10;
   };
 
   swapDevices = [{
