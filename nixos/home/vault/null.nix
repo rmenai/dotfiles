@@ -52,7 +52,6 @@
       };
 
       browsers = {
-        brave.enable = true;
         vivaldi.enable = true;
         chromium.enable = true;
         firefox.enable = true;
