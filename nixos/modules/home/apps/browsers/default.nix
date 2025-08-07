@@ -1,1 +1,1 @@
-{ imports = [ ./brave.nix ./chromium.nix ./firefox.nix ]; }
+{ imports = [ ./brave.nix ./chromium.nix ./firefox.nix ./vivaldi.nix ]; }
