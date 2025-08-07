@@ -23,11 +23,29 @@ return {
           ["c"] = {
             before = {
               "#include <stdlib.h>",
+              "#include <stdbool.h>",
+              "#include <string.h>",
+            },
+          },
+          ["python3"] = {
+            before = {
+              "from typing import List, Optional, Dict, Set, Tuple",
+              "from collections import defaultdict, deque, Counter",
+              "import heapq",
+              "import bisect",
+              "import math",
+            },
+          },
+          ["rust"] = {
+            before = {
+              "use std::collections::{HashMap, HashSet, BTreeMap, BTreeSet, VecDeque};",
+              "use std::cmp::{min, max, Reverse};",
+              "use std::collections::BinaryHeap;",
             },
           },
         },
         arg = "leet",
-        lang = "rust",
+        lang = "c",
       })
 
       -- Set up commands
