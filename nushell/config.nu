@@ -63,8 +63,12 @@ $env.config.cursor_shape = {
 }
 
 # Command not found hook
-$env.config.hooks.command_not_found = { |command_name|
-    print (command-not-found $command_name | str trim)
+$env.config.hooks.command_not_found = { |cmd_name|
+  if (which comma | is-not-empty) {
+    comma -a $cmd_name
+    print ""
+    null
+  }
 }
 
 # PWD change hook (direnv integration)

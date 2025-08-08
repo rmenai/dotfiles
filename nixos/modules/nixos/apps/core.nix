@@ -6,18 +6,14 @@
       outputs.packages.${pkgs.system}.bin
       magic-wormhole-rs
       fastfetch
+      cachix
       wget
       curl
       vim
       git
       gh
-
-      nix-index
-      cachix
-      comma
     ];
 
-    programs.command-not-found.enable = true;
     programs.zsh.enable = true;
 
     programs.ssh = {

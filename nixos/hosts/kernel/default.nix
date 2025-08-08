@@ -1,5 +1,7 @@
-{ config, func, lib, ... }: {
+{ config, func, lib, inputs, ... }: {
   imports = lib.flatten [
+    inputs.nix-index-database.nixosModules.nix-index
+
     (map func.custom.relativeToRoot [ "modules/common" ])
     (map func.custom.relativeToRoot [ "modules/nixos" ])
 
@@ -62,6 +64,7 @@
 
     apps = {
       core.enable = true;
+      index.enable = true;
       oxidise.enable = true;
     };
   };

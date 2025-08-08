@@ -58,6 +58,11 @@
       url = "github:nix-community/nh/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, colmena, home-manager, ... }@inputs:

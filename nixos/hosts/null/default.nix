@@ -1,5 +1,6 @@
 { config, func, inputs, lib, pkgs, ... }: {
   imports = lib.flatten [
+    inputs.nix-index-database.nixosModules.nix-index
     inputs.microvm.nixosModules.host
 
     (map func.custom.relativeToRoot [ "modules/common" ])
@@ -77,6 +78,7 @@
 
     apps = {
       core.enable = true;
+      index.enable = true;
       oxidise.enable = true;
       gaming.enable = true;
       obs.enable = true;
