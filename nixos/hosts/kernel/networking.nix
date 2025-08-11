@@ -323,6 +323,15 @@
         reverse_proxy http://127.0.0.1:3000
         import common
       }
+
+      pve.lab.menai.me {
+        reverse_proxy https://pve:8006 {
+          transport http {
+            tls_insecure_skip_verify
+          }
+        }
+        import common
+      }
     '';
   };
 
