@@ -62,7 +62,6 @@ in {
       kitty.enable = true;
       kvantum.enable = true;
       lazygit.enable = true;
-      librewolf.profiles.default.enable = true;
       lsd.enable = true;
       mako.enable = true;
       mangohud.enable = true;

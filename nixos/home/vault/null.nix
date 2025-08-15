@@ -38,7 +38,10 @@
     };
 
     apps = {
-      gaming.enable = true;
+      gaming = {
+        steam.enable = true;
+        prism.enable = true;
+      };
 
       shell = {
         nushell.enable = true;
