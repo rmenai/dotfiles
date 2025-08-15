@@ -325,12 +325,11 @@
       }
 
       pve.lab.menai.me {
-        reverse_proxy https://pve:8006 {
+        reverse_proxy 100.109.97.33:8006 {
           transport http {
             tls_insecure_skip_verify
           }
         }
-        import common
       }
     '';
   };
