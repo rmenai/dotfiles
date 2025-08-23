@@ -1,23 +1,14 @@
 { config, lib, pkgs, ... }: {
-  options.features.apps.obs = {
-    enable = lib.mkEnableOption "OBS Studio";
-
-    cudaSupport = lib.mkOption {
-      type = lib.types.bool;
-      default = true;
-      description = "Enable NVIDIA CUDA hardware acceleration";
-    };
-  };
+  options.features.apps.obs = { enable = lib.mkEnableOption "OBS Studio"; };
 
   config = lib.mkIf config.features.apps.obs.enable {
     programs.obs-studio = {
       enable = true;
       enableVirtualCamera = true;
 
-      package = lib.mkIf config.features.apps.obs.cudaSupport
-        (pkgs.obs-studio.override { cudaSupport = true; });
+      package = (pkgs.stable.obs-studio.override { cudaSupport = true; });
 
-      plugins = with pkgs.obs-studio-plugins; [
+      plugins = with pkgs.stable.obs-studio-plugins; [
         wlrobs
         obs-backgroundremoval
         obs-pipewire-audio-capture

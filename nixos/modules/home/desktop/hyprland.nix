@@ -26,7 +26,6 @@
       kdePackages.xdg-desktop-portal-kde
       xdg-desktop-portal
       grim
-      flameshot
       qt6.qtwayland
       wl-mirror
       wl-clipboard
