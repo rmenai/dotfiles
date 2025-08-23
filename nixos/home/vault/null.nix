@@ -40,7 +40,10 @@
     apps = {
       gaming = {
         steam.enable = true;
+        heroic.enable = true;
+        lutris.enable = false;
         prism.enable = true;
+        itch.enable = true;
       };
 
       shell = {

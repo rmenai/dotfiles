@@ -16,7 +16,7 @@
     };
 
     environment.systemPackages = with pkgs;
-      [ steam-run mangohud gamescope itch ]
+      [ steam-run mangohud gamescope bottles ]
       ++ lib.optionals config.features.hardware.nvidia.enable [
         (pkgs.writeShellScriptBin "gamerun" ''
           #!/usr/bin/env bash
