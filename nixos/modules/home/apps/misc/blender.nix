@@ -4,6 +4,6 @@
   };
 
   config = lib.mkIf config.features.apps.misc.blender.enable {
-    home.packages = with pkgs; [ blender ];
+    home.packages = [ (pkgs.stable.blender.override { cudaSupport = true; }) ];
   };
 }
