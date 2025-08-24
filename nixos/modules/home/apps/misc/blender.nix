@@ -4,6 +4,6 @@
   };
 
   config = lib.mkIf config.features.apps.misc.blender.enable {
-    home.packages = [ (pkgs.stable.blender.override { cudaSupport = true; }) ];
+    home.packages = [ (pkgs.blender.override { cudaSupport = true; }) ];
   };
 }

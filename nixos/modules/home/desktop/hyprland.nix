@@ -21,6 +21,9 @@
       hyprpicker
       eww
 
+      alsa-utils
+      mpc
+
       slurp
       kdePackages.xwaylandvideobridge
       kdePackages.xdg-desktop-portal-kde

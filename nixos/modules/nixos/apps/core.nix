@@ -7,7 +7,7 @@
       magic-wormhole-rs
       fastfetch
       cachix
-      wget
+      toybox
       curl
       vim
       git
