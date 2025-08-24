@@ -5,10 +5,10 @@
 
   config = lib.mkIf config.features.apps.development.jetbrains.enable {
     home.packages = [
-      pkgs.stable.jetbrains.pycharm-professional
-      pkgs.stable.jetbrains.rust-rover
+      pkgs.jetbrains.pycharm-professional
+      pkgs.jetbrains.rust-rover
+      pkgs.jetbrains.clion
       pkgs.stable.jetbrains.rider
-      pkgs.stable.jetbrains.clion
       pkgs.stable.jetbrains.webstorm
       pkgs.stable.jetbrains.datagrip
     ];

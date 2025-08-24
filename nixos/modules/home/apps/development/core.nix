@@ -14,6 +14,8 @@
       dust
 
       gcc
+      gdb
+      cmake
       gnumake
       mold
 
