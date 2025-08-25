@@ -25,6 +25,10 @@
 
 # My custom hardware settings
 {
+
+  # Disable touch screen devices.
+  boot.blacklistedKernelModules = [ "hid_multitouch" ];
+
   features = {
     hardware = {
       disko = {
