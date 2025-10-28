@@ -1,0 +1,9 @@
+mpd_music_dir = "/home/vault/Music"
+
+mpd_host = "localhost"
+mpd_port = "6600"
+
+# These settings connect to the "fifo" output from the MPD config
+visualizer_data_source = "/tmp/mpd.fifo"
+visualizer_output_name = "mpd_fifo"
+visualizer_type = "spectrum"
