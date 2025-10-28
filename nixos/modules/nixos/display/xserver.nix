@@ -15,7 +15,7 @@
         enable = true;
         videoDrivers = config.features.display.xserver.videoDrivers;
         xkb = {
-          layout = "us";
+          layout = lib.mkDefault "us";
           variant = "";
         };
       };

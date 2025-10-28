@@ -21,6 +21,7 @@
       pkgs.krita
       pkgs.audacity
       pkgs.kdePackages.kdenlive
+      pkgs.ncmpcpp
     ];
 
     xdg.mimeApps.defaultApplications = {
@@ -51,6 +52,11 @@
       "image/svg+xml" = "oculante.desktop";
     };
 
-    features.dotfiles = { paths = { ".config/curd" = lib.mkDefault "curd"; }; };
+    features.dotfiles = {
+      paths = {
+        ".config/curd" = lib.mkDefault "curd";
+        ".config/ncmpcpp" = lib.mkDefault "ncmpcpp";
+      };
+    };
   };
 }

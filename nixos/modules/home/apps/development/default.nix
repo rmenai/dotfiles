@@ -7,6 +7,7 @@
     ./godot.nix
     ./helix.nix
     ./jetbrains.nix
+    ./vscode.nix
     ./latex.nix
     ./node.nix
     ./ocaml.nix

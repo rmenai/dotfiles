@@ -4,6 +4,6 @@
   };
 
   config = lib.mkIf config.features.apps.misc.obsidian.enable {
-    home.packages = with pkgs; [ obsidian ];
+    home.packages = with pkgs; [ obsidian anki ];
   };
 }

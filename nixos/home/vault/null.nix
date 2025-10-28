@@ -78,6 +78,7 @@
 
         helix.enable = true;
         jetbrains.enable = true;
+        vscode.enable = true;
 
         latex.enable = true;
         node.enable = true;
