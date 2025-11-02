@@ -28,13 +28,13 @@
     services = {
       adjust-power.enable = true;
       mpris.enable = true;
+      mpd.enable = true;
       ssh.enable = true;
     };
 
     desktop = {
       hyprland.enable = true;
       catppuccin.enable = true;
-      fonts.enable = true;
     };
 
     apps = {

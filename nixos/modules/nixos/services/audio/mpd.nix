@@ -12,7 +12,6 @@
         audio_output {
           type "pulse"
           name "PulseAudio Output"
-          server "127.0.0.1"
         }
 
         # Add a 'fifo' output for visualizers (like ncmpcpp)
@@ -25,13 +24,13 @@
       '';
     };
 
-    hardware.pulseaudio.extraConfig =
-      "load-module module-native-protocol-tcp auth-ip-acl=127.0.0.1";
+    systemd.services.mpd.environment = {
+      # https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/609
+      XDG_RUNTIME_DIR = "/run/user/1000";
+    };
 
     users.users.${config.spec.user}.extraGroups = [ "mpd" ];
 
     environment.systemPackages = with pkgs; [ mpc-cli ];
-
-    features.persist = { directories = { "/var/lib/mpd" = true; }; };
   };
 }

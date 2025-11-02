@@ -35,10 +35,7 @@
     };
 
     services = {
-      audio = {
-        pipewire.enable = true;
-        mpd.enable = true;
-      };
+      audio = { pipewire.enable = true; };
 
       printing = { cups.enable = true; };
 
@@ -175,18 +172,15 @@
     enable = true;
     type = "fcitx5";
     fcitx5 = {
+      waylandFrontend = true;
+
       addons = with pkgs; [
-        fcitx5-mozc
+        fcitx5-mozc-ut
+        fcitx5-gtk
         fcitx5-configtool # A GUI to configure Fcitx5
-        fcitx5-gtk # For GTK (Gnome, XFCE) apps
       ];
     };
   };
 
-  services.xserver.xkb = {
-    layout = "us, fr, ara";
-    options = "grp:alt_shift_toggle";
-  };
-
-  environment.sessionVariables.WASTEBIN_URL = "https://bin.menai.me";
+  environment.sessionVariables = { WASTEBIN_URL = "https://bin.menai.me"; };
 }

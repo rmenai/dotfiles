@@ -9,6 +9,7 @@
       hyprlock
       hyprpaper
       hypridle
+      hyprsunset
       dunst
       libnotify
       pamixer

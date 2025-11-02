@@ -13,6 +13,8 @@ Config.font = wt.font_with_fallback({
     weight = "Regular",
   },
   { family = "JetBrains Mono Nerd Font" },
+  { family = "Noto Sans CJK JP" },
+  { family = "Noto Color Emoji" },
   { family = "LegacyComputing" },
 })
 
