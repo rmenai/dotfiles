@@ -79,20 +79,20 @@
     memoryPercent = 30;
   };
 
-  systemd.services.disable-touchscreen = {
-    description = "Disable touchscreen service";
-    after = [ "multi-user.target" ];
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      Type = "oneshot";
-      User = "root";
-      Environment = "DEVICE_ID=0018:27C6:0123.0003";
-      ExecStart =
-        "${pkgs.bash}/bin/bash -c 'echo \"Disabling $DEVICE_ID\" && echo $DEVICE_ID > /sys/bus/hid/drivers/hid-multitouch/unbind'";
-      ExecStop =
-        "${pkgs.bash}/bin/bash -c 'echo \"Enabling $DEVICE_ID\" && echo $DEVICE_ID > /sys/bus/hid/drivers/hid-multitouch/bind'";
-      RemainAfterExit = true;
-      Restart = "no";
-    };
-  };
+  # systemd.services.disable-touchscreen = {
+  #   description = "Disable touchscreen service";
+  #   after = [ "multi-user.target" ];
+  #   wantedBy = [ "multi-user.target" ];
+  #   serviceConfig = {
+  #     Type = "oneshot";
+  #     User = "root";
+  #     Environment = "DEVICE_ID=0018:27C6:0123.0003";
+  #     ExecStart =
+  #       "${pkgs.bash}/bin/bash -c 'echo \"Disabling $DEVICE_ID\" && echo $DEVICE_ID > /sys/bus/hid/drivers/hid-multitouch/unbind'";
+  #     ExecStop =
+  #       "${pkgs.bash}/bin/bash -c 'echo \"Enabling $DEVICE_ID\" && echo $DEVICE_ID > /sys/bus/hid/drivers/hid-multitouch/bind'";
+  #     RemainAfterExit = true;
+  #     Restart = "no";
+  #   };
+  # };
 }

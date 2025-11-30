@@ -97,7 +97,7 @@
     };
   };
 
-  home.packages = with pkgs; [ bitwarden-desktop ];
+  home.packages = with pkgs; [ bitwarden-desktop glow rustdesk ];
 
   programs.ssh.extraConfig = ''
     UpdateHostKeys ask
