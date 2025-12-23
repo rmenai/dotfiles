@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.services.networking.paperless = {
     enable = lib.mkEnableOption "Paperless";
   };
@@ -16,7 +17,9 @@
     };
 
     features.persist = {
-      directories = { "/var/lib/paperless" = lib.mkDefault true; };
+      directories = {
+        "/var/lib/paperless" = lib.mkDefault true;
+      };
     };
   };
 }

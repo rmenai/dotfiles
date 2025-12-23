@@ -1,4 +1,13 @@
-{ func, config, lib, pkgs, inputs, outputs, ... }: {
+{
+  func,
+  config,
+  lib,
+  pkgs,
+  inputs,
+  outputs,
+  ...
+}:
+{
   options.features.system.home = {
     enable = lib.mkEnableOption "home-manager configuration";
   };
@@ -7,11 +16,17 @@
     home-manager = {
       useUserPackages = true;
 
-      extraSpecialArgs = { inherit func pkgs inputs outputs; };
+      extraSpecialArgs = {
+        inherit
+          func
+          pkgs
+          inputs
+          outputs
+          ;
+      };
 
       users.${config.spec.user}.imports = [
-        (func.custom.relativeToRoot
-          "home/${config.spec.user}/${config.spec.host}.nix")
+        (func.custom.relativeToRoot "home/${config.spec.user}/${config.spec.host}.nix")
       ];
     };
 

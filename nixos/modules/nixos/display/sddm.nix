@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   options.features.display.sddm = {
     enable = lib.mkEnableOption "SDDM display manager";
 

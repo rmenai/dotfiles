@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.services.security.fail2ban = {
     enable = lib.mkEnableOption "Fail2ban support";
   };

@@ -1,9 +1,15 @@
-{ pkgs, lib, config, ... }: {
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+{
   options.features.apps.socials.whatsapp = {
     enable = lib.mkEnableOption "WhatsApp for Linux";
   };
 
   config = lib.mkIf config.features.apps.socials.whatsapp.enable {
-    home.packages = with pkgs; [ whatsapp-for-linux ];
+    home.packages = with pkgs; [ wasistlos ];
   };
 }

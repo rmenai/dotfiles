@@ -1,4 +1,11 @@
-{ config, inputs, lib, pkgs, ... }: {
+{
+  config,
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
+{
   options.features.users.alice = {
     enable = lib.mkEnableOption "alice user configuration";
   };
@@ -19,9 +26,14 @@
       isNormalUser = true;
       description = config.spec.userFullName;
       password = "test";
-      packages = [ inputs.home-manager.packages.${pkgs.system}.default ];
+      packages = [
+        inputs.home-manager.packages.${pkgs.stdenv.hostPlatform.system}.default
+      ];
       shell = pkgs.bash;
-      extraGroups = lib.flatten [ "wheel" "input" ];
+      extraGroups = lib.flatten [
+        "wheel"
+        "input"
+      ];
     };
   };
 }

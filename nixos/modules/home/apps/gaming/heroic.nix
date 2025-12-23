@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   options.features.apps.gaming.heroic = {
     enable = lib.mkEnableOption "Heroic Games Launcher";
   };

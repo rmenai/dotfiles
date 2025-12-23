@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   options.features.apps.tools.neofetch = {
     enable = lib.mkEnableOption "Neofetch system information tool";
   };

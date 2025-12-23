@@ -1,1 +1,6 @@
-{ imports = [ ./hyprland.nix ./catppuccin.nix ]; }
+{
+  imports = [
+    ./hyprland.nix
+    ./catppuccin.nix
+  ];
+}

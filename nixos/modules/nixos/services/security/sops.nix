@@ -1,8 +1,15 @@
-{ config, inputs, lib, pkgs, ... }:
+{
+  config,
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.features.system.sops;
   sopsFolder = builtins.toString inputs.secrets;
-in {
+in
+{
   options.features.system.sops = {
     enable = lib.mkEnableOption "sops secrets management";
 
@@ -27,13 +34,19 @@ in {
     };
 
     environment.sessionVariables.SOPS_FOLDER = sopsFolder;
-    environment.systemPackages = [ pkgs.sops pkgs.age ];
+    environment.systemPackages = [
+      pkgs.sops
+      pkgs.age
+    ];
 
-    fileSystems."/var/lib/sops" =
-      lib.mkIf config.features.impermanence.enable { neededForBoot = true; };
+    fileSystems."/var/lib/sops" = lib.mkIf config.features.impermanence.enable {
+      neededForBoot = true;
+    };
 
     features.persist = {
-      directories = { "/var/lib/sops" = lib.mkDefault true; };
+      directories = {
+        "/var/lib/sops" = lib.mkDefault true;
+      };
     };
   };
 }

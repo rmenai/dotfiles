@@ -1,1 +1,8 @@
-{ imports = [ ./intel.nix ./nvidia.nix ./ssd.nix ./ram.nix ]; }
+{
+  imports = [
+    ./intel.nix
+    ./nvidia.nix
+    ./ssd.nix
+    ./ram.nix
+  ];
+}

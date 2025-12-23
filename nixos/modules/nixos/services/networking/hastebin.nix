@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.services.networking.hastebin = {
     enable = lib.mkEnableOption "Hastebin pastebin service";
   };
@@ -8,11 +9,15 @@
       image = "rlister/hastebin";
       ports = [ "127.0.0.1:7777:7777" ];
       extraOptions = [ "--pull=always" ];
-      environment = { STORAGE_TYPE = "file"; };
+      environment = {
+        STORAGE_TYPE = "file";
+      };
     };
 
     features.persist = {
-      directories = { "/var/lib/hastebin" = lib.mkDefault true; };
+      directories = {
+        "/var/lib/hastebin" = lib.mkDefault true;
+      };
     };
   };
 }

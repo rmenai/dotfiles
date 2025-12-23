@@ -1,4 +1,11 @@
-{ config, lib, pkgs, inputs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
+{
   options.features.apps.browsers.vivaldi = {
     enable = lib.mkEnableOption "Vivaldi browser";
   };

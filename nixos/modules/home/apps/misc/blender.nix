@@ -1,4 +1,10 @@
-{ pkgs, lib, config, ... }: {
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+{
   options.features.apps.misc.blender = {
     enable = lib.mkEnableOption "Blender 3D modeling software";
   };

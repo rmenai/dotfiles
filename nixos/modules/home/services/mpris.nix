@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.services.mpris = {
     enable = lib.mkEnableOption "MPRIS proxy service";
   };

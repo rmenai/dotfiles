@@ -1,4 +1,10 @@
-{ stdenv, lib, shellcheck, btrfs-progs, bash, }:
+{
+  stdenv,
+  lib,
+  shellcheck,
+  btrfs-progs,
+  bash,
+}:
 stdenv.mkDerivation {
   name = "ep";
   src = ./src;

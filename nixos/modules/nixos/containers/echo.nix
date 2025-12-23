@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.containers.echo = {
     enable = lib.mkEnableOption "HTTP echo service container";
   };

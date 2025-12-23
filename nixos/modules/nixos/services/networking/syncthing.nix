@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.services.networking.syncthing = {
     enable = lib.mkEnableOption "Syncthing file sync";
   };
@@ -12,15 +13,23 @@
       guiAddress = "0.0.0.0:8384";
       settings = {
         devices = {
-          "null" = { id = config.private.secrets.syncthingDevices.null; };
-          "s23" = { id = config.private.secrets.syncthingDevices.s23; };
-          "kernel" = { id = config.private.secrets.syncthingDevices.kernel; };
+          "null" = {
+            id = config.private.secrets.syncthingDevices.null;
+          };
+          "s23" = {
+            id = config.private.secrets.syncthingDevices.s23;
+          };
+          "kernel" = {
+            id = config.private.secrets.syncthingDevices.kernel;
+          };
         };
       };
     };
 
     features.persist = {
-      directories = { "/var/lib/syncthing" = lib.mkDefault true; };
+      directories = {
+        "/var/lib/syncthing" = lib.mkDefault true;
+      };
     };
   };
 }

@@ -1,10 +1,18 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   options.features.system.nix = {
     enable = lib.mkEnableOption "nix configuration for home-manager";
   };
 
   config = lib.mkIf config.features.system.nix.enable {
-    nixpkgs = { config.allowUnfree = true; };
+    nixpkgs = {
+      config.allowUnfree = true;
+    };
 
     nix = {
       package = lib.mkDefault pkgs.nix;
@@ -14,12 +22,18 @@
         min-free = 128000000; # 128MB
         max-free = 1000000000; # 1GB
 
-        trusted-users = [ "root" config.spec.user ];
+        trusted-users = [
+          "root"
+          config.spec.user
+        ];
         auto-optimise-store = true;
         warn-dirty = false;
 
         allow-import-from-derivation = true;
-        experimental-features = [ "nix-command" "flakes" ];
+        experimental-features = [
+          "nix-command"
+          "flakes"
+        ];
       };
     };
 

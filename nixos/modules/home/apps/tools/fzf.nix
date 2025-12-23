@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.apps.tools.fzf = {
     enable = lib.mkEnableOption "FZF fuzzy finder";
   };

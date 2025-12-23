@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.services.networking.cyberchef = {
     enable = lib.mkEnableOption "Cyberchef";
   };

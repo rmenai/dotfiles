@@ -1,4 +1,5 @@
-{ lib, config, ... }: {
+{ lib, config, ... }:
+{
   options.features.system.home = {
     enable = lib.mkEnableOption "core home-manager configuration";
   };

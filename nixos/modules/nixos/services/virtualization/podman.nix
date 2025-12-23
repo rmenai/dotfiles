@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   options.features.services.virtualization.podman = {
     enable = lib.mkEnableOption "Podman container runtime";
   };
@@ -12,17 +18,30 @@
         autoPrune = {
           enable = true;
           dates = "weekly";
-          flags = [ "--filter=until=24h" "--filter=label!=important" ];
+          flags = [
+            "--filter=until=24h"
+            "--filter=label!=important"
+          ];
         };
       };
 
       oci-containers.backend = "podman";
     };
 
-    users.users.${config.spec.user}.extraGroups = [ "docker" "podman" ];
+    users.users.${config.spec.user}.extraGroups = [
+      "docker"
+      "podman"
+    ];
 
-    environment.systemPackages = with pkgs; [ podman-compose podman-tui ];
+    environment.systemPackages = with pkgs; [
+      podman-compose
+      podman-tui
+    ];
 
-    features.persist = { directories = { "/var/lib/containers" = true; }; };
+    features.persist = {
+      directories = {
+        "/var/lib/containers" = true;
+      };
+    };
   };
 }

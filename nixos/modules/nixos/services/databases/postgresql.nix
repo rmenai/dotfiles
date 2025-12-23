@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.services.databases.postgresql = {
     enable = lib.mkEnableOption "Postgres database";
   };
@@ -25,7 +26,9 @@
     };
 
     features.persist = {
-      directories = { "/var/lib/postgresql" = lib.mkDefault true; };
+      directories = {
+        "/var/lib/postgresql" = lib.mkDefault true;
+      };
     };
   };
 }

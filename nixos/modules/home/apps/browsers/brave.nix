@@ -1,4 +1,10 @@
-{ pkgs, lib, config, ... }: {
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+{
   options.features.apps.browsers.brave = {
     enable = lib.mkEnableOption "Brave browser";
   };

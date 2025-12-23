@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   options.features.services.audio.pipewire = {
     enable = lib.mkEnableOption "PipeWire audio support";
     lowLatency = lib.mkOption {
@@ -25,18 +31,19 @@
     };
 
     services.pipewire.wireplumber.extraConfig =
-      lib.mkIf config.features.services.audio.pipewire.bluetooth {
-        bluetoothEnhancements = {
-          "monitor.bluez.properties" = {
-            "bluez5.enable-sbc-xq" = true;
-            "bluez5.enable-msbc" = true;
-            "bluez5.enable-aptx" = true;
-            "bluez5.enable-aptx-hd" = true;
-            "bluez5.enable-ldac" = true;
-            "bluez5.enable-le3" = true;
+      lib.mkIf config.features.services.audio.pipewire.bluetooth
+        {
+          bluetoothEnhancements = {
+            "monitor.bluez.properties" = {
+              "bluez5.enable-sbc-xq" = true;
+              "bluez5.enable-msbc" = true;
+              "bluez5.enable-aptx" = true;
+              "bluez5.enable-aptx-hd" = true;
+              "bluez5.enable-ldac" = true;
+              "bluez5.enable-le3" = true;
+            };
           };
         };
-      };
 
     users.users.${config.spec.user}.extraGroups = [ "audio" ];
 

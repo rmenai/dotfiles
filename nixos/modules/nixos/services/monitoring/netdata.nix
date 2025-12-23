@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   options.features.services.monitoring.netdata = {
     enable = lib.mkEnableOption "Netdata configuration";
   };
@@ -9,6 +15,10 @@
       package = pkgs.netdata.override { withCloudUi = true; };
     };
 
-    features.persist = { directories = { "/var/lib/netdata" = true; }; };
+    features.persist = {
+      directories = {
+        "/var/lib/netdata" = true;
+      };
+    };
   };
 }

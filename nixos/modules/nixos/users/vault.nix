@@ -1,4 +1,11 @@
-{ config, inputs, lib, pkgs, ... }: {
+{
+  config,
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
+{
   options.features.users.vault = {
     enable = lib.mkEnableOption "vault user configuration";
   };
@@ -21,9 +28,14 @@
       isNormalUser = true;
       description = config.spec.userFullName;
       hashedPasswordFile = config.sops.secrets."users/vault/password_hash".path;
-      packages = [ inputs.home-manager.packages.${pkgs.system}.default ];
+      packages = [
+        inputs.home-manager.packages.${pkgs.stdenv.hostPlatform.system}.default
+      ];
       shell = pkgs.nushell;
-      extraGroups = lib.flatten [ "wheel" "input" ];
+      extraGroups = lib.flatten [
+        "wheel"
+        "input"
+      ];
     };
 
     sops.secrets."users/${config.spec.user}/age_key" = {

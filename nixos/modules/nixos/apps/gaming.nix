@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   options.features.apps.gaming = {
     enable = lib.mkEnableOption "gaming applications and optimizations";
   };
@@ -8,15 +14,22 @@
     programs.appimage.enable = true;
     programs.appimage.binfmt = true;
 
-    programs.steam = { enable = true; };
-
-    environment.sessionVariables = {
-      GAMEMODERUNEXEC =
-        lib.mkIf config.features.hardware.nvidia.enable "nvidia-offload";
+    programs.steam = {
+      enable = true;
     };
 
-    environment.systemPackages = with pkgs;
-      [ steam-run mangohud gamescope bottles ]
+    environment.sessionVariables = {
+      GAMEMODERUNEXEC = lib.mkIf config.features.hardware.nvidia.enable "nvidia-offload";
+    };
+
+    environment.systemPackages =
+      with pkgs;
+      [
+        steam-run
+        mangohud
+        gamescope
+        bottles
+      ]
       ++ lib.optionals config.features.hardware.nvidia.enable [
         (pkgs.writeShellScriptBin "gamerun" ''
           #!/usr/bin/env bash

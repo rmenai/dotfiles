@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.services.networking.tandoor = {
     enable = lib.mkEnableOption "Recipes manager";
   };
@@ -13,13 +14,14 @@
       port = 9090;
       extraConfig = {
         SECRET_KEY = config.sops.secrets."secrets/tandoor/key".path;
-        EMAIL_HOST_PASSWORD_FILE =
-          config.sops.secrets."secrets/tandoor/mail_pass".path;
+        EMAIL_HOST_PASSWORD_FILE = config.sops.secrets."secrets/tandoor/mail_pass".path;
       };
     };
 
     features.persist = {
-      directories = { "/var/lib/tandoor-recipes" = true; };
+      directories = {
+        "/var/lib/tandoor-recipes" = true;
+      };
     };
   };
 }

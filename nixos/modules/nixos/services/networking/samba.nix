@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.services.networking.samba = {
     enable = lib.mkEnableOption "Samba file sharing";
   };
@@ -41,6 +42,8 @@
       };
     };
 
-    services.samba-wsdd = { enable = true; };
+    services.samba-wsdd = {
+      enable = true;
+    };
   };
 }

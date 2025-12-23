@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.desktop.catppuccin = {
     enable = lib.mkEnableOption "Catppuccin theme globally";
   };

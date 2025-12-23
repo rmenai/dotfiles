@@ -1,6 +1,13 @@
-{ config, lib, inputs, ... }:
-let sopsFolder = builtins.toString inputs.secrets;
-in {
+{
+  config,
+  lib,
+  inputs,
+  ...
+}:
+let
+  sopsFolder = builtins.toString inputs.secrets;
+in
+{
   options.features.system.sops = {
     enable = lib.mkEnableOption "SOPS secrets management";
   };

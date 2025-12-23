@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.apps.index = {
     enable = lib.mkEnableOption "Nix-index database";
   };

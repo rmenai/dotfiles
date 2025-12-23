@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.services.networking.calibre = {
     enable = lib.mkEnableOption "Calibre-Web Automated";
   };
@@ -35,7 +36,9 @@
     };
 
     features.persist = {
-      directories = { "/var/lib/calibre" = lib.mkDefault true; };
+      directories = {
+        "/var/lib/calibre" = lib.mkDefault true;
+      };
     };
   };
 }

@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.services.ssh = {
     enable = lib.mkEnableOption "SSH client configuration";
   };
@@ -6,15 +7,20 @@
   config = lib.mkIf config.features.services.ssh.enable {
     programs.ssh = {
       enable = true;
-      controlMaster = "auto";
-      controlPath = "/home/${config.spec.user}/.ssh/sockets/S.%r@%h:%p";
-      controlPersist = "20m";
-      serverAliveCountMax = 3;
-      serverAliveInterval = 5;
-      hashKnownHosts = true;
-      addKeysToAgent = "yes";
+
+      enableDefaultConfig = false;
 
       matchBlocks = {
+        "*" = {
+          controlMaster = "auto";
+          controlPath = "/home/${config.spec.user}/.ssh/sockets/S.%r@%h:%p";
+          controlPersist = "20m";
+          serverAliveCountMax = 3;
+          serverAliveInterval = 5;
+          hashKnownHosts = true;
+          addKeysToAgent = "yes";
+        };
+
         "default" = {
           host = "github.com";
           identitiesOnly = true;
@@ -23,6 +29,10 @@
       };
     };
 
-    features.persist = { directories = { ".ssh" = lib.mkDefault true; }; };
+    features.persist = {
+      directories = {
+        ".ssh" = lib.mkDefault true;
+      };
+    };
   };
 }

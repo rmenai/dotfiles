@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.apps.adb = {
     enable = lib.mkEnableOption "Android Debug Bridge (ADB)";
   };

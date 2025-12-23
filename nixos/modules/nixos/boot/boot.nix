@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.boot = {
     configurationLimit = lib.mkOption {
       type = lib.types.int;
@@ -13,9 +14,13 @@
     };
 
     initrd = {
-      enable = lib.mkEnableOption "systemd in initrd" // { default = true; };
+      enable = lib.mkEnableOption "systemd in initrd" // {
+        default = true;
+      };
     };
   };
 
-  config = { boot.initrd.systemd.enable = config.features.boot.initrd.enable; };
+  config = {
+    boot.initrd.systemd.enable = config.features.boot.initrd.enable;
+  };
 }

@@ -1,7 +1,12 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.services.networking = {
-    networkd = { enable = lib.mkEnableOption "systemd-networkd"; };
-    networkManager = { enable = lib.mkEnableOption "NetworkManager"; };
+    networkd = {
+      enable = lib.mkEnableOption "systemd-networkd";
+    };
+    networkManager = {
+      enable = lib.mkEnableOption "NetworkManager";
+    };
   };
 
   config = lib.mkMerge [

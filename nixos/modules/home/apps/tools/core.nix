@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   options.features.apps.tools.core = {
     enable = lib.mkEnableOption "CLI tools and utilities";
   };

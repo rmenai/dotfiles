@@ -1,4 +1,11 @@
-{ config, func, lib, inputs, ... }: {
+{
+  config,
+  func,
+  lib,
+  inputs,
+  ...
+}:
+{
   imports = lib.flatten [
     inputs.nix-index-database.nixosModules.nix-index
 
@@ -23,8 +30,12 @@
   };
 
   features = {
-    profiles = { core.enable = true; };
-    users = { vault.enable = true; };
+    profiles = {
+      core.enable = true;
+    };
+    users = {
+      vault.enable = true;
+    };
 
     system = {
       nix.enable = true;
@@ -97,7 +108,10 @@
           "https://1.1.1.1/dns-query"
           "https://1.0.0.1/dns-query"
         ];
-        fallback_dns = [ "1.1.1.1" "1.0.0.1" ];
+        fallback_dns = [
+          "1.1.1.1"
+          "1.0.0.1"
+        ];
       };
 
       filtering = {
@@ -112,7 +126,10 @@
       "Notes" = {
         id = "cgmyu-yuita";
         path = "/home/${config.spec.user}/Documents/Notes";
-        devices = [ "s23" "null" ];
+        devices = [
+          "s23"
+          "null"
+        ];
         ignorePerms = true;
         versioning = {
           type = "staggered";

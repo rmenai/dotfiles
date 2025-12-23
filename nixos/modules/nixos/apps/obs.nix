@@ -1,5 +1,13 @@
-{ config, lib, pkgs, ... }: {
-  options.features.apps.obs = { enable = lib.mkEnableOption "OBS Studio"; };
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
+  options.features.apps.obs = {
+    enable = lib.mkEnableOption "OBS Studio";
+  };
 
   config = lib.mkIf config.features.apps.obs.enable {
     programs.obs-studio = {
@@ -18,8 +26,7 @@
       ];
     };
 
-    boot.extraModulePackages = with config.boot.kernelPackages;
-      [ v4l2loopback ];
+    boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
     boot.kernelModules = [ "v4l2loopback" ];
     security.polkit.enable = true;
 

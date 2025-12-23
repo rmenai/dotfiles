@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.services.networking.privatebin = {
     enable = lib.mkEnableOption "Privatebin sharing service";
   };
@@ -27,20 +28,28 @@
           "never" = 0;
         };
 
-        traffic = { limit = 10; };
+        traffic = {
+          limit = 10;
+        };
 
         purge = {
           limit = 3600;
           batchsize = 10;
         };
 
-        model = { class = "Filesystem"; };
-        model_options = { dir = "/var/lib/privatebin"; };
+        model = {
+          class = "Filesystem";
+        };
+        model_options = {
+          dir = "/var/lib/privatebin";
+        };
       };
     };
 
     features.persist = {
-      directories = { "/var/lib/privatebin" = lib.mkDefault true; };
+      directories = {
+        "/var/lib/privatebin" = lib.mkDefault true;
+      };
     };
   };
 }

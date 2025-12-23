@@ -1,4 +1,5 @@
-{ func, lib, ... }: {
+{ func, lib, ... }:
+{
   imports = lib.flatten [
     (map func.custom.relativeToRoot [ "modules/common" ])
     (map func.custom.relativeToRoot [ "modules/home" ])
@@ -12,7 +13,9 @@
   };
 
   features = {
-    profiles = { core.enable = true; };
+    profiles = {
+      core.enable = true;
+    };
 
     dotfiles.enable = true;
 
@@ -22,7 +25,9 @@
       sops.enable = true;
     };
 
-    services = { ssh.enable = true; };
+    services = {
+      ssh.enable = true;
+    };
 
     apps = {
       terminals.wezterm.enable = true;

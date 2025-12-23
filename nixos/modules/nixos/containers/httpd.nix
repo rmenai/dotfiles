@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.containers.httpd = {
     enable = lib.mkEnableOption "Apache HTTPD container";
   };

@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   options.features.boot.lanzaboote = {
     enable = lib.mkEnableOption "lanzaboote secure boot";
 

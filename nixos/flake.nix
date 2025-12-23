@@ -31,7 +31,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    impermanence = { url = "github:nix-community/impermanence"; };
+    impermanence = {
+      url = "github:nix-community/impermanence";
+    };
     catppuccin.url = "github:catppuccin/nix";
 
     lanzaboote = {
@@ -59,13 +61,22 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    wezterm.url = "github:wezterm/wezterm?dir=nix";
+
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, colmena, home-manager, ... }@inputs:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      colmena,
+      home-manager,
+      ...
+    }@inputs:
     let
       lib = import ./lib { inherit (nixpkgs) lib inputs; };
 
@@ -79,7 +90,8 @@
       extendedLib = nixpkgs.lib.extend (self: super: { custom = lib; });
 
       # Create pkgs with overlays for each system
-      mkPkgs = system:
+      mkPkgs =
+        system:
         import nixpkgs {
           inherit system;
           overlays = [ self.overlays.default ];
@@ -90,20 +102,28 @@
         outputs = self;
         func = extendedLib;
       };
-    in {
+    in
+    {
       inherit inputs;
 
-      nixosConfigurations = lib.mkNixosConfigurations {
-        inherit hosts commonSpecialArgs;
-        hostsDir = ./hosts;
-      } // lib.mkNixosConfigurations {
-        inherit commonSpecialArgs;
-        hosts = miscHosts;
-        hostsDir = ./misc;
-      };
+      nixosConfigurations =
+        lib.mkNixosConfigurations {
+          inherit hosts commonSpecialArgs;
+          hostsDir = ./hosts;
+        }
+        // lib.mkNixosConfigurations {
+          inherit commonSpecialArgs;
+          hosts = miscHosts;
+          hostsDir = ./misc;
+        };
 
       homeConfigurations = lib.mkHomeConfigurations {
-        inherit hosts home-manager commonSpecialArgs systems;
+        inherit
+          hosts
+          home-manager
+          commonSpecialArgs
+          systems
+          ;
         homeDir = ./home;
         mkPkgs = mkPkgs;
       };
@@ -117,7 +137,8 @@
 
       overlays = import ./overlays { inherit inputs; };
 
-      packages = forEachSystem (system:
+      packages = forEachSystem (
+        system:
         let
           pkgs = mkPkgs system;
           pkgsFromDir = nixpkgs.lib.packagesFromDirectoryRecursive {
@@ -126,8 +147,7 @@
           };
 
           extraPackages = {
-            microvm =
-              self.nixosConfigurations.microvm.config.microvm.declaredRunner;
+            microvm = self.nixosConfigurations.microvm.config.microvm.declaredRunner;
             vm = self.nixosConfigurations.vm.config.system.build.vm;
             null = self.nixosConfigurations.null.config.system.build.vm;
             fork = self.nixosConfigurations.fork.config.system.build.vm;
@@ -175,6 +195,8 @@
             };
           };
 
-        in pkgsFromDir // extraPackages // extraImages);
+        in
+        pkgsFromDir // extraPackages // extraImages
+      );
     };
 }

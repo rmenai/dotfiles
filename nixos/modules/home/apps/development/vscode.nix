@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   options.features.apps.development.vscode = {
     enable = lib.mkEnableOption "VsCode";
   };

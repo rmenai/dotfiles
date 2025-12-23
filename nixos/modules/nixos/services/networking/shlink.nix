@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.services.networking.shlink = {
     enable = lib.mkEnableOption "Shlink url shortener";
   };
@@ -26,10 +27,12 @@
 
     services.postgresql = {
       ensureDatabases = [ "shlink" ];
-      ensureUsers = [{
-        name = "shlink";
-        ensureDBOwnership = true;
-      }];
+      ensureUsers = [
+        {
+          name = "shlink";
+          ensureDBOwnership = true;
+        }
+      ];
     };
   };
 }

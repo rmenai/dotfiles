@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   options.features.apps.gaming.prism = {
     enable = lib.mkEnableOption "Prism Minecraft launcher";
   };

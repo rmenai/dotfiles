@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.services.networking.omnitools = {
     enable = lib.mkEnableOption "Tools";
   };

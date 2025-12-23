@@ -1,5 +1,13 @@
-{ config, lib, pkgs, ... }: {
-  options.features.services.audio.mpd = { enable = lib.mkEnableOption "MPD"; };
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
+  options.features.services.audio.mpd = {
+    enable = lib.mkEnableOption "MPD";
+  };
 
   config = lib.mkIf config.features.services.audio.mpd.enable {
     services.mpd = {

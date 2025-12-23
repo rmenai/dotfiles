@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.services.networking.openssh = {
     enable = lib.mkEnableOption "OpenSSH server and client configuration";
   };
@@ -34,6 +35,10 @@
       services.sudo.rssh = true;
     };
 
-    features.persist = { directories = { "/etc/ssh" = lib.mkDefault true; }; };
+    features.persist = {
+      directories = {
+        "/etc/ssh" = lib.mkDefault true;
+      };
+    };
   };
 }

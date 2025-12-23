@@ -1,4 +1,5 @@
-{ lib, ... }: {
+{ lib, ... }:
+{
   users.users.nixos = {
     isNormalUser = true;
     hashedPassword = "";
@@ -40,11 +41,15 @@
   '';
 
   # Grant microvm-user sudo access for microvm commands only
-  security.sudo.extraRules = [{
-    users = [ "nixos" ];
-    commands = [{
-      command = "/run/current-system/sw/bin/microvm";
-      options = [ "NOPASSWD" ];
-    }];
-  }];
+  security.sudo.extraRules = [
+    {
+      users = [ "nixos" ];
+      commands = [
+        {
+          command = "/run/current-system/sw/bin/microvm";
+          options = [ "NOPASSWD" ];
+        }
+      ];
+    }
+  ];
 }

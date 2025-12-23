@@ -1,7 +1,15 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.features.services.networking.tailscale;
-in with lib; {
+let
+  cfg = config.features.services.networking.tailscale;
+in
+with lib;
+{
   options.features.services.networking.tailscale = {
     enable = mkEnableOption "Tailscale VPN";
 
@@ -13,7 +21,12 @@ in with lib; {
     };
 
     routingFeature = mkOption {
-      type = types.enum [ "none" "client" "server" "both" ];
+      type = types.enum [
+        "none"
+        "client"
+        "server"
+        "both"
+      ];
       default = "both";
       example = "server";
       description = lib.mdDoc ''
@@ -27,10 +40,16 @@ in with lib; {
     };
 
     autoprovision = {
-      enable = mkEnableOption "enable auto provisioning" // { default = true; };
+      enable = mkEnableOption "enable auto provisioning" // {
+        default = true;
+      };
       options = mkOption {
         type = types.listOf types.str;
-        default = [ "--ssh" "--accept-dns" "--accept-routes" ];
+        default = [
+          "--ssh"
+          "--accept-dns"
+          "--accept-routes"
+        ];
         example = [ "--advertise-exit-node" ];
         description = "Options to pass to Tailscale";
       };
@@ -44,8 +63,9 @@ in with lib; {
 
     services.tailscale = {
       enable = true;
-      authKeyFile = lib.mkIf cfg.autoprovision.enable
-        config.sops.secrets."secrets/tailscale_auth_key".path;
+      authKeyFile =
+        lib.mkIf cfg.autoprovision.enable
+          config.sops.secrets."secrets/tailscale_auth_key".path;
       useRoutingFeatures = cfg.routingFeature;
       port = cfg.port;
       extraUpFlags = cfg.autoprovision.options;
@@ -53,6 +73,10 @@ in with lib; {
 
     environment.systemPackages = [ pkgs.tailscale ];
 
-    features.persist = { directories = { "/var/lib/tailscale" = true; }; };
+    features.persist = {
+      directories = {
+        "/var/lib/tailscale" = true;
+      };
+    };
   };
 }

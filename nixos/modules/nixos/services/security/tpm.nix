@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.services.security.tpm = {
     enable = lib.mkEnableOption "TPM 2.0 support";
   };

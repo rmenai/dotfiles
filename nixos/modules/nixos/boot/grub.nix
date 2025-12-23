@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.boot.grub = {
     enable = lib.mkEnableOption "GRUB bootloader";
   };

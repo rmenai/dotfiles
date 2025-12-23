@@ -1,5 +1,13 @@
-{ config, lib, pkgs, ... }: {
-  options.features.services.mpd = { enable = lib.mkEnableOption "MPD"; };
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
+  options.features.services.mpd = {
+    enable = lib.mkEnableOption "MPD";
+  };
 
   config = lib.mkIf config.features.services.mpd.enable {
     services.mpd = {
@@ -22,12 +30,14 @@
     };
 
     home.packages = with pkgs; [
-      mpc-cli
+      mpc
       (pkgs.ncmpcpp.override { visualizerSupport = true; })
     ];
 
     features.dotfiles = {
-      paths = { ".config/ncmpcpp" = lib.mkDefault "ncmpcpp"; };
+      paths = {
+        ".config/ncmpcpp" = lib.mkDefault "ncmpcpp";
+      };
     };
   };
 }

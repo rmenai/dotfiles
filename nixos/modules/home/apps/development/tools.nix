@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.apps.development.tools = {
     enable = lib.mkEnableOption "Neofetch system information tool";
   };

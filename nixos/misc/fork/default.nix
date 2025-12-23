@@ -1,4 +1,11 @@
-{ config, func, lib, inputs, ... }: {
+{
+  config,
+  func,
+  lib,
+  inputs,
+  ...
+}:
+{
   imports = lib.flatten [
     inputs.microvm.nixosModules.host
 
@@ -25,8 +32,12 @@
   };
 
   features = {
-    profiles = { core.enable = true; };
-    users = { vault.enable = true; };
+    profiles = {
+      core.enable = true;
+    };
+    users = {
+      vault.enable = true;
+    };
 
     system = {
       nix.enable = true;
@@ -55,7 +66,10 @@
       "Notes" = {
         id = "cgmyu-yuita";
         path = "/home/${config.spec.user}/Documents/Notes";
-        devices = [ "s23" "null" ];
+        devices = [
+          "s23"
+          "null"
+        ];
         ignorePerms = true;
         versioning = {
           type = "staggered";

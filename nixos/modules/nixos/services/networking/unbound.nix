@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   options.features.services.networking.unbound = {
     enable = lib.mkEnableOption "Unbound DNS resolver";
   };
@@ -9,7 +15,10 @@
       settings = {
         server = {
           # Listen on localhost (IPv4 and IPv6)
-          interface = [ "127.0.0.1" "::1" ];
+          interface = [
+            "127.0.0.1"
+            "::1"
+          ];
 
           # Basic IP settings
           do-ip4 = true;
@@ -66,24 +75,30 @@
         };
 
         # Use DNS over TLS for privacy and security
-        forward-zone = [{
-          name = ".";
-          forward-addr = [
-            # Cloudflare DNS with DNS-over-TLS
-            "1.1.1.1@853#cloudflare-dns.com"
-            "1.0.0.1@853#cloudflare-dns.com"
-            "2606:4700:4700::1111@853#cloudflare-dns.com"
-            "2606:4700:4700::1001@853#cloudflare-dns.com"
-            # Quad9 DNS with DNS-over-TLS (alternative)
-            # "9.9.9.9@853#dns.quad9.net"
-            # "149.112.112.112@853#dns.quad9.net"
-          ];
-          forward-tls-upstream = true;
-        }];
+        forward-zone = [
+          {
+            name = ".";
+            forward-addr = [
+              # Cloudflare DNS with DNS-over-TLS
+              "1.1.1.1@853#cloudflare-dns.com"
+              "1.0.0.1@853#cloudflare-dns.com"
+              "2606:4700:4700::1111@853#cloudflare-dns.com"
+              "2606:4700:4700::1001@853#cloudflare-dns.com"
+              # Quad9 DNS with DNS-over-TLS (alternative)
+              # "9.9.9.9@853#dns.quad9.net"
+              # "149.112.112.112@853#dns.quad9.net"
+            ];
+            forward-tls-upstream = true;
+          }
+        ];
       };
     };
 
-    features.persist = { directories = { "/var/lib/unbound" = true; }; };
+    features.persist = {
+      directories = {
+        "/var/lib/unbound" = true;
+      };
+    };
 
     environment.systemPackages = with pkgs; [ unbound ];
   };

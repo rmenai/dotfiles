@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.services.networking.avahi = {
     enable = lib.mkEnableOption "Avahi local DNS sharing";
   };

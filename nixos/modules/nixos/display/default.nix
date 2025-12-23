@@ -1,1 +1,6 @@
-{ imports = [ ./sddm.nix ./xserver.nix ]; }
+{
+  imports = [
+    ./sddm.nix
+    ./xserver.nix
+  ];
+}

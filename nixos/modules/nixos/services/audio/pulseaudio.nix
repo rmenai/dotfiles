@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   options.features.services.audio.pulseaudio = {
     enable = lib.mkEnableOption "PulseAudio support";
   };
@@ -13,6 +19,9 @@
     };
 
     users.users.${config.spec.user}.extraGroups = [ "audio" ];
-    environment.systemPackages = with pkgs; [ pavucontrol pulseaudio ];
+    environment.systemPackages = with pkgs; [
+      pavucontrol
+      pulseaudio
+    ];
   };
 }

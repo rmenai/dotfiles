@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   options.features.apps.terminals.ghostty = {
     enable = lib.mkEnableOption "Ghostty terminal emulator";
   };

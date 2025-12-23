@@ -1,1 +1,6 @@
-{ imports = [ ./netdata.nix ./uptime-kuma.nix ]; }
+{
+  imports = [
+    ./netdata.nix
+    ./uptime-kuma.nix
+  ];
+}

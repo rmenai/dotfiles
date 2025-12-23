@@ -1,4 +1,5 @@
-{ func, lib, ... }: {
+{ func, lib, ... }:
+{
   imports = lib.flatten [
     (map func.custom.relativeToRoot [ "modules/common" ])
     (map func.custom.relativeToRoot [ "modules/home" ])

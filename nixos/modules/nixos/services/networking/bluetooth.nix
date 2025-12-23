@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.services.networking.bluetooth = {
     enable = lib.mkEnableOption "Bluetooth configuration";
 
@@ -30,6 +31,10 @@
         };
       };
     };
-    features.persist = { directories = { "/var/lib/bluetooth" = true; }; };
+    features.persist = {
+      directories = {
+        "/var/lib/bluetooth" = true;
+      };
+    };
   };
 }

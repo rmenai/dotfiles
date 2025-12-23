@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.hardware.nvidia = {
     enable = lib.mkEnableOption "NVIDIA GPU support";
 
@@ -17,7 +18,9 @@
 
   config = lib.mkIf config.features.hardware.nvidia.enable {
     hardware.enableAllFirmware = true;
-    hardware.graphics = { enable = true; };
+    hardware.graphics = {
+      enable = true;
+    };
 
     hardware.nvidia = {
       package = config.boot.kernelPackages.nvidiaPackages.latest;

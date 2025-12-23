@@ -1,4 +1,10 @@
-{ pkgs, lib, config, ... }: {
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+{
   options.features.apps.browsers.firefox = {
     enable = lib.mkEnableOption "Firefox browser";
   };

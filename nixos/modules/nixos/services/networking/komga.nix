@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.services.networking.komga = {
     enable = lib.mkEnableOption "Digital Comis Library";
   };
@@ -11,7 +12,9 @@
     };
 
     features.persist = {
-      directories = { "/var/lib/komga" = lib.mkDefault true; };
+      directories = {
+        "/var/lib/komga" = lib.mkDefault true;
+      };
     };
   };
 }

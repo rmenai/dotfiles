@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.containers.shlink = {
     enable = lib.mkEnableOption "URL Shortener";
 

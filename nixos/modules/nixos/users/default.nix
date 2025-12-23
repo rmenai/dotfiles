@@ -1,1 +1,6 @@
-{ imports = [ ./alice.nix ./vault.nix ]; }
+{
+  imports = [
+    ./alice.nix
+    ./vault.nix
+  ];
+}

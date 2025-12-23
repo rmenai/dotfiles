@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   options.features.services.virtualization.libvirt = {
     enable = lib.mkEnableOption "libvirt virtualization";
   };
@@ -13,7 +19,11 @@
     programs.virt-manager.enable = true;
 
     # https://www.rodolfocarvalho.net/blog/resize-disk-vagrant-libvirt/
-    boot.kernelModules = [ "9p" "9pnet" "9pnet_virtio" ];
+    boot.kernelModules = [
+      "9p"
+      "9pnet"
+      "9pnet_virtio"
+    ];
     boot.extraModprobeConfig = "options kvm_intel nested=1";
 
     environment.sessionVariables = {
@@ -21,9 +31,16 @@
       LIBVIRT_DEFAULT_URI = "qemu:///system";
     };
 
-    users.users.${config.spec.user}.extraGroups = [ "libvirtd" "kvm" ];
+    users.users.${config.spec.user}.extraGroups = [
+      "libvirtd"
+      "kvm"
+    ];
 
-    features.persist = { directories = { "/var/lib/libvirt" = true; }; };
+    features.persist = {
+      directories = {
+        "/var/lib/libvirt" = true;
+      };
+    };
 
     environment.systemPackages = [
       pkgs.remmina

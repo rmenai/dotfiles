@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   options.features.apps.development.core = {
     enable = lib.mkEnableOption "Development tools and utilities";
   };
@@ -30,6 +36,8 @@
       cpplint
       alejandra
       asmfmt
+      statix
+      nixfmt-rfc-style
     ];
   };
 }

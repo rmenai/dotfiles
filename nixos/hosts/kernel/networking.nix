@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   networking = {
     useNetworkd = true;
     usePredictableInterfaceNames = false;
@@ -7,8 +8,14 @@
     firewall = {
       enable = true;
 
-      trustedInterfaces = [ "tailscale0" "podman0" ];
-      allowedTCPPorts = lib.mkForce [ 80 443 ];
+      trustedInterfaces = [
+        "tailscale0"
+        "podman0"
+      ];
+      allowedTCPPorts = lib.mkForce [
+        80
+        443
+      ];
       allowedUDPPorts = lib.mkForce [ 41641 ];
     };
   };
@@ -20,9 +27,15 @@
 
     networks."10-eth0" = {
       matchConfig.Name = "eth0";
-      address = [ "165.232.86.69/20" "10.18.0.5/16" ];
-      routes = [{ Gateway = "165.232.80.1"; }];
-      dns = [ "127.0.0.1" "8.8.8.8" ];
+      address = [
+        "165.232.86.69/20"
+        "10.18.0.5/16"
+      ];
+      routes = [ { Gateway = "165.232.80.1"; } ];
+      dns = [
+        "127.0.0.1"
+        "8.8.8.8"
+      ];
     };
 
     networks."20-eth1" = {

@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   options.features.services.networking.cockpit = {
     enable = lib.mkEnableOption "Cockpit server managment";
   };
@@ -9,7 +15,11 @@
     services.cockpit = {
       enable = true;
       port = 9090;
-      settings = { WebService = { AllowUnencrypted = true; }; };
+      settings = {
+        WebService = {
+          AllowUnencrypted = true;
+        };
+      };
     };
   };
 }

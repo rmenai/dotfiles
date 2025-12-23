@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.services.networking.adguardhome = {
     enable = lib.mkEnableOption "Adguardhome DNS resolver";
   };
@@ -43,6 +44,10 @@
       };
     };
 
-    features.persist = { directories = { "/var/lib/AdGuardHome" = true; }; };
+    features.persist = {
+      directories = {
+        "/var/lib/AdGuardHome" = true;
+      };
+    };
   };
 }

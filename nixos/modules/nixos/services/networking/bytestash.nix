@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.services.networking.bytestash = {
     enable = lib.mkEnableOption "Code snippet storage";
   };

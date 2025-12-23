@@ -1,4 +1,5 @@
-{ lib, ... }: {
+{ lib, ... }:
+{
   options.spec = {
     user = lib.mkOption {
       type = lib.types.str;
@@ -9,7 +10,11 @@
       description = "The hostname of the host";
     };
     runner = lib.mkOption {
-      type = lib.types.enum [ "home" "nixos" "colmena" ];
+      type = lib.types.enum [
+        "home"
+        "nixos"
+        "colmena"
+      ];
       description = "The runner of the host flake";
     };
     email = lib.mkOption {

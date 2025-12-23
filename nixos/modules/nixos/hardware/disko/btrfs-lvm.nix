@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   config = lib.mkIf (config.features.hardware.disko.profile == "btrfs-lvm") {
     boot.initrd.services.lvm.enable = true;
 
@@ -23,7 +24,10 @@
                 type = "filesystem";
                 format = "vfat";
                 mountpoint = "/boot";
-                mountOptions = [ "defaults" "umask=0077" ];
+                mountOptions = [
+                  "defaults"
+                  "umask=0077"
+                ];
               };
             };
 
@@ -50,17 +54,21 @@
                 extraArgs = [ "-f" ];
 
                 subvolumes = {
-                  "/root" = { mountpoint = "/"; };
+                  "/root" = {
+                    mountpoint = "/";
+                  };
 
                   "/nix" = {
-                    mountOptions = [ "subvol=nix" "noatime" ];
+                    mountOptions = [
+                      "subvol=nix"
+                      "noatime"
+                    ];
                     mountpoint = "/nix";
                   };
 
                   "/swap" = {
                     mountpoint = "/.swapvol";
-                    swap.swapfile.size =
-                      config.features.hardware.disko.swapSize;
+                    swap.swapfile.size = config.features.hardware.disko.swapSize;
                   };
                 };
               };
@@ -70,6 +78,6 @@
       };
     };
 
-    swapDevices = [{ device = "/.swapvol/swapfile"; }];
+    swapDevices = [ { device = "/.swapvol/swapfile"; } ];
   };
 }

@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.services.networking.audiobookshelf = {
     enable = lib.mkEnableOption "AudioBookshelf";
   };
@@ -12,7 +13,9 @@
     };
 
     features.persist = {
-      directories = { "/var/lib/audiobookshelf" = lib.mkDefault true; };
+      directories = {
+        "/var/lib/audiobookshelf" = lib.mkDefault true;
+      };
     };
   };
 }

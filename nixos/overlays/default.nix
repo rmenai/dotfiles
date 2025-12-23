@@ -1,6 +1,7 @@
 { inputs, ... }:
 let
-  additions = final: prev:
+  additions =
+    final: prev:
     (prev.lib.packagesFromDirectoryRecursive {
       callPackage = prev.lib.callPackageWith final;
       directory = ../pkgs;
@@ -23,8 +24,12 @@ let
       config.allowUnfree = true;
     };
   };
-in {
-  default = final: prev:
-    (additions final prev) // (modifications final prev)
-    // (stable-packages final prev) // (unstable-packages final prev);
+in
+{
+  default =
+    final: prev:
+    (additions final prev)
+    // (modifications final prev)
+    // (stable-packages final prev)
+    // (unstable-packages final prev);
 }

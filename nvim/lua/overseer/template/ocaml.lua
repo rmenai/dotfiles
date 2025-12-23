@@ -1,11 +1,3 @@
-local function get_ocaml_executable()
-  local executables = { "ocaml" }
-
-  for _, executable in ipairs(executables) do
-    if vim.fn.executable(executable) == 1 then return executable end
-  end
-end
-
 local cached_project_names = {}
 
 local function get_project_name()
@@ -30,40 +22,32 @@ local function get_project_name()
 end
 
 return {
+  name = "OCaml Tasks",
   condition = {
-    callback = function()
-      if not get_ocaml_executable() then return false, "Executable ocaml not found" end
-      if vim.fn.expand("%:e") ~= "ml" then return false, "No OCaml file found" end
-      return true
-    end,
+    filetype = { "ocaml" },
   },
   generator = function(_, cb)
-    local executable = get_ocaml_executable()
-    local project_name = get_project_name() or "./bin/main.bc"
+    local project_name = get_project_name() or "./bin/main.exe" -- Default to main.exe if name not found
+
     local templates = {
       {
-        name = "Interpret this program",
+        name = "Interpret File (OCaml)",
         builder = function()
-          local file = vim.fn.expand("%:p")
           return {
-            cmd = { executable },
-            args = { file },
+            cmd = { "ocaml" },
+            args = { vim.fn.expand("%:p") },
+            components = { "default" },
           }
         end,
       },
+
       {
-        name = "Run this program",
+        name = "Run Project (OCaml)",
         builder = function()
           return {
-            cmd = { "dune", "build", "&&", "dune", "exec", project_name },
-          }
-        end,
-      },
-      {
-        name = "Start OCaml REPL",
-        builder = function()
-          return {
-            cmd = { "utop" },
+            -- Using shell to chain build && exec
+            cmd = { "bash", "-c", string.format("dune build && dune exec %s", project_name) },
+            components = { "default" },
           }
         end,
       },

@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.hardware.intel = {
     enable = lib.mkEnableOption "Intel CPU optimizations";
   };

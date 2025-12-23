@@ -1,19 +1,5 @@
 local M = {}
 
-local function CommitCurrentFile()
-  local file_path = vim.fn.expand("%:p") -- Get the full path of the current file
-  if file_path == "" then
-    vim.notify("No file is currently open")
-    return
-  end
-
-  local commit_message = "Update " .. vim.fn.expand("%:t")
-
-  vim.cmd("w") -- Save current file
-  vim.cmd("!git add " .. file_path)
-  vim.cmd("!git commit -m '" .. commit_message .. "' " .. file_path)
-end
-
 local function is_rust_project() return vim.fn.glob("./Cargo.toml") ~= "" or vim.fn.expand("%:e") == "rs" end
 
 local function CompilerChoose()
@@ -253,8 +239,6 @@ M.compiler_picker = function() vim.cmd("CompilerRun") end
 
 M.gitsigns_picker = function() vim.cmd("Gitsigns") end
 
-M.notify_picker = function() vim.cmd("Telescope notify") end
-
 M.games_picker = function()
   local actions = require("telescope.actions")
   local action_state = require("telescope.actions.state")
@@ -391,83 +375,4 @@ M.typst_picker = function()
     :find()
 end
 
-M.setup_leetcode_cmds = function()
-  local leet_cmds = require("leetcode.command").commands
-
-  local commands = {
-    { name = "LeetMenu", cmd = leet_cmds.menu[1], desc = "Open the LeetCode menu" },
-    { name = "LeetExit", cmd = leet_cmds.exit[1], desc = "Exit LeetCode.nvim" },
-    { name = "LeetConsole", cmd = leet_cmds.console[1], desc = "Open console for the current question" },
-    {
-      name = "LeetInfo",
-      cmd = leet_cmds.info[1],
-      desc = "Show information for the current question",
-    },
-    { name = "LeetHints", cmd = leet_cmds.hints[1], desc = "Show hints for the current question" },
-    { name = "LeetTabs", cmd = leet_cmds.tabs[1], desc = "Open tabs for all current questions" },
-    {
-      name = "LeetLang",
-      cmd = leet_cmds.lang[1],
-      desc = "Change language for the current question",
-    },
-    { name = "LeetRun", cmd = leet_cmds.run[1], desc = "Run the current question" },
-    { name = "LeetTest", cmd = leet_cmds.test[1], desc = "Test the current question (same as Run)" },
-    { name = "LeetSubmit", cmd = leet_cmds.submit[1], desc = "Submit the current question" },
-    { name = "LeetDaily", cmd = leet_cmds.daily[1], desc = "Open today's daily question" },
-    { name = "LeetYank", cmd = leet_cmds.yank[1], desc = "Yank the current solution" },
-    { name = "LeetOpen", cmd = leet_cmds.open[1], desc = "Open the current question in browser" },
-    {
-      name = "LeetReset",
-      cmd = leet_cmds.reset[1],
-      desc = "Reset the current question to the default template",
-    },
-    { name = "LeetLastSubmit", cmd = leet_cmds.last_submit[1], desc = "Retrieve the last submitted code" },
-    { name = "LeetRestore", cmd = leet_cmds.restore[1], desc = "Restore the default question layout" },
-    { name = "LeetInject", cmd = leet_cmds.inject[1], desc = "Re-inject code for the current question" },
-
-    -- Session-related commands
-    { name = "LeetList", cmd = leet_cmds.list[1], desc = "Open the problem list picker" },
-    { name = "LeetRandom", cmd = leet_cmds.random[1], desc = "Open a random question" },
-    { name = "LeetDesc", cmd = leet_cmds.desc[1], desc = "Toggle question description visibility" },
-    { name = "LeetDescStats", cmd = leet_cmds.desc.stats[1], desc = "Toggle description stats visibility" },
-    { name = "LeetToggleDesc", cmd = leet_cmds.desc.toggle[1], desc = "Toggle the question description" },
-    { name = "LeetCookieUpdate", cmd = leet_cmds.cookie.update[1], desc = "Update LeetCode session cookie" },
-    { name = "LeetSignOut", cmd = leet_cmds.cookie.delete[1], desc = "Sign out from LeetCode" },
-    { name = "LeetCacheUpdate", cmd = leet_cmds.cache.update[1], desc = "Update the LeetCode cache" },
-    { name = "LeetFix", cmd = leet_cmds.fix[1], desc = "Run LeetCode fix command (internal)" },
-  }
-
-  -- Loop over the commands list and create user commands with descriptions
-  for _, command in ipairs(commands) do
-    vim.api.nvim_create_user_command(command.name, command.cmd, { desc = command.desc })
-  end
-end
-
--- Set up commands
-vim.api.nvim_create_user_command("CommitCurrentFile", CommitCurrentFile, {})
-vim.api.nvim_create_user_command("CompilerRun", CompilerRun, {})
-vim.api.nvim_create_user_command("CompilerChoose", CompilerChoose, {})
-vim.api.nvim_create_user_command("UndoTreeToggle", function() require("undotree").toggle() end, {})
-
-vim.api.nvim_create_user_command("FormatDisable", function(args)
-  if args.bang then
-    -- FormatDisable! will disable formatting just for this buffer
-    vim.b.disable_autoformat = true
-  else
-    vim.g.disable_autoformat = true
-  end
-end, {
-  desc = "Disable autoformat-on-save",
-  bang = true,
-})
-vim.api.nvim_create_user_command("FormatEnable", function()
-  vim.b.disable_autoformat = false
-  vim.g.disable_autoformat = false
-end, {
-  desc = "Re-enable autoformat-on-save",
-})
-
-vim.api.nvim_create_user_command("FormatToggle", function() vim.g.disable_autoformat = not vim.g.disable_autoformat end, {
-  desc = "Toggle autoformat-on-save",
-})
 return M

@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.services.networking.wastebin = {
     enable = lib.mkEnableOption "Wastebin service";
   };
@@ -17,7 +18,9 @@
     };
 
     features.persist = {
-      directories = { "/var/lib/wastebin" = lib.mkDefault true; };
+      directories = {
+        "/var/lib/wastebin" = lib.mkDefault true;
+      };
     };
   };
 }

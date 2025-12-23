@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   options.features.apps.shell.zsh = {
     enable = lib.mkEnableOption "Zsh shell";
   };

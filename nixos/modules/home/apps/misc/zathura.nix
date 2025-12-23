@@ -1,4 +1,10 @@
-{ pkgs, lib, config, ... }: {
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+{
   options.features.apps.misc.zathura = {
     enable = lib.mkEnableOption "Zathura PDF viewer";
   };
@@ -12,7 +18,9 @@
     };
 
     features.dotfiles = {
-      paths = { ".config/zathura" = lib.mkDefault "zathura"; };
+      paths = {
+        ".config/zathura" = lib.mkDefault "zathura";
+      };
     };
   };
 }

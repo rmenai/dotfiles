@@ -1,4 +1,11 @@
-{ config, func, lib, pkgs, ... }: {
+{
+  config,
+  func,
+  lib,
+  pkgs,
+  ...
+}:
+{
   imports = lib.flatten [
     (map func.custom.relativeToRoot [ "modules/common" ])
     (map func.custom.relativeToRoot [ "modules/home" ])
@@ -12,7 +19,9 @@
   };
 
   features = {
-    profiles = { core.enable = true; };
+    profiles = {
+      core.enable = true;
+    };
 
     dotfiles.enable = true;
     impermanence.enable = true;
@@ -97,7 +106,13 @@
     };
   };
 
-  home.packages = with pkgs; [ bitwarden-desktop glow rustdesk ];
+  home.packages = with pkgs; [
+    bitwarden-desktop
+    glow
+    rustdesk
+    wslu
+    lazygit
+  ];
 
   programs.ssh.extraConfig = ''
     UpdateHostKeys ask
@@ -138,8 +153,13 @@
     paths = {
       ".config/easyeffects" = lib.mkDefault "easyeffects";
       ".config/obs-studio" = lib.mkDefault "obs-studio";
+      ".config/lazygit" = lib.mkDefault "lazygit";
     };
   };
 
-  features.persist = { directories = { ".vagrant.d" = lib.mkDefault true; }; };
+  features.persist = {
+    directories = {
+      ".vagrant.d" = lib.mkDefault true;
+    };
+  };
 }

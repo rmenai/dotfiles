@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.persist = {
     enable = lib.mkOption {
       type = lib.types.bool;

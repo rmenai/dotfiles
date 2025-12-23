@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.services.networking.nullmailer = {
     enable = lib.mkEnableOption "Mail server";
   };
@@ -17,7 +18,9 @@
     };
 
     features.persist = {
-      directories = { "/var/lib/nullmailer" = lib.mkDefault true; };
+      directories = {
+        "/var/lib/nullmailer" = lib.mkDefault true;
+      };
     };
   };
 }

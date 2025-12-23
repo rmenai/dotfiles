@@ -1,4 +1,10 @@
-{ func, lib, inputs, ... }: {
+{
+  func,
+  lib,
+  inputs,
+  ...
+}:
+{
   imports = lib.flatten [
     inputs.microvm.nixosModules.microvm
 

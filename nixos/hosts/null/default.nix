@@ -1,4 +1,12 @@
-{ config, func, inputs, lib, pkgs, ... }: {
+{
+  config,
+  func,
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
+{
   imports = lib.flatten [
     inputs.nix-index-database.nixosModules.nix-index
     inputs.microvm.nixosModules.host
@@ -25,8 +33,12 @@
   };
 
   features = {
-    profiles = { core.enable = true; };
-    users = { vault.enable = true; };
+    profiles = {
+      core.enable = true;
+    };
+    users = {
+      vault.enable = true;
+    };
 
     system = {
       nix.enable = true;
@@ -35,9 +47,13 @@
     };
 
     services = {
-      audio = { pipewire.enable = true; };
+      audio = {
+        pipewire.enable = true;
+      };
 
-      printing = { cups.enable = true; };
+      printing = {
+        cups.enable = true;
+      };
 
       power.tlp = {
         enable = true;
@@ -97,7 +113,10 @@
       "Notes" = {
         id = "cgmyu-yuita";
         path = "/home/${config.spec.user}/Documents/Notes";
-        devices = [ "s23" "kernel" ];
+        devices = [
+          "s23"
+          "kernel"
+        ];
         ignorePerms = true;
         versioning = {
           type = "staggered";
@@ -149,16 +168,20 @@
 
   programs.nix-ld = {
     enable = true;
-    libraries = with pkgs; [ stdenv libgcc libllvm portaudio ];
+    libraries = with pkgs; [
+      stdenv
+      libgcc
+      libllvm
+      portaudio
+    ];
   };
 
-  environment.systemPackages = with pkgs;
-    [
-      (writeShellScriptBin "colmena" ''
-        cd /home/vault/.dotfiles/nixos
-        exec ${colmena}/bin/colmena "$@" --impure
-      '')
-    ];
+  environment.systemPackages = with pkgs; [
+    (writeShellScriptBin "colmena" ''
+      cd /home/vault/.dotfiles/nixos
+      exec ${colmena}/bin/colmena "$@" --impure
+    '')
+  ];
 
   i18n.supportedLocales = [
     "en_US.UTF-8/UTF-8"
@@ -177,10 +200,29 @@
       addons = with pkgs; [
         fcitx5-mozc-ut
         fcitx5-gtk
-        fcitx5-configtool # A GUI to configure Fcitx5
+        qt6Packages.fcitx5-configtool # A GUI to configure Fcitx5
       ];
     };
   };
 
-  environment.sessionVariables = { WASTEBIN_URL = "https://bin.menai.me"; };
+  environment.sessionVariables = {
+    GTK_IM_MODULE = "fcitx";
+    QT_IM_MODULE = "fcitx";
+    XMODIFIERS = "@im=fcitx";
+  };
+
+  boot.kernelModules = [ "uinput" ];
+
+  services.udev.extraRules = ''
+    KERNEL=="uinput", SUBSYSTEM=="misc", OPTIONS+="static_node=uinput", TAG+="uaccess"
+  '';
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
+  };
+
+  environment.sessionVariables = {
+    WASTEBIN_URL = "https://bin.menai.me";
+  };
 }

@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   options.features.services.networking.caddy = {
     enable = lib.mkEnableOption "Caddy reverse proxy";
   };
@@ -17,6 +23,10 @@
       };
     };
 
-    features.persist = { directories = { "/var/lib/caddy" = true; }; };
+    features.persist = {
+      directories = {
+        "/var/lib/caddy" = true;
+      };
+    };
   };
 }

@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   options.features.apps.tools.neovim = {
     enable = lib.mkEnableOption "Neovim text editor";
   };
@@ -30,7 +36,15 @@
       "text/x-ocaml" = "nvim-wezterm.desktop";
     };
 
-    features.dotfiles = { paths = { ".config/nvim" = lib.mkDefault "nvim"; }; };
-    features.persist = { directories = { ".vimgolf" = lib.mkDefault true; }; };
+    features.dotfiles = {
+      paths = {
+        ".config/nvim" = lib.mkDefault "nvim";
+      };
+    };
+    features.persist = {
+      directories = {
+        ".vimgolf" = lib.mkDefault true;
+      };
+    };
   };
 }

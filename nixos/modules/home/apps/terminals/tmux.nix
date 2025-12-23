@@ -1,10 +1,19 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   options.features.apps.terminals.tmux = {
     enable = lib.mkEnableOption "Tmux terminal multiplexer";
   };
 
   config = lib.mkIf config.features.apps.terminals.tmux.enable {
-    home.packages = with pkgs; [ tmux sesh ];
+    home.packages = with pkgs; [
+      tmux
+      sesh
+    ];
 
     features.dotfiles = {
       paths = {

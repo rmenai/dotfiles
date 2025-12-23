@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   options.features.desktop.hyprland = {
     enable = lib.mkEnableOption "Hyprland desktop environment";
   };
@@ -15,10 +21,10 @@
       pamixer
       brightnessctl
 
-      (rofi-wayland.override { plugins = [ pkgs.rofi-emoji-wayland ]; })
+      (rofi.override { plugins = [ pkgs.rofi-emoji ]; })
       swaylock-effects
       sddm-sugar-dark
-      rofi-emoji-wayland
+      rofi-emoji
       hyprpicker
       eww
 
@@ -26,7 +32,7 @@
       mpc
 
       slurp
-      kdePackages.xwaylandvideobridge
+      # kdePackages.xwaylandvideobridge
       kdePackages.xdg-desktop-portal-kde
       xdg-desktop-portal
       grim

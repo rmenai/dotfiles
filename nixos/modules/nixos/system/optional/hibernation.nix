@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.hibernation = {
     enable = lib.mkEnableOption "hibernation support";
 
@@ -24,19 +25,21 @@
   config = lib.mkIf config.features.hibernation.enable {
     fileSystems."/.swapvol".neededForBoot = true;
 
-    boot.extraModprobeConfig =
-      lib.mkIf config.features.hardware.nvidia.enable ''
-        options nvidia_modeset vblank_sem_control=0 nvidia.NVreg_PreserveVideoMemoryAllocations=1 nvidia.NVreg_TemporaryFilePath=/tmp
-      '';
+    boot.extraModprobeConfig = lib.mkIf config.features.hardware.nvidia.enable ''
+      options nvidia_modeset vblank_sem_control=0 nvidia.NVreg_PreserveVideoMemoryAllocations=1 nvidia.NVreg_TemporaryFilePath=/tmp
+    '';
 
     boot.resumeDevice = config.features.hibernation.resumeDevice;
-    boot.kernelParams =
-      [ "resume_offset=${config.features.hibernation.resumeOffset}" ];
+    boot.kernelParams = [ "resume_offset=${config.features.hibernation.resumeOffset}" ];
 
     services.logind = {
-      powerKey = "hibernate";
-      lidSwitch = "suspend-then-hibernate";
-      lidSwitchExternalPower = "suspend-then-hibernate";
+      settings = {
+        Login = {
+          HandlePowerKey = "hibernate";
+          HandleLidSwitch = "suspend-then-hibernate";
+          HandleLidSwitchExternalPower = "suspend-then-hibernate";
+        };
+      };
     };
 
     systemd.sleep.extraConfig = ''

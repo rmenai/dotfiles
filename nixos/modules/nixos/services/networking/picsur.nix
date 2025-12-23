@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.services.networking.picsur = {
     enable = lib.mkEnableOption "Image sharing";
   };
@@ -22,10 +23,12 @@
 
     services.postgresql = {
       ensureDatabases = [ "picsur" ];
-      ensureUsers = [{
-        name = "picsur";
-        ensureDBOwnership = true;
-      }];
+      ensureUsers = [
+        {
+          name = "picsur";
+          ensureDBOwnership = true;
+        }
+      ];
     };
   };
 }

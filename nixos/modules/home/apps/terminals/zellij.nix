@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.apps.terminals.zellij = {
     enable = lib.mkEnableOption "Zellij terminal multiplexer";
   };
@@ -10,7 +11,9 @@
     };
 
     features.dotfiles = {
-      paths = { ".config/zellij" = lib.mkDefault "zellij"; };
+      paths = {
+        ".config/zellij" = lib.mkDefault "zellij";
+      };
     };
   };
 }

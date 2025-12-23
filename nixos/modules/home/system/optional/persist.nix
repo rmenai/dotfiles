@@ -1,15 +1,19 @@
-{ config, lib, inputs, ... }: {
+{
+  config,
+  lib,
+  inputs,
+  ...
+}:
+{
   config = lib.mkIf config.features.persist.enable {
 
-    home.persistence."${config.features.impermanence.persistFolder}/home/${config.spec.user}" =
-      {
-        allowOther = true;
-      };
+    home.persistence."${config.features.impermanence.persistFolder}/home/${config.spec.user}" = {
+      allowOther = true;
+    };
 
     home.file = {
       ".adventofcode.session" = {
-        source = config.lib.file.mkOutOfStoreSymlink
-          "${config.features.impermanence.persistFolder}/home/${config.spec.user}/.adventofcode.session";
+        source = config.lib.file.mkOutOfStoreSymlink "${config.features.impermanence.persistFolder}/home/${config.spec.user}/.adventofcode.session";
         force = true;
       };
     };

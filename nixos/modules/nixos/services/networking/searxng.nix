@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.services.networking.searxng = {
     enable = lib.mkEnableOption "Private search bar";
   };

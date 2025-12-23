@@ -1,1 +1,7 @@
-{ imports = [ ./echo.nix ./httpd.nix ./shlink.nix ]; }
+{
+  imports = [
+    ./echo.nix
+    ./httpd.nix
+    ./shlink.nix
+  ];
+}

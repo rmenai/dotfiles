@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   options.features.apps.browsers.chromium = {
     enable = lib.mkEnableOption "Chromium browser";
   };
@@ -7,7 +13,9 @@
     home.packages = with pkgs; [ chromium ];
 
     features.dotfiles = {
-      paths = { ".config/chrome" = lib.mkDefault "chrome"; };
+      paths = {
+        ".config/chrome" = lib.mkDefault "chrome";
+      };
     };
   };
 }

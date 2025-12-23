@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.services.networking.resolved = {
     enable = lib.mkEnableOption "systemd-resolved dns";
   };

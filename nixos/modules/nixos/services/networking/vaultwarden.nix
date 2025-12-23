@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   options.features.services.networking.vaultwarden = {
     enable = lib.mkEnableOption "Vaultwarden";
   };
@@ -21,7 +27,9 @@
     };
 
     features.persist = {
-      directories = { "/var/lib/vaultwarden" = lib.mkDefault true; };
+      directories = {
+        "/var/lib/vaultwarden" = lib.mkDefault true;
+      };
     };
   };
 }

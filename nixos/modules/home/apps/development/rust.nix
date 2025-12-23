@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   options.features.apps.development.rust = {
     enable = lib.mkEnableOption "Rust development tools";
   };
@@ -8,8 +14,7 @@
 
     features.dotfiles = {
       paths = {
-        ".config/rust-competitive-helper" =
-          lib.mkDefault "rust-competitive-helper";
+        ".config/rust-competitive-helper" = lib.mkDefault "rust-competitive-helper";
         ".config/bacon" = lib.mkDefault "bacon";
       };
     };

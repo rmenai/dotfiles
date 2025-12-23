@@ -1,1 +1,7 @@
-{ imports = [ ./sops.nix ./tpm.nix ./fail2ban.nix ]; }
+{
+  imports = [
+    ./sops.nix
+    ./tpm.nix
+    ./fail2ban.nix
+  ];
+}

@@ -1,4 +1,5 @@
-{ inputs, ... }: {
+{ inputs, ... }:
+{
   imports = [
     inputs.nixos-generators.nixosModules.all-formats
     inputs.impermanence.nixosModules.impermanence

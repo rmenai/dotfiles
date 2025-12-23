@@ -1,48 +1,51 @@
 return {
+  name = "C Tasks",
   condition = {
-    callback = function()
-      if vim.fn.executable("gcc") ~= 1 then return false, "Executable gcc not found" end
-      if vim.fn.expand("%:e") ~= "c" then return false, "No C file found" end
-      return true
-    end,
+    filetype = { "c" },
   },
   generator = function(_, cb)
+    local file = vim.fn.expand("%:p")
+    local filename_no_ext = vim.fn.fnamemodify(file, ":t:r")
+
+    local out_dir = "out"
+    local output_bin = out_dir .. "/" .. filename_no_ext
+
     local templates = {
       {
-        name = "Interpret this program",
+        name = "Interpret File (C)",
         builder = function()
-          local file = vim.fn.expand("%:p")
-          local executable = vim.fn.fnamemodify(file, ":r")
-          local command = string.format("gcc %s -o %s && %s && rm %s", file, executable, executable, executable)
+          local temp_bin = "./" .. filename_no_ext .. "_temp"
+          local command = string.format("gcc '%s' -o '%s' && '%s' && rm '%s'", file, temp_bin, temp_bin, temp_bin)
           return {
             cmd = { "bash", "-c", command },
+            components = { "default" },
           }
         end,
       },
+
       {
-        name = "Compile this program",
+        name = "Compile File (C)",
         builder = function()
-          local file = vim.fn.expand("%:p")
-          local executable = vim.fn.fnamemodify(file, ":r")
-          executable = "out/" .. vim.fn.fnamemodify(executable, ":t")
-          local command = string.format("mkdir -p out && gcc %s -o %s", file, executable)
+          local command = string.format("mkdir -p %s && gcc '%s' -o '%s'", out_dir, file, output_bin)
           return {
             cmd = { "bash", "-c", command },
+            components = { "default" },
           }
         end,
       },
+
       {
-        name = "Run this program",
+        name = "Run Compiled File (C)",
         builder = function()
-          local file = vim.fn.expand("%:p")
-          local executable = "out/" .. vim.fn.fnamemodify(file, ":t:r")
-          local command = string.format("[ -f %s ] && %s || echo 'Executable not found. Compile first.'", executable, executable)
+          local command = string.format("[ -f '%s' ] && '%s' || echo 'Executable not found in %s/. Compile first.'", output_bin, output_bin, out_dir)
           return {
             cmd = { "bash", "-c", command },
+            components = { "default" },
           }
         end,
       },
     }
+
     cb(templates)
   end,
 }

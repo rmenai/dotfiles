@@ -1,1 +1,6 @@
-{ imports = [ ./disko ./parts ]; }
+{
+  imports = [
+    ./disko
+    ./parts
+  ];
+}

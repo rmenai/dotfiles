@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.services.power.acpid = {
     enable = lib.mkEnableOption "ACPI event handling";
   };

@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   options.features.apps.tools.bat = {
     enable = lib.mkEnableOption "Bat syntax highlighter";
   };
@@ -19,6 +25,10 @@
       '';
     };
 
-    features.dotfiles = { paths = { ".config/bat" = lib.mkDefault "bat"; }; };
+    features.dotfiles = {
+      paths = {
+        ".config/bat" = lib.mkDefault "bat";
+      };
+    };
   };
 }

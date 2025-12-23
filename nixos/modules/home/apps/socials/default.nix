@@ -1,1 +1,6 @@
-{ imports = [ ./discord.nix ./whatsapp.nix ]; }
+{
+  imports = [
+    ./discord.nix
+    ./whatsapp.nix
+  ];
+}

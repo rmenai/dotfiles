@@ -1,37 +1,19 @@
-local function get_python_executable()
-  local executables = { "python3", "python" }
-
-  for _, executable in ipairs(executables) do
-    if vim.fn.executable(executable) == 1 then return executable end
-  end
-end
-
 return {
+  name = "Python Tasks",
   condition = {
-    callback = function()
-      if not get_python_executable() then return false, "Executable python not found" end
-      if vim.fn.expand("%:e") ~= "py" then return false, "No python file found" end
-      return true
-    end,
+    filetype = { "python" },
   },
   generator = function(_, cb)
-    local executable = get_python_executable()
+    local file = vim.fn.expand("%:p")
+
     local templates = {
       {
-        name = "Run this program",
+        name = "Interpret File (Python)",
         builder = function()
-          local file = vim.fn.expand("%:p")
           return {
-            cmd = { executable },
+            cmd = { "python" },
             args = { file },
-          }
-        end,
-      },
-      {
-        name = "Start python REPL",
-        builder = function()
-          return {
-            cmd = { executable },
+            components = { "default" },
           }
         end,
       },

@@ -1,4 +1,5 @@
-{ lib, config, ... }: {
+{ lib, config, ... }:
+{
   options.features.apps.tools.zoxide = {
     enable = lib.mkEnableOption "Zoxide directory jumper";
   };

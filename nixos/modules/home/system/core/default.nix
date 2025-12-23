@@ -1,1 +1,7 @@
-{ imports = [ ./home.nix ./nix.nix ./dotfiles.nix ]; }
+{
+  imports = [
+    ./home.nix
+    ./nix.nix
+    ./dotfiles.nix
+  ];
+}

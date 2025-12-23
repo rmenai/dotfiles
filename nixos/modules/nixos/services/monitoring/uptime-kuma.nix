@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.services.monitoring.uptime-kuma = {
     enable = lib.mkEnableOption "Uptime Kuma configuration";
   };
@@ -15,6 +16,10 @@
       };
     };
 
-    features.persist = { directories = { "/var/lib/uptime-kuma" = true; }; };
+    features.persist = {
+      directories = {
+        "/var/lib/uptime-kuma" = true;
+      };
+    };
   };
 }

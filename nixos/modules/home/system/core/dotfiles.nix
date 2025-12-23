@@ -1,11 +1,16 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   options.features.dotfiles = {
     enable = lib.mkEnableOption "dotfiles management";
     paths = lib.mkOption {
       type = lib.types.attrsOf lib.types.str;
       default = { };
-      description =
-        "Mapping of destination file paths to source subdirectories inside ~/.dotfiles.";
+      description = "Mapping of destination file paths to source subdirectories inside ~/.dotfiles.";
     };
 
     autoSetupLocal = lib.mkOption {
@@ -15,9 +20,11 @@
     };
   };
 
-  config = lib.mkIf config.features.dotfiles.enable
-    (let localFolder = "/home/${config.spec.user}/.dotfiles";
-    in {
+  config = lib.mkIf config.features.dotfiles.enable (
+    let
+      localFolder = "/home/${config.spec.user}/.dotfiles";
+    in
+    {
       # Create editable dotfiles directory from flake input if it doesn't exist
       home.activation = lib.mkIf config.features.dotfiles.autoSetupLocal {
         setupDotfiles = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
@@ -44,5 +51,6 @@
       home.file = builtins.mapAttrs (target: file: {
         source = config.lib.file.mkOutOfStoreSymlink "${localFolder}/${file}";
       }) (lib.filterAttrs (k: v: v != "") config.features.dotfiles.paths);
-    });
+    }
+  );
 }

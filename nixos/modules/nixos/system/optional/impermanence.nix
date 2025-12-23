@@ -1,10 +1,17 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   config = lib.mkIf config.features.impermanence.enable {
     boot.initrd.systemd.services.btrfs-rollback = {
       description = "Rollback BTRFS root (skip on hibernation resume)";
       wantedBy = [ "initrd.target" ];
-      after = [ "initrd-root-device.target" "local-fs-pre.target" ];
-      before = [ "sysroot.mount" "create-needed-for-boot-dirs.service" ];
+      after = [
+        "initrd-root-device.target"
+        "local-fs-pre.target"
+      ];
+      before = [
+        "sysroot.mount"
+        "create-needed-for-boot-dirs.service"
+      ];
       unitConfig.DefaultDependencies = "no";
       serviceConfig.Type = "oneshot";
       script = ''
@@ -33,31 +40,30 @@
       '';
     };
 
-    fileSystems."${config.features.impermanence.persistFolder}".neededForBoot =
-      true;
+    fileSystems."${config.features.impermanence.persistFolder}".neededForBoot = true;
     fileSystems."/var/lib/sbctl".neededForBoot = true;
 
     programs.fuse.userAllowOther = true;
 
     # Only add system persistance if is enabled
     environment.persistence."${config.features.impermanence.persistFolder}/system" =
-      lib.mkIf config.features.persist.enable {
-        hideMounts = true;
-        directories = lib.attrNames
-          (lib.filterAttrs (k: v: v) config.features.persist.directories);
-        files = lib.attrNames
-          (lib.filterAttrs (k: v: v) config.features.persist.files);
-      };
+      lib.mkIf config.features.persist.enable
+        {
+          hideMounts = true;
+          directories = lib.attrNames (lib.filterAttrs (k: v: v) config.features.persist.directories);
+          files = lib.attrNames (lib.filterAttrs (k: v: v) config.features.persist.files);
+        };
 
     # Only add home persistance if it is enabled
     environment.persistence."${config.features.impermanence.persistFolder}" =
-      lib.mkIf
-      config.home-manager.users.${config.spec.user}.features.persist.enable {
-        users.${config.spec.user} = {
-          directories = lib.attrNames (lib.filterAttrs (k: v: v)
-            config.home-manager.users.${config.spec.user}.features.persist.directories);
+      lib.mkIf config.home-manager.users.${config.spec.user}.features.persist.enable
+        {
+          users.${config.spec.user} = {
+            directories = lib.attrNames (
+              lib.filterAttrs (k: v: v) config.home-manager.users.${config.spec.user}.features.persist.directories
+            );
+          };
         };
-      };
 
     # Default persistent directories and files
     features.persist = {
@@ -72,7 +78,9 @@
         "/var/lib/colord" = true;
       };
 
-      files = { "/etc/machine-id" = true; };
+      files = {
+        "/etc/machine-id" = true;
+      };
     };
   };
 }

@@ -1,4 +1,10 @@
-{ pkgs, lib, config, ... }: {
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+{
   options.features.apps.shell.nushell = {
     enable = lib.mkEnableOption "Nushell shell";
   };

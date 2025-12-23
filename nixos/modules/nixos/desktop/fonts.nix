@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   options.features.desktop.fonts = {
     enable = lib.mkEnableOption "desktop fonts configuration";
   };

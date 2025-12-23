@@ -1,1 +1,6 @@
-{ imports = [ ./nushell.nix ./zsh.nix ]; }
+{
+  imports = [
+    ./nushell.nix
+    ./zsh.nix
+  ];
+}

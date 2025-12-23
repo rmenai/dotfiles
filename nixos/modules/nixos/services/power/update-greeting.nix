@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   options.features.services.power.update-greeting = {
     enable = lib.mkEnableOption "Show ip address in greeting";
   };

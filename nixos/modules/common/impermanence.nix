@@ -1,4 +1,5 @@
-{ lib, ... }: {
+{ lib, ... }:
+{
   options.features.impermanence = {
     enable = lib.mkEnableOption "impermanence support";
 

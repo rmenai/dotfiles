@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   options.features.apps.terminals.kitty = {
     enable = lib.mkEnableOption "Kitty terminal emulator";
   };
@@ -7,7 +13,9 @@
     home.packages = with pkgs; [ kitty ];
 
     features.dotfiles = {
-      paths = { ".config/kitty" = lib.mkDefault "kitty"; };
+      paths = {
+        ".config/kitty" = lib.mkDefault "kitty";
+      };
     };
   };
 }

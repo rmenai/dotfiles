@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.apps.tools.eza = {
     enable = lib.mkEnableOption "Eza file listing tool";
   };

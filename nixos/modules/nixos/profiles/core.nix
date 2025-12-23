@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options.features.profiles.core = {
     enable = lib.mkEnableOption "Core profile";
   };

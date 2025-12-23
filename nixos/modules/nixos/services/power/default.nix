@@ -1,1 +1,7 @@
-{ imports = [ ./acpid.nix ./tlp.nix ./update-greeting.nix ]; }
+{
+  imports = [
+    ./acpid.nix
+    ./tlp.nix
+    ./update-greeting.nix
+  ];
+}

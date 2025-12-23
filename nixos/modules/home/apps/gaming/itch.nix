@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   options.features.apps.gaming.itch = {
     enable = lib.mkEnableOption "itch.io desktop app";
   };

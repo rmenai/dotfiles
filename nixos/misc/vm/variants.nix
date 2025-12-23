@@ -1,6 +1,9 @@
-{ lib, ... }: {
+{ lib, ... }:
+{
   virtualisation.vmVariant = {
-    features = { hardware.disko.profile = lib.mkForce "none"; };
+    features = {
+      hardware.disko.profile = lib.mkForce "none";
+    };
 
     virtualisation = {
       diskSize = 60 * 1024;

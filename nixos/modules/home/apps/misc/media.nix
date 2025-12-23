@@ -1,4 +1,11 @@
-{ inputs, lib, pkgs, config, ... }: {
+{
+  inputs,
+  lib,
+  pkgs,
+  config,
+  ...
+}:
+{
   options.features.apps.misc.media = {
     enable = lib.mkEnableOption "Media applications and tools";
   };
@@ -9,11 +16,11 @@
       pkgs.imagemagick
       pkgs.yt-dlp
 
-      inputs.curd.packages.${pkgs.system}.default
+      inputs.curd.packages.${pkgs.stdenv.hostPlatform.system}.default
 
       pkgs.oculante
       pkgs.termusic
-      pkgs.youtube-tui
+      # pkgs.youtube-tui
       pkgs.ani-cli
 
       pkgs.mpv
@@ -51,6 +58,10 @@
       "image/svg+xml" = "oculante.desktop";
     };
 
-    features.dotfiles = { paths = { ".config/curd" = lib.mkDefault "curd"; }; };
+    features.dotfiles = {
+      paths = {
+        ".config/curd" = lib.mkDefault "curd";
+      };
+    };
   };
 }

@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   config = lib.mkIf (config.features.hardware.disko.profile == "btrfs-luks") {
     boot.initrd.services.lvm.enable = true;
 
@@ -23,7 +24,10 @@
                 type = "filesystem";
                 format = "vfat";
                 mountpoint = "/boot";
-                mountOptions = [ "defaults" "umask=0077" ];
+                mountOptions = [
+                  "defaults"
+                  "umask=0077"
+                ];
               };
             };
 
@@ -33,7 +37,9 @@
               content = {
                 type = "luks";
                 name = "crypted";
-                settings = { allowDiscards = true; };
+                settings = {
+                  allowDiscards = true;
+                };
 
                 content = {
                   type = "lvm_pv";
@@ -56,22 +62,29 @@
                 extraArgs = [ "-f" ];
 
                 subvolumes = {
-                  "/root" = { mountpoint = "/"; };
+                  "/root" = {
+                    mountpoint = "/";
+                  };
 
                   "/persist" = {
-                    mountOptions = [ "subvol=persist" "noatime" ];
+                    mountOptions = [
+                      "subvol=persist"
+                      "noatime"
+                    ];
                     mountpoint = "/persist";
                   };
 
                   "/nix" = {
-                    mountOptions = [ "subvol=nix" "noatime" ];
+                    mountOptions = [
+                      "subvol=nix"
+                      "noatime"
+                    ];
                     mountpoint = "/nix";
                   };
 
                   "/swap" = {
                     mountpoint = "/.swapvol";
-                    swap.swapfile.size =
-                      config.features.hardware.disko.swapSize;
+                    swap.swapfile.size = config.features.hardware.disko.swapSize;
                   };
                 };
               };
@@ -81,6 +94,6 @@
       };
     };
 
-    swapDevices = [{ device = "/.swapvol/swapfile"; }];
+    swapDevices = [ { device = "/.swapvol/swapfile"; } ];
   };
 }

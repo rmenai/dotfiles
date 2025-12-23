@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   options.features.desktop.hyprland = {
     enable = lib.mkEnableOption "Hyprland window manager";
   };
@@ -9,7 +15,11 @@
       xwayland.enable = true;
     };
 
-    environment.systemPackages = with pkgs; [ sway waypipe kitty ];
+    environment.systemPackages = with pkgs; [
+      sway
+      waypipe
+      kitty
+    ];
 
     users.users.${config.spec.user}.extraGroups = [ "video" ];
 

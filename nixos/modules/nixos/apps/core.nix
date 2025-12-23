@@ -1,9 +1,18 @@
-{ config, lib, pkgs, outputs, ... }: {
-  options.features.apps.core = { enable = lib.mkEnableOption "Core apps"; };
+{
+  config,
+  lib,
+  pkgs,
+  outputs,
+  ...
+}:
+{
+  options.features.apps.core = {
+    enable = lib.mkEnableOption "Core apps";
+  };
 
   config = lib.mkIf config.features.apps.core.enable {
     environment.systemPackages = with pkgs; [
-      outputs.packages.${pkgs.system}.bin
+      outputs.packages.${pkgs.stdenv.hostPlatform.system}.bin
       magic-wormhole-rs
       fastfetch
       cachix
@@ -20,8 +29,7 @@
       startAgent = true;
 
       enableAskPassword = true;
-      askPassword =
-        "${pkgs.wofi}/bin/wofi --dmenu --password --prompt='SSH Password: '";
+      askPassword = "${pkgs.wofi}/bin/wofi --dmenu --password --prompt='SSH Password: '";
 
       knownHostsFiles = [
         (pkgs.writeText "custom_known_hosts" ''
