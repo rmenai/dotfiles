@@ -40,6 +40,7 @@
 
     core = {
       persistence.enable = true;
+      nix-ld.enable = true;
       cache.enable = true;
       diff.enable = true;
     };
@@ -131,16 +132,6 @@
   ];
 
   programs = {
-    nix-ld = {
-      enable = true;
-      libraries = with pkgs; [
-        stdenv
-        libgcc
-        libllvm
-        portaudio
-      ];
-    };
-
     nix-index-database.comma = {
       enable = true;
     };
