@@ -44,9 +44,6 @@ in
       "text/x-ocaml" = "nvim-wezterm.desktop";
     };
 
-    features.core.dotfiles.links = {
-      nvim = "nvim";
-      lazygit = "lazygit";
-    };
+    features.core.dotfiles.links.nvim = "nvim";
   };
 }

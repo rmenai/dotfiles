@@ -14,7 +14,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [ vivaldi ];
+    home.packages = [ pkgs.vivaldi ];
 
     sops.secrets."data" = {
       sopsFile = "${builtins.toString inputs.secrets}/files/surfingkeys.js";

@@ -13,7 +13,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [ chromium ];
+    home.packages = [ pkgs.chromium ];
 
     features.core.dotfiles.links.chrome = "chrome";
   };
