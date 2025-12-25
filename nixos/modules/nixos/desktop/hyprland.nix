@@ -18,6 +18,20 @@ in
       xwayland.enable = true;
     };
 
+    services = {
+      xserver = {
+        enable = true;
+        xkb = {
+          layout = lib.mkDefault "us";
+          variant = "";
+        };
+
+        videoDrivers = [ "nvidia" ];
+      };
+
+      libinput.enable = true;
+    };
+
     environment.systemPackages = with pkgs; [
       sway
       waypipe

@@ -36,7 +36,7 @@
     };
 
     desktop = {
-      hyprland.enable = true;
+      niri.enable = true;
       catppuccin.enable = true;
       mime.enable = true;
     };

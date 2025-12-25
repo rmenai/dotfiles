@@ -44,6 +44,7 @@ in
       "text/x-ocaml" = "nvim-wezterm.desktop";
     };
 
+    catppuccin.nvim.enable = lib.mkForce false;
     features.core.dotfiles.links.nvim = "nvim";
   };
 }

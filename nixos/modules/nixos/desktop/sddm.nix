@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, ... }:
 let
   cfg = config.features.desktop.sddm;
 in
@@ -32,7 +27,6 @@ in
     services.displayManager = {
       sddm = {
         enable = true;
-        package = pkgs.kdePackages.sddm;
         wayland.enable = cfg.wayland.enable;
       };
 

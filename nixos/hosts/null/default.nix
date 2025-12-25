@@ -65,14 +65,11 @@
     };
 
     desktop = {
-      xserver.enable = true;
       sddm.enable = true;
-      autoLogin.enable = true;
+      niri.enable = true;
       fcitx.enable = true;
-
-      hyprland.enable = true;
-      catppuccin.enable = true;
       fonts.enable = true;
+      catppuccin.enable = true;
     };
 
     apps = {
