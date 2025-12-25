@@ -4,13 +4,17 @@
   pkgs,
   ...
 }:
+let
+  cfg = config.features.desktop.hyprland;
+in
 {
   options.features.desktop.hyprland = {
-    enable = lib.mkEnableOption "Hyprland desktop environment";
+    enable = lib.mkEnableOption "Hyprland Desktop Environment";
   };
 
-  config = lib.mkIf config.features.desktop.hyprland.enable {
+  config = lib.mkIf cfg.enable {
     programs.waybar.enable = true;
+
     home.packages = with pkgs; [
       hyprlock
       hyprpaper
@@ -44,15 +48,19 @@
       wtype
     ];
 
-    features.dotfiles = {
-      paths = {
-        ".config/hypr" = lib.mkDefault "hypr";
-        ".config/waybar" = lib.mkDefault "waybar";
-        ".config/rofi" = lib.mkDefault "rofi";
-        ".config/swaylock" = lib.mkDefault "swaylock";
-        ".config/dunst" = lib.mkDefault "dunst";
-        ".config/cliphist" = lib.mkDefault "cliphist";
-      };
+    xdg.portal = {
+      enable = true;
+      config.common.default = "*";
+      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    };
+
+    features.core.dotfiles.links = {
+      hypr = "hypr";
+      waybar = "waybar";
+      rofi = "rofi";
+      swaylock = "swaylock";
+      dunst = "dunst";
+      cliphist = "cliphist";
     };
   };
 }

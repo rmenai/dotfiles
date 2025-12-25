@@ -4,12 +4,15 @@
   pkgs,
   ...
 }:
+let
+  cfg = config.features.apps.gaming.heroic;
+in
 {
   options.features.apps.gaming.heroic = {
     enable = lib.mkEnableOption "Heroic Games Launcher";
   };
 
-  config = lib.mkIf config.features.apps.gaming.heroic.enable {
+  config = lib.mkIf cfg.enable {
     home.packages = [ pkgs.heroic ];
 
     # xdg.desktopEntries."com.heroicgameslauncher.hgl" = {
@@ -19,7 +22,10 @@
     #   icon = "com.heroicgameslauncher.hgl";
     #   terminal = false;
     #   type = "Application";
-    #   categories = [ "Game" "Network" ];
+    #   categories = [
+    #     "Game"
+    #     "Network"
+    #   ];
     #   startupNotify = true;
     # };
   };

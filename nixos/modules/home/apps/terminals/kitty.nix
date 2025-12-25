@@ -4,18 +4,17 @@
   pkgs,
   ...
 }:
+let
+  cfg = config.features.apps.terminals.kitty;
+in
 {
   options.features.apps.terminals.kitty = {
     enable = lib.mkEnableOption "Kitty terminal emulator";
   };
 
-  config = lib.mkIf config.features.apps.terminals.kitty.enable {
-    home.packages = with pkgs; [ kitty ];
+  config = lib.mkIf cfg.enable {
+    home.packages = [ pkgs.kitty ];
 
-    features.dotfiles = {
-      paths = {
-        ".config/kitty" = lib.mkDefault "kitty";
-      };
-    };
+    features.core.dotfiles.links.kitty = "kitty";
   };
 }

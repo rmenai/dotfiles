@@ -1,15 +1,18 @@
 {
-  pkgs,
-  lib,
   config,
+  lib,
+  pkgs,
   ...
 }:
+let
+  cfg = config.features.apps.tools.yazi;
+in
 {
   options.features.apps.tools.yazi = {
     enable = lib.mkEnableOption "Yazi file manager";
   };
 
-  config = lib.mkIf config.features.apps.tools.yazi.enable {
+  config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       yazi
       p7zip
@@ -18,10 +21,6 @@
       fd
     ];
 
-    features.dotfiles = {
-      paths = {
-        ".config/yazi" = lib.mkDefault "yazi";
-      };
-    };
+    features.core.dotfiles.links.yazi = "yazi";
   };
 }

@@ -1,16 +1,19 @@
 {
   config,
+  inputs,
   lib,
   pkgs,
-  inputs,
   ...
 }:
+let
+  cfg = config.features.apps.browsers.vivaldi;
+in
 {
   options.features.apps.browsers.vivaldi = {
     enable = lib.mkEnableOption "Vivaldi browser";
   };
 
-  config = lib.mkIf config.features.apps.browsers.vivaldi.enable {
+  config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [ vivaldi ];
 
     sops.secrets."data" = {

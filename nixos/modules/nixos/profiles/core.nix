@@ -1,11 +1,106 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.features.profiles.core;
+in
 {
   options.features.profiles.core = {
     enable = lib.mkEnableOption "Core profile";
   };
 
-  config = lib.mkIf config.features.profiles.core.enable {
-    system.stateVersion = lib.mkDefault "25.11";
+  config = lib.mkIf cfg.enable {
+    features = {
+      core = {
+        nix.enable = true;
+        home.enable = true;
+        sops.enable = true;
+      };
+
+      users.root.enable = true;
+      apps.uutils.enable = true;
+
+      services = {
+        tailscale.enable = true;
+        openssh.enable = true;
+        ssh.enable = true;
+      };
+    };
+
+    features.core.persistence = {
+      directories = [
+        "/var/log"
+        "/var/lib/nixos"
+        "/var/lib/systemd"
+        "/var/lib/bluetooth"
+        "/var/lib/colord"
+        "/var/lib/sbctl"
+        "/etc/nixos"
+        "/root"
+
+        "/etc/ssh"
+        "/var/lib/sops"
+
+        "/var/lib/NetworkManager"
+        "/etc/NetworkManager/system-connections"
+        "/var/lib/systemd/network"
+
+        "/var/lib/sddm"
+        "/usr/share/sddm"
+
+        "/var/lib/libvirt"
+        "/var/lib/microvms"
+        "/var/lib/containers"
+        "/etc/vbox"
+
+        "/var/lib/syncthing"
+        "/var/lib/tailscale"
+      ];
+      files = [
+        "/etc/machine-id"
+      ];
+    };
+
+    environment.persistence."${config.features.core.persistence.folder}" = {
+      hideMounts = true;
+      users.${config.spec.user} = {
+        directories = [
+          "Downloads"
+          "Documents"
+          "Pictures"
+          "Videos"
+          "Public"
+          "Games"
+          "Music"
+
+          ".ssh"
+          ".gnupg"
+          ".nixops"
+
+          ".dotfiles"
+          ".config"
+          ".local"
+          ".cache"
+
+          ".ollama"
+          ".rustup"
+          ".cargo"
+          ".opam"
+          ".bun"
+
+          ".vagrant.d"
+          ".vimgolf"
+          ".steam"
+        ];
+        files = [
+          ".bash_history"
+          ".adventofcode.session"
+        ];
+      };
+    };
 
     networking = {
       hostName = config.spec.host;
@@ -14,28 +109,21 @@
         enable = lib.mkDefault true;
         allowPing = lib.mkDefault true;
         trustedInterfaces = [ "tailscale0" ];
+        allowedTCPPorts = lib.mkForce [ ];
+        allowedUDPPorts = lib.mkForce [ 41641 ]; # Tailscale default
       };
     };
 
-    features = {
-      services = {
-        security.fail2ban.enable = lib.mkDefault true;
-        networking.avahi.enable = lib.mkDefault true;
-        power.update-greeting.enable = lib.mkDefault true;
-      };
-    };
+    time.timeZone = lib.mkDefault config.spec.timeZone;
+    i18n.defaultLocale = lib.mkDefault config.spec.defaultLocale;
 
-    users.users.root = {
-      hashedPassword = config.private.secrets.rootPasswordHash;
-      openssh.authorizedKeys.keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDDw4/okVV4KIt0XvVU+ecFmhYOVS/ETmDAK04WgN1ic vault@null"
-      ];
-    };
-
-    security.sudo.extraConfig = ''
-      Defaults !tty_tickets # share authentication across all ttys, not one per-tty
-      Defaults lecture = never # rollback results in sudo lectures after each reboot
-      Defaults timestamp_timeout=120 # only ask for password every 2h
-    '';
+    environment.systemPackages = with pkgs; [
+      magic-wormhole-rs
+      fastfetch
+      curl
+      vim
+      git
+      gh
+    ];
   };
 }

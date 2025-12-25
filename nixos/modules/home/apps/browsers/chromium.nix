@@ -4,18 +4,17 @@
   pkgs,
   ...
 }:
+let
+  cfg = config.features.apps.browsers.chromium;
+in
 {
   options.features.apps.browsers.chromium = {
     enable = lib.mkEnableOption "Chromium browser";
   };
 
-  config = lib.mkIf config.features.apps.browsers.chromium.enable {
+  config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [ chromium ];
 
-    features.dotfiles = {
-      paths = {
-        ".config/chrome" = lib.mkDefault "chrome";
-      };
-    };
+    features.core.dotfiles.links.chrome = "chrome";
   };
 }

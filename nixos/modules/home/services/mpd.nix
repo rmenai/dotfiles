@@ -4,12 +4,15 @@
   pkgs,
   ...
 }:
+let
+  cfg = config.features.services.mpd;
+in
 {
   options.features.services.mpd = {
     enable = lib.mkEnableOption "MPD";
   };
 
-  config = lib.mkIf config.features.services.mpd.enable {
+  config = lib.mkIf cfg.enable {
     services.mpd = {
       enable = true;
       musicDirectory = "/home/${config.spec.user}/Music";
@@ -34,10 +37,6 @@
       (pkgs.ncmpcpp.override { visualizerSupport = true; })
     ];
 
-    features.dotfiles = {
-      paths = {
-        ".config/ncmpcpp" = lib.mkDefault "ncmpcpp";
-      };
-    };
+    features.core.dotfiles.links.ncmpcpp = "ncmpcpp";
   };
 }

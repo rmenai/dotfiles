@@ -4,12 +4,15 @@
   pkgs,
   ...
 }:
+let
+  cfg = config.features.desktop.hyprland;
+in
 {
   options.features.desktop.hyprland = {
-    enable = lib.mkEnableOption "Hyprland window manager";
+    enable = lib.mkEnableOption "Hyprland Window Manager";
   };
 
-  config = lib.mkIf config.features.desktop.hyprland.enable {
+  config = lib.mkIf cfg.enable {
     programs.hyprland = {
       enable = true;
       xwayland.enable = true;
@@ -20,6 +23,11 @@
       waypipe
       kitty
     ];
+
+    # Specific for wayland
+    programs.ssh = {
+      askPassword = "${pkgs.wofi}/bin/wofi --dmenu --password --prompt='SSH Password: '";
+    };
 
     users.users.${config.spec.user}.extraGroups = [ "video" ];
 

@@ -2,13 +2,10 @@
   config,
   func,
   lib,
-  inputs,
   ...
 }:
 {
   imports = lib.flatten [
-    inputs.nix-index-database.nixosModules.nix-index
-
     (map func.custom.relativeToRoot [ "modules/common" ])
     (map func.custom.relativeToRoot [ "modules/nixos" ])
 
@@ -30,53 +27,37 @@
   };
 
   features = {
-    profiles = {
-      core.enable = true;
-    };
-    users = {
-      vault.enable = true;
-    };
-
-    system = {
-      nix.enable = true;
-      home.enable = true;
-      sops.enable = true;
-    };
+    profiles.core.enable = true;
+    users.vault.enable = true;
 
     services = {
-      networking = {
-        openssh.enable = true;
-        tailscale.enable = true;
-        caddy.enable = true;
-        syncthing.enable = true;
-        adguardhome.enable = true;
-        vaultwarden.enable = true;
-        paperless.enable = true;
-        wastebin.enable = true;
-        bytestash.enable = true;
-        shlink.enable = true;
-        searxng.enable = true;
-        tandoor.enable = true;
-        picsur.enable = true;
-        calibre.enable = true;
-        audiobookshelf.enable = true;
-        omnitools.enable = true;
-        stirlingpdf.enable = true;
-        cyberchef.enable = true;
+      openssh.enable = true;
+      tailscale.enable = true;
+      caddy.enable = true;
+      syncthing.enable = true;
+      adguardhome.enable = true;
+      vaultwarden.enable = true;
+      paperless.enable = true;
+      wastebin.enable = true;
+      bytestash.enable = true;
+      shlink.enable = true;
+      searxng.enable = true;
+      tandoor.enable = true;
+      picsur.enable = true;
+      calibre.enable = true;
+      audiobookshelf.enable = true;
+      omnitools.enable = true;
+      stirlingpdf.enable = true;
+      cyberchef.enable = true;
 
-        komga.enable = false;
-      };
+      komga.enable = false;
 
-      security.fail2ban.enable = true;
-      databases.postgresql.enable = true;
-      monitoring.uptime-kuma.enable = true;
-      virtualization.podman.enable = true;
-    };
+      fail2ban.enable = lib.mkDefault true;
+      avahi.enable = lib.mkDefault true;
 
-    apps = {
-      core.enable = true;
-      index.enable = true;
-      oxidise.enable = true;
+      postgresql.enable = true;
+      uptime-kuma.enable = true;
+      podman.enable = true;
     };
   };
 
@@ -191,10 +172,7 @@
     };
   };
 
-  environment.sessionVariables.WASTEBIN_URL = "https://bin.menai.me";
-
-  # TODO
-  # - iSponsorBlockTV
-  # - Nextcloud
-  # - Immich
+  environment.sessionVariables = {
+    WASTEBIN_URL = "https://bin.menai.me";
+  };
 }

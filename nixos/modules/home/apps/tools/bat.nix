@@ -4,12 +4,15 @@
   pkgs,
   ...
 }:
+let
+  cfg = config.features.apps.tools.bat;
+in
 {
   options.features.apps.tools.bat = {
     enable = lib.mkEnableOption "Bat syntax highlighter";
   };
 
-  config = lib.mkIf config.features.apps.tools.bat.enable {
+  config = lib.mkIf cfg.enable {
     programs.bat = {
       enable = true;
       extraPackages = builtins.attrValues {
@@ -25,10 +28,6 @@
       '';
     };
 
-    features.dotfiles = {
-      paths = {
-        ".config/bat" = lib.mkDefault "bat";
-      };
-    };
+    features.core.dotfiles.links.bat = "bat";
   };
 }

@@ -1,11 +1,14 @@
 { config, lib, ... }:
+let
+  cfg = config.features.hardware.disko;
+in
 {
-  config = lib.mkIf (config.features.hardware.disko.profile == "simple-ext4") {
+  config = lib.mkIf (cfg.profile == "simple-ext4") {
     disko.devices = {
       disk = {
         main = {
           type = "disk";
-          device = config.features.hardware.disko.device;
+          device = cfg.device;
           content = {
             type = "gpt";
             partitions = {

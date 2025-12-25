@@ -23,47 +23,32 @@
       core.enable = true;
     };
 
-    dotfiles.enable = true;
-    impermanence.enable = true;
-    persist.enable = true;
-
-    system = {
-      nix.enable = true;
-      home.enable = true;
-      mime.enable = true;
-      sops.enable = true;
+    core = {
+      dotfiles = {
+        enable = true;
+        mutable = true;
+      };
     };
 
     services = {
-      adjust-power.enable = true;
       mpris.enable = true;
       mpd.enable = true;
-      ssh.enable = true;
     };
 
     desktop = {
       hyprland.enable = true;
       catppuccin.enable = true;
+      mime.enable = true;
     };
 
     apps = {
-      gaming = {
-        steam.enable = true;
-        heroic.enable = true;
-        lutris.enable = false;
-        prism.enable = true;
-        itch.enable = true;
-      };
-
-      shell = {
+      shells = {
         nushell.enable = true;
-        zsh.enable = true;
       };
 
       terminals = {
         wezterm.enable = true;
         kitty.enable = true;
-        tmux.enable = true;
       };
 
       browsers = {
@@ -72,47 +57,76 @@
         firefox.enable = true;
       };
 
+      editors = {
+        neovim.enable = true;
+        vscode.enable = true;
+        jetbrains.enable = true;
+      };
+
+      tools = {
+        direnv.enable = true;
+        atuin.enable = true;
+        yazi.enable = true;
+        fzf.enable = true;
+
+        btop.enable = true;
+        dua.enable = true;
+
+        neofetch.enable = true;
+        hyprfine.enable = true;
+        ripgrep.enable = true;
+        zoxide.enable = true;
+      };
+
+      dev = {
+        gcc.enable = true;
+        lua.enable = true;
+
+        nix.enable = true;
+        ocaml.enable = true;
+        python.enable = true;
+        rust.enable = true;
+      };
+
+      media = {
+        oculante.enable = true;
+        zathura.enable = true;
+        ffmpeg.enable = true;
+        mpv.enable = true;
+
+        audacity.enable = true;
+        gimp.enable = true;
+      };
+
       socials = {
         discord.enable = true;
         whatsapp.enable = true;
       };
 
-      development = {
-        core.enable = true;
-        tools.enable = true;
-
-        android.enable = true;
-        godot.enable = true;
-        ai.enable = true;
-
-        helix.enable = true;
-        jetbrains.enable = true;
-        vscode.enable = true;
-
-        latex.enable = true;
-        node.enable = true;
-        ocaml.enable = true;
-        python.enable = true;
-        r.enable = true;
-        rust.enable = true;
-      };
-
       misc = {
-        media.enable = true;
-        blender.enable = true;
+        anki.enable = true;
         obsidian.enable = true;
-        zathura.enable = true;
       };
     };
   };
 
+  home.stateVersion = "25.11";
+
   home.packages = with pkgs; [
-    bitwarden-desktop
-    glow
-    rustdesk
-    wslu
-    lazygit
+    # Remote tools
+    # rustdesk
+
+    # Virtualization tools
+    # distrobox
+    virt-viewer
+    vagrant
+    packer
   ];
+
+  features.core.dotfiles.links = {
+    "obs-studio" = "obs-studio";
+    "rust-competitive-helper" = "rust-competitive-helper";
+  };
 
   programs.ssh.extraConfig = ''
     UpdateHostKeys ask
@@ -148,18 +162,4 @@
       ForwardX11 yes
       ForwardX11Trusted yes
   '';
-
-  features.dotfiles = {
-    paths = {
-      ".config/easyeffects" = lib.mkDefault "easyeffects";
-      ".config/obs-studio" = lib.mkDefault "obs-studio";
-      ".config/lazygit" = lib.mkDefault "lazygit";
-    };
-  };
-
-  features.persist = {
-    directories = {
-      ".vagrant.d" = lib.mkDefault true;
-    };
-  };
 }

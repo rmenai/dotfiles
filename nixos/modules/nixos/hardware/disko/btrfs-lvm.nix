@@ -1,12 +1,16 @@
 { config, lib, ... }:
+let
+  cfg = config.features.hardware.disko;
+in
 {
-  config = lib.mkIf (config.features.hardware.disko.profile == "btrfs-lvm") {
+  config = lib.mkIf (cfg.profile == "btrfs-lvm") {
     boot.initrd.services.lvm.enable = true;
+    boot.supportedFilesystems = [ "btrfs" ];
 
     disko.devices = {
       disk.main = {
         type = "disk";
-        device = config.features.hardware.disko.device;
+        device = cfg.device;
         content = {
           type = "gpt";
           partitions = {
@@ -68,7 +72,7 @@
 
                   "/swap" = {
                     mountpoint = "/.swapvol";
-                    swap.swapfile.size = config.features.hardware.disko.swapSize;
+                    swap.swapfile.size = cfg.swapSize;
                   };
                 };
               };

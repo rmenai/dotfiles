@@ -2,10 +2,12 @@
 {
   virtualisation.vmVariant = {
     features = {
-      hardware.disko.profile = lib.mkForce "none";
+      hardware = {
+        disko.profile = lib.mkForce "none";
+        hibernation.enable = lib.mkForce false;
+      };
 
-      impermanence.enable = lib.mkForce false;
-      hibernation.enable = lib.mkForce false;
+      core.persistence.enable = lib.mkForce false;
     };
 
     systemd.network.enable = lib.mkForce false;

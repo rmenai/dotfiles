@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ lib, inputs, ... }:
 {
   imports = [
     inputs.nixos-generators.nixosModules.all-formats
@@ -8,18 +8,30 @@
     inputs.home-manager.nixosModules.home-manager
     inputs.sops-nix.nixosModules.sops
     inputs.catppuccin.nixosModules.catppuccin
+    inputs.nix-index-database.nixosModules.nix-index
+    inputs.microvm.nixosModules.host
 
     "${inputs.secrets}/nixos.nix"
-
-    ./apps
-    ./boot
-    ./containers
-    ./desktop
-    ./display
-    ./hardware
-    ./profiles
-    ./services
-    ./system
-    ./users
-  ];
+  ]
+  # Auto-import modules from specific subdirectories
+  ++ (lib.concatMap
+    (
+      dir:
+      lib.pipe dir [
+        lib.filesystem.listFilesRecursive
+        (map toString)
+        (lib.filter (lib.strings.hasSuffix ".nix"))
+      ]
+    )
+    [
+      ./apps
+      ./containers
+      ./core
+      ./desktop
+      ./hardware
+      ./profiles
+      ./services
+      ./users
+    ]
+  );
 }

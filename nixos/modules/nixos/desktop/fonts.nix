@@ -4,12 +4,15 @@
   pkgs,
   ...
 }:
+let
+  cfg = config.features.desktop.fonts;
+in
 {
   options.features.desktop.fonts = {
-    enable = lib.mkEnableOption "desktop fonts configuration";
+    enable = lib.mkEnableOption "Desktop Fonts Configuration";
   };
 
-  config = lib.mkIf config.features.desktop.fonts.enable {
+  config = lib.mkIf cfg.enable {
     fonts.packages = with pkgs; [
       nerd-fonts.fira-code
       nerd-fonts.jetbrains-mono

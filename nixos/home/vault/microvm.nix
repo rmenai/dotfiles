@@ -13,29 +13,27 @@
   };
 
   features = {
-    profiles = {
-      core.enable = true;
-    };
-
-    dotfiles.enable = true;
-
-    system = {
-      nix.enable = true;
-      home.enable = true;
-      sops.enable = true;
-    };
-
-    services = {
-      ssh.enable = true;
-    };
+    profiles.core.enable = true;
+    core.dotfiles.enable = true;
 
     apps = {
       terminals.wezterm.enable = true;
+      shell.nushell.enable = true;
 
-      shell = {
-        nushell.enable = true;
-        zsh.enable = true;
+      tools = {
+        atuin.enable = true;
+        yazi.enable = true;
+
+        btop.enable = true;
+        dua.enable = true;
+
+        neofetch.enable = true;
+        ripgrep.enable = true;
+        zoxide.enable = true;
       };
     };
+
   };
+
+  home.stateVersion = "25.11";
 }

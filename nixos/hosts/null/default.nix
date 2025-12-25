@@ -8,15 +8,14 @@
 }:
 {
   imports = lib.flatten [
-    inputs.nix-index-database.nixosModules.nix-index
-    inputs.microvm.nixosModules.host
-
     (map func.custom.relativeToRoot [ "modules/common" ])
     (map func.custom.relativeToRoot [ "modules/nixos" ])
 
     ./hardware.nix
     ./networking.nix
-    ./variants.nix
+    ./scratch.nix
+
+    ./variants
   ];
 
   spec = {
@@ -35,70 +34,48 @@
   features = {
     profiles = {
       core.enable = true;
+      gaming.enable = true;
+      virt.enable = true;
     };
+
+    core = {
+      persistence.enable = true;
+      cache.enable = true;
+      diff.enable = true;
+    };
+
     users = {
       vault.enable = true;
     };
 
-    system = {
-      nix.enable = true;
-      home.enable = true;
-      sops.enable = true;
-    };
+    hardware = {
+      bluetooth.enable = true;
 
-    services = {
-      audio = {
-        pipewire.enable = true;
-      };
-
-      printing = {
-        cups.enable = true;
-      };
-
-      power.tlp = {
+      tlp = {
         enable = true;
         profile = "performance";
       };
-
-      networking = {
-        bluetooth.enable = true;
-        tailscale.enable = true;
-        openssh.enable = true;
-        syncthing.enable = true;
-      };
-
-      security = {
-        tpm.enable = true;
-        fail2ban.enable = true;
-      };
-
-      virtualization = {
-        libvirt.enable = true;
-        virtualbox.enable = true;
-        waydroid.enable = true;
-        microvm.enable = true;
-        podman.enable = true;
-      };
     };
 
-    display = {
-      xserver.enable = true;
-      sddm.enable = true;
-      autoLogin.enable = true;
+    services = {
+      syncthing.enable = true;
+      pipewire.enable = true;
+      cups.enable = true;
     };
 
     desktop = {
+      xserver.enable = true;
+      sddm.enable = true;
+      autoLogin.enable = true;
+      fcitx.enable = true;
+
       hyprland.enable = true;
       catppuccin.enable = true;
       fonts.enable = true;
     };
 
     apps = {
-      core.enable = true;
-      index.enable = true;
-      oxidise.enable = true;
-      gaming.enable = true;
-      obs.enable = true;
+      obs.enable = false;
       adb.enable = true;
     };
 
@@ -130,50 +107,17 @@
     };
   };
 
-  sops.secrets."id_ed25519_vm" = {
-    key = "users/vault/ssh_private_key";
-    sopsFile = "${builtins.toString inputs.secrets}/hosts/vm.yaml";
-    path = "/home/${config.spec.user}/.ssh/id_ed25519_vm";
-    owner = config.spec.user;
-    group = "users";
-    mode = "0600";
-  };
+  system.stateVersion = "25.11";
+  boot.supportedFilesystems = [ "ntfs" ];
 
-  sops.secrets."id_ed25519_vm.pub" = {
-    key = "users/vault/ssh_public_key";
-    sopsFile = "${builtins.toString inputs.secrets}/hosts/vm.yaml";
-    path = "/home/${config.spec.user}/.ssh/id_ed25519_vm.pub";
-    owner = config.spec.user;
-    group = "users";
-    mode = "0600";
-  };
+  security.sudo.extraConfig = ''
+    Defaults !tty_tickets # share authentication across all ttys, not one per-tty
+    Defaults lecture = never # rollback results in sudo lectures after each reboot
+    Defaults timestamp_timeout=120 # only ask for password every 2h
+  '';
 
-  sops.secrets."id_ed25519_kernel" = {
-    key = "users/vault/ssh_private_key";
-    sopsFile = "${builtins.toString inputs.secrets}/hosts/kernel.yaml";
-    path = "/home/${config.spec.user}/.ssh/id_ed25519_kernel";
-    owner = config.spec.user;
-    group = "users";
-    mode = "0600";
-  };
-
-  sops.secrets."id_ed25519_kernel.pub" = {
-    key = "users/vault/ssh_public_key";
-    sopsFile = "${builtins.toString inputs.secrets}/hosts/kernel.yaml";
-    path = "/home/${config.spec.user}/.ssh/id_ed25519_kernel.pub";
-    owner = config.spec.user;
-    group = "users";
-    mode = "0600";
-  };
-
-  programs.nix-ld = {
-    enable = true;
-    libraries = with pkgs; [
-      stdenv
-      libgcc
-      libllvm
-      portaudio
-    ];
+  environment.sessionVariables = {
+    WASTEBIN_URL = "https://bin.menai.me";
   };
 
   environment.systemPackages = with pkgs; [
@@ -181,48 +125,62 @@
       cd /home/vault/.dotfiles/nixos
       exec ${colmena}/bin/colmena "$@" --impure
     '')
+
+    # outputs.packages.${pkgs.stdenv.hostPlatform.system}.bin
+    fastfetch
   ];
 
-  i18n.supportedLocales = [
-    "en_US.UTF-8/UTF-8"
-    "ja_JP.UTF-8/UTF-8"
-    "fr_FR.UTF-8/UTF-8"
-    "ar_EG.UTF-8/UTF-8"
-  ];
-
-  # Japanese keyboard
-  i18n.inputMethod = {
-    enable = true;
-    type = "fcitx5";
-    fcitx5 = {
-      waylandFrontend = true;
-
-      addons = with pkgs; [
-        fcitx5-mozc-ut
-        fcitx5-gtk
-        qt6Packages.fcitx5-configtool # A GUI to configure Fcitx5
+  programs = {
+    nix-ld = {
+      enable = true;
+      libraries = with pkgs; [
+        stdenv
+        libgcc
+        libllvm
+        portaudio
       ];
+    };
+
+    nix-index-database.comma = {
+      enable = true;
     };
   };
 
-  environment.sessionVariables = {
-    GTK_IM_MODULE = "fcitx";
-    QT_IM_MODULE = "fcitx";
-    XMODIFIERS = "@im=fcitx";
-  };
+  sops.secrets = {
+    "id_ed25519_vm" = {
+      key = "users/vault/ssh_private_key";
+      sopsFile = "${builtins.toString inputs.secrets}/hosts/vm.yaml";
+      path = "/home/${config.spec.user}/.ssh/id_ed25519_vm";
+      owner = config.spec.user;
+      group = "users";
+      mode = "0600";
+    };
 
-  boot.kernelModules = [ "uinput" ];
+    "id_ed25519_vm.pub" = {
+      key = "users/vault/ssh_public_key";
+      sopsFile = "${builtins.toString inputs.secrets}/hosts/vm.yaml";
+      path = "/home/${config.spec.user}/.ssh/id_ed25519_vm.pub";
+      owner = config.spec.user;
+      group = "users";
+      mode = "0600";
+    };
 
-  services.udev.extraRules = ''
-    KERNEL=="uinput", SUBSYSTEM=="misc", OPTIONS+="static_node=uinput", TAG+="uaccess"
-  '';
+    "id_ed25519_kernel" = {
+      key = "users/vault/ssh_private_key";
+      sopsFile = "${builtins.toString inputs.secrets}/hosts/kernel.yaml";
+      path = "/home/${config.spec.user}/.ssh/id_ed25519_kernel";
+      owner = config.spec.user;
+      group = "users";
+      mode = "0600";
+    };
 
-  xdg.portal = {
-    enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
-  };
-
-  environment.sessionVariables = {
-    WASTEBIN_URL = "https://bin.menai.me";
+    "id_ed25519_kernel.pub" = {
+      key = "users/vault/ssh_public_key";
+      sopsFile = "${builtins.toString inputs.secrets}/hosts/kernel.yaml";
+      path = "/home/${config.spec.user}/.ssh/id_ed25519_kernel.pub";
+      owner = config.spec.user;
+      group = "users";
+      mode = "0600";
+    };
   };
 }

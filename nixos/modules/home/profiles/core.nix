@@ -1,10 +1,24 @@
 { config, lib, ... }:
+let
+  cfg = config.features.profiles.core;
+in
 {
   options.features.profiles.core = {
     enable = lib.mkEnableOption "Core profile";
   };
 
-  config = lib.mkIf config.features.profiles.core.enable {
-    home.stateVersion = lib.mkDefault "25.11";
+  config = lib.mkIf cfg.enable {
+    features = {
+      core = {
+        nix.enable = true;
+        home.enable = true;
+        sops.enable = true;
+      };
+
+      apps.tools = {
+        git.enable = true;
+        ssh.enable = true;
+      };
+    };
   };
 }

@@ -1,4 +1,7 @@
 { config, lib, ... }:
+let
+  cfg = config.features.containers.shlink;
+in
 {
   options.features.containers.shlink = {
     enable = lib.mkEnableOption "URL Shortener";
@@ -10,12 +13,12 @@
     };
   };
 
-  config = lib.mkIf config.features.containers.shlink.enable {
+  config = lib.mkIf cfg.enable {
     virtualisation.oci-containers.containers."shlink" = {
       image = "shlinkio/shlink:stable";
       ports = [ "127.0.0.1:8385:8385" ];
       extraOptions = [ "--pull=always" ];
-      environment = config.features.containers.shlink.environment;
+      environment = cfg.environment;
     };
   };
 }

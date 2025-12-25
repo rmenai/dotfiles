@@ -4,12 +4,15 @@
   pkgs,
   ...
 }:
+let
+  cfg = config.features.apps.gaming.prism;
+in
 {
   options.features.apps.gaming.prism = {
     enable = lib.mkEnableOption "Prism Minecraft launcher";
   };
 
-  config = lib.mkIf config.features.apps.gaming.prism.enable {
+  config = lib.mkIf cfg.enable {
     home.packages = [ pkgs.prismlauncher ];
 
     # xdg.desktopEntries."org.prismlauncher.PrismLauncher" = {
@@ -19,8 +22,14 @@
     #   icon = "org.prismlauncher.PrismLauncher";
     #   terminal = false;
     #   type = "Application";
-    #   categories = [ "Game" "ActionGame" ];
-    #   mimeType = [ "application/zip" "application/x-modrinth-modpack+zip" ];
+    #   categories = [
+    #     "Game"
+    #     "ActionGame"
+    #   ];
+    #   mimeType = [
+    #     "application/zip"
+    #     "application/x-modrinth-modpack+zip"
+    #   ];
     #   startupNotify = true;
     # };
   };

@@ -1,19 +1,18 @@
 {
-  pkgs,
-  lib,
   config,
+  lib,
+  pkgs,
   ...
 }:
+let
+  cfg = config.features.apps.socials.discord;
+in
 {
   options.features.apps.socials.discord = {
     enable = lib.mkEnableOption "Discord chat application";
   };
 
-  config = lib.mkIf config.features.apps.socials.discord.enable {
-    home.packages = with pkgs; [ vesktop ];
-
-    # features.dotfiles = {
-    #   paths = { ".config/BetterDiscord" = lib.mkDefault "BetterDiscord"; };
-    # };
+  config = lib.mkIf cfg.enable {
+    home.packages = [ pkgs.vesktop ];
   };
 }

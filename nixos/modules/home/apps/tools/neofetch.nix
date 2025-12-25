@@ -4,12 +4,15 @@
   pkgs,
   ...
 }:
+let
+  cfg = config.features.apps.tools.neofetch;
+in
 {
   options.features.apps.tools.neofetch = {
-    enable = lib.mkEnableOption "Neofetch system information tool";
+    enable = lib.mkEnableOption "Neofetch";
   };
 
-  config = lib.mkIf config.features.apps.tools.neofetch.enable {
-    home.packages = with pkgs; [ neofetch ];
+  config = lib.mkIf cfg.enable {
+    home.packages = [ pkgs.neofetch ];
   };
 }

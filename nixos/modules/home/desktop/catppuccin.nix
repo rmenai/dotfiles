@@ -27,14 +27,14 @@ let
   #     cp -r .config/gtk-3.0 $out/
   #   '';
   # };
-
+  cfg = config.features.desktop.catppuccin;
 in
 {
   options.features.desktop.catppuccin = {
     enable = lib.mkEnableOption "Catppuccin theme globally";
   };
 
-  config = lib.mkIf config.features.desktop.catppuccin.enable {
+  config = lib.mkIf cfg.enable {
     catppuccin = {
       flavor = "mocha";
       accent = "pink";

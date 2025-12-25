@@ -4,12 +4,15 @@
   pkgs,
   ...
 }:
+let
+  cfg = config.features.apps.gaming.itch;
+in
 {
   options.features.apps.gaming.itch = {
     enable = lib.mkEnableOption "itch.io desktop app";
   };
 
-  config = lib.mkIf config.features.apps.gaming.itch.enable {
+  config = lib.mkIf cfg.enable {
     home.packages = [ pkgs.itch ];
 
     # xdg.desktopEntries."itch" = {
@@ -20,7 +23,10 @@
     #   terminal = false;
     #   type = "Application";
     #   categories = [ "Game" ];
-    #   mimeType = [ "x-scheme-handler/itchio" "x-scheme-handler/itch" ];
+    #   mimeType = [
+    #     "x-scheme-handler/itchio"
+    #     "x-scheme-handler/itch"
+    #   ];
     #   startupNotify = true;
     # };
   };
