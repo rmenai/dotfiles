@@ -8,7 +8,7 @@ Config.anti_alias_custom_block_glyphs = true
 Config.font_size = 12.0
 
 Config.font = wt.font_with_fallback({
-  { family = "Iosevka Nerd Font" },
+  { family = "Iosevka Nerd Font Mono" },
   { family = "Sarasa Mono J" },
   { family = "Noto Color Emoji" },
   { family = "LegacyComputing" },
