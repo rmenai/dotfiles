@@ -41,9 +41,6 @@ in
       };
     };
 
-    features.core.dotfiles.links = {
-      nixos = "nixos";
-      nixpkgs = "nixpkgs";
-    };
+    features.core.dotfiles.links.nixos = "nixos";
   };
 }
