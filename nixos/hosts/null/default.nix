@@ -83,6 +83,14 @@
     };
   };
 
+  system.stateVersion = "25.11";
+  boot.supportedFilesystems = [ "ntfs" ];
+
+  services.displayManager.autoLogin = {
+    enable = true;
+    inherit (config.spec) user;
+  };
+
   services.syncthing.settings = {
     folders = {
       "Notes" = {
@@ -104,9 +112,6 @@
       };
     };
   };
-
-  system.stateVersion = "25.11";
-  boot.supportedFilesystems = [ "ntfs" ];
 
   security.sudo.extraConfig = ''
     Defaults !tty_tickets # share authentication across all ttys, not one per-tty
