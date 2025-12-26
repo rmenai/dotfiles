@@ -14,8 +14,8 @@ print "Generating Atuin init..."
 mkdir ~/.local/share/atuin/
 atuin init nu | save --force ~/.local/share/atuin/init.nu
 
-# print "Generating Zoxide init..."
-# mkdir ~/.local/share/zoxide
-# zoxide init nushell --cmd cd | save --force ~/.local/share/zoxide/zoxide.nu
+print "Generating Zoxide init..."
+mkdir ~/.local/share/zoxide
+zoxide init nushell --cmd cd | save --force ~/.local/share/zoxide/zoxide.nu
 
 print "Setup complete! Restart Nushell."

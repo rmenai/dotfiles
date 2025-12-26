@@ -8,9 +8,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    programs.zoxide = {
-      enable = true;
-      enableBashIntegration = true;
-    };
+    programs.zoxide.enable = true;
   };
 }

@@ -31,7 +31,7 @@ source ~/.config/nushell/functions.nu
 # Source external tools
 source $"($nu.cache-dir)/carapace.nu"
 source ~/.local/share/atuin/init.nu
-# source ~/.local/share/zoxide/zoxide.nu
+source ~/.local/share/zoxide/zoxide.nu
 
 source ./external/command-not-found.nu
 source ./external/catppuccin.nu
