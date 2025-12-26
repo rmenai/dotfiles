@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, ... }:
 let
   cfg = config.features.apps.tools.atuin;
 in
@@ -13,8 +8,18 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [ pkgs.atuin ];
+    programs.atuin = {
+      enable = true;
 
-    features.core.dotfiles.links.atuin = "atuin";
+      settings = {
+        auto_sync = true;
+        sync_frequency = "1h";
+        style = "compact";
+        inline_height = 20;
+        enter_accept = true;
+      };
+    };
+
+    catppuccin.atuin.enable = true;
   };
 }

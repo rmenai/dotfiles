@@ -16,13 +16,12 @@ in
     home.packages = [ pkgs.nushell ];
 
     programs = {
-      carapace.enable = true;
       starship.enable = true;
+      carapace.enable = true;
     };
 
     features.core.dotfiles.links = {
       nushell = "nushell";
-      "starship.toml " = "starship.toml";
     };
 
     features.core.dotfiles.homeLinks.".profile" = "shell/.profile";

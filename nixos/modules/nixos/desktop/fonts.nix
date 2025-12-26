@@ -14,10 +14,11 @@ in
 
   config = lib.mkIf cfg.enable {
     fonts.packages = with pkgs; [
-      nerd-fonts.fira-code
-      nerd-fonts.jetbrains-mono
-      noto-fonts-cjk-sans
+      iosevka
+      nerd-fonts.iosevka
+      nerd-fonts.iosevka-term
       noto-fonts-color-emoji
+      sarasa-gothic
     ];
   };
 }

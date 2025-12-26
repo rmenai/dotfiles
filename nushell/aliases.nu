@@ -6,15 +6,9 @@ alias suspend = systemctl suspend
 alias ll = ls -l
 alias la = ls -a
 
-# Tool replacements
-alias cat = bat
-
-# fzf and bat dependent alias
-alias fzfp = fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"
-
-# xclip dependent aliases
-alias c = clipboard copy
-alias p = clipboard paste
+# # xclip dependent aliases
+# alias c = clipboard copy
+# alias p = clipboard paste
 
 # nvim dependent aliases
 alias v = nvim
