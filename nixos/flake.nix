@@ -64,6 +64,11 @@
       url = "github:catppuccin/nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    mechabar = {
+      url = "github:sejjy/mechabar";
+      flake = false;
+    };
   };
 
   outputs =

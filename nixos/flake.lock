@@ -82,11 +82,11 @@
     "dotfiles": {
       "flake": false,
       "locked": {
-        "lastModified": 1766762427,
-        "narHash": "sha256-cmapvV3fCpCKu712xjBu6DIVeL/0Bhpn9uucbCzRqNA=",
+        "lastModified": 1766766208,
+        "narHash": "sha256-C21SLYoWOXtoTM61VUwxeJeQrnu+hrLa44jqApyFqFY=",
         "ref": "refs/heads/main",
-        "rev": "bc1bcf1f0eef26caa2e7eb7c0aea6f0f969eb070",
-        "revCount": 523,
+        "rev": "e560b4b80b0cd7c68f49452161c1c2e7ed904ff6",
+        "revCount": 527,
         "type": "git",
         "url": "ssh://git@github.com/rmenai/dotfiles.git"
       },
@@ -219,6 +219,22 @@
       "original": {
         "owner": "nix-community",
         "repo": "lanzaboote",
+        "type": "github"
+      }
+    },
+    "mechabar": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1766738295,
+        "narHash": "sha256-J03ANH0EpgvmSseNWbFZFfnBBl2tMLknjBm0DamIqgs=",
+        "owner": "sejjy",
+        "repo": "mechabar",
+        "rev": "94b656f779e6604372857a492e14254adfc24251",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sejjy",
+        "repo": "mechabar",
         "type": "github"
       }
     },
@@ -400,6 +416,7 @@
         "home-manager": "home-manager",
         "impermanence": "impermanence",
         "lanzaboote": "lanzaboote",
+        "mechabar": "mechabar",
         "microvm": "microvm",
         "nix-index-database": "nix-index-database",
         "nixos-generators": "nixos-generators",
