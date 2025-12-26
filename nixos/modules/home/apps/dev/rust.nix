@@ -6,6 +6,7 @@
 }:
 let
   cfg = config.features.apps.dev.rust;
+  tomlFormat = pkgs.formats.toml { };
 in
 {
   options.features.apps.dev.rust = {
@@ -46,6 +47,21 @@ in
             path = ".bacon-locations";
           };
         };
+      };
+    };
+
+    xdg.configFile."rust-competitive-helper/rust-competitive-helper.toml" = {
+      source = tomlFormat.generate "rust-competitive-helper-config" {
+        open_task_command = [
+          "wezterm"
+          "cli"
+          "spawn"
+          "--cwd"
+          "."
+          "--"
+          "nvim"
+          "$FILE"
+        ];
       };
     };
   };

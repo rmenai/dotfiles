@@ -126,7 +126,6 @@
 
   features.core.dotfiles.links = {
     "obs-studio" = "obs-studio";
-    "rust-competitive-helper" = "rust-competitive-helper";
   };
 
   programs.ssh.extraConfig = ''
