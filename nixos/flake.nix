@@ -64,11 +64,6 @@
       url = "github:catppuccin/nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    curd = {
-      url = "github:Wraient/curd";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
