@@ -41,7 +41,7 @@
         enable = true;
         resumeDevice = "/dev/disk/by-uuid/dfe71357-a2e8-479a-b976-0cd1269cbfa2";
         resumeOffset = "533760";
-        delaySec = "1h";
+        delaySec = "4h";
       };
 
       tpm.enable = true;

@@ -21,7 +21,7 @@ in
 
     delaySec = lib.mkOption {
       type = lib.types.str;
-      default = "1h";
+      default = "4h";
       description = "Hibernation delay for suspend-then-hibernate";
     };
   };
