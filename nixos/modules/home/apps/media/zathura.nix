@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, ... }:
 let
   cfg = config.features.apps.media.zathura;
 in
@@ -13,13 +8,38 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [ zathura ];
+    programs.zathura = {
+      enable = true;
 
-    xdg.mimeApps.defaultApplications = {
-      "application/pdf" = "org.pwmt.zathura-pdf-mupdf.desktop";
-      "application/x-pdf" = "org.pwmt.zathura-pdf-mupdf.desktop";
+      options = {
+        adjust-open = "width";
+        recolor = false;
+        sandbox = "none";
+        selection-clipboard = "clipboard";
+        statusbar-hide = true;
+        statusbar-h-padding = 0;
+        statusbar-v-padding = 0;
+        page-padding = 0;
+        guioptions = "none";
+        font = "Iosevka 11";
+      };
+
+      mappings = {
+        u = "scroll half-up";
+        d = "scroll half-down";
+        T = "toggle_page_mode";
+        J = "scroll full-down";
+        K = "scroll full-up";
+        r = "reload";
+        R = "rotate";
+        A = "zoom in";
+        D = "zoom out";
+        i = "recolor";
+        p = "print";
+        b = "toggle_statusbar";
+      };
     };
 
-    features.core.dotfiles.links.zathura = "zathura";
+    catppuccin.zathura.enable = true;
   };
 }
