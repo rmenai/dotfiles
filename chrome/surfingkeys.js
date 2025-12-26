@@ -1,1 +1,0 @@
-/home/vault/.config/sops-nix/secrets/data

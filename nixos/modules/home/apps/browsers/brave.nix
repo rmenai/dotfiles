@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, ... }:
 let
   cfg = config.features.apps.browsers.brave;
 in
@@ -13,6 +8,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [ pkgs.brave ];
+    programs.brave.enable = true;
+    catppuccin.brave.enable = true;
   };
 }

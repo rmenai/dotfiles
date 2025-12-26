@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, ... }:
 let
   cfg = config.features.apps.browsers.chromium;
 in
@@ -13,8 +8,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [ pkgs.chromium ];
-
-    features.core.dotfiles.links.chrome = "chrome";
+    programs.chromium.enable = true;
+    catppuccin.chromium.enable = true;
   };
 }

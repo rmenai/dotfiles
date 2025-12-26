@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, ... }:
 let
   cfg = config.features.apps.browsers.firefox;
 in
@@ -13,6 +8,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [ pkgs.firefox ];
+    programs.firefox.enable = true;
+    catppuccin.firefox.enable = true;
   };
 }
