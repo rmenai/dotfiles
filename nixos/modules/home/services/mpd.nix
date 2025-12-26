@@ -32,11 +32,22 @@ in
       '';
     };
 
-    home.packages = with pkgs; [
-      mpc
-      (pkgs.ncmpcpp.override { visualizerSupport = true; })
-    ];
+    home.packages = [ pkgs.mpc ];
 
-    features.core.dotfiles.links.ncmpcpp = "ncmpcpp";
+    programs.ncmpcpp = {
+      enable = true;
+      package = pkgs.ncmpcpp.override { visualizerSupport = true; };
+
+      mpdMusicDir = "/home/${config.spec.user}/Music";
+
+      settings = {
+        mpd_host = "localhost";
+        mpd_port = "6600";
+
+        visualizer_data_source = "/tmp/mpd.fifo";
+        visualizer_output_name = "mpd_fifo";
+        visualizer_type = "spectrum";
+      };
+    };
   };
 }
