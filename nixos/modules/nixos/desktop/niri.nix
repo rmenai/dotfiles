@@ -14,32 +14,13 @@ in
 
   config = lib.mkIf cfg.enable {
     programs.niri.enable = true;
-
-    environment.systemPackages = with pkgs; [
-      xwayland-satellite
-    ];
+    environment.systemPackages = [ pkgs.xwayland-satellite ];
+    security.polkit.enable = true;
 
     services = {
-      xserver = {
-        enable = true;
-        xkb.layout = "us";
-      };
-
+      xserver.xkb.layout = "us";
       libinput.enable = true;
     };
-
-    xdg.portal = {
-      enable = true;
-
-      extraPortals = with pkgs; [
-        xdg-desktop-portal-gnome
-        xdg-desktop-portal-gtk
-      ];
-    };
-
-    security.polkit.enable = true;
-    services.gnome.gnome-keyring.enable = true;
-    security.pam.services.login.enableGnomeKeyring = true;
 
     programs.ssh.startAgent = lib.mkForce false;
   };

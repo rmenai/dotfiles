@@ -7,9 +7,11 @@
     inputs.disko.nixosModules.disko
     inputs.home-manager.nixosModules.home-manager
     inputs.sops-nix.nixosModules.sops
-    inputs.catppuccin.nixosModules.catppuccin
     inputs.nix-index-database.nixosModules.nix-index
     inputs.microvm.nixosModules.host
+
+    inputs.catppuccin.nixosModules.catppuccin
+    inputs.niri.nixosModules.niri
 
     "${inputs.secrets}/nixos.nix"
   ]
@@ -25,7 +27,6 @@
     )
     [
       ./apps
-      ./containers
       ./core
       ./desktop
       ./hardware

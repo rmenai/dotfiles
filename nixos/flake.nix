@@ -65,6 +65,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     mechabar = {
       url = "github:sejjy/mechabar";
       flake = false;

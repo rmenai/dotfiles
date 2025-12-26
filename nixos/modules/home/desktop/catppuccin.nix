@@ -17,23 +17,29 @@ in
     catppuccin = {
       enable = true;
       flavor = "mocha";
-      accent = "pink";
+      accent = "lavender";
 
       cursors.enable = true;
       cursors.accent = "dark";
     };
 
-    qt = {
-      enable = true;
-      style.name = "kvantum";
-      platformTheme.name = "kvantum";
-    };
-
     gtk = {
       enable = true;
-      font.name = "Inter:medium";
-      theme.name = "adw-gtk3-dark";
-      theme.package = pkgs.adw-gtk3;
+
+      theme = {
+        name = "catppuccin-mocha-lavender-standard";
+        package = pkgs.catppuccin-gtk.override {
+          accents = [ "lavender" ];
+          size = "standard";
+          variant = "mocha";
+        };
+      };
+    };
+
+    qt = {
+      enable = true;
+      platformTheme.name = "kvantum";
+      style.name = "kvantum";
     };
   };
 }
