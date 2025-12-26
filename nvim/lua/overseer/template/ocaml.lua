@@ -27,15 +27,15 @@ return {
     filetype = { "ocaml" },
   },
   generator = function(_, cb)
-    local project_name = get_project_name() or "./bin/main.exe" -- Default to main.exe if name not found
+    local project_name = get_project_name() or "./bin/main.exe"
 
     local templates = {
       {
         name = "Interpret File (OCaml)",
         builder = function()
           return {
-            cmd = { "ocaml" },
-            args = { vim.fn.expand("%:p") },
+            cmd = { "opam" },
+            args = { "exec", "--", "ocaml", vim.fn.expand("%:p") },
             components = { "default" },
           }
         end,
@@ -45,8 +45,19 @@ return {
         name = "Run Project (OCaml)",
         builder = function()
           return {
-            -- Using shell to chain build && exec
-            cmd = { "bash", "-c", string.format("dune build && dune exec %s", project_name) },
+            cmd = { "opam" },
+            args = { "exec", "--", "dune", "exec", project_name },
+            components = { "default" },
+          }
+        end,
+      },
+
+      {
+        name = "Build Project (OCaml)",
+        builder = function()
+          return {
+            cmd = { "opam" },
+            args = { "exec", "--", "dune", "build" },
             components = { "default" },
           }
         end,

@@ -4,7 +4,6 @@ let paths = [
 
   "~/.local/bin",
   "~/.cargo/bin",
-  "~/.opam/default/bin",
 ]
 
 $env.PATH = (

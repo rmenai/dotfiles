@@ -15,6 +15,8 @@ in
   config = lib.mkIf cfg.enable {
     home.packages = [ pkgs.opam ];
 
-    features.core.dotfiles.links.utop = "utop";
+    xdg.configFile."utop/init.ml".text = ''
+      #edit_mode_vi
+    '';
   };
 }

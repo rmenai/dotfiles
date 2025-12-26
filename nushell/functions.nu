@@ -8,3 +8,11 @@ def --env y [...args] {
 	}
 	rm -fp $tmp
 }
+
+# A way to load ocaml env
+def --env opam-env [] {
+    opam env --shell=powershell
+    | parse "$env:{key} = '{val}'"
+    | transpose -rd
+    | load-env
+}
