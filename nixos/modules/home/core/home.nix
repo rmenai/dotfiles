@@ -11,6 +11,7 @@ in
     home = {
       username = config.spec.user;
       homeDirectory = "/home/${config.spec.user}";
+      enableNixpkgsReleaseCheck = false;
     };
 
     programs.home-manager.enable = true;
