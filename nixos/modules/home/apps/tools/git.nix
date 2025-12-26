@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, ... }:
 let
   cfg = config.features.apps.tools.git;
 in
@@ -13,8 +8,18 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [ pkgs.git ];
+    programs.git = {
+      enable = true;
 
-    features.core.dotfiles.links.git = "git";
+      settings = {
+        user = {
+          name = config.spec.userFullName;
+          email = config.spec.email;
+        };
+
+        init.defaultBranch = "main";
+        pull.rebase = true;
+      };
+    };
   };
 }

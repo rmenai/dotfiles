@@ -18,7 +18,7 @@
       description = "The runner of the host flake";
     };
     email = lib.mkOption {
-      type = lib.types.attrsOf lib.types.str;
+      type = lib.types.str;
       description = "The email of the user";
     };
     userFullName = lib.mkOption {
