@@ -14,11 +14,14 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
-      btop
-      bottom
       bandwhich
+      bottom
     ];
 
-    features.core.dotfiles.links.btop = "btop";
+    programs.btop = {
+      enable = true;
+    };
+
+    catppuccin.btop.enable = true;
   };
 }
