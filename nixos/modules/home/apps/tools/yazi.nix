@@ -21,6 +21,6 @@ in
       fd
     ];
 
-    features.core.dotfiles.links.yazi = "yazi";
+    catppuccin.yazi.enable = true;
   };
 }
