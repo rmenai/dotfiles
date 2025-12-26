@@ -16,6 +16,7 @@ in
     fonts.packages = with pkgs; [
       iosevka
       nerd-fonts.iosevka
+      nerd-fonts.commit-mono
       noto-fonts-color-emoji
       sarasa-gothic
     ];

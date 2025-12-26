@@ -37,6 +37,7 @@
 
     desktop = {
       niri.enable = true;
+      waybar.enable = true;
       catppuccin.enable = true;
       mime.enable = false;
     };

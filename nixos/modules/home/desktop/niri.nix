@@ -22,12 +22,9 @@ in
     ];
 
     programs = {
-      waybar.enable = true;
       fuzzel.enable = true;
     };
 
-    features.core.dotfiles.links = {
-      niri = "niri";
-    };
+    features.core.dotfiles.links.niri = "niri";
   };
 }
