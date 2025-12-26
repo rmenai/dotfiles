@@ -20,14 +20,6 @@ in
       };
     };
 
-    home.activation.batCacheRebuild = {
-      after = [ "linkGeneration" ];
-      before = [ ];
-      data = ''
-        ${pkgs.bat}/bin/bat cache --build
-      '';
-    };
-
-    features.core.dotfiles.links.bat = "bat";
+    catppuccin.bat.enable = true;
   };
 }

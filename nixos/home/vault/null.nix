@@ -76,6 +76,7 @@
         hyprfine.enable = true;
         ripgrep.enable = true;
         zoxide.enable = true;
+        bat.enable = true;
       };
 
       dev = {
