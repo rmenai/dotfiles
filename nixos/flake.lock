@@ -82,11 +82,11 @@
     "dotfiles": {
       "flake": false,
       "locked": {
-        "lastModified": 1766780577,
-        "narHash": "sha256-Rn4+O4Arl0bcnHXC8oDwTBs289fFx+mhFFtkMA8soHU=",
+        "lastModified": 1766838578,
+        "narHash": "sha256-iSWIvDWLBS96PsMvfp7EC3UDQfaRv+rWIP/JqfGBWps=",
         "ref": "refs/heads/main",
-        "rev": "cc204f22e9c612bcd501c1d23cb7531364f3705b",
-        "revCount": 529,
+        "rev": "2b9ce52557a1f9528ee26ee2d98a834b54f0738f",
+        "revCount": 536,
         "type": "git",
         "url": "ssh://git@github.com/rmenai/dotfiles.git"
       },
@@ -225,11 +225,11 @@
     "mechabar": {
       "flake": false,
       "locked": {
-        "lastModified": 1766738295,
-        "narHash": "sha256-J03ANH0EpgvmSseNWbFZFfnBBl2tMLknjBm0DamIqgs=",
+        "lastModified": 1766788388,
+        "narHash": "sha256-bh9OUmMpc6fNTedmN7DIkSLSlqsr4aAEBlkqiIlT63o=",
         "owner": "sejjy",
         "repo": "mechabar",
-        "rev": "94b656f779e6604372857a492e14254adfc24251",
+        "rev": "7109bcd2f1bd56f4da00adc10c105bdb7ccd4d6d",
         "type": "github"
       },
       "original": {
@@ -499,7 +499,9 @@
         "nixpkgs-stable": "nixpkgs-stable_2",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "secrets": "secrets",
-        "sops-nix": "sops-nix"
+        "sops-nix": "sops-nix",
+        "zjnav": "zjnav",
+        "zjstatus": "zjstatus"
       }
     },
     "rust-overlay": {
@@ -624,6 +626,30 @@
         "owner": "Supreeeme",
         "repo": "xwayland-satellite",
         "type": "github"
+      }
+    },
+    "zjnav": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-uOd2rSDM4Ruwr8JrYd8ucQei2PJyAykpIyR09sKvnYg=",
+        "type": "file",
+        "url": "https://github.com/hiasr/vim-zellij-navigator/releases/latest/download/vim-zellij-navigator.wasm"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/hiasr/vim-zellij-navigator/releases/latest/download/vim-zellij-navigator.wasm"
+      }
+    },
+    "zjstatus": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-XJRzfnwQHLavw7phdHMLixLnvu/UsXSkVyuhKjLhGP0=",
+        "type": "file",
+        "url": "https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm"
       }
     }
   },

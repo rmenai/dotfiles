@@ -74,6 +74,16 @@
       url = "github:sejjy/mechabar";
       flake = false;
     };
+
+    zjstatus = {
+      url = "https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm";
+      flake = false;
+    };
+
+    zjnav = {
+      url = "https://github.com/hiasr/vim-zellij-navigator/releases/latest/download/vim-zellij-navigator.wasm";
+      flake = false;
+    };
   };
 
   outputs =
