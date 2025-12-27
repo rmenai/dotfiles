@@ -216,7 +216,7 @@ in
                     emphasis_1 24 24 37 // #181825 Mantle
                     emphasis_2 245 194 231 // #f5c2e7 Pink
                     emphasis_3 137 180 250 // #89b4fa Blue
-
+                }
                 exit_code_error {
                     base 243 139 168 // #f38ba8 Red
                     background 0
