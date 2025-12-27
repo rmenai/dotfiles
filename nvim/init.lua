@@ -4,3 +4,4 @@ require("config.lazy")
 -- Core setup
 require("config.utils")
 require("config.macros")
+require("config.commands")
