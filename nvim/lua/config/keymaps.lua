@@ -20,18 +20,6 @@ map("n", "<C-j>", "<cmd>NavigateDown<CR>", { desc = "Navigate down" })
 map("n", "<C-k>", "<cmd>NavigateUp<CR>", { desc = "Navigate up" })
 map("n", "<C-l>", "<cmd>NavigateRightTab<CR>", { desc = "Navigate right or Zellij tab" })
 
--- -- Resize panes
--- map("n", "<A-h>", function() require("smart-splits").resize_left() end, { desc = "Resize pane left" })
--- map("n", "<A-j>", function() require("smart-splits").resize_down() end, { desc = "Resize pane down" })
--- map("n", "<A-k>", function() require("smart-splits").resize_up() end, { desc = "Resize pane up" })
--- map("n", "<A-l>", function() require("smart-splits").resize_right() end, { desc = "Resize pane right" })
---
--- -- Swapping buffers between windows
--- map("n", "<leader>wh", function() require("smart-splits").swap_buf_left() end, { desc = "Swap buffer left" })
--- map("n", "<leader>wl", function() require("smart-splits").swap_buf_right() end, { desc = "Swap buffer right" })
--- map("n", "<leader>wj", function() require("smart-splits").swap_buf_down() end, { desc = "Swap buffer down" })
--- map("n", "<leader>wk", function() require("smart-splits").swap_buf_up() end, { desc = "Swap buffer up" })
-
 -- Location History
 map("n", "gj", "<C-o>", { desc = "Go to previous location" })
 map("n", "gk", "<C-i>", { desc = "Go to next location" })
