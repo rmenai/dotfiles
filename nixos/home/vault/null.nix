@@ -50,6 +50,7 @@
       terminals = {
         wezterm.enable = true;
         kitty.enable = true;
+        foot.enable = true;
       };
 
       browsers = {
