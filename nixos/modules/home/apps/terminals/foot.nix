@@ -19,7 +19,7 @@ in
       settings = {
         main = {
           font = "Iosevka Nerd Font Mono:size=12";
-          shell = "${pkgs.nushell}/bin/nu";
+          shell = "${pkgs.zellij}/bin/zellij";
           pad = "10x10";
         };
 

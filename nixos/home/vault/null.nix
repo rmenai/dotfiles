@@ -48,8 +48,8 @@
       };
 
       terminals = {
-        wezterm.enable = true;
         kitty.enable = true;
+        zellij.enable = true;
         foot.enable = true;
       };
 
