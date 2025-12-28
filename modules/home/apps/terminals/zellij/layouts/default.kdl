@@ -1,0 +1,75 @@
+layout {
+    default_tab_template {
+        children
+
+        pane size=2 borderless=true {
+            plugin location="z-status" {
+                // Catppuccin Mocha colors
+                color_rosewater "#f5e0dc"
+                color_flamingo "#f2cdcd"
+                color_pink "#f5c2e7"
+                color_mauve "#cba6f7"
+                color_red "#f38ba8"
+                color_maroon "#eba0ac"
+                color_peach "#fab387"
+                color_yellow "#f9e2af"
+                color_green "#a6e3a1"
+                color_teal "#94e2d5"
+                color_sky "#89dceb"
+                color_sapphire "#74c7ec"
+                color_blue "#89b4fa"
+                color_lavender "#b4befe"
+                color_text "#cdd6f4"
+                color_subtext1 "#bac2de"
+                color_subtext0 "#a6adc8"
+                color_overlay2 "#9399b2"
+                color_overlay1 "#7f849c"
+                color_overlay0 "#6c7086"
+                color_surface2 "#585b70"
+                color_surface1 "#45475a"
+                color_surface0 "#313244"
+                color_base "#1e1e2e"
+                color_mantle "#181825"
+                color_crust "#11111b"
+
+                format_left   "{mode}#[fg=$lavender,bold] {session}"
+                format_center "{tabs}"
+                format_right  "{datetime}"
+                format_space  ""
+                format_hide_on_overlength "true"
+                format_precedence "crl"
+
+                border_enabled  "true"
+                border_char     "─"
+                border_format   "#[fg=$overlay0]{char}"
+                border_position "top"
+
+                mode_normal        "#[bg=$lavender,fg=$base,bold] NORMAL #[fg=$lavender,bg=$surface0]"
+                mode_locked        "#[bg=$overlay0,fg=$base,bold] LOCKED #[fg=$overlay0,bg=$surface0]"
+                mode_resize        "#[bg=$red,fg=$base,bold] RESIZE #[fg=$red,bg=$surface0]"
+                mode_pane          "#[bg=$lavender,fg=$base,bold] PANE #[fg=$lavender,bg=$surface0]"
+                mode_tab           "#[bg=$green,fg=$base,bold] TAB #[fg=$green,bg=$surface0]"
+                mode_scroll        "#[bg=$yellow,fg=$base,bold] SCROLL #[fg=$yellow,bg=$surface0]"
+                mode_enter_search  "#[bg=$peach,fg=$base,bold] ENT-SEARCH #[fg=$peach,bg=$surface0]"
+                mode_search        "#[bg=$peach,fg=$base,bold] SEARCH #[fg=$peach,bg=$surface0]"
+                mode_rename_tab    "#[bg=$green,fg=$base,bold] RENAME-TAB #[fg=$green,bg=$surface0]"
+                mode_rename_pane   "#[bg=$lavender,fg=$base,bold] RENAME-PANE #[fg=$lavender,bg=$surface0]"
+                mode_session       "#[bg=$mauve,fg=$base,bold] SESSION #[fg=$mauve,bg=$surface0]"
+                mode_move          "#[bg=$pink,fg=$base,bold] MOVE #[fg=$pink,bg=$surface0]"
+                mode_prompt        "#[bg=$lavender,fg=$base,bold] PROMPT #[fg=$lavender,bg=$surface0]"
+                mode_tmux          "#[bg=$peach,fg=$base,bold] TMUX #[fg=$peach,bg=$surface0]"
+
+                tab_normal              "#[fg=$overlay0] {name} "
+                tab_normal_fullscreen   "#[fg=$overlay0] {name} [] "
+                tab_normal_sync         "#[fg=$overlay0] {name} <> "
+                tab_active              "#[fg=$lavender,bold,italic] {name} "
+                tab_active_fullscreen   "#[fg=$lavender,bold,italic] {name} [] "
+                tab_active_sync         "#[fg=$lavender,bold,italic] {name} <> "
+
+                datetime          "#[fg=$overlay0,bold] {format} "
+                datetime_format   "%a %d %b %H:%M"
+                datetime_timezone "Europe/Amsterdam"
+            }
+        }
+    }
+}
