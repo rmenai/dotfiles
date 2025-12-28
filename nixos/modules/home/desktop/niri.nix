@@ -15,18 +15,195 @@ in
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       wl-clipboard
-      alacritty
-      cliphist
-      matugen
-      cava
+      hyprpicker
+      libnotify
+      nautilus
+
+      networkmanager_dmenu
+      rofi-power-menu
+      rofi-bluetooth
     ];
 
-    programs.fuzzel.enable = true;
+    programs = {
+      fuzzel.enable = true;
+      rofi.enable = true;
+
+      waybar = {
+        systemd = {
+          enable = true;
+          target = "graphical-session.target";
+        };
+      };
+
+      swaylock = {
+        enable = true;
+        package = pkgs.swaylock-effects;
+
+        settings = {
+          daemonize = true;
+          show-failed-attempts = true;
+          ignore-empty-password = true;
+          grace-no-touch = true;
+          grace = 0;
+
+          screenshots = true;
+          effect-blur = "15x15";
+          effect-vignette = "1:1";
+
+          clock = true;
+          indicator = true;
+          indicator-radius = 160;
+          indicator-thickness = 20;
+
+          font = "Iosevka Nerd Font Mono";
+          datestr = "%a, %B %e";
+
+          ring-color = lib.mkForce "b4befe"; # #b4befe
+          inside-color = lib.mkForce "1e1e2e80"; # #1e1e2e
+          key-hl-color = lib.mkForce "11111b80"; # #11111b
+          text-caps-lock-color = lib.mkForce "b4befe"; # #b4befe
+
+          ring-wrong-color = lib.mkForce "f38ba8"; # #f38ba8
+          text-wrong-color = lib.mkForce "f38ba8"; # #f38ba8
+
+          ring-ver-color = lib.mkForce "cba6f7"; # #cba6f7
+          text-ver-color = lib.mkForce "cba6f7"; # #cba6f7
+
+          ring-clear-color = lib.mkForce "f2cdcd"; # #f2cdcd
+          text-clear-color = lib.mkForce "f2cdcd"; # #f2cdcd
+          bs-hl-color = lib.mkForce "f2cdcd"; # #f2cdcd
+        };
+      };
+
+      satty = {
+        enable = true;
+
+        settings = {
+          general = {
+            fullscreen = true;
+            early-exit = true;
+            initial-tool = "brush";
+            copy-command = "wl-copy";
+            output-filename = "~/Pictures/Drafts/%Y-%m-%d_%H:%M:%S.png";
+            save-after-copy = true;
+            primary-highlighter = "block";
+            no-window-decoration = true;
+          };
+
+          font = {
+            family = "Roboto";
+            style = "Regular";
+          };
+
+          "color-palette" = {
+            palette = [
+              "#b4befe" # Lavender
+              "#f38ba8" # Red
+              "#fab387" # Peach
+              "#f9e2af" # Yellow
+              "#a6e3a1" # Green
+              "#89b4fa" # Blue
+              "#cba6f7" # Mauve
+            ];
+          };
+        };
+      };
+    };
+
+    services = {
+      cliphist = {
+        enable = true;
+        systemdTargets = [ "graphical-session.target" ];
+      };
+
+      swww = {
+        enable = true;
+      };
+
+      swayidle = {
+        enable = true;
+        systemdTarget = "graphical-session.target";
+
+        extraArgs = [ "-w" ];
+
+        events = {
+          "lock" = "${pkgs.swaylock-effects}/bin/swaylock -f";
+          "before-sleep" = "${pkgs.systemd}/bin/loginctl lock-session";
+        };
+
+        timeouts = [
+          # 2.5 Minutes: Dim screen
+          {
+            timeout = 150;
+            command = "${pkgs.brightnessctl}/bin/brightnessctl -s set 10"; # Save state and dim
+            resumeCommand = "${pkgs.brightnessctl}/bin/brightnessctl -r"; # Restore state
+          }
+
+          # 5 Minutes: Lock screen
+          {
+            timeout = 300;
+            command = "${pkgs.systemd}/bin/loginctl lock-session";
+          }
+
+          # 5.5 Minutes: Turn off screens
+          {
+            timeout = 330;
+            command = "niri msg action power-off-monitors";
+          }
+        ];
+      };
+
+      swaync = {
+        enable = true;
+
+        settings = {
+          timeout = 5;
+          timeout-low = 3;
+          timeout-critical = 0;
+          fit-to-screen = true;
+          keyboard-shortcuts = true;
+          notification-2fa-action = true; # Handy for "Copy 2FA code" buttons
+
+          widgets = [
+            "title"
+            "dnd"
+            "notifications"
+          ];
+
+          widget-config = {
+          };
+        };
+      };
+
+      swayosd = {
+        enable = true;
+        topMargin = 0.03;
+      };
+
+      wlsunset = {
+        enable = true;
+        systemdTarget = "graphical-session.target";
+
+        # France, Lyon
+        longitude = "45.7";
+        latitude = "4.9";
+
+        temperature.day = 6500;
+        temperature.night = 6000;
+      };
+    };
+
+    catppuccin = {
+      rofi.enable = true;
+      swaync.enable = true;
+      swaylock.enable = true;
+    };
 
     # Niri is enabled by the nixos module
     programs.niri = {
       settings = {
         prefer-no-csd = true;
+        screenshot-path = "~/Pictures/Screenshots/%Y-%m-%d_%H:%M:%S.png";
 
         input = {
           keyboard.xkb.layout = "us";
@@ -57,34 +234,41 @@ in
           };
 
           focus-ring = {
-            enable = false;
+            enable = true;
             width = 4;
-            active.color = "#b4befe";
-            inactive.color = "#505050";
+            active.color = "#0f0f1a99";
+            inactive.color = "#00000000";
           };
 
           border = {
             enable = false;
           };
+
+          shadow = {
+            enable = false;
+            softness = 20;
+            spread = 5;
+            color = "#1e1e2e80";
+          };
         };
 
         spawn-at-startup = [
-          { argv = [ "waybar" ]; }
           { argv = [ "xwayland-satellite" ]; }
         ];
 
         window-rules = [
           {
-            # Make Firefox PiP floating
-            matches = [
-              {
-                app-id = "firefox$";
-                title = "^Picture-in-Picture$";
-              }
-            ];
-            open-floating = true;
+            geometry-corner-radius = {
+              top-left = 0.0;
+              top-right = 0.0;
+              bottom-right = 12.0;
+              bottom-left = 12.0;
+            };
+
+            clip-to-geometry = true;
           }
         ];
+
         binds =
           with config.lib.niri.actions;
           let
@@ -96,7 +280,12 @@ in
             # ========================================
             "Mod+Shift+Slash".action = show-hotkey-overlay;
             "Mod+T".action = spawn "foot";
-            "Mod+D".action = spawn "fuzzel";
+            "Mod+D".action = spawn "rofi" "-show" "drun";
+            "Mod+N".action = spawn "swaync-client" "-t" "-sw";
+            "Mod+V".action =
+              spawn "sh" "-c"
+                "cliphist list | rofi -dmenu -p 'Clipboard' | cliphist decode | wl-copy";
+
             "Super+Alt+L".action = spawn "swaylock";
 
             # Toggle Orca (Screen Reader)
@@ -105,41 +294,45 @@ in
               action = sh "pkill orca || exec orca";
             };
 
+            "Super+Shift+C" = {
+              allow-when-locked = true;
+              action = sh "hyprpicker -a";
+            };
+
             # ========================================
             # 2. Audio & Media (Allow when locked)
             # ========================================
             "XF86AudioRaiseVolume" = {
               allow-when-locked = true;
-              action = sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0";
+              action = spawn "swayosd-client" "--output-volume" "raise";
             };
             "XF86AudioLowerVolume" = {
               allow-when-locked = true;
-              action = sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-";
+              action = spawn "swayosd-client" "--output-volume" "lower";
             };
             "XF86AudioMute" = {
               allow-when-locked = true;
-              action = sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+              action = spawn "swayosd-client" "--output-volume" "mute-toggle";
             };
             "XF86AudioMicMute" = {
               allow-when-locked = true;
-              action = sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
+              action = spawn "swayosd-client" "--input-volume" "mute-toggle";
             };
-
             "XF86AudioPlay" = {
               allow-when-locked = true;
-              action = sh "playerctl play-pause";
+              action = spawn "swayosd-client" "--playerctl" "play-pause";
             };
-            "XF86AudioStop" = {
+            "XF86AudioNext" = {
               allow-when-locked = true;
-              action = sh "playerctl stop";
+              action = spawn "swayosd-client" "--playerctl" "next";
             };
             "XF86AudioPrev" = {
               allow-when-locked = true;
               action = sh "playerctl previous";
             };
-            "XF86AudioNext" = {
+            "XF86AudioStop" = {
               allow-when-locked = true;
-              action = sh "playerctl next";
+              action = sh "playerctl stop";
             };
 
             # ========================================
@@ -147,11 +340,11 @@ in
             # ========================================
             "XF86MonBrightnessUp" = {
               allow-when-locked = true;
-              action = spawn "brightnessctl" "--class=backlight" "set" "+10%";
+              action = spawn "swayosd-client" "--brightness" "raise";
             };
             "XF86MonBrightnessDown" = {
               allow-when-locked = true;
-              action = spawn "brightnessctl" "--class=backlight" "set" "10%-";
+              action = spawn "swayosd-client" "--brightness" "lower";
             };
 
             # ========================================
@@ -315,7 +508,7 @@ in
             "Mod+Shift+Equal".action = set-window-height "+10%";
 
             # Toggle Floating / Tiling
-            "Mod+V".action = toggle-window-floating;
+            # "Mod+V".action = toggle-window-floating;
             "Mod+Shift+V".action = switch-focus-between-floating-and-tiling;
 
             # Toggle Tabbed Mode
@@ -334,6 +527,10 @@ in
 
             "Alt+Print".action = {
               screenshot-window = [ ];
+            };
+
+            "XF86Cut" = {
+              action = spawn "sh" "-c" "wl-paste | satty --filename -";
             };
 
             # ========================================
