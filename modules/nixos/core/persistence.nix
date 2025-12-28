@@ -28,9 +28,8 @@ in
   config = lib.mkIf cfg.enable {
     environment.persistence."${cfg.folder}" = {
       hideMounts = true;
-
-      inherit (cfg) directories;
-      inherit (cfg) files;
+      directories = cfg.directories;
+      files = cfg.files;
     };
 
     fileSystems."${cfg.folder}".neededForBoot = true;

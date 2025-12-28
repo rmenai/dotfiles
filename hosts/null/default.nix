@@ -88,7 +88,7 @@
 
   services.displayManager.autoLogin = {
     enable = true;
-    inherit (config.spec) user;
+    user = config.spec.user;
   };
 
   services.syncthing.settings = {

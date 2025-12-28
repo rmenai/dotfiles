@@ -34,8 +34,7 @@ in
         options nvidia_modeset vblank_sem_control=0 nvidia.NVreg_PreserveVideoMemoryAllocations=1 nvidia.NVreg_TemporaryFilePath=/tmp
       '';
 
-      inherit (cfg) resumeDevice;
-
+      resumeDevice = cfg.resumeDevice;
       kernelParams = [ "resume_offset=${cfg.resumeOffset}" ];
     };
 

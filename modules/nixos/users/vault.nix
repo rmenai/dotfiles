@@ -37,7 +37,7 @@ in
       description = config.spec.userFullName;
       hashedPasswordFile = config.sops.secrets."users/${config.spec.user}/password_hash".path;
 
-      inherit (cfg) shell;
+      shell = cfg.shell;
 
       extraGroups = [
         "wheel"

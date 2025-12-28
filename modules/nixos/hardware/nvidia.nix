@@ -36,8 +36,8 @@ in
 
         # Info: <https://wiki.nixos.org/wiki/NVIDIA#Common_setup>
         prime = {
-          inherit (cfg) intelBusId;
-          inherit (cfg) nvidiaBusId;
+          intelBusId = cfg.intelBusId;
+          nvidiaBusId = cfg.nvidiaBusId;
 
           offload = {
             enable = true;

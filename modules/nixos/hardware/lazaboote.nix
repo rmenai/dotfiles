@@ -30,8 +30,8 @@ in
     boot = {
       lanzaboote = {
         enable = true;
-        inherit (cfg) pkiBundle;
-        inherit (cfg) configurationLimit;
+        pkiBundle = cfg.pkiBundle;
+        configurationLimit = cfg.configurationLimit;
       };
 
       loader = {
