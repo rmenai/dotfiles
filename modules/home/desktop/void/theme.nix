@@ -4,23 +4,22 @@
   pkgs,
   ...
 }:
-
 let
-  cfg = config.features.desktop.catppuccin;
+  cfg = config.features.desktop.void;
 in
 {
-  options.features.desktop.catppuccin = {
-    enable = lib.mkEnableOption "Catppuccin theme globally";
-  };
-
   config = lib.mkIf cfg.enable {
     catppuccin = {
-      enable = true;
       flavor = "mocha";
       accent = "lavender";
 
-      cursors.enable = true;
-      cursors.accent = "dark";
+      cursors = {
+        enable = true;
+        accent = "dark";
+      };
+
+      kvantum.enable = true;
+      gtk.icon.enable = true;
     };
 
     gtk = {

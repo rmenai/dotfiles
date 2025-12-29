@@ -70,11 +70,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    mechabar = {
-      url = "github:sejjy/mechabar";
-      flake = false;
-    };
-
     zjstatus = {
       url = "https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm";
       flake = false;

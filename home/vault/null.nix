@@ -27,7 +27,6 @@
       dotfiles = {
         enable = true;
         mutable = true;
-        root = "/home/${config.spec.user}/.dotfiles";
       };
     };
 
@@ -37,9 +36,7 @@
     };
 
     desktop = {
-      niri.enable = true;
-      waybar.enable = true;
-      catppuccin.enable = true;
+      void.enable = true;
       mime.enable = false;
     };
 

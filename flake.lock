@@ -222,22 +222,6 @@
         "type": "github"
       }
     },
-    "mechabar": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1766898747,
-        "narHash": "sha256-52uEdSzrm7S+5nZb6fidomT4TYXuJ/BQq0Dm7zXx3tQ=",
-        "owner": "sejjy",
-        "repo": "mechabar",
-        "rev": "4e4ea09e62b68ab89874f3caab7d17be98ce342e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "sejjy",
-        "repo": "mechabar",
-        "type": "github"
-      }
-    },
     "microvm": {
       "inputs": {
         "nixpkgs": [
@@ -490,7 +474,6 @@
         "home-manager": "home-manager",
         "impermanence": "impermanence",
         "lanzaboote": "lanzaboote",
-        "mechabar": "mechabar",
         "microvm": "microvm",
         "niri": "niri",
         "nix-index-database": "nix-index-database",
