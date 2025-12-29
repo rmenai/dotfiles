@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, ... }:
 let
   cfg = config.features.apps.terminals.kitty;
 in
@@ -28,7 +23,6 @@ in
       };
 
       settings = {
-        shell = "${pkgs.nushell}/bin/nu";
         editor = "nvim";
 
         input_delay = 0;
@@ -36,7 +30,7 @@ in
         sync_to_monitor = "no";
         wayland_enable_ime = "no";
 
-        background_opacity = "0.9";
+        background_opacity = "0.95";
       };
     };
 

@@ -38,6 +38,10 @@ in
           };
         };
 
+        # recent-windows = {
+        #   enable = true;
+        # };
+
         layout = {
           gaps = 4;
 
