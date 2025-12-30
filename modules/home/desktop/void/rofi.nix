@@ -1,10 +1,21 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.features.desktop.void;
 in
 {
   config = lib.mkIf cfg.enable {
     catppuccin.rofi.enable = true;
+
+    programs.rofi = {
+      plugins = with pkgs; [
+        rofi-calc
+      ];
+    };
 
     xdg.configFile."networkmanager-dmenu/config.ini".text = ''
       [dmenu]
@@ -36,6 +47,10 @@ in
 
       [nmdm]
       rescan_delay = 5
+    '';
+
+    xdg.configFile."rofimoji.rc".text = ''
+      action = copy
     '';
   };
 }

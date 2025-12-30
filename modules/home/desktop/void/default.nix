@@ -24,6 +24,9 @@ in
       networkmanager_dmenu
       rofi-power-menu
       rofi-bluetooth
+      libqalculate
+      rofi-calc
+      rofimoji
 
       hyprpicker
       nautilus

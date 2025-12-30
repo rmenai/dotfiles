@@ -95,7 +95,10 @@ in
       "XF86Cut".action = spawn-sh "wl-paste | satty --filename -";
       "Mod+Alt+N".action = spawn "networkmanager_dmenu";
       "Mod+Alt+B".action = spawn "rofi-bluetooth";
+      "Mod+Alt+E".action = spawn "rofi" "-show" "emoji" "-modi" "emoji:rofimoji";
       "Mod+Backspace".action = spawn "rofi" "-show" "power-menu" "-modi" "power-menu:rofi-power-menu";
+      "Mod+Alt+C".action =
+        spawn-sh "rofi -show calc -modi calc -no-show-match -no-sort -calc-command \"echo -n '{result}' | wl-copy\"";
 
       "Mod+BracketLeft".action = consume-or-expel-window-left;
       "Mod+BracketRight".action = consume-or-expel-window-right;
