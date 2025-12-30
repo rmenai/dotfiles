@@ -13,7 +13,15 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [ pkgs.tmux ];
+    home.shellAliases = {
+      t = "tmux";
+      ta = "tmux attach";
+      tad = "tmux attach -d -t";
+      tkss = "tmux kill-session -t";
+      tksv = "tmux kill-server";
+      tl = "tmux list-sessions";
+      ts = "tmux new-session -s";
+    };
 
     programs.tmux = {
       enable = true;

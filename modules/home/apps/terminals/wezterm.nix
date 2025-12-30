@@ -16,6 +16,6 @@ in
   config = lib.mkIf cfg.enable {
     home.packages = [ pkgs.wezterm ];
     xdg.configFile."wezterm".source = mkLink ./wezterm;
-    cattppuccin.wezterm.enable = true;
+    catppuccin.wezterm.enable = true;
   };
 }

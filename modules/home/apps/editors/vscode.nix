@@ -14,6 +14,6 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = [ pkgs.vscode ];
-    catppuccin.vscode.enable = true;
+    # catppuccin.vscode.enable = true;
   };
 }

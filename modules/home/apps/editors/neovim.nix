@@ -14,6 +14,19 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    home = {
+      shellAliases = {
+        v = "nvim";
+        vimdiff = "nvim -d";
+        g = "nvim +Neogit";
+      };
+
+      sessionVariables = {
+        EDITOR = "nvim";
+        SUDO_EDITOR = "nvim";
+      };
+    };
+
     home.packages = with pkgs; [
       neovim
       vimgolf

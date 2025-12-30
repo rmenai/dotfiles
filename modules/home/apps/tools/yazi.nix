@@ -20,7 +20,12 @@ in
       fd
     ];
 
-    programs.yazi.enable = true;
+    programs.yazi = {
+      enable = true;
+      enableNushellIntegration = true;
+      shellWrapperName = "y";
+    };
+
     catppuccin.yazi.enable = true;
   };
 }

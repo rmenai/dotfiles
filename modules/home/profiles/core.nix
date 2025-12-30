@@ -20,5 +20,15 @@ in
         ssh.enable = true;
       };
     };
+
+    home.shellAliases = {
+      hibernate = "systemctl hibernate";
+      suspend = "systemctl suspend";
+
+      ll = "ls -l";
+      la = "ls -a";
+
+      warp = "wormhole-rs";
+    };
   };
 }

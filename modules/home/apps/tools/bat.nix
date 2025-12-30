@@ -13,6 +13,11 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    home = {
+      shellAliases.cat = "bat";
+      sessionVariables.MANPAGER = "sh -c 'col -bx | bat -l man -p'";
+    };
+
     programs.bat = {
       enable = true;
       extraPackages = builtins.attrValues {

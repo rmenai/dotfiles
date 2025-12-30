@@ -13,6 +13,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    home.shellAliases = {
+      r = "nix repl";
+    };
+
     home.packages = with pkgs; [
       nixfmt-rfc-style
       statix

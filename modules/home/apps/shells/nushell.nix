@@ -1,12 +1,10 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 let
   cfg = config.features.apps.shells.nushell;
-  mkLink = config.features.core.dotfiles.mkLink;
 in
 {
   options.features.apps.shells.nushell = {
@@ -14,16 +12,26 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [ pkgs.nushell ];
-
     programs = {
-      starship.enable = true;
-      carapace.enable = true;
+      carapace = {
+        enable = true;
+        enableNushellIntegration = true;
+      };
+
+      starship = {
+        enable = true;
+        enableNushellIntegration = true;
+      };
+
+      nushell = {
+        enable = true;
+        configFile.source = ./config.nu;
+      };
     };
 
-    xdg.configFile."nushell".source = mkLink ./nushell;
-    home.file.".profile".source = mkLink ./shell/profile;
-
-    catppuccin.starship.enable = true;
+    catppuccin = {
+      nushell.enable = true;
+      starship.enable = true;
+    };
   };
 }

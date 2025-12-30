@@ -13,9 +13,11 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [
-      devenv
-      direnv
-    ];
+    home.packages = [ pkgs.devenv ];
+
+    programs.direnv = {
+      enable = true;
+      enableNushellIntegration = true;
+    };
   };
 }

@@ -14,6 +14,11 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    home.sessionPath = [
+      "$HOME/.local/bin"
+      "$HOME/.cargo/bin"
+    ];
+
     home.packages = [ pkgs.rustup ];
 
     programs.bacon = {
