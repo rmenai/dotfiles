@@ -34,5 +34,11 @@ in
         };
       };
     };
+
+    features.core.persistence = {
+      directories = [
+        "/var/lib/bluetooth"
+      ];
+    };
   };
 }

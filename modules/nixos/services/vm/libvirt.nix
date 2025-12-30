@@ -39,6 +39,14 @@ in
 
     boot.extraModprobeConfig = "options kvm_intel nested=1";
 
+    features.core.persistence = {
+      directories = [
+        "/var/lib/libvirt"
+        "/var/lib/containers"
+        "/var/lib/microvms"
+      ];
+    };
+
     environment.systemPackages = with pkgs; [
       virt-viewer
       libvirt

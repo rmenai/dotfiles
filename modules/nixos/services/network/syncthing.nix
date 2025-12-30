@@ -28,5 +28,11 @@ in
         };
       };
     };
+
+    features.core.persistence = {
+      directories = [
+        "/var/lib/syncthing"
+      ];
+    };
   };
 }

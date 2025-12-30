@@ -40,6 +40,12 @@ in
       pkgs.age
     ];
 
+    features.core.persistence = {
+      directories = [
+        "/var/lib/sops"
+      ];
+    };
+
     fileSystems."/var/lib/sops" = lib.mkIf config.features.core.persistence.enable {
       neededForBoot = true;
     };

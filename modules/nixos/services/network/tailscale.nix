@@ -71,5 +71,11 @@ with lib;
     };
 
     environment.systemPackages = [ pkgs.tailscale ];
+
+    features.core.persistence = {
+      directories = [
+        "/var/lib/tailscale"
+      ];
+    };
   };
 }

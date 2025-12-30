@@ -40,6 +40,12 @@ in
       };
     };
 
+    features.core.persistence = {
+      directories = [
+        "${cfg.pkiBundle}"
+      ];
+    };
+
     fileSystems.${cfg.pkiBundle}.neededForBoot = true;
   };
 }

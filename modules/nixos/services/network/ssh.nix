@@ -26,6 +26,12 @@ in
 
     };
 
+    features.core.persistence = {
+      directories = [
+        "/etc/ssh"
+      ];
+    };
+
     users.users.${config.spec.user}.extraGroups = [ "git" ];
   };
 }

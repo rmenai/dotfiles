@@ -21,5 +21,12 @@ in
     };
 
     catppuccin.sddm.enable = true;
+
+    features.core.persistence = {
+      directories = [
+        "/var/lib/sddm"
+        "/usr/share/sddm"
+      ];
+    };
   };
 }

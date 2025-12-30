@@ -35,29 +35,13 @@ in
         "/var/log"
         "/var/lib/nixos"
         "/var/lib/systemd"
-        "/var/lib/bluetooth"
         "/var/lib/colord"
-        "/var/lib/sbctl"
         "/etc/nixos"
         "/root"
-
-        "/etc/ssh"
-        "/var/lib/sops"
 
         "/var/lib/NetworkManager"
         "/etc/NetworkManager/system-connections"
         "/var/lib/systemd/network"
-
-        "/var/lib/sddm"
-        "/usr/share/sddm"
-
-        "/var/lib/libvirt"
-        "/var/lib/microvms"
-        "/var/lib/containers"
-        "/etc/vbox"
-
-        "/var/lib/syncthing"
-        "/var/lib/tailscale"
       ];
       files = [
         "/etc/machine-id"

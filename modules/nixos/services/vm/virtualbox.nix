@@ -26,6 +26,12 @@ in
       addNetworkInterface = false;
     };
 
+    features.core.persistence = {
+      directories = [
+        "/etc/vbox"
+      ];
+    };
+
     users.users.${config.spec.user}.extraGroups = [ "vboxusers" ];
   };
 }
