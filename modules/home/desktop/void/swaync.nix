@@ -4,7 +4,10 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-    catppuccin.swaync.enable = true;
+    catppuccin.swaync = {
+      enable = true;
+      font = "Ubuntu Nerd Font";
+    };
 
     services.swaync = {
       settings = {

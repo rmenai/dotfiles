@@ -14,11 +14,38 @@ in
 
   config = lib.mkIf cfg.enable {
     fonts.packages = with pkgs; [
-      iosevka
+      nerd-fonts.ubuntu
       nerd-fonts.iosevka
       nerd-fonts.commit-mono
       noto-fonts-color-emoji
       sarasa-gothic
     ];
+
+    fonts.fontconfig = {
+      enable = true;
+
+      defaultFonts = {
+        serif = [
+          "Sarasa Gothic J"
+          "Noto Color Emoji"
+        ];
+
+        sansSerif = [
+          "Ubuntu Nerd Font"
+          "Sarasa Gothic J"
+          "Noto Color Emoji"
+        ];
+
+        monospace = [
+          "Iosevka Nerd Font"
+          "Sarasa Mono J"
+          "Noto Color Emoji"
+        ];
+
+        emoji = [
+          "Noto Color Emoji"
+        ];
+      };
+    };
   };
 }

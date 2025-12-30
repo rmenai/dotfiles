@@ -12,9 +12,10 @@ in
     catppuccin.rofi.enable = true;
 
     programs.rofi = {
-      plugins = with pkgs; [
-        rofi-calc
-      ];
+      plugins = [ pkgs.rofi-calc ];
+      font = "Ubuntu Nerd Font";
+      terminal = "${pkgs.foot}/bin/foot";
+      location = "center";
     };
 
     xdg.configFile."networkmanager-dmenu/config.ini".text = ''

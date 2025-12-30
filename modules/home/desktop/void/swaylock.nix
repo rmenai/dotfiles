@@ -30,12 +30,12 @@ in
         indicator-radius = 160;
         indicator-thickness = 20;
 
-        font = "Iosevka Nerd Font Mono";
+        font = "Ubuntu Nerd Font";
         datestr = "%a, %B %e";
 
         ring-color = lib.mkForce "b4befe"; # #b4befe
         inside-color = lib.mkForce "1e1e2e80"; # #1e1e2e
-        key-hl-color = lib.mkForce "11111b80"; # #11111b
+        key-hl-color = lib.mkForce "11111b60"; # #11111b
         text-caps-lock-color = lib.mkForce "b4befe"; # #b4befe
 
         ring-wrong-color = lib.mkForce "f38ba8"; # #f38ba8
