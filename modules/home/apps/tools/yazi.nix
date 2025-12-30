@@ -24,6 +24,13 @@ in
       enable = true;
       enableNushellIntegration = true;
       shellWrapperName = "y";
+
+      settings = {
+        preview = {
+          max_width = 1920;
+          max_height = 1080;
+        };
+      };
     };
 
     catppuccin.yazi.enable = true;
