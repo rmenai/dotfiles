@@ -15,7 +15,7 @@ in
   config = lib.mkIf cfg.enable {
     fonts.packages = with pkgs; [
       nerd-fonts.ubuntu
-      nerd-fonts.iosevka
+      nerd-fonts.jetbrains-mono
       nerd-fonts.commit-mono
       noto-fonts-color-emoji
       sarasa-gothic
@@ -37,7 +37,7 @@ in
         ];
 
         monospace = [
-          "Iosevka Nerd Font"
+          "JetBrainsMono Nerd Font"
           "Sarasa Mono J"
           "Noto Color Emoji"
         ];

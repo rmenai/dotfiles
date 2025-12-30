@@ -23,6 +23,11 @@ in
         enableNushellIntegration = true;
         settings = {
           jobs.disabled = true; # To avoid showing atuin job
+
+          character = {
+            success_symbol = "[➜](bold green)";
+            error_symbol = "[➜](bold red)";
+          };
         };
       };
 

@@ -18,7 +18,7 @@ in
 
       settings = {
         main = {
-          font = "Iosevka Nerd Font Mono:size=12";
+          font = "JetBrainsMono Nerd Font:size=12";
           shell = "${pkgs.zellij}/bin/zellij";
           pad = "10x10";
         };
