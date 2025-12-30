@@ -13,5 +13,7 @@ in
       enableBashIntegration = true;
       tmux.enableShellIntegration = true;
     };
+
+    catppuccin.fzf.enable = true;
   };
 }

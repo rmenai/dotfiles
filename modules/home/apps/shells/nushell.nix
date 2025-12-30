@@ -23,5 +23,7 @@ in
 
     xdg.configFile."nushell".source = mkLink ./nushell;
     home.file.".profile".source = mkLink ./shell/profile;
+
+    catppuccin.starship.enable = true;
   };
 }

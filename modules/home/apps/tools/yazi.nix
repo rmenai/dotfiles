@@ -14,13 +14,13 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
-      yazi
       p7zip
       poppler
       jq
       fd
     ];
 
+    programs.yazi.enable = true;
     catppuccin.yazi.enable = true;
   };
 }

@@ -11,8 +11,6 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-    catppuccin.zellij.enable = lib.mkForce false;
-
     xdg.configFile."zellij/layouts".source = mkLink ./layouts;
 
     programs.zellij = {

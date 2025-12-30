@@ -34,5 +34,7 @@ in
         ];
       };
     };
+
+    catppuccin.fcitx5.enable = true;
   };
 }

@@ -23,5 +23,10 @@ in
     ];
 
     xdg.configFile."nvim".source = mkLink ./nvim;
+
+    catppuccin = {
+      nvim.enable = true;
+      lazygit.enable = true;
+    };
   };
 }

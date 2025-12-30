@@ -14,5 +14,6 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = [ pkgs.ghostty ];
+    catppuccin.ghostty.enable = true;
   };
 }

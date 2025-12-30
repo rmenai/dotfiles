@@ -19,5 +19,7 @@ in
       enable = true;
       wayland.enable = cfg.wayland.enable;
     };
+
+    catppuccin.sddm.enable = true;
   };
 }

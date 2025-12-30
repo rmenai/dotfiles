@@ -34,4 +34,6 @@ in
       "audio/x-vorbis+ogg" = "mpv.desktop";
     };
   };
+
+  catppuccin.mpv.enable = true;
 }
