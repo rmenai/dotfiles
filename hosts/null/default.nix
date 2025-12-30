@@ -87,7 +87,7 @@
   boot.supportedFilesystems = [ "ntfs" ];
 
   services.displayManager.autoLogin = {
-    enable = true;
+    enable = false;
     user = config.spec.user;
   };
 
@@ -118,10 +118,6 @@
     Defaults lecture = never # rollback results in sudo lectures after each reboot
     Defaults timestamp_timeout=120 # only ask for password every 2h
   '';
-
-  environment.sessionVariables = {
-    WASTEBIN_URL = "https://bin.menai.me";
-  };
 
   environment.systemPackages = with pkgs; [
     (writeShellScriptBin "colmena" ''

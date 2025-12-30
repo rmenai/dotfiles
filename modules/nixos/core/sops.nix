@@ -35,6 +35,7 @@ in
     };
 
     environment.sessionVariables.SOPS_FOLDER = sopsFolder;
+
     environment.systemPackages = [
       pkgs.sops
       pkgs.age

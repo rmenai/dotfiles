@@ -171,8 +171,4 @@
       PAPERLESS_EMAIL_PORT = 2525;
     };
   };
-
-  environment.sessionVariables = {
-    WASTEBIN_URL = "https://bin.menai.me";
-  };
 }

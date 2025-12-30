@@ -43,6 +43,9 @@ in
         enable = true;
         configFile.source = ./config.nu;
 
+        shellAliases = config.home.shellAliases;
+        environmentVariables = config.home.sessionVariables;
+
         extraEnv = ''
           # Use starship indicator instead
 
