@@ -44,10 +44,5 @@ in
       swaync.enable = true;
       swww.enable = true;
     };
-
-    catppuccin = {
-      rofi.enable = true;
-      swaync.enable = true;
-    };
   };
 }
