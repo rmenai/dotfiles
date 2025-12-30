@@ -1,6 +1,8 @@
 {
   config,
+  inputs,
   lib,
+  pkgs,
   ...
 }:
 let
@@ -13,6 +15,12 @@ in
 
   config = lib.mkIf cfg.enable {
     programs = {
+      nix-index = {
+        enable = true;
+        package = inputs.nix-index-database.packages.${pkgs.system}.nix-index-with-db;
+        enableNushellIntegration = false; # command-not-found integration
+      };
+
       carapace = {
         enable = true;
         enableNushellIntegration = true;
@@ -42,6 +50,10 @@ in
           $env.PROMPT_INDICATOR_VI_INSERT = ""
           $env.PROMPT_INDICATOR_VI_NORMAL = ""
           $env.PROMPT_MULTILINE_INDICATOR = "::: "
+        '';
+
+        extraConfig = ''
+          $env.config.hooks.command_not_found = (source ${./command-not-found.nu})
         '';
       };
     };

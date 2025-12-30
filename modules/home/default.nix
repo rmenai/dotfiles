@@ -6,6 +6,7 @@
     ++ [
       inputs.sops-nix.homeManagerModules.sops
       inputs.catppuccin.homeModules.catppuccin
+      inputs.nix-index-database.homeModules.default
 
       "${inputs.secrets}/home.nix"
     ]
