@@ -35,11 +35,6 @@
       flake = false;
     };
 
-    dotfiles = {
-      url = "git+ssh://git@github.com/rmenai/dotfiles.git";
-      flake = false;
-    };
-
     colmena = {
       url = "github:zhaofengli/colmena";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -40,6 +40,12 @@ in
       };
     };
 
+    xdg.mimeApps.defaultApplications = {
+      "application/pdf" = "org.pwmt.zathura.desktop";
+      "application/postscript" = "org.pwmt.zathura.desktop";
+      "application/epub+zip" = "org.pwmt.zathura.desktop";
+    };
+
     catppuccin.zathura.enable = true;
   };
 }

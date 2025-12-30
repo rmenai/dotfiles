@@ -15,5 +15,12 @@ in
   config = lib.mkIf cfg.enable {
     home.packages = [ pkgs.anki ];
     catppuccin.anki.enable = true;
+
+    xdg.mimeApps.defaultApplications = {
+      "application/vnd.anki" = "anki.desktop";
+      "application/x-apkg" = "anki.desktop";
+      "application/x-anki" = "anki.desktop";
+      "application/x-anki-addon" = "anki.desktop";
+    };
   };
 }

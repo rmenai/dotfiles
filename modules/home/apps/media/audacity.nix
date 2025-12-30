@@ -14,5 +14,9 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = [ pkgs.audacity ];
+
+    xdg.mimeApps.defaultApplications = {
+      "application/x-audacity-project" = "audacity.desktop";
+    };
   };
 }

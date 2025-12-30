@@ -79,22 +79,6 @@
         "type": "github"
       }
     },
-    "dotfiles": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1767112922,
-        "narHash": "sha256-/o/y3Uh7ZOG/YdILU3wh64ZjEZPAvJ9iCHb9VH//zL0=",
-        "ref": "refs/heads/main",
-        "rev": "1fda27cd8d4551fb7df0598d7630efc9ca8414fe",
-        "revCount": 555,
-        "type": "git",
-        "url": "ssh://git@github.com/rmenai/dotfiles.git"
-      },
-      "original": {
-        "type": "git",
-        "url": "ssh://git@github.com/rmenai/dotfiles.git"
-      }
-    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -470,7 +454,6 @@
         "catppuccin": "catppuccin",
         "colmena": "colmena",
         "disko": "disko",
-        "dotfiles": "dotfiles",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
         "lanzaboote": "lanzaboote",
@@ -511,10 +494,10 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1764516683,
-        "narHash": "sha256-QDKM1iAyg1uvUZUOUjghEICVqCylv7fnxdHY5JkrFl4=",
+        "lastModified": 1767119725,
+        "narHash": "sha256-GZthYEl/rCi9NB7oC6BKxFyD7egd0INawAvL8lPV5+o=",
         "ref": "main",
-        "rev": "c81b7a1d56e3a3535361a9b592944a256c1d428d",
+        "rev": "a8e1a426e8bd1ce254e786432d165baa4e5dd106",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/rmenai/secrets.git"

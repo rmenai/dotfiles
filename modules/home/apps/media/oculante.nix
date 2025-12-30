@@ -15,14 +15,14 @@ in
   config = lib.mkIf cfg.enable {
     home.packages = [ pkgs.oculante ];
 
-    xdg.mimeApps.defaultApplications = {
-      "image/jpeg" = "oculante.desktop";
-      "image/png" = "oculante.desktop";
-      "image/gif" = "oculante.desktop";
-      "image/webp" = "oculante.desktop";
-      "image/tiff" = "oculante.desktop";
-      "image/bmp" = "oculante.desktop";
-      "image/svg+xml" = "oculante.desktop";
-    };
+    # xdg.mimeApps.defaultApplications = {
+    #   "image/jpeg" = "oculante.desktop";
+    #   "image/png" = "oculante.desktop";
+    #   "image/gif" = "oculante.desktop";
+    #   "image/webp" = "oculante.desktop";
+    #   "image/tiff" = "oculante.desktop";
+    #   "image/bmp" = "oculante.desktop";
+    #   "image/svg+xml" = "oculante.desktop";
+    # };
   };
 }

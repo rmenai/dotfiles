@@ -14,5 +14,9 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = [ pkgs.obsidian ];
+
+    xdg.mimeApps.defaultApplications = {
+      "x-scheme-handler/obsidian" = "obsidian.desktop";
+    };
   };
 }

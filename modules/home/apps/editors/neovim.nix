@@ -35,6 +35,45 @@ in
       fzf
     ];
 
+    xdg = {
+      desktopEntries.nvim-foot = {
+        name = "Neovim (Foot)";
+        exec = "foot nvim %F";
+        terminal = false; # We are providing the terminal window ourselves
+        categories = [
+          "Application"
+          "Utility"
+          "TextEditor"
+        ];
+        mimeType = [ "text/plain" ];
+      };
+
+      mimeApps.defaultApplications = {
+        # Text & Code
+        "text/plain" = "nvim-foot.desktop";
+        "text/markdown" = "nvim-foot.desktop";
+        "text/x-cmake" = "nvim-foot.desktop";
+        "text/x-csrc" = "nvim-foot.desktop"; # C
+        "text/x-chdr" = "nvim-foot.desktop"; # C Header
+        "text/x-c++src" = "nvim-foot.desktop"; # C++
+        "text/x-python" = "nvim-foot.desktop";
+        "text/x-go" = "nvim-foot.desktop";
+        "text/x-rust" = "nvim-foot.desktop";
+        "text/x-java" = "nvim-foot.desktop";
+        "text/x-sh" = "nvim-foot.desktop";
+
+        # Config files
+        "application/json" = "nvim-foot.desktop";
+        "application/yaml" = "nvim-foot.desktop";
+        "application/toml" = "nvim-foot.desktop";
+        "application/xml" = "nvim-foot.desktop";
+        "application/x-shellscript" = "nvim-foot.desktop";
+
+        # Nix
+        "text/x-nix" = "nvim-foot.desktop";
+      };
+    };
+
     xdg.configFile."nvim".source = mkLink ./nvim;
 
     catppuccin = {

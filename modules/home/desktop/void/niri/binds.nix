@@ -15,7 +15,7 @@ in
       "Mod+Shift+B".action = spawn "vivaldi";
       "Mod+Shift+O".action = spawn "obsidian";
       "Mod+Shift+A".action = spawn "anki";
-      "Mod+Shift+E".action = spawn "foot" "-e" "yazi";
+      "Mod+Shift+E".action = spawn "foot" "yazi";
       "Mod+Shift+W".action = spawn "wasistlos";
       "Mod+Shift+R".action = spawn "rustover";
       "Mod+Shift+P".action = spawn "pycharm";

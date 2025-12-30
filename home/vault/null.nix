@@ -37,7 +37,7 @@
 
     desktop = {
       void.enable = true;
-      mime.enable = false;
+      mime.enable = true;
     };
 
     apps = {
@@ -97,6 +97,7 @@
 
         audacity.enable = true;
         gimp.enable = true;
+        imv.enable = true;
       };
 
       socials = {
