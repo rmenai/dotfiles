@@ -41,5 +41,16 @@
 			"on-discharging-critical": "notify-send 'Battery Critical (10%)' -u critical -i 'battery-010' -h string:x-canonical-private-synchronous:battery",
 			"on-charging-100": "notify-send 'Battery Full (100%)' -i 'battery-100-charged' -h string:x-canonical-private-synchronous:battery"
 		}
-	}
+	},
+
+  "custom/battery_fallback": {
+    "format": "{}",
+    "exec": "echo '{\"text\": \"󰁹 100%\", \"class\": \"battery\"}'",
+    "return-type": "json",
+    "interval": "once",
+    // Run this ONLY if BAT0 and BAT1 do not exist
+    "exec-if": "[ ! -d /sys/class/power_supply/BAT0 ] && [ ! -d /sys/class/power_supply/BAT1 ]",
+    "min-length": 7,
+    "max-length": 7
+  }
 }

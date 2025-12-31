@@ -31,5 +31,16 @@
 		// "menu-file":
 		// "menu-actions":
 		// "expand":
-	}
+	},
+
+  "custom/temperature_fallback": {
+    "format": "{}",
+    "exec": "echo '{\"text\": \"󰔏  VM \", \"class\": \"temperature\"}'",
+    "return-type": "json",
+    "interval": "once",
+    // Run this ONLY if your specific thermal zone (1) is missing
+    "exec-if": "[ ! -f /sys/class/thermal/thermal_zone1/temp ]",
+    "min-length": 8,
+    "max-length": 8
+  }
 }

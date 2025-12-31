@@ -60,6 +60,7 @@
 		"custom/spacer",
 		"custom/left_div#2",
 		"temperature",
+    "custom/temperature_fallback",
 		"custom/left_div#3",
 		"memory",
 		"custom/left_div#4",
@@ -87,6 +88,7 @@
 		"backlight",
 		"custom/left_div#8",
 		"battery",
+    "custom/battery_fallback",
 		"custom/left_inv#2",
 		"custom/power_menu"
 	],

@@ -38,7 +38,7 @@
 	background-color: @backlight;
 	color: @battery;
 }
-#battery {
+#battery, #custom-battery_fallback {
 	background-color: @battery;
 }
 #custom-left_inv.2 {

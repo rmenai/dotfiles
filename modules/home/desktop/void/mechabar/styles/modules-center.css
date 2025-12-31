@@ -16,7 +16,7 @@
 #custom-left_div.2 {
 	color: @temperature;
 }
-#temperature {
+#temperature, #custom-temperature_fallback {
 	background-color: @temperature;
 }
 
