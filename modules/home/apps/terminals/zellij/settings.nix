@@ -18,6 +18,7 @@ in
 
       settings = {
         default_shell = "${pkgs.nushell}/bin/nu";
+        scrollback_editor = "nvim";
         show_startup_tips = false;
         default_layout = "default";
         theme = "catppuccin";
