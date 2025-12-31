@@ -28,6 +28,7 @@ in
       rofi-calc
       rofimoji
 
+      tesseract
       hyprpicker
       nautilus
     ];

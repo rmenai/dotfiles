@@ -30,10 +30,15 @@ in
         spawn-sh "rofi -show calc -modi calc -no-show-match -no-sort -calc-command \"echo -n '{result}' | wl-copy\"";
       "Mod+Alt+Q".action = quit;
       "Mod+Alt+P".action = power-off-monitors;
+      "Mod+Alt+T".action =
+        spawn-sh "wl-paste | tesseract - - | wl-copy && notify-send 'OCR Complete' 'Text copied to clipboard'";
 
       "Print".action.screenshot = [ ];
       "Ctrl+Print".action.screenshot-screen = [ ];
       "Alt+Print".action.screenshot-window = [ ];
+      "XF86Cut".action = spawn-sh "wl-paste | satty --filename -";
+      "XF86Favorites".action =
+        spawn-sh "f=$(mktemp /tmp/pinned-XXXXXX.png); wl-paste > $f && imv $f; rm $f";
 
       "Mod+Slash".action = show-hotkey-overlay;
       "Mod+Backspace".action = spawn "rofi" "-show" "power-menu" "-modi" "power-menu:rofi-power-menu";
@@ -185,10 +190,6 @@ in
       "XF86MonBrightnessDown" = {
         allow-when-locked = true;
         action = spawn "swayosd-client" "--brightness" "lower";
-      };
-
-      "XF86Cut" = {
-        action = spawn-sh "wl-paste | satty --filename -";
       };
     };
   };
