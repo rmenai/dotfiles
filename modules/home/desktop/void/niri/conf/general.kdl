@@ -1,0 +1,17 @@
+prefer-no-csd
+screenshot-path "~/Pictures/Screenshots/%Y-%m-%d_%H:%M:%S.png"
+
+hotkey-overlay {
+    skip-at-startup
+    hide-not-bound
+}
+
+overview {
+    backdrop-color "#11111b"
+}
+
+recent-windows {
+    on
+}
+
+spawn-at-startup "xwayland-satellite"

@@ -1,0 +1,11 @@
+input {
+    focus-follows-mouse
+    workspace-auto-back-and-forth
+
+    touchpad {
+        tap
+        dwt
+        natural-scroll
+        scroll-factor 0.4
+    }
+}

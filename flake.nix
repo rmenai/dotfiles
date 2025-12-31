@@ -60,11 +60,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    niri = {
-      url = "github:sodiboo/niri-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     zjstatus = {
       url = "https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm";
       flake = false;

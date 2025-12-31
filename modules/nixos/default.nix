@@ -11,7 +11,6 @@
     inputs.microvm.nixosModules.host
 
     inputs.catppuccin.nixosModules.catppuccin
-    inputs.niri.nixosModules.niri
 
     "${inputs.secrets}/nixos.nix"
   ]

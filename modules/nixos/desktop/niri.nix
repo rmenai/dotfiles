@@ -14,8 +14,7 @@ in
 
   config = lib.mkIf cfg.enable {
     programs.niri.enable = true;
-    environment.systemPackages = [ pkgs.xwayland-satellite ];
-    security.polkit.enable = true;
+    environment.systemPackages = with pkgs; [ xwayland-satellite ];
 
     services = {
       xserver.xkb.layout = "us";
@@ -28,5 +27,6 @@ in
 
     security.pam.services.sddm.enableGnomeKeyring = true;
     programs.ssh.startAgent = lib.mkForce false;
+    security.polkit.enable = true;
   };
 }
