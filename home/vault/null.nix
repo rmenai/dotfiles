@@ -11,6 +11,11 @@
     (map func.custom.relativeToRoot [ "modules/home" ])
   ];
 
+  # TODO: add gaming apps, rocket league, ps5 controller
+  # TODO: remove old configs, alice user, vms
+  # TODO: implement interface for global fonts, default apps, etc...
+  # TODO: write detailed documentation of everything
+
   spec = {
     user = "vault";
     handle = "rmenai";
@@ -24,10 +29,7 @@
     };
 
     core = {
-      dotfiles = {
-        enable = true;
-        mutable = true;
-      };
+      dotfiles.mutable = true;
     };
 
     services = {

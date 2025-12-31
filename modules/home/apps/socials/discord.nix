@@ -13,6 +13,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    # TODO: use home-manager module for vesktop
     home.packages = [ pkgs.vesktop ];
     catppuccin.vesktop.enable = true;
   };

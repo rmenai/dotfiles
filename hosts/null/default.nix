@@ -18,6 +18,8 @@
     ./variants
   ];
 
+  # TODO: dive into specialisations
+
   spec = {
     host = "null";
     timeZone = "Europe/Paris";

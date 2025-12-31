@@ -9,8 +9,6 @@ let
 in
 {
   options.features.core.dotfiles = {
-    enable = lib.mkEnableOption "dotfiles management";
-
     mutable = lib.mkOption {
       type = lib.types.bool;
       default = false;

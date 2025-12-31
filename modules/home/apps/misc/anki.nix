@@ -13,6 +13,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    # TODO: use home-manager module for Anki
     home.packages = [ pkgs.anki ];
     catppuccin.anki.enable = true;
 

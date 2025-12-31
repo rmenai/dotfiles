@@ -28,7 +28,7 @@ in
     };
 
     home.packages = with pkgs; [
-      neovim-unwrapped
+      neovim-unwrapped # TODO: remove this when zellij fixes serialisation bug
       vimgolf
       lazygit
       curl

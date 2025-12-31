@@ -48,6 +48,7 @@ in
       ];
     };
 
+    # TODO: remove this when there is better integration with home-manager
     environment.persistence."${config.features.core.persistence.folder}" =
       lib.mkIf config.features.core.persistence.enable
         {

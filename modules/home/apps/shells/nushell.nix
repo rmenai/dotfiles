@@ -53,10 +53,11 @@ in
           $env.PROMPT_INDICATOR_VI_NORMAL = ""
           $env.PROMPT_MULTILINE_INDICATOR = "::: "
 
-          # TODO: remove this when home-manager integrates nushell
+          # TODO: remove manual env injection when home-manager integrates nushell
           $env.PATH ++= [ ${builtins.concatStringsSep ", " (map (s: ''"${s}"'') config.home.sessionPath)} ]
         '';
 
+        # TODO: remove manual command-not-found when fixed
         extraConfig = ''
           $env.config.hooks.command_not_found = (source ${./command-not-found.nu})
         '';

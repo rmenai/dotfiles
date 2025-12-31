@@ -17,6 +17,7 @@ in
       imagemagick
       bc # Needed for math
 
+      # TODO: remove swayimg-clipboard wrapper when scaling support
       (writeShellScriptBin "swayimg-clipboard" ''
         #!/bin/sh
         SCALE=2.25 # 1.5 * 1.5
