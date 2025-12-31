@@ -38,7 +38,7 @@ in
       "Alt+Print".action.screenshot-window = [ ];
       "XF86Cut".action = spawn-sh "wl-paste | satty --filename -";
       "XF86Favorites".action =
-        spawn-sh "f=$(mktemp /tmp/pinned-XXXXXX.png); wl-paste > $f && imv $f; rm $f";
+        spawn-sh "f=$(mktemp /tmp/pinned-XXXXXX.png); wl-paste > $f && swayimg $f; rm $f";
 
       "Mod+Slash".action = show-hotkey-overlay;
       "Mod+Backspace".action = spawn "rofi" "-show" "power-menu" "-modi" "power-menu:rofi-power-menu";

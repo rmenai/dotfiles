@@ -96,8 +96,8 @@
         mpv.enable = true;
 
         audacity.enable = true;
+        swayimg.enable = true;
         gimp.enable = true;
-        imv.enable = true;
       };
 
       socials = {
