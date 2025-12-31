@@ -4,20 +4,24 @@
   ...
 }:
 let
-  cfg = config.features.apps.media.imv;
+  cfg = config.features.apps.media.swayimg;
 in
 {
-  options.features.apps.media.imv = {
+  options.features.apps.media.swayimg = {
     enable = lib.mkEnableOption "Imv Image viewer";
   };
   config = lib.mkIf cfg.enable {
     programs.swayimg = {
       enable = true;
       settings = {
+        general = {
+          size = "image";
+        };
+
         viewer = {
           window = "00000000";
           transparency = "00000000";
-          scale = "optimal";
+          scale = "real";
         };
 
         info = {
