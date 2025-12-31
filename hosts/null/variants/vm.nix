@@ -1,9 +1,19 @@
-{ lib, ... }:
+{ config, lib, ... }:
 {
   virtualisation.vmVariant = {
+    home-manager.users.${config.spec.user} = {
+      features.core.dotfiles.mutable = lib.mkForce false;
+    };
+
+    services = {
+      btrfs.autoScrub.enable = lib.mkForce false;
+      syncthing.enable = lib.mkForce false;
+      displayManager.autoLogin.enable = lib.mkForce true;
+    };
+
     features = {
       hardware = {
-        disko.profile = lib.mkForce "none";
+        disko.profile = lib.mkForce null;
         hibernation.enable = lib.mkForce false;
       };
 

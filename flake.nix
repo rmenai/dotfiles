@@ -149,10 +149,10 @@
           };
 
           extraPackages = {
-            microvm = self.nixosConfigurations.microvm.config.microvm.declaredRunner;
-            vm = self.nixosConfigurations.vm.config.system.build.vm;
+            # microvm = self.nixosConfigurations.microvm.config.microvm.declaredRunner;
+            # vm = self.nixosConfigurations.vm.config.system.build.vm;
             null = self.nixosConfigurations.null.config.system.build.vm;
-            fork = self.nixosConfigurations.fork.config.system.build.vm;
+            # fork = self.nixosConfigurations.fork.config.system.build.vm;
           };
 
           extraImages = {

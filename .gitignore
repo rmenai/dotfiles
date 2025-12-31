@@ -7,5 +7,6 @@
 
 result
 result-*
+*.qcow2
 
 .Trash*
