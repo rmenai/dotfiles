@@ -11,6 +11,7 @@ in
 {
   config = lib.mkIf cfg.enable {
     xdg.configFile."niri".source = mkLink ./niri;
+    home.file."Pictures/Wallpapers/wallpaper.png".source = ./assets/wallpaper.png;
 
     home.packages = with pkgs; [
       imagemagick
