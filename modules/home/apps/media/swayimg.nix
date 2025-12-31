@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 let
@@ -23,6 +22,10 @@ in
           window = "00000000";
           transparency = "00000000";
           scale = "real";
+        };
+
+        list = {
+          all = "yes";
         };
 
         info = {
