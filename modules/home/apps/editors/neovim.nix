@@ -28,7 +28,7 @@ in
     };
 
     home.packages = with pkgs; [
-      neovim
+      neovim-unwrapped
       vimgolf
       lazygit
       curl
