@@ -43,16 +43,18 @@ in
         enable = true;
         configFile.source = ./config.nu;
 
-        shellAliases = config.home.shellAliases;
         environmentVariables = config.home.sessionVariables;
 
-        extraEnv = ''
+        extraEnv = /* nu */ ''
           # Use starship indicator instead
 
           $env.PROMPT_INDICATOR = ""
           $env.PROMPT_INDICATOR_VI_INSERT = ""
           $env.PROMPT_INDICATOR_VI_NORMAL = ""
           $env.PROMPT_MULTILINE_INDICATOR = "::: "
+
+          # TODO: remove this when home-manager integrates nushell
+          $env.PATH ++= [ ${builtins.concatStringsSep ", " (map (s: ''"${s}"'') config.home.sessionPath)} ]
         '';
 
         extraConfig = ''
