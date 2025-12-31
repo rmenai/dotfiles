@@ -13,7 +13,7 @@ in
       latitude = "4.9";
 
       temperature.day = 6500;
-      temperature.night = 6000;
+      temperature.night = 4000;
     };
   };
 }
