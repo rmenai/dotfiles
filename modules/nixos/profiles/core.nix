@@ -48,43 +48,45 @@ in
       ];
     };
 
-    environment.persistence."${config.features.core.persistence.folder}" = {
-      hideMounts = true;
-      users.${config.spec.user} = {
-        directories = [
-          "Downloads"
-          "Documents"
-          "Pictures"
-          "Videos"
-          "Public"
-          "Games"
-          "Music"
+    environment.persistence."${config.features.core.persistence.folder}" =
+      lib.mkIf config.features.core.persistence.enable
+        {
+          hideMounts = true;
+          users.${config.spec.user} = {
+            directories = [
+              "Downloads"
+              "Documents"
+              "Pictures"
+              "Videos"
+              "Public"
+              "Games"
+              "Music"
 
-          ".ssh"
-          ".gnupg"
-          ".nixops"
+              ".ssh"
+              ".gnupg"
+              ".nixops"
 
-          ".dotfiles"
-          ".config"
-          ".local"
-          ".cache"
+              ".dotfiles"
+              ".config"
+              ".local"
+              ".cache"
 
-          ".ollama"
-          ".rustup"
-          ".cargo"
-          ".opam"
-          ".bun"
+              ".ollama"
+              ".rustup"
+              ".cargo"
+              ".opam"
+              ".bun"
 
-          ".vagrant.d"
-          ".vimgolf"
-          ".steam"
-        ];
-        files = [
-          ".bash_history"
-          ".adventofcode.session"
-        ];
-      };
-    };
+              ".vagrant.d"
+              ".vimgolf"
+              ".steam"
+            ];
+            files = [
+              ".bash_history"
+              ".adventofcode.session"
+            ];
+          };
+        };
 
     networking = {
       hostName = config.spec.host;
