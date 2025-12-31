@@ -194,6 +194,14 @@ keybinds clear-defaults=true {
         bind "Ctrl Alt ]" { NextSwapLayout; }
         bind "Ctrl Alt p" { TogglePaneInGroup; }
         bind "Ctrl Alt Shift p" { ToggleGroupMarking; }
+
+        bind "Alt Shift /" {
+            Run "nvim" "/home/vault/.dotfiles/modules/home/apps/terminals/zellij/binds.kdl" {
+                floating true
+                close_on_exit true
+            }
+            SwitchToMode "Normal"
+        }
     }
     shared_except "normal" "locked" {
         bind "Enter" "Esc" { SwitchToMode "Normal"; }
