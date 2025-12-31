@@ -10,6 +10,7 @@ in
   options.features.apps.media.swayimg = {
     enable = lib.mkEnableOption "Imv Image viewer";
   };
+
   config = lib.mkIf cfg.enable {
     programs.swayimg = {
       enable = true;
@@ -30,6 +31,34 @@ in
 
         info = {
           show = "no";
+        };
+
+        "keys.viewer" = {
+          # Navigation
+          "j" = "next_file";
+          "k" = "prev_file";
+          "Shift+g" = "last_file"; # G
+          "g" = "first_file"; # gg
+
+          # Panning
+          "h" = "step_left 10";
+          "l" = "step_right 10";
+
+          # Logical Directory Jumping
+          "Shift+j" = "next_dir";
+          "Shift+k" = "prev_dir";
+        };
+
+        "keys.gallery" = {
+          # Grid Movement
+          "h" = "step_left";
+          "j" = "step_down";
+          "k" = "step_up";
+          "l" = "step_right";
+
+          # List Limits
+          "Shift+g" = "last_file";
+          "g" = "first_file";
         };
       };
     };
