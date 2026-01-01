@@ -1,16 +1,16 @@
-vim.api.nvim_create_autocmd("LspAttach", {
-  callback = function(args)
-    local path = vim.api.nvim_buf_get_name(args.buf)
-    if not (path:find("codeforces")) then return end
-
-    -- 2. Prevent it from running twice (LspAttach can fire multiple times)
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-    if not client then return end
-    if vim.b[args.buf].macro_ran then return end
-    vim.b[args.buf].macro_ran = true
-
-    vim.schedule(function()
-      if vim.fn.search("fn", "nw") > 0 then vim.cmd("normal! @f") end
-    end)
-  end,
-})
+-- vim.api.nvim_create_autocmd("LspAttach", {
+--   callback = function(args)
+--     local path = vim.api.nvim_buf_get_name(args.buf)
+--     if not (path:find("codeforces")) then return end
+--
+--     -- 2. Prevent it from running twice (LspAttach can fire multiple times)
+--     local client = vim.lsp.get_client_by_id(args.data.client_id)
+--     if not client then return end
+--     if vim.b[args.buf].macro_ran then return end
+--     vim.b[args.buf].macro_ran = true
+--
+--     vim.schedule(function()
+--       if vim.fn.search("fn", "nw") > 0 then vim.cmd("normal! @f") end
+--     end)
+--   end,
+-- })

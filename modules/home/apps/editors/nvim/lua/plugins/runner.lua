@@ -3,18 +3,10 @@ return {
     "stevearc/overseer.nvim",
     cmd = { "OverseerToggle", "OverseerRun" },
     opts = {
-      dap = false,
+      dap = true,
       templates = { "builtin", "custom" },
       task_list = {
-        direction = "bottom",
-        min_height = 15,
-        default_detail = 1,
-        bindings = {
-          ["<C-h>"] = false,
-          ["<C-j>"] = false,
-          ["<C-k>"] = false,
-          ["<C-l>"] = false,
-        },
+        direction = "right",
       },
     },
     keys = {

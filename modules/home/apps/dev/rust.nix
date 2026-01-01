@@ -7,6 +7,26 @@
 let
   cfg = config.features.apps.dev.rust;
   tomlFormat = pkgs.formats.toml { };
+
+  competitive-open = pkgs.writeShellScriptBin "competitive-open" ''
+    #!/bin/sh
+    FILE="$1"
+    DIR="$(pwd)"
+
+    zellij action new-tab
+    zellij action write-chars "nvim $FILE"
+    zellij action write 13  # Enter key
+    zellij action new-pane --direction down
+    zellij action write-chars "cd $DIR; bacon"
+    zellij action write 13  # Enter key
+
+    # Resize bacon pane to ~20% (decrease 6 times)
+    for i in {1..4}; do
+      zellij action resize decrease up
+    done
+
+    zellij action focus-previous-pane
+  '';
 in
 {
   options.features.apps.dev.rust = {
@@ -19,7 +39,10 @@ in
       "~/.cargo/bin"
     ];
 
-    home.packages = [ pkgs.rustup ];
+    home.packages = [
+      pkgs.rustup
+      competitive-open
+    ];
 
     programs.bacon = {
       enable = true;
@@ -58,13 +81,7 @@ in
     xdg.configFile."rust-competitive-helper/rust-competitive-helper.toml" = {
       source = tomlFormat.generate "rust-competitive-helper-config" {
         open_task_command = [
-          # TODO: fix rust-competitive-programmer to open in new tab with bacon layout
-          "zellij"
-          "run"
-          "--cwd"
-          "."
-          "--"
-          "nvim"
+          "competitive-open"
           "$FILE"
         ];
       };
