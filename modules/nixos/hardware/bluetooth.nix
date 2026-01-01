@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.features.hardware.bluetooth;
 in
@@ -14,7 +19,9 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    services.blueman.enable = true;
+    environment.systemPackages = with pkgs; [
+      blueman
+    ];
 
     hardware.bluetooth = {
       enable = true;
