@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  inputs,
   ...
 }:
 let
@@ -30,11 +29,6 @@ in
         pane_frames = false;
         copy_command = "wl-copy";
         mouse_mode = true;
-
-        plugins = {
-          "z-status".location = "file:${inputs.zjstatus}";
-          "z-nav".location = "file:${inputs.zjnav}";
-        };
       };
 
       extraConfig = builtins.readFile ./binds.kdl;
