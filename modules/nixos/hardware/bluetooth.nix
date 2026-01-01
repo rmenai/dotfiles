@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 let
@@ -19,10 +18,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [
-      blueman
-    ];
-
     hardware.bluetooth = {
       enable = true;
       powerOnBoot = cfg.powerOnBoot;
