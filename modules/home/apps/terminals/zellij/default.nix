@@ -13,7 +13,10 @@ in
   options.features.apps.terminals.zellij = {
     enable = lib.mkEnableOption "Zellij terminal multiplexer";
   };
+
+  # TODO: add layouts, optimize workflow
   config = lib.mkIf cfg.enable {
+
     xdg.configFile."zellij/layouts".source = mkLink ./layouts;
 
     programs.zellij = {

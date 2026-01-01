@@ -58,9 +58,9 @@ in
     xdg.configFile."rust-competitive-helper/rust-competitive-helper.toml" = {
       source = tomlFormat.generate "rust-competitive-helper-config" {
         open_task_command = [
-          "wezterm"
-          "cli"
-          "spawn"
+          # TODO: fix rust-competitive-programmer to open in new tab with bacon layout
+          "zellij"
+          "run"
           "--cwd"
           "."
           "--"
