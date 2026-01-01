@@ -19,6 +19,7 @@
   ];
 
   # TODO: dive into specialisations
+  # TODO: better integration between phone and pc using syncthing
 
   spec = {
     host = "null";
@@ -122,6 +123,7 @@
   '';
 
   environment.systemPackages = with pkgs; [
+    # TODO: remove colmena wrapper when can run impure
     (writeShellScriptBin "colmena" ''
       cd /home/vault/.dotfiles
       exec ${colmena}/bin/colmena "$@" --impure
