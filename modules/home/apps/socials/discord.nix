@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 let
@@ -13,8 +12,24 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    # TODO: use home-manager module for vesktop
-    home.packages = [ pkgs.vesktop ];
+    programs.vesktop = {
+      enable = true;
+
+      settings = {
+        appBadge = true;
+        discordBranch = "stable";
+        hardwareAcceleration = true;
+        checkUpdates = false;
+        tray = true;
+      };
+
+      vencord.settings = {
+        autoUpdate = false;
+        autoUpdateNotification = false;
+        notifyAboutUpdates = false;
+      };
+    };
+
     catppuccin.vesktop.enable = true;
   };
 }
