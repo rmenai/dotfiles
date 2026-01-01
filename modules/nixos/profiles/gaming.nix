@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 let
@@ -15,11 +14,5 @@ in
       apps.steam.enable = true;
       services.gamemode.enable = true;
     };
-
-    environment.systemPackages = with pkgs; [
-      mangohud
-      bottles
-      heroic
-    ];
   };
 }

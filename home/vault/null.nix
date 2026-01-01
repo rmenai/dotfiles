@@ -101,6 +101,14 @@
         gimp.enable = true;
       };
 
+      gaming = {
+        # steam is installed system wide
+        mangohud.enable = true;
+        lutris.enable = true;
+        prism.enable = true;
+        itch.enable = true;
+      };
+
       socials = {
         discord.enable = true;
         whatsapp.enable = true;

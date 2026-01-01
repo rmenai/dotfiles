@@ -1,19 +1,18 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 let
-  cfg = config.features.apps.gaming.mango;
+  cfg = config.features.apps.gaming.mangohud;
 in
 {
-  options.features.apps.gaming.mango = {
+  options.features.apps.gaming.mangohud = {
     enable = lib.mkEnableOption "MangoHUD";
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [ pkgs.mangohud ];
+    programs.mangohud.enable = true;
     catppuccin.mangohud.enable = true;
   };
 }

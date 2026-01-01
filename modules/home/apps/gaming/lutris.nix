@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 let
@@ -13,21 +12,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [ pkgs.lutris ];
-
-    # xdg.desktopEntries."net.lutris.Lutris" = {
-    #   name = "Lutris";
-    #   comment = "Open Gaming Platform";
-    #   exec = "gamerun lutris %U";
-    #   icon = "lutris";
-    #   terminal = false;
-    #   type = "Application";
-    #   categories = [
-    #     "Game"
-    #     "Network"
-    #   ];
-    #   mimeType = [ "application/x-lutris-installer" ];
-    #   startupNotify = true;
-    # };
+    programs.lutris.enable = true;
   };
 }
