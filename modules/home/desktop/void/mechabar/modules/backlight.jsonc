@@ -28,5 +28,15 @@
 		// "menu-file":
 		// "menu-actions":
 		// "expand":
-	}
+	},
+
+  "custom/backlight_fallback": {
+    "format": "{}",
+    "exec": "echo '{\"text\": \" 100%\", \"class\": \"backlight\"}'",
+    "return-type": "json",
+    "interval": "once",
+    "exec-if": "[ -z \"$(ls -A /sys/class/backlight/ 2>/dev/null)\" ]",
+    "min-length": 7,
+    "max-length": 7
+  }
 }

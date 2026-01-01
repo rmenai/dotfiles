@@ -86,6 +86,7 @@
 		"group/pulseaudio",
 		"custom/left_div#7",
 		"backlight",
+    "custom/backlight_fallback",
 		"custom/left_div#8",
 		"battery",
     "custom/battery_fallback",
