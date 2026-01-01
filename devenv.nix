@@ -1,4 +1,3 @@
-{ ... }:
 {
   dotenv.disableHint = true;
   difftastic.enable = true;
@@ -12,10 +11,6 @@
     commitizen.enable = true;
     end-of-file-fixer.enable = true;
     ripsecrets.enable = true;
-    # shellcheck.enable = true;
-    shellcheck.excludes = [ ".*zsh.*" ];
     trim-trailing-whitespace.enable = true;
-    # typos.enable = true;
-    typos.settings.configPath = ".typos.toml";
   };
 }

@@ -12,7 +12,6 @@
   ];
 
   # TODO: add gaming apps, rocket league, ps5 controller
-  # TODO: remove old configs, alice user, vms
   # TODO: implement interface for global fonts, default apps, etc...
   # TODO: write detailed documentation of everything
 

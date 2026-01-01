@@ -10,3 +10,4 @@ result-*
 *.qcow2
 
 .Trash*
+archive/

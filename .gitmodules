@@ -1,9 +1,0 @@
-[submodule "nushell/nu_scripts"]
-	path = nushell/nu_scripts
-	url = https://github.com/nushell/nu_scripts.git
-[submodule "wezterm/plugins/smart-splits"]
-	path = wezterm/plugins/smart-splits
-	url = https://github.com/mrjones2014/smart-splits.nvim
-[submodule "wezterm/plugins/smart_workspace_switcher"]
-	path = wezterm/plugins/smart_workspace_switcher
-	url = https://github.com/MLFlexer/smart_workspace_switcher.wezterm
