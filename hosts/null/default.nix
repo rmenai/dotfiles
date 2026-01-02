@@ -18,9 +18,6 @@
     ./variants
   ];
 
-  # TODO: dive into specialisations
-  # TODO: better integration between phone and pc using syncthing
-
   spec = {
     host = "null";
     timeZone = "Europe/Paris";
