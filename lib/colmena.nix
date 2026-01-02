@@ -4,7 +4,6 @@
     {
       commonSpecialArgs,
       hostsDir,
-      deploymentConfig ? null,
       system ? "x86_64-linux",
       mkPkgs,
     }:

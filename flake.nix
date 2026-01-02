@@ -133,7 +133,6 @@
       colmena = lib.mkColmenaConfig {
         inherit commonSpecialArgs mkPkgs;
         hostsDir = ./hosts;
-        deploymentConfig = ./deployment.nix;
         system = "x86_64-linux";
       };
 
