@@ -19,7 +19,7 @@ in
 
       Service = {
         Type = "oneshot";
-        ExecStart = "${pkgs.swww}/bin/swww img %h/Pictures/Wallpapers/wallpaper.png";
+        ExecStart = "${pkgs.swww}/bin/swww img %h/Pictures/Wallpapers/wallpaper.png --transition-type none";
         Restart = "on-failure";
         RestartSec = "1s";
       };
