@@ -1,3 +1,3 @@
 {
-  imports = [ ./vm.nix ];
+  imports = [ ./virtual.nix ];
 }

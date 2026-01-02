@@ -22,10 +22,14 @@ in
   config = lib.mkIf cfg.enable {
     hardware = {
       enableAllFirmware = true;
-      graphics.enable = true;
+
+      graphics = {
+        enable = true;
+        enable32Bit = true;
+      };
 
       nvidia = {
-        package = config.boot.kernelPackages.nvidiaPackages.latest;
+        package = config.boot.kernelPackages.nvidiaPackages.stable;
         modesetting.enable = true;
         nvidiaSettings = true;
         open = true;
@@ -46,5 +50,7 @@ in
         };
       };
     };
+
+    services.xserver.videoDrivers = [ "nvidia" ];
   };
 }

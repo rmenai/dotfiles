@@ -12,7 +12,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    programs.mangohud.enable = true;
+    programs.mangohud = {
+      enable = true;
+    };
+
     catppuccin.mangohud.enable = true;
   };
 }
