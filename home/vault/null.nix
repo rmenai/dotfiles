@@ -11,7 +11,6 @@
     (map func.custom.relativeToRoot [ "modules/home" ])
   ];
 
-  # TODO: add gaming apps, rocket league, ps5 controller
   # TODO: implement interface for global fonts, default apps, etc...
   # TODO: write detailed documentation of everything
 
