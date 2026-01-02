@@ -11,7 +11,7 @@
       lib.nixosSystem {
         specialArgs = commonSpecialArgs;
         modules = [
-          ../modules/common/deployment.nix
+          ../modules/common/deployment.nix # Need to put it here for colmena to work
           (hostsDir + "/${host}")
         ];
       }

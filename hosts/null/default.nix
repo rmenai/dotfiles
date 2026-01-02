@@ -123,12 +123,7 @@
   '';
 
   environment.systemPackages = with pkgs; [
-    # TODO: remove colmena wrapper when can run impure
-    (writeShellScriptBin "colmena" ''
-      cd /home/vault/.dotfiles
-      exec ${colmena}/bin/colmena "$@" --impure
-    '')
-
+    inputs.colmena.packages.${pkgs.system}.colmena
     # outputs.packages.${pkgs.stdenv.hostPlatform.system}.bin
     fastfetch
   ];

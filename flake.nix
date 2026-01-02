@@ -130,6 +130,8 @@
         mkPkgs = mkPkgs;
       };
 
+      colmenaHive = inputs.colmena.lib.makeHive self.outputs.colmena;
+
       colmena = lib.mkColmenaConfig {
         inherit commonSpecialArgs mkPkgs;
         hostsDir = ./hosts;
