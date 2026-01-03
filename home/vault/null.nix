@@ -81,12 +81,18 @@
 
       dev = {
         gcc.enable = true;
+        cpp.enable = true;
         lua.enable = true;
 
         nix.enable = true;
         ocaml.enable = true;
         python.enable = true;
         rust.enable = true;
+
+        shell.enable = true;
+        markdown.enable = true;
+        latex.enable = true;
+        node.enable = true;
       };
 
       media = {

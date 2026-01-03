@@ -75,6 +75,7 @@ in
               ".ollama"
               ".rustup"
               ".cargo"
+              ".volta"
               ".opam"
               ".bun"
 

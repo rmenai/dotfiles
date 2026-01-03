@@ -34,10 +34,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.sessionPath = [
-      "~/.local/bin"
-      "~/.cargo/bin"
-    ];
+    home.sessionPath = [ "~/.cargo/bin" ];
 
     home.packages = [
       pkgs.rustup

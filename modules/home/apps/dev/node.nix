@@ -13,6 +13,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [ pkgs.fnm ];
+    home.packages = [ pkgs.volta ];
+    home.sessionPath = [ "~/.volta/bin" ];
   };
 }

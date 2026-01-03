@@ -30,5 +30,9 @@ in
 
       warp = "wormhole-rs";
     };
+
+    home.sessionPath = [
+      "~/.local/bin"
+    ];
   };
 }
