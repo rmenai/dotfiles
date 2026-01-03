@@ -110,7 +110,8 @@ in
       curl
       vim
       git
-      gh
+      zip
+      unzip
     ];
   };
 }
