@@ -26,13 +26,13 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    fileSystems."${cfg.folder}".neededForBoot = true;
+
     environment.persistence."${cfg.folder}" = {
       hideMounts = true;
       directories = cfg.directories;
       files = cfg.files;
     };
-
-    fileSystems."${cfg.folder}".neededForBoot = true;
 
     programs.fuse.userAllowOther = true;
 
