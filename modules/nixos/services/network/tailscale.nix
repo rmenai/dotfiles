@@ -6,6 +6,7 @@
 }:
 let
   cfg = config.features.services.tailscale;
+  persistFolder = config.spec.persistFolder;
 in
 with lib;
 {
@@ -72,10 +73,8 @@ with lib;
 
     environment.systemPackages = [ pkgs.tailscale ];
 
-    features.core.persistence = {
-      directories = [
-        "/var/lib/tailscale"
-      ];
-    };
+    environment.persistence.${persistFolder}.directories = [
+      "/var/lib/tailscale"
+    ];
   };
 }

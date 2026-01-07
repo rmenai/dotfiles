@@ -6,7 +6,7 @@
 }:
 let
   cfg = config.features.apps.obs;
-  nvidiaEnabled = config.features.hardware.nvidia.enable or false;
+  nvidiaEnabled = lib.elem "nvidia" config.services.xserver.videoDrivers;
 in
 {
   options.features.apps.obs = {
@@ -20,8 +20,7 @@ in
           enable = true;
           enableVirtualCamera = true;
 
-          package =
-            if nvidiaEnabled then (pkgs.obs-studio.override { cudaSupport = true; }) else pkgs.obs-studio;
+          package = pkgs.obs-studio.override { cudaSupport = nvidiaEnabled; };
 
           plugins = with pkgs.obs-studio-plugins; [
             wlrobs

@@ -9,6 +9,7 @@
 }:
 let
   cfg = config.features.core.home;
+  persistFolder = config.spec.persistFolder;
 in
 {
   options.features.core.home = {
@@ -34,8 +35,8 @@ in
     };
 
     systemd.tmpfiles.rules = lib.mkIf config.features.core.persistence.enable [
-      "d ${config.spec.persistFolder}/${config.spec.user}/ 0777 root root -"
-      "d ${config.spec.persistFolder}/home/${config.spec.user} 0700 ${config.spec.user} users -"
+      "d ${persistFolder}/${config.spec.user}/ 0777 root root -"
+      "d ${persistFolder}/home/${config.spec.user} 0700 ${config.spec.user} users -"
     ];
   };
 }

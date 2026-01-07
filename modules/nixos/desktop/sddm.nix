@@ -1,6 +1,7 @@
 { config, lib, ... }:
 let
   cfg = config.features.desktop.sddm;
+  persistFolder = config.spec.persistFolder;
 in
 {
   options.features.desktop.sddm = {
@@ -22,11 +23,9 @@ in
 
     catppuccin.sddm.enable = true;
 
-    features.core.persistence = {
-      directories = [
-        "/var/lib/sddm"
-        "/usr/share/sddm"
-      ];
-    };
+    environment.persistence.${persistFolder}.directories = [
+      "/var/lib/sddm"
+      "/usr/share/sddm"
+    ];
   };
 }

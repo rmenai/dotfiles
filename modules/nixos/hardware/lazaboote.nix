@@ -6,6 +6,7 @@
 }:
 let
   cfg = config.features.hardware.lazaboote;
+  persistFolder = config.spec.persistFolder;
 in
 {
   options.features.hardware.lazaboote = {
@@ -38,15 +39,13 @@ in
       };
     };
 
-    features.core.persistence = {
-      directories = [
-        "${cfg.pkiBundle}"
-      ];
-    };
+    environment.persistence.${persistFolder}.directories = [
+      "${cfg.pkiBundle}"
+    ];
 
     fileSystems.${cfg.pkiBundle} = lib.mkIf config.features.core.persistence.enable {
       neededForBoot = true;
-      device = "${config.spec.persistFolder}${cfg.pkiBundle}";
+      device = "${persistFolder}${cfg.pkiBundle}";
       options = [ "bind" ];
     };
   };

@@ -9,9 +9,10 @@ in
 
   config = lib.mkIf cfg.enable {
     catppuccin = {
+      enable = true;
+
       flavor = "mocha";
       accent = "pink";
-      enable = true;
 
       tty.enable = lib.mkForce false;
 

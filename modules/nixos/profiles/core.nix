@@ -6,6 +6,7 @@
 }:
 let
   cfg = config.features.profiles.core;
+  persistFolder = config.spec.persistFolder;
 in
 {
   options.features.profiles.core = {
@@ -33,7 +34,7 @@ in
       };
     };
 
-    features.core.persistence = {
+    environment.persistence.${persistFolder} = {
       directories = [
         "/var/log"
         "/var/lib/nixos"
@@ -49,6 +50,43 @@ in
       files = [
         "/etc/machine-id"
       ];
+
+      # TODO: remove this when there is better integration with home-manager
+      users.${config.spec.user} = {
+        directories = [
+          "Downloads"
+          "Documents"
+          "Pictures"
+          "Videos"
+          "Public"
+          "Games"
+          "Music"
+
+          ".ssh"
+          ".gnupg"
+          ".nixops"
+
+          ".dotfiles"
+          ".config"
+          ".local"
+          ".cache"
+
+          ".ollama"
+          ".rustup"
+          ".cargo"
+          ".volta"
+          ".opam"
+          ".bun"
+
+          ".vagrant.d"
+          ".vimgolf"
+          ".steam"
+        ];
+        files = [
+          ".bash_history"
+          ".adventofcode.session"
+        ];
+      };
     };
 
     networking = {

@@ -5,15 +5,16 @@
   ...
 }:
 let
-  cfg = config.features.core.gaming;
+  cfg = config.features.profiles.gaming;
 in
 {
-  options.features.core.gaming.enable = lib.mkEnableOption "Steam";
+  options.features.profiles.gaming = {
+    enable = lib.mkEnableOption "Gaming profile";
+  };
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       wineWowPackages.waylandFull
-      game-devices-udev-rules
       dualsensectl
       bottles
     ];

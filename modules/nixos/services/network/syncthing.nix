@@ -1,6 +1,7 @@
 { config, lib, ... }:
 let
   cfg = config.features.services.syncthing;
+  persistFolder = config.spec.persistFolder;
 in
 {
   options.features.services.syncthing = {
@@ -29,10 +30,8 @@ in
       };
     };
 
-    features.core.persistence = {
-      directories = [
-        "/var/lib/syncthing"
-      ];
-    };
+    environment.persistence.${persistFolder}.directories = [
+      "/var/lib/syncthing"
+    ];
   };
 }

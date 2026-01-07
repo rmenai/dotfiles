@@ -8,6 +8,7 @@
 let
   cfg = config.features.core.sops;
   secrets = builtins.toString inputs.secrets;
+  persistFolder = config.spec.persistFolder;
 in
 {
   options.features.core.sops = {
@@ -42,15 +43,13 @@ in
       };
     };
 
-    features.core.persistence = {
-      directories = [
-        "${cfg.sopsFolder}"
-      ];
-    };
+    environment.persistence.${persistFolder}.directories = [
+      "${cfg.sopsFolder}"
+    ];
 
     fileSystems."${cfg.sopsFolder}" = lib.mkIf config.features.core.persistence.enable {
       neededForBoot = true;
-      device = "${config.spec.persistFolder}${cfg.sopsFolder}";
+      device = "${persistFolder}${cfg.sopsFolder}";
       options = [ "bind" ];
     };
   };

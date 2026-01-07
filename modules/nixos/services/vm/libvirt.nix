@@ -6,6 +6,7 @@
 }:
 let
   cfg = config.features.services.libvirt;
+  persistFolder = config.spec.persistFolder;
 in
 {
   options.features.services.libvirt = {
@@ -26,35 +27,37 @@ in
     programs.virt-manager.enable = true;
 
     # https://www.rodolfocarvalho.net/blog/resize-disk-vagrant-libvirt/
-    boot.kernelModules = [
-      "9p"
-      "9pnet"
-      "9pnet_virtio"
-    ];
+    boot = {
+      kernelModules = [
+        "9p"
+        "9pnet"
+        "9pnet_virtio"
+      ];
 
-    environment.sessionVariables = {
-      VAGRANT_DEFAULT_PROVIDER = "libvirt";
-      LIBVIRT_DEFAULT_URI = "qemu:///system";
+      extraModprobeConfig = "options kvm_intel nested=1";
     };
 
-    boot.extraModprobeConfig = "options kvm_intel nested=1";
+    environment = {
+      sessionVariables = {
+        VAGRANT_DEFAULT_PROVIDER = "libvirt";
+        LIBVIRT_DEFAULT_URI = "qemu:///system";
+      };
 
-    features.core.persistence = {
-      directories = [
+      systemPackages = with pkgs; [
+        virt-viewer
+        libvirt
+        libvirt-glib
+        spice-protocol
+        spice-gtk
+        qemu
+      ];
+
+      persistence.${persistFolder}.directories = [
         "/var/lib/libvirt"
         "/var/lib/containers"
         "/var/lib/microvms"
       ];
     };
-
-    environment.systemPackages = with pkgs; [
-      virt-viewer
-      libvirt
-      libvirt-glib
-      spice-protocol
-      spice-gtk
-      qemu
-    ];
 
     users.users.${config.spec.user}.extraGroups = [
       "libvirtd"

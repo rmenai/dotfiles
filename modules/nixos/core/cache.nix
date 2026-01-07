@@ -16,7 +16,7 @@ in
     environment.systemPackages = with pkgs; [ cachix ];
 
     nix.settings = {
-      substituters = [
+      extra-substituters = [
         "https://cache.nixos.org/"
         "https://nix-community.cachix.org"
         "http://cache.thalheim.io"
@@ -26,7 +26,7 @@ in
         "https://catppuccin.cachix.org"
       ];
 
-      trusted-public-keys = [
+      extra-trusted-public-keys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "cache.thalheim.io-1:R7msbosLEZKrxk/lKxf9BTjOOH7Ax3H0Qj0/6wiHOgc="
         "colmena.cachix.org-1:7BzpDnjjH8ki2CT3f6GdOk7QAzPOl+1t3LvTLXqYcSg="

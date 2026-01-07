@@ -6,7 +6,7 @@
 }:
 let
   cfg = config.features.services.virtualbox;
-  libvirtEnabled = config.features.services.libvirt.enable or false;
+  persistFolder = config.spec.persistFolder;
 in
 {
   options.features.services.virtualbox = {
@@ -19,18 +19,16 @@ in
       package = pkgs.stable.virtualbox;
 
       # KVM support is only enabled if the libvirt feature is also active
-      enableKvm = libvirtEnabled;
+      enableKvm = config.features.services.libvirt.enable;
 
       enableExtensionPack = true;
       enableHardening = false;
       addNetworkInterface = false;
     };
 
-    features.core.persistence = {
-      directories = [
-        "/etc/vbox"
-      ];
-    };
+    environment.persistence.${persistFolder}.directories = [
+      "/etc/vbox"
+    ];
 
     users.users.${config.spec.user}.extraGroups = [ "vboxusers" ];
   };

@@ -6,6 +6,7 @@
 }:
 let
   cfg = config.features.services.ssh;
+  persistFolder = config.spec.persistFolder;
 in
 {
   options.features.services.ssh = {
@@ -26,11 +27,9 @@ in
 
     };
 
-    features.core.persistence = {
-      directories = [
-        "/etc/ssh"
-      ];
-    };
+    environment.persistence.${persistFolder}.directories = [
+      "/etc/ssh"
+    ];
 
     users.users.${config.spec.user}.extraGroups = [ "git" ];
   };

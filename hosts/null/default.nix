@@ -35,13 +35,13 @@
   features = {
     profiles = {
       core.enable = true;
+      gaming.enable = true;
       virt.enable = true;
     };
 
     core = {
       persistence.enable = true;
       nix-ld.enable = true;
-      gaming.enable = true;
       cache.enable = true;
       diff.enable = true;
     };

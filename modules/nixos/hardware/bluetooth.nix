@@ -5,6 +5,7 @@
 }:
 let
   cfg = config.features.hardware.bluetooth;
+  persistFolder = config.spec.persistFolder;
 in
 {
   options.features.hardware.bluetooth = {
@@ -37,10 +38,8 @@ in
       };
     };
 
-    features.core.persistence = {
-      directories = [
-        "/var/lib/bluetooth"
-      ];
-    };
+    environment.persistence.${persistFolder}.directories = [
+      "/var/lib/bluetooth"
+    ];
   };
 }
