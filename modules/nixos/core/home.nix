@@ -34,8 +34,8 @@ in
     };
 
     systemd.tmpfiles.rules = lib.mkIf config.features.core.persistence.enable [
-      "d ${config.features.core.persistence.folder}/${config.spec.user}/ 0777 root root -"
-      "d ${config.features.core.persistence.folder}/home/${config.spec.user} 0700 ${config.spec.user} users -"
+      "d ${config.spec.persistFolder}/${config.spec.user}/ 0777 root root -"
+      "d ${config.spec.persistFolder}/home/${config.spec.user} 0700 ${config.spec.user} users -"
     ];
   };
 }

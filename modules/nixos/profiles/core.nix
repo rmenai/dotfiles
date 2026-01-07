@@ -17,7 +17,10 @@ in
       core = {
         nix.enable = true;
         home.enable = true;
-        sops.enable = true;
+        sops = {
+          enable = true;
+          sopsFolder = "/var/lib/sops";
+        };
       };
 
       users.root.enable = true;
@@ -47,48 +50,6 @@ in
         "/etc/machine-id"
       ];
     };
-
-    # TODO: remove this when there is better integration with home-manager
-    environment.persistence."${config.features.core.persistence.folder}" =
-      lib.mkIf config.features.core.persistence.enable
-        {
-          hideMounts = true;
-          users.${config.spec.user} = {
-            directories = [
-              "Downloads"
-              "Documents"
-              "Pictures"
-              "Videos"
-              "Public"
-              "Games"
-              "Music"
-
-              ".ssh"
-              ".gnupg"
-              ".nixops"
-
-              ".dotfiles"
-              ".config"
-              ".local"
-              ".cache"
-
-              ".ollama"
-              ".rustup"
-              ".cargo"
-              ".volta"
-              ".opam"
-              ".bun"
-
-              ".vagrant.d"
-              ".vimgolf"
-              ".steam"
-            ];
-            files = [
-              ".bash_history"
-              ".adventofcode.session"
-            ];
-          };
-        };
 
     networking = {
       hostName = config.spec.host;

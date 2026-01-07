@@ -6,7 +6,7 @@
 }:
 let
   cfg = config.features.core.sops;
-  sopsFolder = builtins.toString inputs.secrets;
+  secrets = builtins.toString inputs.secrets;
 in
 {
   options.features.core.sops = {
@@ -16,7 +16,7 @@ in
   config = lib.mkIf cfg.enable {
     sops = {
       age.keyFile = "/home/${config.spec.user}/.config/sops/age/key.txt";
-      defaultSopsFile = "${sopsFolder}/users/${config.spec.user}.yaml";
+      defaultSopsFile = "${secrets}/users/${config.spec.user}.yaml";
       validateSopsFiles = true;
     };
   };

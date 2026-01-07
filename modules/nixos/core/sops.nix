@@ -7,44 +7,51 @@
 }:
 let
   cfg = config.features.core.sops;
-  sopsFolder = builtins.toString inputs.secrets;
+  secrets = builtins.toString inputs.secrets;
 in
 {
   options.features.core.sops = {
     enable = lib.mkEnableOption "sops secrets management";
 
-    validateSopsFiles = lib.mkOption {
-      type = lib.types.bool;
-      default = true;
-      description = "Whether to validate sops files";
+    sopsFolder = lib.mkOption {
+      type = lib.types.str;
+      default = "/var/lib/sops";
+      description = "Path to the PKI bundle for secure boot";
     };
   };
 
   config = lib.mkIf cfg.enable {
+    environment = {
+      sessionVariables.SOPS_FOLDER = secrets;
+      systemPackages = [
+        pkgs.sops
+        pkgs.age
+      ];
+    };
+
     sops = {
-      defaultSopsFile = "${sopsFolder}/hosts/${config.spec.host}.yaml";
+      defaultSopsFile = "${secrets}/hosts/${config.spec.host}.yaml";
       validateSopsFiles = true;
 
       gnupg.sshKeyPaths = [ ];
 
       age = {
-        keyFile = "/var/lib/sops/key.txt";
+        keyFile = "${cfg.sopsFolder}/key.txt";
         generateKey = false;
         sshKeyPaths = [ ];
       };
     };
 
-    environment.sessionVariables.SOPS_FOLDER = sopsFolder;
-
-    environment.systemPackages = [
-      pkgs.sops
-      pkgs.age
-    ];
-
     features.core.persistence = {
       directories = [
-        "/var/lib/sops"
+        "${cfg.sopsFolder}"
       ];
+    };
+
+    fileSystems."${cfg.sopsFolder}" = lib.mkIf config.features.core.persistence.enable {
+      neededForBoot = true;
+      device = "${config.spec.persistFolder}${cfg.sopsFolder}";
+      options = [ "bind" ];
     };
   };
 }

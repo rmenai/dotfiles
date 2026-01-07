@@ -6,12 +6,6 @@ in
   options.features.core.persistence = {
     enable = lib.mkEnableOption "system persistence and rollback";
 
-    folder = lib.mkOption {
-      type = lib.types.str;
-      default = "/persist";
-      description = "The permanent volume mount point.";
-    };
-
     directories = lib.mkOption {
       type = lib.types.listOf (lib.types.either lib.types.str lib.types.attrs);
       default = [ ];
@@ -26,9 +20,9 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    fileSystems."${cfg.folder}".neededForBoot = true;
+    fileSystems."${config.spec.persistFolder}".neededForBoot = true;
 
-    environment.persistence."${cfg.folder}" = {
+    environment.persistence."${config.spec.persistFolder}" = {
       hideMounts = true;
       directories = cfg.directories;
       files = cfg.files;

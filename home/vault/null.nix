@@ -19,6 +19,7 @@
     handle = "rmenai";
     userFullName = "Rami Menai";
     email = "rami@menai.me";
+    persistFolder = "/persist";
   };
 
   features = {

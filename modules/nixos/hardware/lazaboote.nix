@@ -13,13 +13,11 @@ in
 
     pkiBundle = lib.mkOption {
       type = lib.types.str;
-      default = "/var/lib/sbctl";
       description = "Path to the PKI bundle for secure boot";
     };
 
     configurationLimit = lib.mkOption {
       type = lib.types.int;
-      default = 16;
       description = "Limit on the number of configurations to keep.";
     };
   };
@@ -42,8 +40,14 @@ in
 
     features.core.persistence = {
       directories = [
-        cfg.pkiBundle
+        "${cfg.pkiBundle}"
       ];
+    };
+
+    fileSystems.${cfg.pkiBundle} = lib.mkIf config.features.core.persistence.enable {
+      neededForBoot = true;
+      device = "${config.spec.persistFolder}${cfg.pkiBundle}";
+      options = [ "bind" ];
     };
   };
 }

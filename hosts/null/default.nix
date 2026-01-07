@@ -22,6 +22,7 @@
     host = "null";
     timeZone = "Europe/Paris";
     defaultLocale = "en_US.UTF-8";
+    persistFolder = "/persist";
   };
 
   deployment = {

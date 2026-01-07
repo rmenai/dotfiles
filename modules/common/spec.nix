@@ -9,14 +9,6 @@
       type = lib.types.str;
       description = "The hostname of the host";
     };
-    runner = lib.mkOption {
-      type = lib.types.enum [
-        "home"
-        "nixos"
-        "colmena"
-      ];
-      description = "The runner of the host flake";
-    };
     email = lib.mkOption {
       type = lib.types.str;
       description = "The email of the user";
@@ -43,6 +35,18 @@
       type = lib.types.str;
       default = "en_US.UTF-8";
       description = "Default system locale";
+    };
+    runner = lib.mkOption {
+      type = lib.types.enum [
+        "home"
+        "nixos"
+        "colmena"
+      ];
+      description = "The runner of the host flake";
+    };
+    persistFolder = lib.mkOption {
+      type = lib.types.str;
+      description = "The persist folder";
     };
   };
 }
