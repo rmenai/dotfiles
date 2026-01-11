@@ -23,9 +23,6 @@ in
           "s23" = {
             id = config.private.secrets.syncthingDevices.s23;
           };
-          "kernel" = {
-            id = config.private.secrets.syncthingDevices.kernel;
-          };
         };
       };
     };
