@@ -5,8 +5,19 @@ window-rule {
 }
 
 window-rule {
-    match title="foot"
+    match app-id="foot"
     open-maximized false
+}
+
+window-rule {
+    match app-id="anki"
+    open-maximized false
+    open-floating true
+}
+window-rule {
+    match app-id="anki" title=".* - Anki$"
+    open-maximized true
+    open-floating false
 }
 
 window-rule {
