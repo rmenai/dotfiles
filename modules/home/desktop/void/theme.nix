@@ -25,6 +25,8 @@ in
     gtk = {
       enable = true;
 
+      gtk4.theme = null;
+
       theme = {
         name = "catppuccin-mocha-lavender-standard";
         package = pkgs.catppuccin-gtk.override {
@@ -40,5 +42,7 @@ in
       platformTheme.name = "kvantum";
       style.name = "kvantum";
     };
+
+    home.pointerCursor.enable = true;
   };
 }

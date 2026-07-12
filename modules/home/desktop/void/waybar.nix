@@ -6,10 +6,7 @@ in
 {
   config = lib.mkIf cfg.enable {
     programs.waybar = {
-      systemd = {
-        enable = true;
-        target = "graphical-session.target";
-      };
+      systemd.enable = true;
     };
 
     xdg.configFile."waybar".source = mkLink ./mechabar;

@@ -46,6 +46,7 @@ in
     fileSystems.${cfg.pkiBundle} = lib.mkIf config.features.core.persistence.enable {
       neededForBoot = true;
       device = "${persistFolder}${cfg.pkiBundle}";
+      fsType = "none";
       options = [ "bind" ];
     };
   };

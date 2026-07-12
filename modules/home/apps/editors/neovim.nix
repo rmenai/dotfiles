@@ -32,7 +32,6 @@ in
       vimgolf
       lazygit
       curl
-      fzf
     ];
 
     xdg = {

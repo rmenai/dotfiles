@@ -50,6 +50,7 @@ in
     fileSystems."${cfg.sopsFolder}" = lib.mkIf config.features.core.persistence.enable {
       neededForBoot = true;
       device = "${persistFolder}${cfg.sopsFolder}";
+      fsType = "none";
       options = [ "bind" ];
     };
   };

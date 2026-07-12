@@ -14,53 +14,45 @@ in
   config = lib.mkIf cfg.enable {
     programs.swayimg = {
       enable = true;
-      settings = {
-        general = {
-          size = "image";
-        };
+      initLua = ''
+        -- General Settings
+        config.general.size = "image"
 
-        viewer = {
-          window = "00000000";
-          transparency = "00000000";
-          scale = "real";
-        };
+        -- Viewer Settings
+        config.viewer.window = "00000000"
+        config.viewer.transparency = "00000000"
+        config.viewer.scale = "real"
 
-        list = {
-          all = "yes";
-        };
+        -- List & Info Settings
+        config.list.all = true
+        config.info.show = false
 
-        info = {
-          show = "no";
-        };
+        -- Viewer Keybindings
+        -- Navigation
+        bind.viewer("j", "next_file")
+        bind.viewer("k", "prev_file")
+        bind.viewer("Shift+g", "last_file")
+        bind.viewer("g", "first_file")
 
-        "keys.viewer" = {
-          # Navigation
-          "j" = "next_file";
-          "k" = "prev_file";
-          "Shift+g" = "last_file"; # G
-          "g" = "first_file"; # gg
+        -- Panning
+        bind.viewer("h", "step_left 10")
+        bind.viewer("l", "step_right 10")
 
-          # Panning
-          "h" = "step_left 10";
-          "l" = "step_right 10";
+        -- Logical Directory Jumping
+        bind.viewer("Shift+j", "next_dir")
+        bind.viewer("Shift+k", "prev_dir")
 
-          # Logical Directory Jumping
-          "Shift+j" = "next_dir";
-          "Shift+k" = "prev_dir";
-        };
+        -- Gallery Keybindings
+        -- Grid Movement
+        bind.gallery("h", "step_left")
+        bind.gallery("j", "step_down")
+        bind.gallery("k", "step_up")
+        bind.gallery("l", "step_right")
 
-        "keys.gallery" = {
-          # Grid Movement
-          "h" = "step_left";
-          "j" = "step_down";
-          "k" = "step_up";
-          "l" = "step_right";
-
-          # List Limits
-          "Shift+g" = "last_file";
-          "g" = "first_file";
-        };
-      };
+        -- List Limits
+        bind.gallery("Shift+g", "last_file")
+        bind.gallery("g", "first_file")
+      '';
     };
 
     xdg.mimeApps.defaultApplications = {

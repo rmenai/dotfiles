@@ -6,7 +6,7 @@ in
   config = lib.mkIf cfg.enable {
     services.wlsunset = {
       enable = true;
-      systemdTarget = "graphical-session.target";
+      # systemdTarget = "graphical-session.target";
 
       # France, Lyon
       longitude = "45.7";

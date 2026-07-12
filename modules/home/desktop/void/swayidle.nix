@@ -12,8 +12,8 @@ in
 {
   config = lib.mkIf cfg.enable {
     services.swayidle = {
-      systemdTarget = "graphical-session.target";
       extraArgs = [ "-w" ];
+      # systemdTarget = "graphical-session.target";
 
       events = {
         "before-sleep" = (display "off") + "; " + lock;

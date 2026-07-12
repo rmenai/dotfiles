@@ -10,24 +10,22 @@ in
   config = lib.mkIf cfg.enable {
     programs.ssh = {
       enable = true;
-
       enableDefaultConfig = false;
 
-      matchBlocks = {
+      settings = {
         "*" = {
-          controlMaster = "auto";
-          controlPath = "/home/${config.spec.user}/.ssh/sockets/S.%r@%h:%p";
-          controlPersist = "20m";
-          serverAliveCountMax = 3;
-          serverAliveInterval = 5;
-          hashKnownHosts = true;
-          addKeysToAgent = "yes";
+          ControlMaster = "auto";
+          ControlPath = "/home/${config.spec.user}/.ssh/sockets/S.%r@%h:%p";
+          ControlPersist = "20m";
+          ServerAliveCountMax = 3;
+          ServerAliveInterval = 5;
+          HashKnownHosts = true;
+          AddKeysToAgent = "yes";
         };
 
-        "default" = {
-          host = "github.com";
-          identitiesOnly = true;
-          identityFile = [ "/home/${config.spec.user}/.ssh/id_ed25519" ];
+        "github.com" = {
+          IdentitiesOnly = true;
+          IdentityFile = [ "/home/${config.spec.user}/.ssh/id_ed25519" ];
         };
       };
     };

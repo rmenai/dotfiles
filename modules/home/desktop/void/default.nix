@@ -47,7 +47,7 @@ in
       swayidle.enable = true;
       swayosd.enable = true;
       swaync.enable = true;
-      swww.enable = true;
+      awww.enable = true;
     };
   };
 }

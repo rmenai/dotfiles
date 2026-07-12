@@ -53,10 +53,10 @@
     hardware = {
       bluetooth.enable = true;
 
-      # tlp = {
-      #   enable = true;
-      #   profile = "performance";
-      # };
+      tlp = {
+        enable = true;
+        profile = "performance";
+      };
     };
 
     services = {

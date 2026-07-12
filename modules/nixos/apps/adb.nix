@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.features.apps.adb;
 in
@@ -8,7 +13,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    programs.adb.enable = true;
+    environment.systemPackages = with pkgs; [
+      android-tools
+    ];
+
     nixpkgs.config.android_sdk.accept_license = true;
 
     users.users.${config.spec.user}.extraGroups = [ "adbusers" ];

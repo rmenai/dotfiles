@@ -48,10 +48,12 @@ in
       };
     };
 
-    systemd.sleep.extraConfig = ''
-      HibernateDelaySec=${cfg.delaySec}
-      SuspendMode=s2idle
-    '';
+    systemd.sleep.settings = {
+      Sleep = {
+        HibernateDelaySec = "${cfg.delaySec}";
+        SuspendMode = "s2idle";
+      };
+    };
 
     security.polkit.enable = true;
   };

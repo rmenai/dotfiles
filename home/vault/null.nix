@@ -73,7 +73,6 @@
         btop.enable = true;
         dua.enable = true;
 
-        neofetch.enable = true;
         hyprfine.enable = true;
         ripgrep.enable = true;
         zoxide.enable = true;
@@ -118,7 +117,6 @@
 
       socials = {
         discord.enable = true;
-        whatsapp.enable = true;
       };
 
       misc = {

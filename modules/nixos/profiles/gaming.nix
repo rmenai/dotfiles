@@ -14,7 +14,7 @@ in
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      wineWowPackages.waylandFull
+      wineWow64Packages.waylandFull
       dualsensectl
       bottles
     ];

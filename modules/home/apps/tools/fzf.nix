@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.features.apps.tools.fzf;
 in
@@ -14,8 +19,10 @@ in
 
     programs.fzf = {
       enable = true;
+      package = pkgs.unstable.fzf;
       enableBashIntegration = true;
       tmux.enableShellIntegration = true;
+      historyWidget.nushell.command = "";
     };
 
     catppuccin.fzf.enable = true;
