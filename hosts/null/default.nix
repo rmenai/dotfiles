@@ -63,6 +63,8 @@
       syncthing.enable = true;
       pipewire.enable = true;
       cups.enable = true;
+
+      virtualbox.enable = true;
     };
 
     desktop = {
