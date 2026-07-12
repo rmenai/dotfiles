@@ -1,4 +1,4 @@
-{ modulesPath, ... }:
+{ lib, modulesPath, ... }:
 {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
@@ -57,7 +57,7 @@
       };
 
       efi.canTouchEfiVariables = true;
-      timeout = 3;
+      timeout = lib.mkDefault 3;
     };
 
     initrd.systemd.enable = true;

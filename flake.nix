@@ -51,11 +51,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixos-generators = {
-      url = "github:nix-community/nixos-generators";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     catppuccin = {
       url = "github:catppuccin/nix/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -151,56 +146,12 @@
           };
 
           extraPackages = {
-            # microvm = self.nixosConfigurations.microvm.config.microvm.declaredRunner;
-            # vm = self.nixosConfigurations.vm.config.system.build.vm;
+            microvm = self.nixosConfigurations.microvm.config.microvm.declaredRunner;
             null = self.nixosConfigurations.null.config.system.build.vm;
-            # fork = self.nixosConfigurations.fork.config.system.build.vm;
-          };
-
-          extraImages = {
-            virtualbox = inputs.nixos-generators.nixosGenerate {
-              system = "x86_64-linux";
-              format = "virtualbox";
-            };
-
-            vagrant-virtualbox = inputs.nixos-generators.nixosGenerate {
-              system = "x86_64-linux";
-              format = "vagrant-virtualbox";
-            };
-
-            qcow = inputs.nixos-generators.nixosGenerate {
-              system = "x86_64-linux";
-              format = "qcow";
-            };
-
-            qcow-efi = inputs.nixos-generators.nixosGenerate {
-              system = "x86_64-linux";
-              format = "qcow-efi";
-            };
-
-            do = inputs.nixos-generators.nixosGenerate {
-              system = "x86_64-linux";
-              format = "do";
-            };
-
-            docker = inputs.nixos-generators.nixosGenerate {
-              system = "x86_64-linux";
-              format = "docker";
-            };
-
-            iso = inputs.nixos-generators.nixosGenerate {
-              system = "x86_64-linux";
-              format = "iso";
-            };
-
-            install-iso = inputs.nixos-generators.nixosGenerate {
-              system = "x86_64-linux";
-              format = "install-iso";
-            };
           };
 
         in
-        pkgsFromDir // extraPackages // extraImages
+        pkgsFromDir // extraPackages
       );
     };
 }
