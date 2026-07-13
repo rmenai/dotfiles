@@ -1,0 +1,26 @@
+{ pkgs, ... }:
+{
+  i18n.supportedLocales = [
+    "en_US.UTF-8/UTF-8"
+    "ja_JP.UTF-8/UTF-8"
+    "fr_FR.UTF-8/UTF-8"
+    "ar_EG.UTF-8/UTF-8"
+  ];
+
+  i18n.inputMethod = {
+    enable = true;
+    type = "fcitx5";
+    fcitx5 = {
+      waylandFrontend = true;
+
+      addons = with pkgs; [
+        # Japanese keyboard
+        fcitx5-mozc-ut
+        fcitx5-gtk
+        qt6Packages.fcitx5-configtool # A GUI to configure Fcitx5
+      ];
+    };
+  };
+
+  catppuccin.fcitx5.enable = true;
+}

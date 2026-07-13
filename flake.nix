@@ -21,23 +21,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    impermanence = {
-      url = "github:nix-community/impermanence";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     sops-nix = {
       url = "github:mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    secrets = {
-      url = "git+ssh://git@github.com/rmenai/secrets.git?ref=main&shallow=1";
-      flake = false;
-    };
-
-    colmena = {
-      url = "github:zhaofengli/colmena";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -46,23 +31,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    microvm = {
-      url = "github:astro/microvm.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     catppuccin = {
       url = "github:catppuccin/nix/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    zjstatus = {
-      url = "https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm";
-      flake = false;
+    colmena = {
+      url = "github:zhaofengli/colmena";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    zjnav = {
-      url = "https://github.com/hiasr/vim-zellij-navigator/releases/latest/download/vim-zellij-navigator.wasm";
+    secrets = {
+      url = "git+ssh://git@github.com/rmenai/secrets.git?ref=main&shallow=1";
       flake = false;
     };
   };
@@ -76,82 +56,37 @@
       ...
     }@inputs:
     let
-      lib = import ./lib { inherit (nixpkgs) lib inputs; };
+      system = "x86_64-linux";
+      pkgs = nixpkgs.legacyPackages.${system};
 
-      systems = [ "x86_64-linux" ];
-      forAllSystems = nixpkgs.lib.genAttrs systems;
-      forEachSystem = f: forAllSystems (system: f system);
-
-      hosts = lib.discoverHosts ./hosts;
-      miscHosts = lib.discoverHosts ./misc;
-
-      extendedLib = nixpkgs.lib.extend (self: super: { custom = lib; });
-
-      # Create pkgs with overlays for each system
-      mkPkgs =
-        system:
-        import nixpkgs {
-          inherit system;
-          overlays = [ self.overlays.default ];
-        };
-
-      commonSpecialArgs = {
+      specialArgs = {
         inherit inputs;
         outputs = self;
-        func = extendedLib;
       };
     in
     {
-      inherit inputs;
-
-      nixosConfigurations =
-        lib.mkNixosConfigurations {
-          inherit hosts commonSpecialArgs;
-          hostsDir = ./hosts;
-        }
-        // lib.mkNixosConfigurations {
-          inherit commonSpecialArgs;
-          hosts = miscHosts;
-          hostsDir = ./misc;
+      nixosConfigurations = {
+        null = nixpkgs.lib.nixosSystem {
+          inherit system specialArgs;
+          modules = [ ./hosts/null/default.nix ];
         };
-
-      homeConfigurations = lib.mkHomeConfigurations {
-        inherit
-          hosts
-          home-manager
-          commonSpecialArgs
-          systems
-          ;
-        homeDir = ./home;
-        mkPkgs = mkPkgs;
       };
 
-      colmenaHive = inputs.colmena.lib.makeHive self.outputs.colmena;
-
-      colmena = lib.mkColmenaConfig {
-        inherit commonSpecialArgs mkPkgs;
-        hostsDir = ./hosts;
-        system = "x86_64-linux";
+      homeConfigurations = {
+        "vault@null" = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          extraSpecialArgs = specialArgs;
+          modules = [ ./home/vault/null.nix ];
+        };
       };
 
-      overlays = import ./overlays { inherit inputs; };
+      colmenaHive = colmena.lib.makeHive self.outputs.colmena;
 
-      packages = forEachSystem (
-        system:
-        let
-          pkgs = mkPkgs system;
-          pkgsFromDir = nixpkgs.lib.packagesFromDirectoryRecursive {
-            callPackage = pkgs.callPackage;
-            directory = ./pkgs;
-          };
-
-          extraPackages = {
-            microvm = self.nixosConfigurations.microvm.config.microvm.declaredRunner;
-            null = self.nixosConfigurations.null.config.system.build.vm;
-          };
-
-        in
-        pkgsFromDir // extraPackages
-      );
+      colmena = {
+        meta = {
+          nixpkgs = import nixpkgs { inherit system; };
+          specialArgs = specialArgs;
+        };
+      };
     };
 }

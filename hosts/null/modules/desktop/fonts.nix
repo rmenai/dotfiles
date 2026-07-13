@@ -1,0 +1,42 @@
+{ pkgs, ... }:
+{
+  fonts = {
+    packages = with pkgs; [
+      nerd-fonts.ubuntu
+      nerd-fonts.jetbrains-mono
+      nerd-fonts.commit-mono
+      noto-fonts-color-emoji
+      sarasa-gothic
+    ];
+
+    fontDir.enable = true;
+    enableGhostscriptFonts = true;
+
+    fontconfig = {
+      enable = true;
+
+      defaultFonts = {
+        serif = [
+          "Sarasa Gothic J"
+          "Noto Color Emoji"
+        ];
+
+        sansSerif = [
+          "Ubuntu Nerd Font"
+          "Sarasa Gothic J"
+          "Noto Color Emoji"
+        ];
+
+        monospace = [
+          "JetBrainsMono Nerd Font"
+          "Sarasa Mono J"
+          "Noto Color Emoji"
+        ];
+
+        emoji = [
+          "Noto Color Emoji"
+        ];
+      };
+    };
+  };
+}

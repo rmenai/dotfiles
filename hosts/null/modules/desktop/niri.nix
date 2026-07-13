@@ -1,0 +1,18 @@
+{ lib, pkgs, ... }:
+{
+  programs.niri.enable = true;
+  environment.systemPackages = with pkgs; [ xwayland-satellite ];
+
+  services = {
+    xserver.xkb.layout = "us";
+    libinput.enable = true;
+
+    # Ensure keyring works properly
+    gnome.gnome-keyring.enable = true;
+    dbus.enable = true;
+  };
+
+  security.pam.services.sddm.enableGnomeKeyring = true;
+  programs.ssh.startAgent = lib.mkForce false;
+  security.polkit.enable = true;
+}
