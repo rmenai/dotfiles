@@ -19,12 +19,6 @@ in
     ./modules/hardware/hibernation.nix
     ./../../modules/nixos/hardware/bluetooth.nix
 
-    # Core
-    ./modules/core/nix.nix
-    ./modules/core/cache.nix
-    ./../../modules/nixos/core/nix-ld.nix
-    ./../../modules/nixos/core/diff.nix
-
     # Desktop
     ./modules/desktop/catppuccin.nix
     ./modules/desktop/fcitx5.nix
@@ -33,6 +27,10 @@ in
     ./modules/desktop/sddm.nix
 
     # System
+    ./modules/system/nix.nix
+    ./modules/system/cache.nix
+    ./../../modules/nixos/system/nix-ld.nix
+    ./../../modules/nixos/system/diff.nix
     ./modules/system/libvirt.nix
     ./../../modules/nixos/system/virtualbox.nix
     ./../../modules/nixos/system/printing.nix
@@ -98,7 +96,6 @@ in
   nixpkgs.config.allowUnfree = true;
 
   home-manager = {
-    useGlobalPkgs = true;
     useUserPackages = true;
     extraSpecialArgs = { inherit inputs; };
     users.vault = import ../../home/vault/null/default.nix;
