@@ -76,7 +76,7 @@
         "vault@null" = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           extraSpecialArgs = specialArgs;
-          modules = [ ./home/vault/null.nix ];
+          modules = [ ./home/vault/null/default.nix ];
         };
       };
 
@@ -84,8 +84,8 @@
 
       colmena = {
         meta = {
+          inherit specialArgs;
           nixpkgs = import nixpkgs { inherit system; };
-          specialArgs = specialArgs;
         };
       };
     };

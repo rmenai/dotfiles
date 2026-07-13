@@ -15,15 +15,15 @@ in
     # Hardware
     ./modules/hardware/tlp.nix
     ./modules/hardware/nvidia.nix
-    ./modules/hardware/lazaboote.nix
+    ./../../modules/nixos/hardware/lazaboote.nix
     ./modules/hardware/hibernation.nix
-    ./modules/hardware/bluetooth.nix
+    ./../../modules/nixos/hardware/bluetooth.nix
 
     # Core
     ./modules/core/nix.nix
     ./modules/core/cache.nix
-    ./modules/core/nix-ld.nix
-    ./modules/core/diff.nix
+    ./../../modules/nixos/core/nix-ld.nix
+    ./../../modules/nixos/core/diff.nix
 
     # Desktop
     ./modules/desktop/catppuccin.nix
@@ -34,8 +34,8 @@ in
 
     # System
     ./modules/system/libvirt.nix
-    ./modules/system/virtualbox.nix
-    ./modules/system/printing.nix
+    ./../../modules/nixos/system/virtualbox.nix
+    ./../../modules/nixos/system/printing.nix
     ./modules/system/gaming.nix
     ./modules/system/audio.nix
     ./modules/system/ssh.nix
@@ -44,7 +44,7 @@ in
 
     # Apps
     ./modules/apps/obs.nix
-    ./modules/apps/adb.nix
+    ./../../modules/nixos/apps/adb.nix
 
     # Inputs
     inputs.nix-index-database.nixosModules.nix-index
@@ -101,6 +101,6 @@ in
     useGlobalPkgs = true;
     useUserPackages = true;
     extraSpecialArgs = { inherit inputs; };
-    users.vault = import ../../home/vault/null.nix;
+    users.vault = import ../../home/vault/null/default.nix;
   };
 }
