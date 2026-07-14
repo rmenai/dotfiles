@@ -5,7 +5,7 @@
   #
   #   Host kali
   #     HostName kali
-  #     User vault
+  #     User rami
   #     IdentityFile ${config.home.homeDirectory}/.ssh/id_ed25519_vm
   #     ForwardAgent yes
   #     ForwardX11 yes
@@ -13,13 +13,13 @@
   #
   #   Host flare
   #     HostName flare
-  #     User vault
+  #     User rami
   #     IdentityFile ${config.home.homeDirectory}/.ssh/id_ed25519_vm
   #     ForwardAgent yes
   #
   #   Host vm
   #     HostName vm
-  #     User vault
+  #     User rami
   #     IdentityFile ${config.home.homeDirectory}/.ssh/id_ed25519_vm
   #     ForwardAgent yes
   #     ForwardX11 yes
@@ -27,7 +27,7 @@
   #
   #   Host kernel
   #     HostName kernel
-  #     User vault
+  #     User rami
   #     IdentityFile ${config.home.homeDirectory}/.ssh/id_ed25519
   #     ForwardAgent yes
   #     ForwardX11 yes

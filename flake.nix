@@ -72,17 +72,17 @@
       overlays = import ./overlays { inherit inputs; };
 
       nixosConfigurations = {
-        null = nixpkgs.lib.nixosSystem {
+       kari = nixpkgs.lib.nixosSystem {
           inherit system specialArgs;
-          modules = [ ./hosts/null/default.nix ];
+          modules = [ ./hosts/kari/default.nix ];
         };
       };
 
       homeConfigurations = {
-        "vault@null" = home-manager.lib.homeManagerConfiguration {
+        "rami@kari" = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           extraSpecialArgs = specialArgs;
-          modules = [ ./home/vault/null/default.nix ];
+          modules = [ ./home/rami/kari/default.nix ];
         };
       };
 
@@ -96,7 +96,7 @@
       };
 
       packages.${system} = {
-        null = self.nixosConfigurations.null.config.system.build.vm;
+        kari = self.nixosConfigurations.kari.config.system.build.vm;
       };
     };
 }

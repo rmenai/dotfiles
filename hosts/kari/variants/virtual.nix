@@ -7,7 +7,7 @@
 
     disko.enableConfig = lib.mkForce false;
 
-    home-manager.users.vault = {
+    home-manager.users.rami = {
       dotfiles.mutable = lib.mkForce false;
     };
 
@@ -17,7 +17,7 @@
 
       displayManager.autoLogin = {
         enable = lib.mkForce true;
-        user = "vault";
+        user = "rami";
       };
     };
 

@@ -16,7 +16,7 @@
 
       trusted-users = [
         "root"
-        "vault"
+        "rami"
       ];
 
       auto-optimise-store = true;
@@ -36,6 +36,6 @@
     enable = true;
     clean.enable = true;
     clean.extraArgs = "--keep-since 4d --keep 16";
-    flake = "/home/vault/.dotfiles";
+    flake = "/home/rami/.dotfiles";
   };
 }

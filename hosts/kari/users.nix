@@ -3,11 +3,11 @@
   users.mutableUsers = false;
 
   users.users = {
-    vault = {
-      home = "/home/vault";
+    rami = {
+      home = "/home/rami";
       createHome = true;
       isNormalUser = true;
-      hashedPasswordFile = config.sops.secrets."users/vault/password_hash".path;
+      hashedPasswordFile = config.sops.secrets."users/rami/password_hash".path;
 
       shell = pkgs.bash;
 
@@ -31,40 +31,40 @@
       # TODO: change root password and add it to proton
       hashedPassword = config.private.rootPasswordHash;
       openssh.authorizedKeys.keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDDw4/okVV4KIt0XvVU+ecFmhYOVS/ETmDAK04WgN1ic vault@null"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDDw4/okVV4KIt0XvVU+ecFmhYOVS/ETmDAK04WgN1ic rami@kari"
       ];
     };
   };
 
   sops.secrets = {
-    "users/vault/password_hash".neededForUsers = true;
+    "users/rami/password_hash".neededForUsers = true;
 
-    "users/vault/age_key" = {
-      path = "/home/vault/.config/sops/age/key.txt";
-      owner = "vault";
+    "users/rami/age_key" = {
+      path = "/home/rami/.config/sops/age/key.txt";
+      owner = "rami";
       group = "users";
       mode = "0600";
     };
 
-    "users/vault/ssh_private_key" = {
-      path = "/home/vault/.ssh/id_ed25519";
-      owner = "vault";
+    "users/rami/ssh_private_key" = {
+      path = "/home/rami/.ssh/id_ed25519";
+      owner = "rami";
       group = "users";
       mode = "0600";
     };
 
-    "users/vault/ssh_public_key" = {
-      path = "/home/vault/.ssh/id_ed25519.pub";
-      owner = "vault";
+    "users/rami/ssh_public_key" = {
+      path = "/home/rami/.ssh/id_ed25519.pub";
+      owner = "rami";
       group = "users";
       mode = "0600";
     };
   };
 
   systemd.tmpfiles.rules = [
-    "d /home/vault/.config 0755 vault users -"
-    "d /home/vault/.config/sops 0755 vault users -"
-    "d /home/vault/.config/sops/age 0755 vault users -"
-    "d /home/vault/.ssh 0700 vault users -"
+    "d /home/rami/.config 0755 rami users -"
+    "d /home/rami/.config/sops 0755 rami users -"
+    "d /home/rami/.config/sops/age 0755 rami users -"
+    "d /home/rami/.ssh 0700 rami users -"
   ];
 }

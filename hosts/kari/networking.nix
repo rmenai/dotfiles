@@ -17,7 +17,7 @@
   };
 
   networking = {
-    hostName = "null";
+    hostName = "kari";
 
     networkmanager = {
       enable = true;

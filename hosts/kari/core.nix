@@ -39,11 +39,11 @@ in
   home-manager = {
     useUserPackages = true;
     extraSpecialArgs = { inherit inputs outputs pkgs; };
-    users.vault = import ../../home/vault/null/default.nix;
+    users.rami = import ../../home/rami/kari/default.nix;
   };
 
   sops = {
-    defaultSopsFile = "${secrets}/hosts/null.yaml";
+    defaultSopsFile = "${secrets}/hosts/kari.yaml";
     validateSopsFiles = true;
 
     gnupg.sshKeyPaths = [ ];

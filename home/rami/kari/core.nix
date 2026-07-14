@@ -14,8 +14,8 @@ in
   ];
 
   home = {
-    username = "vault";
-    homeDirectory = "/home/vault";
+    username = "rami";
+    homeDirectory = "/home/rami";
     enableNixpkgsReleaseCheck = false;
     stateVersion = "26.05";
   };
