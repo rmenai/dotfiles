@@ -7,7 +7,7 @@
     settings = {
       "*" = {
         ControlMaster = "auto";
-        ControlPath = "${config.home.homeDirectory}/.ssh/sockets/S.%r@%h:%p";
+        ControlPath = "${config.home.homeDirectory}/.ssh/S.%r@%h:%p";
         ControlPersist = "20m";
         ServerAliveCountMax = 3;
         ServerAliveInterval = 5;
