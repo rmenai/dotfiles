@@ -1,38 +1,8 @@
 {
-
-  # zjstatus = {
-  #   url = "https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm";
-  #   flake = false;
-  # };
-  #
-  # zjnav = {
-  #   url = "https://github.com/hiasr/vim-zellij-navigator/releases/latest/download/vim-zellij-navigator.wasm";
-  #   flake = false;
-  # };
-  #   # colmenaHive = inputs.colmena.lib.makeHive self.outputs.colmena;
-  #
-  # name = "vault";
-  #
   # packages = [
   #   inputs.home-manager.packages.${pkgs.stdenv.hostPlatform.system}.default
   # ];
   #
-  # features = {
-  #   services = {
-  #     tailscale.enable = true;
-  #     openssh.enable = true;
-  #     ssh.enable = true;
-  #   };
-  # };
-  #
-  # features.services = {
-  #   libvirt.enable = lib.mkDefault true;
-  #   podman.enable = lib.mkDefault true;
-  #
-  #   waydroid.enable = lib.mkDefault false;
-  #   virtualbox.enable = lib.mkDefault false;
-  # };
-
   # xdg.portal = {
   #   enable = true;
   #   extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];

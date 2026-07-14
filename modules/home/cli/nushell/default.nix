@@ -1,0 +1,62 @@
+{
+  config,
+  inputs,
+  pkgs,
+  ...
+}:
+{
+  programs = {
+    nix-index = {
+      enable = true;
+      package = inputs.nix-index-database.packages.${pkgs.system}.nix-index-with-db;
+      enableNushellIntegration = false; # command-not-found integration
+    };
+
+    carapace = {
+      enable = true;
+      enableNushellIntegration = true;
+    };
+
+    starship = {
+      enable = true;
+      enableNushellIntegration = true;
+      settings = {
+        jobs.disabled = true; # To avoid showing atuin job
+
+        character = {
+          success_symbol = "[➜](bold green)";
+          error_symbol = "[➜](bold red)";
+        };
+      };
+    };
+
+    nushell = {
+      enable = true;
+      configFile.source = ./config.nu;
+
+      environmentVariables = config.home.sessionVariables;
+
+      extraEnv = /* nu */ ''
+        # Use starship indicator instead
+
+        $env.PROMPT_INDICATOR = ""
+        $env.PROMPT_INDICATOR_VI_INSERT = ""
+        $env.PROMPT_INDICATOR_VI_NORMAL = ""
+        $env.PROMPT_MULTILINE_INDICATOR = "::: "
+
+        # TODO: remove manual env injection when home-manager integrates nushell
+        $env.PATH ++= [ ${builtins.concatStringsSep ", " (map (s: ''"${s}"'') config.home.sessionPath)} ]
+      '';
+
+      # TODO: remove manual command-not-found when fixed
+      extraConfig = ''
+        $env.config.hooks.command_not_found = (source ${./command-not-found.nu})
+      '';
+    };
+  };
+
+  catppuccin = {
+    nushell.enable = true;
+    starship.enable = true;
+  };
+}

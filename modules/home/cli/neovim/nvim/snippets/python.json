@@ -1,0 +1,10 @@
+{
+  "Catppuccin Style Use": {
+    "prefix": "catppuccin",
+    "description": "Insert catppuccin palette and import statement",
+    "body": [
+      "import catppuccin",
+      "matplotlib.style.use(catppuccin.PALETTE.mocha.identifier)"
+    ]
+  }
+}

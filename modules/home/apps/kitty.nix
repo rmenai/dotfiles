@@ -1,0 +1,29 @@
+{
+  programs.kitty = {
+    enable = true;
+
+    font = {
+      name = "Iosevka Nerd Font Mono";
+      size = 12;
+    };
+
+    keybindings = {
+      "ctrl+equal" = "change_font_size all +2.0";
+      "ctrl+minus" = "change_font_size all -2.0";
+      "ctrl+0" = "change_font_size all 0";
+    };
+
+    settings = {
+      editor = "nvim";
+
+      input_delay = 0;
+      repaint_delay = 2;
+      sync_to_monitor = "no";
+      wayland_enable_ime = "no";
+
+      background_opacity = "0.95";
+    };
+  };
+
+  catppuccin.kitty.enable = true;
+}

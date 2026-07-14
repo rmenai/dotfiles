@@ -1,0 +1,21 @@
+{
+  "NixOS Cfg Module": {
+    "prefix": "cfg",
+    "description": "Create a standardized NixOS module with options and config block",
+    "body": [
+      "{ config, lib, ... }:",
+      "let",
+      "  cfg = config.${1:category}.${2:name};",
+      "in",
+      "{",
+      "  options.${1:category}.${2:name} = {",
+      "    enable = lib.mkEnableOption \"${2:name}\";",
+      "  };",
+      "",
+      "  config = lib.mkIf cfg.enable {",
+      "    $0",
+      "  };",
+      "}"
+    ]
+  }
+}

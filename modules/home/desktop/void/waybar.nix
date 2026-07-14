@@ -1,14 +1,11 @@
-{ config, lib, ... }:
+{ config, ... }:
 let
-  cfg = config.features.desktop.void;
-  mkLink = config.features.core.dotfiles.mkLink;
+  mkLink = config.dotfiles.mkLink;
 in
 {
-  config = lib.mkIf cfg.enable {
-    programs.waybar = {
-      systemd.enable = true;
-    };
-
-    xdg.configFile."waybar".source = mkLink ./mechabar;
+  programs.waybar = {
+    systemd.enable = true;
   };
+
+  xdg.configFile."waybar".source = mkLink ./mechabar;
 }
