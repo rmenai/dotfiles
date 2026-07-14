@@ -12,16 +12,16 @@
 
     ./modules/hardware/nvidia.nix
     ./../../modules/nixos/hardware/bluetooth.nix
-    ./../../modules/nixos/hardware/lazaboote.nix
+    # ./../../modules/nixos/hardware/lazaboote.nix
     # ./modules/hardware/hibernation.nix
-    # ./modules/hardware/tlp.nix
+    ./modules/hardware/tlp.nix
 
     ./modules/system/nix.nix
     ./modules/system/cache.nix
-    # ./../../modules/nixos/system/diff.nix
-    # ./../../modules/nixos/system/nix-ld.nix
+    ./../../modules/nixos/system/diff.nix
+    ./../../modules/nixos/system/nix-ld.nix
 
-    # ./../../modules/nixos/system/printing.nix
+    ./../../modules/nixos/system/printing.nix
     # ./modules/system/gaming.nix
     ./modules/system/audio.nix
     ./modules/system/ssh.nix

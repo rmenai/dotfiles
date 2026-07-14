@@ -21,7 +21,7 @@ in
   };
 
   sops = {
-    age.keyFile = "${config.home.homeDirectory}/.config/sops/age/key.txt";
+    age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
     defaultSopsFile = "${secrets}/users/${config.home.username}.yaml";
     validateSopsFiles = true;
   };

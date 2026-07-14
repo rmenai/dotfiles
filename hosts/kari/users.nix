@@ -40,7 +40,7 @@
     "users/rami/password_hash".neededForUsers = true;
 
     "users/rami/age_key" = {
-      path = "/home/rami/.config/sops/age/key.txt";
+      path = "/home/rami/.config/sops/age/keys.txt";
       owner = "rami";
       group = "users";
       mode = "0600";

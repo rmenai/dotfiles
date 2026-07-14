@@ -19,8 +19,8 @@
     # ../../../modules/home/apps/heroic.nix
     # ../../../modules/home/apps/lutris.nix
     # ../../../modules/home/apps/discord.nix
-    #
-    # ../../../modules/home/apps/anki.nix
+
+    ../../../modules/home/apps/anki.nix
 
     ../../../modules/home/apps/kitty.nix
     ../../../modules/home/apps/foot.nix
@@ -58,32 +58,35 @@
 
   home.packages = with pkgs; [
     curl
-    # ripgrep
-    # ripgrep-all
-    # ani-cli
+    ripgrep
+    ripgrep-all
+    dua
+    dust
+    glow
+    tokei
+    jc
+
+    obsidian
+
+    # mpv
     # audacity
     # ffmpeg
     # gimp
     # imagemagick
     # kdePackages.kdenlive
     # krita
-    # mpv
     # oculante
     # termusic
     # yt-dlp
-    # obsidian
-    # dua
-    # dust
-    # glow
-    # hyperfine
-    # tokei
-    # jc
+
     # itch
     # prismlauncher
+    # hyperfine
+
     # vscode
     # jetbrains-toolbox
     # godot
-    # vimgolf
+
     # virt-viewer
     # vagrant
     # packer
