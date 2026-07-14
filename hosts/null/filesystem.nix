@@ -1,5 +1,4 @@
 {
-  boot.initrd.services.lvm.enable = true;
   boot.supportedFilesystems = [ "btrfs" ];
 
   swapDevices = [ { device = "/.swapvol/swapfile"; } ];
@@ -43,49 +42,30 @@
               };
 
               content = {
-                type = "lvm_pv";
-                vg = "root_vg";
-              };
-            };
-          };
-        };
-      };
-    };
+                type = "btrfs";
+                extraArgs = [ "-f" ];
 
-    lvm_vg = {
-      root_vg = {
-        type = "lvm_vg";
-        lvs = {
-          root = {
-            size = "100%FREE";
-            content = {
-              type = "btrfs";
-              extraArgs = [ "-f" ];
+                subvolumes = {
+                  "/root" = {
+                    mountpoint = "/";
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                    ];
+                  };
 
-              subvolumes = {
-                "/root" = {
-                  mountpoint = "/";
-                };
+                  "/nix" = {
+                    mountpoint = "/nix";
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                    ];
+                  };
 
-                "/persist" = {
-                  mountOptions = [
-                    "subvol=persist"
-                    "noatime"
-                  ];
-                  mountpoint = "/persist";
-                };
-
-                "/nix" = {
-                  mountOptions = [
-                    "subvol=nix"
-                    "noatime"
-                  ];
-                  mountpoint = "/nix";
-                };
-
-                "/swap" = {
-                  mountpoint = "/.swapvol";
-                  swap.swapfile.size = "32GB";
+                  "/swap" = {
+                    mountpoint = "/.swapvol";
+                    swap.swapfile.size = "32G";
+                  };
                 };
               };
             };

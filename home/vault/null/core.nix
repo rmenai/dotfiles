@@ -17,7 +17,7 @@ in
     username = "vault";
     homeDirectory = "/home/vault";
     enableNixpkgsReleaseCheck = false;
-    stateVersion = "25.11";
+    stateVersion = "26.05";
   };
 
   sops = {
@@ -33,9 +33,4 @@ in
 
   nixpkgs.config.allowUnfree = true;
   systemd.user.startServices = "sd-switch";
-
-  xdg = {
-    enable = true;
-    mimeApps.enable = true;
-  };
 }

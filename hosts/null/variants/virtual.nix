@@ -1,6 +1,12 @@
 { lib, ... }:
 {
   virtualisation.vmVariant = {
+    disabledModules = [
+      ../modules/hardware/hibernation.nix
+    ];
+
+    disko.enableConfig = lib.mkForce false;
+
     home-manager.users.vault = {
       dotfiles.mutable = lib.mkForce false;
     };
@@ -8,15 +14,12 @@
     services = {
       btrfs.autoScrub.enable = lib.mkForce false;
       syncthing.enable = lib.mkForce false;
-      displayManager.autoLogin.enable = lib.mkForce true;
-    };
 
-    # features = {
-    #   hardware = {
-    #     disko.profile = lib.mkForce null;
-    #     hibernation.enable = lib.mkForce false;
-    #   };
-    # };
+      displayManager.autoLogin = {
+        enable = lib.mkForce true;
+        user = "vault";
+      };
+    };
 
     virtualisation = {
       diskSize = 60 * 1024;

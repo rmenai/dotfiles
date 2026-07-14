@@ -69,6 +69,8 @@
       };
     in
     {
+      overlays = import ./overlays { inherit inputs; };
+
       nixosConfigurations = {
         null = nixpkgs.lib.nixosSystem {
           inherit system specialArgs;
@@ -93,6 +95,8 @@
         };
       };
 
-      overlays = import ./overlays { inherit inputs; };
+      packages.${system} = {
+        null = self.nixosConfigurations.null.config.system.build.vm;
+      };
     };
 }

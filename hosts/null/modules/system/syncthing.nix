@@ -9,10 +9,10 @@
     settings = {
       devices = {
         "null" = {
-          id = config.private.secrets.syncthingDevices.null;
+          id = config.private.syncthingDevices.null;
         };
         "s23" = {
-          id = config.private.secrets.syncthingDevices.s23;
+          id = config.private.syncthingDevices.s23;
         };
       };
     };

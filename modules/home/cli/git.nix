@@ -1,4 +1,4 @@
-{
+{ config, ... }: {
   home.shellAliases = {
     "?" = "gh copilot suggest";
     "??" = "gh copilot explain";
@@ -13,7 +13,7 @@
       settings = {
         user = {
           name = "Rami Menai";
-          email = "rami@menai.me";
+          email = config.private.email;
         };
 
         init.defaultBranch = "main";

@@ -28,7 +28,8 @@
     };
 
     root = {
-      hashedPassword = config.private.secrets.rootPasswordHash;
+      # TODO: change root password and add it to proton
+      hashedPassword = config.private.rootPasswordHash;
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDDw4/okVV4KIt0XvVU+ecFmhYOVS/ETmDAK04WgN1ic vault@null"
       ];

@@ -28,12 +28,18 @@ in
     Defaults timestamp_timeout=120
   '';
 
-  boot.supportedFilesystems = [ "ntfs" ];
-  system.stateVersion = "25.11";
+  boot.supportedFilesystems = [ ];
+  system.stateVersion = "26.05";
 
   nixpkgs = {
     overlays = [ outputs.overlays.default ];
     config.allowUnfree = true;
+  };
+
+  home-manager = {
+    useUserPackages = true;
+    extraSpecialArgs = { inherit inputs outputs pkgs; };
+    users.vault = import ../../home/vault/null/default.nix;
   };
 
   sops = {
@@ -49,26 +55,17 @@ in
     };
   };
 
-  home-manager = {
-    useUserPackages = true;
-    extraSpecialArgs = { inherit inputs outputs pkgs; };
-    users.vault = import ../../home/vault/null/default.nix;
-  };
-
   environment.systemPackages = with pkgs; [
+    inputs.colmena.packages.${pkgs.system}.colmena
     sops
     age
 
-    magic-wormhole-rs
     fastfetch
     curl
     vim
     git
     zip
     unzip
-
-    inputs.colmena.packages.${pkgs.system}.colmena
-    fastfetch
   ];
 
   programs = {
