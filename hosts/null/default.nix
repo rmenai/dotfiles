@@ -18,8 +18,8 @@
 
     ./modules/system/nix.nix
     ./modules/system/cache.nix
-    ./../../modules/nixos/system/nix-ld.nix
-    ./../../modules/nixos/system/diff.nix
+    # ./../../modules/nixos/system/diff.nix
+    # ./../../modules/nixos/system/nix-ld.nix
 
     # ./../../modules/nixos/system/printing.nix
     # ./modules/system/gaming.nix
