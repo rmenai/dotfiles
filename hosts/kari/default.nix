@@ -32,7 +32,7 @@
     # ./modules/system/tailscale.nix
 
     # ./modules/apps/obs.nix
-    # ./../../modules/nixos/apps/adb.nix
+    ./../../modules/nixos/apps/adb.nix
 
     ./modules/desktop/catppuccin.nix
     ./modules/desktop/fcitx5.nix

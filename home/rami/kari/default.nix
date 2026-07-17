@@ -11,6 +11,7 @@
 
     ../../../modules/home/apps/firefox.nix
     ../../../modules/home/apps/chromium.nix
+    ../../../modules/home/apps/brave.nix
 
     # ../../../modules/home/apps/zathura.nix
     # ../../../modules/home/apps/swayimg.nix
@@ -49,7 +50,7 @@
     ../../../modules/home/cli/python.nix
     ../../../modules/home/cli/rust.nix
     # ../../../modules/home/cli/typist.nix
-    # ../../../modules/home/cli/node.nix
+    ../../../modules/home/cli/node.nix
   ];
 
   # TODO: implement interface for global fonts, default apps, etc...
@@ -67,6 +68,9 @@
     jc
 
     obsidian
+    keepassxc
+    # thunderbird
+    # protonmail-bridge
 
     # mpv
     # audacity
@@ -91,6 +95,8 @@
     # vagrant
     # packer
   ];
+
+  # services.protonmail-bridge.enable = true;
 
   programs = {
     home-manager.enable = true;
