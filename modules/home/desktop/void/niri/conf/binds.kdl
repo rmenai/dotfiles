@@ -6,11 +6,11 @@ binds {
     Mod+Shift+C { spawn "hyprpicker" "-a"; }
 
     Mod+Shift+D { spawn "vesktop"; }
-    Mod+Shift+B { spawn "vivaldi"; }
+    Mod+Shift+B { spawn "brave"; }
     Mod+Shift+O { spawn "obsidian"; }
     Mod+Shift+A { spawn "anki"; }
     Mod+Shift+E { spawn "foot" "yazi"; }
-    Mod+Shift+W { spawn "wasistlos"; }
+    // Mod+Shift+W { spawn "wasistlos"; }
     Mod+Shift+R { spawn "rustover"; }
     Mod+Shift+P { spawn "pycharm"; }
 
