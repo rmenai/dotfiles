@@ -35,4 +35,10 @@
   };
 
   home.pointerCursor.enable = true;
+
+  # Broadcast dark mode preference to the system and applications
+  dconf.settings = {
+    "org/freedesktop/appearance".color-scheme = 1;
+    "org/gnome/desktop/interface".color-scheme = "prefer-dark";
+  };
 }
