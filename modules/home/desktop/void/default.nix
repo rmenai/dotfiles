@@ -3,6 +3,7 @@
   imports = [
     ./awww.nix
     ./cliphist.nix
+    ./mime.nix
     ./niri.nix
     ./rofi.nix
     ./satty.nix
