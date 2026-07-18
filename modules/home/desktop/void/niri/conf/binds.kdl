@@ -3,6 +3,7 @@ binds {
     Mod+T { spawn "foot"; }
     Mod+Shift+T { spawn "kitty"; }
     Mod+Space { spawn "rofi" "-show" "drun"; }
+    Mod+Shift+Space { spawn "foot" "--title=VoidLogin" "-e" "void-rofi"; }
     Mod+Shift+C { spawn "hyprpicker" "-a"; }
 
     Mod+Shift+D { spawn "vesktop"; }

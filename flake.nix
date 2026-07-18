@@ -72,9 +72,9 @@
       overlays = import ./overlays { inherit inputs; };
 
       nixosConfigurations = {
-       kari = nixpkgs.lib.nixosSystem {
+        kari = nixpkgs.lib.nixosSystem {
           inherit system specialArgs;
-          modules = [ ./hosts/kari/default.nix ];
+          modules = [ ./hosts/kari ];
         };
       };
 
@@ -82,7 +82,13 @@
         "rami@kari" = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           extraSpecialArgs = specialArgs;
-          modules = [ ./home/rami/kari/default.nix ];
+          modules = [ ./home/rami/kari ];
+        };
+
+        "void@kari" = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          extraSpecialArgs = specialArgs;
+          modules = [ ./home/void/kari.nix ];
         };
       };
 

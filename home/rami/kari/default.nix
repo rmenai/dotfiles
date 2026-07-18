@@ -69,6 +69,7 @@
 
     obsidian
     keepassxc
+    rustdesk-flutter
     # thunderbird
     # protonmail-bridge
 

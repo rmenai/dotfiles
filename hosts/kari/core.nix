@@ -36,12 +36,6 @@ in
     config.allowUnfree = true;
   };
 
-  home-manager = {
-    useUserPackages = true;
-    extraSpecialArgs = { inherit inputs outputs pkgs; };
-    users.rami = import ../../home/rami/kari/default.nix;
-  };
-
   sops = {
     defaultSopsFile = "${secrets}/hosts/kari.yaml";
     validateSopsFiles = true;
@@ -66,6 +60,15 @@ in
     git
     zip
     unzip
+
+    # Launch any app using the void user
+    (pkgs.writeShellScriptBin "void-rofi" ''
+      ${pkgs.xhost}/bin/xhost +SI:localuser:void
+      ${pkgs.acl}/bin/setfacl -m u:void:x "$XDG_RUNTIME_DIR" 2>/dev/null || true
+      ${pkgs.acl}/bin/setfacl -m u:void:rw "$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY" 2>/dev/null || true
+
+      su - void -c "mkdir -p /tmp/void-run && chmod 0700 /tmp/void-run && env DISPLAY=\"$DISPLAY\" WAYLAND_DISPLAY=\"$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY\" XDG_RUNTIME_DIR=\"/tmp/void-run\" rofi -show drun"
+    '')
   ];
 
   programs = {
