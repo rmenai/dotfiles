@@ -49,6 +49,13 @@ in
     };
   };
 
+  environment.variables = {
+    NIXOS_OZONE_WL = "1";
+    MOZ_ENABLE_WAYLAND = "1";
+    QT_QPA_PLATFORM = "wayland;xcb";
+    GDK_BACKEND = "wayland,x11";
+  };
+
   environment.systemPackages = with pkgs; [
     inputs.colmena.packages.${pkgs.system}.colmena
     sops
@@ -60,15 +67,6 @@ in
     git
     zip
     unzip
-
-    # Launch any app using the void user
-    (pkgs.writeShellScriptBin "void-rofi" ''
-      ${pkgs.xhost}/bin/xhost +SI:localuser:void
-      ${pkgs.acl}/bin/setfacl -m u:void:x "$XDG_RUNTIME_DIR" 2>/dev/null || true
-      ${pkgs.acl}/bin/setfacl -m u:void:rw "$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY" 2>/dev/null || true
-
-      su - void -c "mkdir -p /tmp/void-run && chmod 0700 /tmp/void-run && env DISPLAY=\"$DISPLAY\" WAYLAND_DISPLAY=\"$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY\" XDG_RUNTIME_DIR=\"/tmp/void-run\" rofi -show drun"
-    '')
   ];
 
   programs = {
