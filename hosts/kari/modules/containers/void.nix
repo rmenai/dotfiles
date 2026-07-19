@@ -172,6 +172,7 @@ in
       sudo -k
 
       sudo -A ${pkgs.bash}/bin/bash -c "
+        /run/current-system/sw/bin/nixos-container start secure 2>/dev/null
         /run/current-system/sw/bin/setfacl -m u:1001:rw /run/user/1000/wayland-1
         exec /run/current-system/sw/bin/nixos-container run secure -- su - void -c \"env WAYLAND_DISPLAY=/tmp/wayland-1 $CMD\"
       "
