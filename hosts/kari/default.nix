@@ -39,5 +39,7 @@
     ./modules/desktop/fonts.nix
     ./modules/desktop/niri.nix
     ./modules/desktop/sddm.nix
+
+    ./modules/containers/void.nix
   ];
 }
