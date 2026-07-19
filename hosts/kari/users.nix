@@ -10,7 +10,6 @@
     useUserPackages = true;
     extraSpecialArgs = { inherit inputs outputs pkgs; };
     users.rami = import ../../home/rami/kari;
-    users.void = import ../../home/void/kari.nix;
   };
 
   users.mutableUsers = false;
@@ -47,23 +46,9 @@
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICRxuetWNEbgVxkHeHo1+WR+/NDfyMww8Wglpjx3/g0W rami@kari"
       ];
     };
-
-    void = {
-      isNormalUser = true;
-      createHome = true;
-      hashedPasswordFile = config.sops.secrets."users/void/password_hash".path;
-
-      extraGroups = [
-        "networkmanager"
-        "video"
-        "audio"
-      ];
-    };
   };
 
   sops.secrets = {
-    "users/void/password_hash".neededForUsers = true;
-
     "users/rami/password_hash".neededForUsers = true;
 
     "users/rami/age_key" = {
