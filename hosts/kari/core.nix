@@ -28,6 +28,11 @@ in
     Defaults timestamp_timeout=120
   '';
 
+  systemd = {
+    settings.Manager.DefaultTimeoutStopSec = "30s";
+    user.extraConfig = "DefaultTimeoutStopSec=30s";
+  };
+
   boot.supportedFilesystems = [ ];
   system.stateVersion = "26.05";
 

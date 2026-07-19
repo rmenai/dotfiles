@@ -15,4 +15,8 @@
   security.pam.services.sddm.enableGnomeKeyring = true;
   programs.ssh.startAgent = lib.mkForce false;
   security.polkit.enable = true;
+
+  systemd.user.services.niri = {
+    serviceConfig.TimeoutStopSec = "10s";
+  };
 }
