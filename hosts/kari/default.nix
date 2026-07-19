@@ -40,6 +40,6 @@
     ./modules/desktop/niri.nix
     ./modules/desktop/sddm.nix
 
-    ./modules/containers/void.nix
+    ./modules/containers/secure-folder.nix
   ];
 }

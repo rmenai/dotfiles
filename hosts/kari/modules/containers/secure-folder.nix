@@ -27,7 +27,7 @@ in
   };
 
   containers.secure = {
-    autoStart = true;
+    autoStart = false;
     privateNetwork = true; # Force separate network namespace
     hostAddress = "192.168.100.10";
     localAddress = "192.168.100.11";
