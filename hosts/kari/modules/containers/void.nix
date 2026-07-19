@@ -1,16 +1,31 @@
 {
+  config,
   inputs,
+  lib,
   outputs,
   pkgs,
   ...
 }:
+let
+  # FR-200
+  vpn = {
+    ip = "149.102.245.129";
+    port = "51820";
+    pub = "m8vo9+NTxgkGJ1eV2nP9AyanXxeSlztAhIhQWDYPfnc=";
+  };
+in
 {
-  # networking.nat = {
-  #   enable = true;
-  #   internalInterfaces = [ "ve-+" ];
-  #   externalInterface = "wlan0";
-  # };
-  #
+  sops.secrets."secrets/proton_private_key" = {
+    owner = "root";
+    mode = "0400";
+  };
+
+  networking.nat = {
+    enable = true;
+    internalInterfaces = [ "ve-+" ];
+    externalInterface = "wlp0s20f3";
+  };
+
   containers.secure = {
     autoStart = true;
     privateNetwork = true; # Force separate network namespace
@@ -21,6 +36,11 @@
       "/home/void" = {
         hostPath = "/home/void";
         isReadOnly = false;
+      };
+
+      "/home/void/vpn.key" = {
+        hostPath = config.sops.secrets."secrets/proton_private_key".path;
+        isReadOnly = true;
       };
 
       "/tmp/wayland-1" = {
@@ -39,6 +59,13 @@
       };
     };
 
+    allowedDevices = [
+      {
+        node = "/dev/net/tun";
+        modifier = "rw";
+      }
+    ];
+
     config = { config, pkgs, ... }: {
       imports = [
         inputs.home-manager.nixosModules.home-manager
@@ -47,7 +74,6 @@
 
       time.timeZone = "Europe/Paris";
       system.stateVersion = "26.05";
-      nixpkgs.config.allowUnfree = true;
 
       environment.variables = {
         NIXOS_OZONE_WL = "1";
@@ -56,15 +82,11 @@
         GDK_BACKEND = "wayland,x11";
       };
 
-      # # networking.networkmanager.enable = true;
-      # # services.gnome.gnome-keyring.enable = true; # Remembers Proton login
-
       users.users.void = {
         isNormalUser = true;
         uid = 1001;
         home = "/home/void";
         extraGroups = [
-          "networkmanager"
           "video"
           "audio"
         ];
@@ -78,9 +100,58 @@
       };
 
       environment.systemPackages = with pkgs; [
+        wireguard-tools
+        iptables
         curl
-        # proton-vpn
       ];
+
+      networking = {
+        useHostResolvConf = lib.mkForce false; # Prevent DNS leaks
+        nameservers = [ "10.2.0.1" ];
+
+        firewall.enable = false;
+
+        wg-quick.interfaces = {
+          wg0 = {
+            address = [ "10.2.0.2/32" ];
+            privateKeyFile = "/home/void/vpn.key";
+
+            peers = [
+              {
+                publicKey = vpn.pub;
+                allowedIPs = [ "0.0.0.0/0" ];
+                endpoint = "${vpn.ip}:${vpn.port}";
+              }
+            ];
+
+            postUp = ''
+              # Block EVERYTHING entering or leaving the container
+              ${pkgs.iptables}/bin/iptables -P OUTPUT DROP
+              ${pkgs.iptables}/bin/iptables -P INPUT DROP
+              ${pkgs.iptables}/bin/iptables -P FORWARD DROP
+
+              # Allow internal loopback
+              ${pkgs.iptables}/bin/iptables -A INPUT -i lo -j ACCEPT
+              ${pkgs.iptables}/bin/iptables -A OUTPUT -o lo -j ACCEPT
+
+              # Allow all traffic traveling THROUGH the encrypted tunnel
+              ${pkgs.iptables}/bin/iptables -A INPUT -i wg0 -j ACCEPT
+              ${pkgs.iptables}/bin/iptables -A OUTPUT -o wg0 -j ACCEPT
+
+              # The ONLY unencrypted traffic allowed on the physical link (eth0)
+              ${pkgs.iptables}/bin/iptables -A OUTPUT -o eth0 -d ${vpn.ip} -p udp --dport ${vpn.port} -j ACCEPT
+              ${pkgs.iptables}/bin/iptables -A INPUT -i eth0 -s ${vpn.ip} -p udp --sport ${vpn.port} -j ACCEPT
+            '';
+
+            preDown = ''
+              ${pkgs.iptables}/bin/iptables -P OUTPUT ACCEPT
+              ${pkgs.iptables}/bin/iptables -P INPUT ACCEPT
+              ${pkgs.iptables}/bin/iptables -P FORWARD ACCEPT
+              ${pkgs.iptables}/bin/iptables -F
+            '';
+          };
+        };
+      };
     };
   };
 
