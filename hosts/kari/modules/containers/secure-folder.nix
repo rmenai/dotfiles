@@ -23,7 +23,6 @@ in
   networking.nat = {
     enable = true;
     internalInterfaces = [ "ve-+" ];
-    externalInterface = "wlp0s20f3";
   };
 
   containers.secure = {
