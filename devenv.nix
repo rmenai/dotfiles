@@ -10,7 +10,6 @@
     check-yaml.enable = true;
     commitizen.enable = true;
     end-of-file-fixer.enable = true;
-    ripsecrets.enable = true;
     trim-trailing-whitespace.enable = true;
   };
 }
