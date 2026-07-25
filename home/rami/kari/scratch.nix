@@ -1,4 +1,26 @@
-{
+{ pkgs, ... }: {
+  # xdg.portal = {
+  #   enable = true;
+  #   extraPortals = [
+  #     pkgs.kdePackages.xdg-desktop-portal-kde # Si vous utilisez KDE / Qt
+  #     # pkgs.xdg-desktop-portal-gtk          # Décommentez si besoin d'un fallback GTK
+  #   ];
+  #   config.common.default = "*";
+  # };
+  #
+  # gtk.enable = true; # Même sous Niri/Wayland, active la gestion des types Mime XDG
+  #
+  # xdg = {
+  #   enable = true;
+  #   mimeApps.enable = true;
+  # };
+  # systemd.user.startServices = "sd-switch";
+  #
+  # home.sessionVariables = {
+  #   KDEDIRS = "${pkgs.kdePackages.dolphin}";
+  #   XDG_DATA_DIRS = "${pkgs.kdePackages.dolphin}/share:$XDG_DATA_DIRS";
+  # };
+
   #   Host kali
   #     HostName kali
   #     User rami

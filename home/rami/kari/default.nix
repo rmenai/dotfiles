@@ -69,6 +69,7 @@
     obsidian
     keepassxc
     rustdesk-flutter
+    kdePackages.dolphin
     # thunderbird
     # protonmail-bridge
 
