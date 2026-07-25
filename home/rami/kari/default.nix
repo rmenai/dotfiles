@@ -2,7 +2,6 @@
   imports = [
     ./core.nix
     ./scratch.nix
-    ./ssh.nix
 
     ../../../modules/home/desktop/void
 

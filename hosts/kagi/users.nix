@@ -40,20 +40,6 @@
       group = "users";
       mode = "0600";
     };
-
-    "users/rami/ssh_private_key" = {
-      path = "/home/rami/.ssh/id_ed25519";
-      owner = "rami";
-      group = "users";
-      mode = "0600";
-    };
-
-    "users/rami/ssh_public_key" = {
-      path = "/home/rami/.ssh/id_ed25519.pub";
-      owner = "rami";
-      group = "users";
-      mode = "0600";
-    };
   };
 
   systemd.tmpfiles.rules = [
