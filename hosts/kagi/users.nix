@@ -26,7 +26,6 @@
       extraGroups = [
         "wheel"
         "input"
-        "kvm"
         "git"
       ];
     };

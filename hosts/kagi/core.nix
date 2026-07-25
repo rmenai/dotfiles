@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, pkgs, ... }:
 let
   secrets = builtins.toString inputs.secrets;
 in
@@ -27,4 +27,10 @@ in
       sshKeyPaths = [ ];
     };
   };
+
+  environment.systemPackages = with pkgs; [
+    curl
+    vim
+    git
+  ];
 }
