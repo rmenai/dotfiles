@@ -97,7 +97,16 @@
       colmena = {
         meta = {
           inherit specialArgs;
-          nixpkgs = import nixpkgs { inherit system; };
+          nixpkgs = pkgs;
+        };
+
+        kari = {
+          deployment = {
+            targetHost = "kari";
+            targetUser = "root";
+            allowLocalDeployment = true;
+          };
+          imports = [ ./hosts/kari ];
         };
       };
 
