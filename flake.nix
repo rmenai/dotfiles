@@ -76,6 +76,11 @@
           inherit system specialArgs;
           modules = [ ./hosts/kari ];
         };
+
+        kagi = nixpkgs.lib.nixosSystem {
+          inherit system specialArgs;
+          modules = [ ./hosts/kagi ];
+        };
       };
 
       homeConfigurations = {
@@ -89,6 +94,12 @@
           inherit pkgs;
           extraSpecialArgs = specialArgs;
           modules = [ ./home/void/kari.nix ];
+        };
+
+        "rami@kagi" = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          extraSpecialArgs = specialArgs;
+          modules = [ ./home/rami/kagi ];
         };
       };
 
@@ -107,6 +118,14 @@
             allowLocalDeployment = true;
           };
           imports = [ ./hosts/kari ];
+        };
+
+        kagi = {
+          deployment = {
+            targetHost = "kagi";
+            targetUser = "root";
+          };
+          imports = [ ./hosts/kagi ];
         };
       };
 

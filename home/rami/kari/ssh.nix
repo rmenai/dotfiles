@@ -1,8 +1,8 @@
 { config, ... }: {
-  # programs.ssh.extraConfig = ''
-  #   UpdateHostKeys ask
-  #   AddKeysToAgent yes
-  #
+  sops.secrets."hosts/kari/ssh_config" = {
+    path = "${config.home.homeDirectory}/.ssh/config";
+  };
+
   #   Host kali
   #     HostName kali
   #     User rami

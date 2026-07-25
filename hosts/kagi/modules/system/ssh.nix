@@ -5,7 +5,7 @@
 
     settings = {
       PasswordAuthentication = false;
-      PermitRootLogin = "yes";
+      PermitRootLogin = "prohibit-password";
       MaxAuthTries = 5;
       MaxSessions = 8;
       LoginGraceTime = 30;
@@ -22,16 +22,6 @@
         bits = 4096;
       }
     ];
-  };
-
-  programs.ssh = {
-    startAgent = true;
-    enableAskPassword = true;
-  };
-
-  security.pam = {
-    rssh.enable = true;
-    services.sudo.rssh = true;
   };
 
   users.users.root.openssh.authorizedKeys.keys = [

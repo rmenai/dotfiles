@@ -9,7 +9,7 @@
   home-manager = {
     useUserPackages = true;
     extraSpecialArgs = { inherit inputs outputs pkgs; };
-    users.rami = import ../../home/rami/kari;
+    users.rami = import ../../home/rami/kagi;
   };
 
   users.mutableUsers = false;
@@ -24,24 +24,11 @@
       shell = pkgs.bash;
 
       extraGroups = [
-        "networkmanager"
-        "vboxusers"
-        "libvirtd"
-        "adbusers"
-        "scanner"
         "wheel"
         "input"
-        "audio"
-        "video"
         "kvm"
         "git"
-        "lp"
       ];
-    };
-
-    root = {
-      # TODO: change root password and add it to proton
-      hashedPassword = config.private.rootPasswordHash;
     };
   };
 
