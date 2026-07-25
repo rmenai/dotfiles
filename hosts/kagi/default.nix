@@ -9,6 +9,7 @@
     ./users.nix
 
     ./modules/system/ssh.nix
+    ./modules/system/docker.nix
     ./../../modules/nixos/system/tailscale.nix
     # ./modules/system/syncthing.nix
   ];

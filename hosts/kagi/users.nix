@@ -24,6 +24,7 @@
       shell = pkgs.bash;
 
       extraGroups = [
+        "podman"
         "wheel"
         "input"
         "git"
