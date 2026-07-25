@@ -29,7 +29,7 @@
     # ./modules/system/libvirt.nix
     # ./../../modules/nixos/system/virtualbox.nix
     # ./modules/system/syncthing.nix
-    # ./modules/system/tailscale.nix
+    ./../../modules/nixos/system/tailscale.nix
 
     # ./modules/apps/obs.nix
     ./../../modules/nixos/apps/adb.nix

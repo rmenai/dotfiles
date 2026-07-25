@@ -6,6 +6,7 @@
 
   services.tailscale = {
     enable = true;
+    package = pkgs.unstable.tailscale;
     authKeyFile = config.sops.secrets."secrets/tailscale_auth_key".path;
     useRoutingFeatures = "both";
     port = 41641;
