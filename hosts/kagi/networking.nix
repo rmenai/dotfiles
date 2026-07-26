@@ -58,7 +58,11 @@
     };
   };
 
-  boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
+  boot.kernel.sysctl = {
+    "net.ipv4.ip_forward" = 1;
+    "fs.inotify.max_user_watches" = 524288;
+    "fs.inotify.max_user_instances" = 8192;
+  };
 
   systemd.network = {
     enable = true;
@@ -117,6 +121,7 @@
       "dir_mode=0775"
       "file_mode=0664"
 
+      "noatime"
       "_netdev"
       "x-systemd.automount"
       "noauto"
