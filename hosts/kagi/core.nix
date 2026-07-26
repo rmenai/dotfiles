@@ -30,6 +30,7 @@ in
 
   environment.systemPackages = with pkgs; [
     speedtest-go
+    openssl
     curl
     vim
     git
