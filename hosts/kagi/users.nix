@@ -30,6 +30,10 @@
         "git"
       ];
     };
+
+    root = {
+      hashedPassword = config.private.rootPasswordHash;
+    };
   };
 
   sops.secrets = {

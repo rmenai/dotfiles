@@ -40,7 +40,6 @@
     };
 
     root = {
-      # TODO: change root password and add it to proton
       hashedPassword = config.private.rootPasswordHash;
     };
   };
