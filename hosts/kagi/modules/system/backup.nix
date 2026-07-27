@@ -24,7 +24,16 @@
         Persistent = true;
       };
 
-      paths = [ "/opt/stacks" ];
+      paths = [
+        "/opt/stacks"
+        "/mnt/data"
+      ];
+
+      exclude = [
+        "/mnt/data/lost+found"
+        "**/.Trash-*"
+        "**/.cache"
+      ];
     };
   };
 }
