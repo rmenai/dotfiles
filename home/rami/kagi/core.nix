@@ -5,6 +5,7 @@ in
 {
   imports = [
     inputs.sops-nix.homeManagerModules.sops
+    inputs.catppuccin.homeModules.catppuccin
 
     ../../../modules/home/system/dotfiles.nix
 

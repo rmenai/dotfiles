@@ -43,12 +43,15 @@
         ip6tables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 
         # Tailscale (41641)
-        iptables -A INPUT -p udp -m multiport --dports 41641 -j ACCEPT
-        ip6tables -A INPUT -p udp -m multiport --dports 41641 -j ACCEPT
+        iptables -A INPUT -p udp --dport 41641 -j ACCEPT
+        ip6tables -A INPUT -p udp --dport 41641 -j ACCEPT
 
         # Allow Tailscale interface completely
         iptables -A INPUT -i tailscale0 -j ACCEPT
         ip6tables -A INPUT -i tailscale0 -j ACCEPT
+
+        # Allow Podman networks (10.89.x.x) to access wgexporter on the host
+        iptables -A INPUT -s 10.89.0.0/16 -p tcp --dport 9586 -j ACCEPT
       '';
 
       extraStopCommands = ''

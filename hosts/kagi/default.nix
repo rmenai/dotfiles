@@ -8,6 +8,9 @@
     ./scratch.nix
     ./users.nix
 
+    ./modules/system/nix.nix
+    ./../../modules/nixos/system/nix-ld.nix
+
     ./modules/system/ssh.nix
     ./modules/system/docker.nix
     ./../../modules/nixos/system/tailscale.nix
