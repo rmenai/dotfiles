@@ -11,7 +11,7 @@
       initialize = true;
       repository = "rclone:proton:Backups/kagi";
       passwordFile = config.sops.secrets."secrets/restic_password".path;
-      rcloneConfigFile = "/root/rclone.conf";
+      rcloneConfigFile = "/root/.config/rclone/rclone.conf";
 
       pruneOpts = [
         "--keep-daily 7"
@@ -27,7 +27,8 @@
 
       paths = [
         "/opt/stacks"
-        "/mnt/data"
+        "/opt/volumes"
+        "/mnt/data/immich"
       ];
 
       exclude = [

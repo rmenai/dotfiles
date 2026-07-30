@@ -50,6 +50,10 @@
         iptables -A INPUT -i tailscale0 -j ACCEPT
         ip6tables -A INPUT -i tailscale0 -j ACCEPT
 
+        # Allow Wireguard interface completely
+        iptables -A INPUT -i wg0 -j ACCEPT
+        ip6tables -A INPUT -i wg0 -j ACCEPT
+
         # Allow Podman networks (10.89.x.x) to access wgexporter on the host
         iptables -A INPUT -s 10.89.0.0/16 -p tcp --dport 9586 -j ACCEPT
       '';
@@ -65,6 +69,7 @@
     "net.ipv4.ip_forward" = 1;
     "fs.inotify.max_user_watches" = 524288;
     "fs.inotify.max_user_instances" = 8192;
+    "net.ipv4.ip_nonlocal_bind" = 1;
   };
 
   systemd.network = {
