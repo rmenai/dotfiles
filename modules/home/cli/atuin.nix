@@ -14,7 +14,8 @@
 
     settings = {
       auto_sync = true;
-      sync_frequency = "1h";
+      sync_frequency = "5m";
+      sync_address = "https://atuin.lab.menai.me";
       style = "compact";
       inline_height = 20;
       enter_accept = true;
