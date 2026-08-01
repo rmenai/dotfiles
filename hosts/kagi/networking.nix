@@ -42,6 +42,12 @@
         iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
         ip6tables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 
+        # HTTP (80) & HTTPS (443) for Caddy on host network
+        iptables -A INPUT -p tcp -m multiport --dports 80,443 -j ACCEPT
+        ip6tables -A INPUT -p tcp -m multiport --dports 80,443 -j ACCEPT
+        iptables -A INPUT -p udp --dport 443 -j ACCEPT
+        ip6tables -A INPUT -p udp --dport 443 -j ACCEPT
+
         # Tailscale (41641)
         iptables -A INPUT -p udp --dport 41641 -j ACCEPT
         ip6tables -A INPUT -p udp --dport 41641 -j ACCEPT
@@ -50,12 +56,11 @@
         iptables -A INPUT -i tailscale0 -j ACCEPT
         ip6tables -A INPUT -i tailscale0 -j ACCEPT
 
-        # Allow Wireguard interface completely
-        iptables -A INPUT -i wg0 -j ACCEPT
-        ip6tables -A INPUT -i wg0 -j ACCEPT
-
-        # Allow Podman networks (10.89.x.x) to access wgexporter on the host
+        # Allow Podman networks (10.89.x.x) to access some exporters on the host
         iptables -A INPUT -s 10.89.0.0/16 -p tcp --dport 9586 -j ACCEPT
+        iptables -A INPUT -s 10.89.0.0/16 -p tcp --dport 2019 -j ACCEPT
+        iptables -A INPUT -s 10.89.0.0/16 -p tcp --dport 53 -j ACCEPT
+        iptables -A INPUT -s 10.89.0.0/16 -p udp --dport 53 -j ACCEPT
       '';
 
       extraStopCommands = ''
@@ -128,6 +133,8 @@
 
       "dir_mode=0775"
       "file_mode=0664"
+
+      "mfsymlinks" # Required by opencloud
 
       "noatime"
       "_netdev"
