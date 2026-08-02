@@ -6,9 +6,12 @@
     settings = {
       PasswordAuthentication = false;
       PermitRootLogin = "prohibit-password";
-      MaxAuthTries = 5;
-      MaxSessions = 8;
-      LoginGraceTime = 30;
+      MaxAuthTries = 3;
+      MaxSessions = 2;
+      TCPKeepAlive = "no";
+      AllowTcpForwarding = "no";
+      AllowAgentForwarding = "no";
+      X11Forwarding = false;
     };
 
     hostKeys = [

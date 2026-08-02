@@ -59,8 +59,6 @@
         # Allow Podman networks (10.89.x.x) to access some exporters on the host
         iptables -A INPUT -s 10.89.0.0/16 -p tcp --dport 9586 -j ACCEPT
         iptables -A INPUT -s 10.89.0.0/16 -p tcp --dport 2019 -j ACCEPT
-        iptables -A INPUT -s 10.89.0.0/16 -p tcp --dport 53 -j ACCEPT
-        iptables -A INPUT -s 10.89.0.0/16 -p udp --dport 53 -j ACCEPT
       '';
 
       extraStopCommands = ''
