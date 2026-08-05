@@ -1,4 +1,4 @@
-{
+{ config, pkgs, ... }: {
   services.resolved = {
     enable = true;
 
@@ -69,4 +69,31 @@
   };
 
   hardware.wirelessRegulatoryDatabase = true;
+
+  services.davfs2.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    davfs2
+  ];
+
+  sops.secrets."secrets/webdav_credentials" = {
+    owner = "root";
+    group = "root";
+    mode = "0600";
+    path = "/etc/davfs2/secrets";
+  };
+
+  fileSystems."/mnt/cloud" = {
+    device = "https://dav.lab.menai.me";
+    fsType = "davfs";
+    options = [
+      "rw"
+      "user"
+      "uid=1000" # rami
+      "gid=100" # users group
+      "_netdev"
+      "x-systemd.automount"
+      "noauto"
+    ];
+  };
 }
