@@ -38,6 +38,10 @@
     "kernel.unprivileged_bpf_disabled" = 1;
     "net.core.bpf_jit_harden" = 2;
     "dev.tty.ldisc_autoload" = 0;
+
+    # Only swap when strictly necessary
+    "vm.swappiness" = 10;
+    "vm.vfs_cache_pressure" = 50;
   };
 
   security.auditd.enable = true;
