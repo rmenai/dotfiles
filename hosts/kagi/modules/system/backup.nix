@@ -28,7 +28,7 @@
       paths = [
         "/opt/stacks"
         "/opt/volumes"
-        "/mnt/data/immich"
+        "/mnt/data"
       ];
 
       exclude = [
