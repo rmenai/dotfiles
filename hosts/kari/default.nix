@@ -22,7 +22,7 @@
     ./../../modules/nixos/system/nix-ld.nix
 
     ./../../modules/nixos/system/printing.nix
-    # ./modules/system/gaming.nix
+    ./modules/system/gaming.nix
     ./modules/system/audio.nix
     ./modules/system/ssh.nix
 
@@ -42,4 +42,6 @@
 
     ./modules/containers/secure-folder.nix
   ];
+
+  services.flatpak.enable = true;
 }

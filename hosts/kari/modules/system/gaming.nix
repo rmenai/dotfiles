@@ -22,8 +22,12 @@
 
   # Make ps5 controller work
   hardware.steam-hardware.enable = true;
-  boot.kernelModules = [ "hid-playstation" ];
   services.udev.packages = [ pkgs.game-devices-udev-rules ];
+
+  boot.kernelModules = [
+    "hid-playstation" # PS5
+    "ntsync" # Roblox
+  ];
 
   # Work around for issue with capSysNice not working in gamescope
   services.ananicy = {

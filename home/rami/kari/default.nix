@@ -14,11 +14,11 @@
 
     # ../../../modules/home/apps/zathura.nix
     # ../../../modules/home/apps/swayimg.nix
-    #
-    # ../../../modules/home/apps/mangohud.nix
-    # ../../../modules/home/apps/heroic.nix
-    # ../../../modules/home/apps/lutris.nix
-    # ../../../modules/home/apps/discord.nix
+
+    ../../../modules/home/apps/mangohud.nix
+    ../../../modules/home/apps/heroic.nix
+    ../../../modules/home/apps/lutris.nix
+    ../../../modules/home/apps/discord.nix
 
     ../../../modules/home/apps/anki.nix
 
@@ -78,6 +78,8 @@
             --set-default ACSM_LIBSSL ${pkgs.openssl.out}/lib/libssl.so
       '';
     }))
+
+    scantailor-advanced
     # thunderbird
     # protonmail-bridge
 
@@ -122,6 +124,9 @@
 
     sessionPath = [
       "~/.local/bin"
+      "~/.local/share/flatpak/exports/share"
     ];
   };
+
+  # Install Vinegar and Sober using flatpak
 }
