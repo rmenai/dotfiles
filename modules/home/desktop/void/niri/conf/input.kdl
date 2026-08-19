@@ -8,4 +8,14 @@ input {
         natural-scroll
         scroll-factor 0.4
     }
+
+    mouse {
+        accel-speed -1.0
+    }
+    trackball {
+        accel-speed -1.0
+    }
+    trackpoint {
+        accel-speed -1.0
+    }
 }
