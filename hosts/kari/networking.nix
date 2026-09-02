@@ -16,12 +16,51 @@
     };
   };
 
+  environment.etc."ssl/certs/eduroam-inp-ca.crt".source = ./eduroam-inp-ca.crt;
+
+  sops.secrets."secrets/eduroam_env" = { };
+
   networking = {
     hostName = "kari";
 
     networkmanager = {
       enable = true;
       dns = "systemd-resolved";
+
+      ensureProfiles = {
+        environmentFiles = [ config.sops.secrets."secrets/eduroam_env".path ];
+
+        profiles = {
+          eduroam = {
+            connection = {
+              id = "eduroam";
+              type = "wifi";
+            };
+            wifi = {
+              mode = "infrastructure";
+              ssid = "eduroam";
+            };
+            wifi-security = {
+              key-mgmt = "wpa-eap";
+            };
+            "802-1x" = {
+              eap = "peap";
+              phase2-auth = "mschapv2";
+              anonymous-identity = "anonymous@inp-toulouse.fr";
+              domain-suffix-match = "inp-toulouse.fr";
+              identity = "rmi5075@inp-toulouse.fr";
+              password = "$EDUROAM_PASSWORD";
+              ca-cert = "/etc/ssl/certs/eduroam-inp-ca.crt";
+            };
+            ipv4 = {
+              method = "auto";
+            };
+            ipv6 = {
+              method = "auto";
+            };
+          };
+        };
+      };
     };
 
     firewall = {
