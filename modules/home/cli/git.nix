@@ -4,6 +4,8 @@
     "??" = "gh copilot explain";
   };
 
+  sops.secrets."secrets/hudson_credentials" = { };
+
   programs = {
     gh.enable = true;
 
@@ -18,6 +20,10 @@
 
         init.defaultBranch = "main";
         pull.rebase = true;
+
+        credential = {
+          helper = "store --file ${config.sops.secrets."secrets/hudson_credentials".path}";
+        };
       };
     };
   };
