@@ -27,6 +27,12 @@
       enable = true;
       dns = "systemd-resolved";
 
+      plugins = with pkgs; [
+        networkmanager-vpnc
+        networkmanager-openvpn
+        networkmanager-openconnect
+      ];
+
       ensureProfiles = {
         environmentFiles = [ config.sops.secrets."secrets/eduroam_env".path ];
 
@@ -112,6 +118,7 @@
   services.davfs2.enable = true;
 
   environment.systemPackages = with pkgs; [
+    networkmanagerapplet
     davfs2
   ];
 
