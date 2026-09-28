@@ -7,4 +7,5 @@
 
   # Run Waydroid extra scripts for arm support (for Notein)
   # nix shell github:nix-community/NUR#repos.ataraxiasjel.waydroid-script -c sudo waydroid-script
+  # Nevermind, it isn't necessary, I ended up downloading notein from a mirror and installing with adb
 }
