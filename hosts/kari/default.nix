@@ -26,8 +26,9 @@
     ./modules/system/audio.nix
     ./modules/system/ssh.nix
 
-    # ./modules/system/libvirt.nix
+    ./modules/system/libvirt.nix
     # ./../../modules/nixos/system/virtualbox.nix
+    # ./../../modules/nixos/system/waydroid.nix
     # ./modules/system/syncthing.nix
     ./../../modules/nixos/system/tailscale.nix
 
